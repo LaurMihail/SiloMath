@@ -1,0 +1,222 @@
+﻿{
+  "baselineId": "SILOMATH_V6",
+  "status": "CONTROLLED_MAPPING_SOURCE",
+  "referenceConvention": "RVM-REF-001",
+  "mappingPolicy": {
+    "testReferenceFormat": "<relative-file-path>#<test-function-name>",
+    "requirementIdsNeedNotBeDuplicatedInTestSource": true,
+    "componentModuleRepresentsProductionResponsibility": true,
+    "noSemanticAutoMappingFromTestNames": true,
+    "noInventedEvidence": true
+  },
+  "mappings": [
+    {
+      "requirementDecisionId": "D04",
+      "componentModule": ":core:domain",
+      "testIds": [
+        "app/src/test/java/com/silomath/core/domain/model/CampaignInventoryTypeTest.kt#exactly three allowed canonical inventory types exist"
+      ],
+      "testLevel": "Unit",
+      "automation": "Automated",
+      "environment": "Local/CI",
+      "result": "Not Run",
+      "evidence": null,
+      "buildVersion": null
+    },
+    {
+      "requirementDecisionId": "BR-OWN-002",
+      "componentModule": ":core:database",
+      "testIds": [
+        "app/src/test/java/com/silomath/core/database/Phase4ComplianceTest.kt#StocktakingRecord validation - Third-Party without client throws exception"
+      ],
+      "testLevel": "DB",
+      "automation": "Automated",
+      "environment": "Local/CI",
+      "result": "Not Run",
+      "evidence": null,
+      "buildVersion": null
+    },
+    {
+      "requirementDecisionId": "BR-SYNC-001",
+      "componentModule": ":core:database",
+      "testIds": [
+        "core/database/src/androidTest/java/com/silomath/core/database/Wp01TransactionAndMigrationTest.kt#transaction_businessMutationAndSyncOperation_persistTogetherAtomically",
+        "core/database/src/androidTest/java/com/silomath/core/database/Wp01TransactionAndMigrationTest.kt#transaction_forcedOutboxFailure_rollsBackBusinessMutation"
+      ],
+      "testLevel": "DB",
+      "automation": "Automated",
+      "environment": "Local/CI",
+      "result": "Not Run",
+      "evidence": null,
+      "buildVersion": null
+    },
+    {
+      "requirementDecisionId": "OS-D05",
+      "componentModule": ":core:database",
+      "testIds": [
+        "core/database/src/androidTest/java/com/silomath/core/database/Wp01TransactionAndMigrationTest.kt#transaction_businessMutationAndSyncOperation_persistTogetherAtomically",
+        "core/database/src/androidTest/java/com/silomath/core/database/Wp01TransactionAndMigrationTest.kt#transaction_forcedOutboxFailure_rollsBackBusinessMutation"
+      ],
+      "testLevel": "DB",
+      "automation": "Automated",
+      "environment": "Local/CI",
+      "result": "Not Run",
+      "evidence": null,
+      "buildVersion": null
+    },
+    {
+      "requirementDecisionId": "ADR-005",
+      "componentModule": ":core:database",
+      "testIds": [
+        "core/database/src/androidTest/java/com/silomath/core/database/Wp01TransactionAndMigrationTest.kt#transaction_businessMutationAndSyncOperation_persistTogetherAtomically",
+        "core/database/src/androidTest/java/com/silomath/core/database/Wp01TransactionAndMigrationTest.kt#transaction_forcedOutboxFailure_rollsBackBusinessMutation"
+      ],
+      "testLevel": "DB",
+      "automation": "Automated",
+      "environment": "Local/CI",
+      "result": "Not Run",
+      "evidence": null,
+      "buildVersion": null
+    },
+    {
+      "requirementDecisionId": "DB-D56",
+      "componentModule": ":core:database",
+      "testIds": [
+        "core/database/src/androidTest/java/com/silomath/core/database/Wp01TransactionAndMigrationTest.kt#transaction_businessMutationAndSyncOperation_persistTogetherAtomically",
+        "core/database/src/androidTest/java/com/silomath/core/database/Wp01TransactionAndMigrationTest.kt#transaction_forcedOutboxFailure_rollsBackBusinessMutation"
+      ],
+      "testLevel": "DB",
+      "automation": "Automated",
+      "environment": "Local/CI",
+      "result": "Not Run",
+      "evidence": null,
+      "buildVersion": null
+    },
+    {
+      "requirementDecisionId": "DB-AC11",
+      "componentModule": ":core:database",
+      "testIds": [
+        "core/database/src/androidTest/java/com/silomath/core/database/Wp01TransactionAndMigrationTest.kt#transaction_businessMutationAndSyncOperation_persistTogetherAtomically",
+        "core/database/src/androidTest/java/com/silomath/core/database/Wp01TransactionAndMigrationTest.kt#transaction_forcedOutboxFailure_rollsBackBusinessMutation"
+      ],
+      "testLevel": "DB",
+      "automation": "Automated",
+      "environment": "Local/CI",
+      "result": "Not Run",
+      "evidence": null,
+      "buildVersion": null
+    },
+    {
+      "requirementDecisionId": "SYNC-AC02",
+      "componentModule": ":core:database",
+      "testIds": [
+        "core/database/src/androidTest/java/com/silomath/core/database/Wp01TransactionAndMigrationTest.kt#transaction_businessMutationAndSyncOperation_persistTogetherAtomically",
+        "core/database/src/androidTest/java/com/silomath/core/database/Wp01TransactionAndMigrationTest.kt#transaction_forcedOutboxFailure_rollsBackBusinessMutation"
+      ],
+      "testLevel": "DB",
+      "automation": "Automated",
+      "environment": "Local/CI",
+      "result": "Not Run",
+      "evidence": null,
+      "buildVersion": null
+    },
+    {
+      "requirementDecisionId": "TA-D040",
+      "componentModule": ":core:database",
+      "testIds": [
+        "core/database/src/androidTest/java/com/silomath/core/database/Wp01TransactionAndMigrationTest.kt#transaction_businessMutationAndSyncOperation_persistTogetherAtomically",
+        "core/database/src/androidTest/java/com/silomath/core/database/Wp01TransactionAndMigrationTest.kt#transaction_forcedOutboxFailure_rollsBackBusinessMutation"
+      ],
+      "testLevel": "DB",
+      "automation": "Automated",
+      "environment": "Local/CI",
+      "result": "Not Run",
+      "evidence": null,
+      "buildVersion": null
+    },
+    {
+      "requirementDecisionId": "DB-D26",
+      "componentModule": ":core:database",
+      "testIds": [
+        "core/database/src/androidTest/java/com/silomath/core/database/SiloMathDbTest.kt#testCampaignScopeUniqueConstraint"
+      ],
+      "testLevel": "DB",
+      "automation": "Automated",
+      "environment": "Local/CI",
+      "result": "Not Run",
+      "evidence": null,
+      "buildVersion": null
+    },
+    {
+      "requirementDecisionId": "DB-D28",
+      "componentModule": ":core:database",
+      "testIds": [
+        "core/database/src/androidTest/java/com/silomath/core/database/SiloMathDbTest.kt#testStocktakingRecordUniqueConstraint"
+      ],
+      "testLevel": "DB",
+      "automation": "Automated",
+      "environment": "Local/CI",
+      "result": "Not Run",
+      "evidence": null,
+      "buildVersion": null
+    },
+    {
+      "requirementDecisionId": "BR-STK-001",
+      "componentModule": ":core:database",
+      "testIds": [
+        "core/database/src/androidTest/java/com/silomath/core/database/SiloMathDbTest.kt#testStocktakingRecordUniqueConstraint"
+      ],
+      "testLevel": "DB",
+      "automation": "Automated",
+      "environment": "Local/CI",
+      "result": "Not Run",
+      "evidence": null,
+      "buildVersion": null
+    },
+    {
+      "requirementDecisionId": "DM-09",
+      "componentModule": ":core:database",
+      "testIds": [
+        "core/database/src/androidTest/java/com/silomath/core/database/SiloMathDbTest.kt#testStocktakingRecordUniqueConstraint"
+      ],
+      "testLevel": "DB",
+      "automation": "Automated",
+      "environment": "Local/CI",
+      "result": "Not Run",
+      "evidence": null,
+      "buildVersion": null
+    },
+    {
+      "requirementDecisionId": "TA-D030",
+      "componentModule": ":core:database",
+      "testIds": [
+        "core/database/src/androidTest/java/com/silomath/core/database/CanonicalRoomMigration15To19Test.kt#migration15To19_preservesLegacyCampaignAndBackfillsCanonicalData",
+        "core/database/src/androidTest/java/com/silomath/core/database/CanonicalRoomMigration15To19Test.kt#migration16To19_preservesCampaignAndBackfillsScopeAndAssignment",
+        "core/database/src/androidTest/java/com/silomath/core/database/CanonicalRoomMigration15To19Test.kt#migration17To19_backfillsCanonicalCampaignScopeAndAssignmentData",
+        "core/database/src/androidTest/java/com/silomath/core/database/CanonicalRoomMigration15To19Test.kt#migration18To19_preservesCanonicalDataAndRelaxesLegacyBlockers"
+      ],
+      "testLevel": "DB",
+      "automation": "Automated",
+      "environment": "Local/CI",
+      "result": "Not Run",
+      "evidence": null,
+      "buildVersion": null
+    },
+    {
+      "requirementDecisionId": "TA-D032",
+      "componentModule": ":core:database",
+      "testIds": [
+        "core/database/src/androidTest/java/com/silomath/core/database/CanonicalRoomMigration15To19Test.kt#migration15To19_preservesLegacyCampaignAndBackfillsCanonicalData",
+        "core/database/src/androidTest/java/com/silomath/core/database/CanonicalRoomMigration15To19Test.kt#migration16To19_preservesCampaignAndBackfillsScopeAndAssignment",
+        "core/database/src/androidTest/java/com/silomath/core/database/CanonicalRoomMigration15To19Test.kt#migration17To19_backfillsCanonicalCampaignScopeAndAssignmentData",
+        "core/database/src/androidTest/java/com/silomath/core/database/CanonicalRoomMigration15To19Test.kt#migration18To19_preservesCanonicalDataAndRelaxesLegacyBlockers"
+      ],
+      "testLevel": "DB",
+      "automation": "Automated",
+      "environment": "Local/CI",
+      "result": "Not Run",
+      "evidence": null,
+      "buildVersion": null
+    }
+  ]
+}

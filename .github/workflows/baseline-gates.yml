@@ -1,0 +1,155 @@
+﻿name: Baseline Gates
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+      - master
+
+jobs:
+  governance:
+    name: Governance Validators
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Validate baseline registry
+        shell: powershell
+        run: |
+          powershell.exe `
+            -NoProfile `
+            -ExecutionPolicy Bypass `
+            -File "engineering\validate-baseline-registry.ps1"
+
+      - name: Validate requirement registry
+        shell: powershell
+        run: |
+          powershell.exe `
+            -NoProfile `
+            -ExecutionPolicy Bypass `
+            -File "engineering\validate-requirement-registry.ps1"
+
+      - name: Validate RVM
+        shell: powershell
+        run: |
+          powershell.exe `
+            -NoProfile `
+            -ExecutionPolicy Bypass `
+            -File "engineering\validate-rvm.ps1"
+
+      - name: Validate PostgreSQL V6 contract
+        shell: powershell
+        run: |
+          powershell.exe `
+            -NoProfile `
+            -ExecutionPolicy Bypass `
+            -File "engineering\validate-postgres-v6-contract.ps1"
+
+  android-room-migrations:
+    name: Room Migration Regression
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Java 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Prepare minimal Room migration Gradle graph
+        shell: pwsh
+        run: |
+          $settings = @'
+          pluginManagement {
+              repositories {
+                  google {
+                      content {
+                          includeGroupByRegex("com\\.android.*")
+                          includeGroupByRegex("com\\.google.*")
+                          includeGroupByRegex("androidx.*")
+                      }
+                  }
+                  mavenCentral()
+                  gradlePluginPortal()
+              }
+          }
+
+          plugins {
+              id("org.gradle.toolchains.foojay-resolver-convention") version "1.0.0"
+          }
+
+          dependencyResolutionManagement {
+              repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+              repositories {
+                  google()
+                  mavenCentral()
+              }
+          }
+
+          rootProject.name = "SiloMathRoomMigrationCI"
+
+          include(
+              ":core:model",
+              ":core:common",
+              ":core:database"
+          )
+          '@
+
+          Set-Content `
+            -Path "settings.gradle.kts" `
+            -Value $settings `
+            -Encoding UTF8
+
+          $catalogPath = "gradle/libs.versions.toml"
+          $catalog = Get-Content $catalogPath -Raw
+
+          if ($catalog -notmatch '(?m)^androidLibrary\s*=') {
+              $catalog = $catalog -replace `
+                '(?m)^android-application\s*=\s*(.+)$', `
+                "android-application = `$1`nandroidLibrary = { id = `"com.android.library`", version.ref = `"agp`" }"
+          }
+
+          Set-Content `
+            -Path $catalogPath `
+            -Value $catalog `
+            -Encoding UTF8
+
+      - name: Compile Room migration instrumentation tests
+        run: ./gradlew :core:database:compileDebugAndroidTestKotlin --stacktrace
+
+      - name: Run canonical Room migrations 15 to 19
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 35
+          arch: x86_64
+          profile: pixel_6
+          script: ./gradlew :core:database:connectedDebugAndroidTest -Pandroid.testInstrumentationRunnerArguments.class=com.silomath.core.database.CanonicalRoomMigration15To19Test --stacktrace
+
+  postgres-migrations:
+    name: PostgreSQL Migration Validation
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Supabase CLI
+        uses: supabase/setup-cli@v1
+        with:
+          version: latest
+
+      - name: Validate PostgreSQL V6 contract
+        shell: pwsh
+        run: |
+          ./engineering/validate-postgres-v6-contract.ps1
+
+      - name: Run PostgreSQL migration regression
+        shell: pwsh
+        run: |
+          ./engineering/test-postgres-migrations.ps1
