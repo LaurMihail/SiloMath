@@ -1,0 +1,165 @@
+﻿{
+  "baselineId": "SILOMATH_V6",
+  "baselineName": "SiloMath V6 Master Baseline",
+  "status": "APPROVED_FROZEN",
+  "documentCount": 21,
+  "governance": {
+    "overallProductAuthority": "01_PRODUCT_BASELINE",
+    "decisionAuthority": "02_DECISION_REGISTER",
+    "specialistAuthorityRule": "For domain-specific detail, the relevant specialist document has authority within its assigned domain and is interpreted together with 01_PRODUCT_BASELINE and 02_DECISION_REGISTER.",
+    "conflictRule": "Contradictions between baseline documents must be reported explicitly and must not be resolved by implementation assumption.",
+    "frozenChangeRule": "Any intentional change to frozen product behavior, rules, structure, state, workflow, screen, architecture or contract requires explicit Change Request / Baseline Change.",
+    "uiFunctionalAuthority": "06_UI_SCREEN_SPECIFICATION_AND_NAVIGATION",
+    "uiVisualAuthority": "21_UI_DESIGN_SYSTEM_FINAL",
+    "uiConflictRule": "Document 06 governs UI functionality/navigation. Document 21 governs visual design. Documents 01-20 prevail over Document 21 for semantic or behavioral conflicts."
+  },
+  "documents": [
+    {
+      "id": "01",
+      "name": "PRODUCT_BASELINE",
+      "file": "docs/01_PRODUCT_BASELINE.docx",
+      "authority": "overall_product_contract",
+      "status": "APPROVED_FROZEN"
+    },
+    {
+      "id": "02",
+      "name": "DECISION_REGISTER",
+      "file": "docs/02_DECISION_REGISTER.docx",
+      "authority": "approved_frozen_decisions",
+      "status": "APPROVED_FROZEN"
+    },
+    {
+      "id": "03",
+      "name": "BUSINESS_RULES",
+      "file": "docs/03_BUSINESS_RULES.docx",
+      "authority": "business_rules",
+      "status": "APPROVED_FROZEN"
+    },
+    {
+      "id": "04",
+      "name": "USER_ROLES_PERMISSIONS",
+      "file": "docs/04_USER_ROLES_PERMISSIONS.docx",
+      "authority": "roles_permissions_authorization",
+      "status": "APPROVED_FROZEN"
+    },
+    {
+      "id": "05",
+      "name": "WORKFLOWS_STATE_MACHINES",
+      "file": "docs/05_WORKFLOWS_STATE_MACHINES.docx",
+      "authority": "workflows_state_machines",
+      "status": "APPROVED_FROZEN"
+    },
+    {
+      "id": "06",
+      "name": "UI_SCREEN_SPECIFICATION_AND_NAVIGATION",
+      "file": "docs/06_UI_SCREEN_SPECIFICATION_AND_NAVIGATION.docx",
+      "authority": "ui_functionality_navigation",
+      "status": "APPROVED_FROZEN"
+    },
+    {
+      "id": "07",
+      "name": "ARCHITECTURE",
+      "file": "docs/07_ARCHITECTURE.docx",
+      "authority": "system_architecture",
+      "status": "APPROVED_FROZEN"
+    },
+    {
+      "id": "08",
+      "name": "MODULE_ARCHITECTURE",
+      "file": "docs/08_MODULE_ARCHITECTURE.docx",
+      "authority": "gradle_module_architecture",
+      "status": "APPROVED_FROZEN"
+    },
+    {
+      "id": "09",
+      "name": "DATA_MODEL",
+      "file": "docs/09_DATA_MODEL.docx",
+      "authority": "logical_data_model",
+      "status": "APPROVED_FROZEN"
+    },
+    {
+      "id": "10",
+      "name": "DATABASE_SCHEMA",
+      "file": "docs/10_DATABASE_SCHEMA.docx",
+      "authority": "physical_database_schema",
+      "status": "APPROVED_FROZEN"
+    },
+    {
+      "id": "11",
+      "name": "API_SPECIFICATION",
+      "file": "docs/11_API_SPECIFICATION.docx",
+      "authority": "backend_api_contract",
+      "status": "APPROVED_FROZEN"
+    },
+    {
+      "id": "12",
+      "name": "OFFLINE_SYNC_SPECIFICATION",
+      "file": "docs/12_OFFLINE_SYNC_SPECIFICATION.docx",
+      "authority": "offline_sync",
+      "status": "APPROVED_FROZEN"
+    },
+    {
+      "id": "13",
+      "name": "CALCULATION_ENGINE_SPECIFICATION",
+      "file": "docs/13_CALCULATION_ENGINE_SPECIFICATION.docx",
+      "authority": "calculation_engine",
+      "status": "APPROVED_FROZEN"
+    },
+    {
+      "id": "14",
+      "name": "COMMODITY_SPECIFICATION",
+      "file": "docs/14_COMMODITY_SPECIFICATION.docx",
+      "authority": "commodity_catalog",
+      "status": "APPROVED_FROZEN"
+    },
+    {
+      "id": "15",
+      "name": "EVIDENCE_STORAGE_SPECIFICATION",
+      "file": "docs/15_EVIDENCE_STORAGE_SPECIFICATION.docx",
+      "authority": "evidence_storage",
+      "status": "APPROVED_FROZEN"
+    },
+    {
+      "id": "16",
+      "name": "REPORTING_SPECIFICATION",
+      "file": "docs/16_REPORTING_SPECIFICATION.docx",
+      "authority": "reporting_history_dossier",
+      "status": "APPROVED_FROZEN"
+    },
+    {
+      "id": "17",
+      "name": "SECURITY_AUDIT_PRIVACY",
+      "file": "docs/17_SECURITY_AUDIT_PRIVACY.docx",
+      "authority": "security_audit_privacy",
+      "status": "APPROVED_FROZEN"
+    },
+    {
+      "id": "18",
+      "name": "TEST_STRATEGY_ACCEPTANCE",
+      "file": "docs/18_TEST_STRATEGY_ACCEPTANCE.docx",
+      "authority": "test_strategy_acceptance",
+      "status": "APPROVED_FROZEN"
+    },
+    {
+      "id": "19",
+      "name": "RETENTION_POLICY",
+      "file": "docs/19_RETENTION_POLICY.docx",
+      "authority": "retention_policy",
+      "status": "APPROVED_FROZEN"
+    },
+    {
+      "id": "20",
+      "name": "PRODUCTION_OPERATIONS",
+      "file": "docs/20_PRODUCTION_OPERATIONS.docx",
+      "authority": "production_operations",
+      "status": "APPROVED_FROZEN"
+    },
+    {
+      "id": "21",
+      "name": "UI_DESIGN_SYSTEM_FINAL",
+      "file": "docs/21_UI_DESIGN_SYSTEM_FINAL.docx",
+      "authority": "ui_visual_design",
+      "status": "APPROVED_FROZEN"
+    }
+  ]
+}
