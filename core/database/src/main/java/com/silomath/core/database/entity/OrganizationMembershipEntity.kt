@@ -25,7 +25,12 @@ import androidx.room.Index
     indices = [
         Index(value = ["legacy_organization_id"]),
         Index(value = ["organization_id"]),
-        Index(value = ["user_id"])
+        Index(value = ["user_id"]),
+        Index(value = ["membership_id"], unique = true),
+        Index(
+            value = ["organization_id", "user_id"],
+            unique = true
+        )
     ]
 )
 data class OrganizationMembershipEntity(
@@ -48,6 +53,12 @@ data class OrganizationMembershipEntity(
 
     @ColumnInfo(name = "lifecycle_status")
     val lifecycleStatus: String? = null,
+
+    @ColumnInfo(name = "disabled_at")
+    val disabledAt: Long? = null,
+
+    @ColumnInfo(name = "disabled_by")
+    val disabledBy: String? = null,
 
     @ColumnInfo(name = "created_at")
     val createdAt: Long? = null,
