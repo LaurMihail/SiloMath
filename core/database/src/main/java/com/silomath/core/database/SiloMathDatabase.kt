@@ -36,7 +36,7 @@ import com.silomath.core.database.migration.CampaignCanonicalBackfill17To18
         DeviceInstallationEntity::class,
         AuditTrailEntity::class
     ],
-    version = 19,
+    version = 20,
     exportSchema = true,
     autoMigrations = [
         AutoMigration(
@@ -55,6 +55,10 @@ import com.silomath.core.database.migration.CampaignCanonicalBackfill17To18
         AutoMigration(
             from = 18,
             to = 19
+        ),
+        AutoMigration(
+            from = 19,
+            to = 20
         )
     ]
 )
@@ -66,6 +70,9 @@ abstract class SiloMathDatabase : RoomDatabase() {
     abstract fun organizationDao(): OrganizationDao
 
     abstract fun organizationMemberDao(): OrganizationMemberDao
+
+    abstract fun organizationMembershipDao():
+        OrganizationMembershipDao
 
     abstract fun locationDao(): LocationDao
 
