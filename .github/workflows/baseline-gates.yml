@@ -1,11 +1,11 @@
 ﻿name: Baseline Gates
 
 on:
+  pull_request:
   push:
     branches:
       - main
       - master
-  pull_request:
 
 jobs:
   governance:
@@ -56,27 +56,87 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Set up Java
+      - name: Set up Java 17
         uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: '17'
 
-      - name: Make Gradle executable
-        run: chmod +x ./gradlew
+      - name: Prepare minimal Room migration Gradle graph
+        shell: pwsh
+        run: |
+          $settings = @'
+          pluginManagement {
+              repositories {
+                  google {
+                      content {
+                          includeGroupByRegex("com\\.android.*")
+                          includeGroupByRegex("com\\.google.*")
+                          includeGroupByRegex("androidx.*")
+                      }
+                  }
+                  mavenCentral()
+                  gradlePluginPortal()
+              }
+          }
 
-      - name: Compile database android tests
-        run: ./gradlew :core:database:compileDebugAndroidTestKotlin
+          plugins {
+              id("org.gradle.toolchains.foojay-resolver-convention") version "1.0.0"
+          }
 
-      - name: Run Room migration tests on emulator
+          dependencyResolutionManagement {
+              repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+              repositories {
+                  google()
+                  mavenCentral()
+              }
+          }
+
+          rootProject.name = "SiloMathRoomMigrationCI"
+
+          include(
+              ":core:model",
+              ":core:common",
+              ":core:database"
+          )
+          '@
+
+          Set-Content `
+            -Path "settings.gradle.kts" `
+            -Value $settings `
+            -Encoding UTF8
+
+          $catalogPath = "gradle/libs.versions.toml"
+          $catalog = Get-Content $catalogPath -Raw
+
+          if ($catalog -notmatch '(?m)^androidLibrary\s*=') {
+              $catalog = $catalog -replace `
+                '(?m)^android-application\s*=\s*(.+)$', `
+                "android-application = `$1`nandroidLibrary = { id = `"com.android.library`", version.ref = `"agp`" }"
+          }
+
+          Set-Content `
+            -Path $catalogPath `
+            -Value $catalog `
+            -Encoding UTF8
+
+      - name: Compile Room migration instrumentation tests
+        run: |
+          ./gradlew \
+            :core:database:compileDebugAndroidTestKotlin \
+            --stacktrace
+
+      - name: Run canonical Room migrations 15 to 19
         uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: 35
           arch: x86_64
-          script: >
-            ./gradlew
-            :core:database:connectedDebugAndroidTest
-            "-Pandroid.testInstrumentationRunnerArguments.class=com.silomath.core.database.CanonicalRoomMigration15To19Test"
+          profile: pixel_6
+          script: |
+            ./gradlew \
+              :core:database:connectedDebugAndroidTest \
+              -Pandroid.testInstrumentationRunnerArguments.class=com.silomath.core.database.CanonicalRoomMigration15To19Test \
+              --stacktrace
 
   postgres-migrations:
     name: PostgreSQL Migration Validation
@@ -86,7 +146,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Install Supabase CLI
+      - name: Set up Supabase CLI
         uses: supabase/setup-cli@v1
         with:
           version: latest
@@ -96,7 +156,7 @@ jobs:
         run: |
           ./engineering/validate-postgres-v6-contract.ps1
 
-      - name: Run populated-data PostgreSQL migration test
+      - name: Run PostgreSQL migration regression
         shell: pwsh
         run: |
           ./engineering/test-postgres-migrations.ps1
