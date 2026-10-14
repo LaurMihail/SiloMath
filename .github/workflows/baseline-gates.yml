@@ -1,0 +1,102 @@
+﻿name: Baseline Gates
+
+on:
+  push:
+    branches:
+      - main
+      - master
+  pull_request:
+
+jobs:
+  governance:
+    name: Governance Validators
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Validate baseline registry
+        shell: powershell
+        run: |
+          powershell.exe `
+            -NoProfile `
+            -ExecutionPolicy Bypass `
+            -File "engineering\validate-baseline-registry.ps1"
+
+      - name: Validate requirement registry
+        shell: powershell
+        run: |
+          powershell.exe `
+            -NoProfile `
+            -ExecutionPolicy Bypass `
+            -File "engineering\validate-requirement-registry.ps1"
+
+      - name: Validate RVM
+        shell: powershell
+        run: |
+          powershell.exe `
+            -NoProfile `
+            -ExecutionPolicy Bypass `
+            -File "engineering\validate-rvm.ps1"
+
+      - name: Validate PostgreSQL V6 contract
+        shell: powershell
+        run: |
+          powershell.exe `
+            -NoProfile `
+            -ExecutionPolicy Bypass `
+            -File "engineering\validate-postgres-v6-contract.ps1"
+
+  android-room-migrations:
+    name: Room Migration Regression
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Make Gradle executable
+        run: chmod +x ./gradlew
+
+      - name: Compile database android tests
+        run: ./gradlew :core:database:compileDebugAndroidTestKotlin
+
+      - name: Run Room migration tests on emulator
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 35
+          arch: x86_64
+          script: >
+            ./gradlew
+            :core:database:connectedDebugAndroidTest
+            "-Pandroid.testInstrumentationRunnerArguments.class=com.silomath.core.database.CanonicalRoomMigration15To19Test"
+
+  postgres-migrations:
+    name: PostgreSQL Migration Validation
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Supabase CLI
+        uses: supabase/setup-cli@v1
+        with:
+          version: latest
+
+      - name: Validate PostgreSQL V6 contract
+        shell: pwsh
+        run: |
+          ./engineering/validate-postgres-v6-contract.ps1
+
+      - name: Run populated-data PostgreSQL migration test
+        shell: pwsh
+        run: |
+          ./engineering/test-postgres-migrations.ps1
