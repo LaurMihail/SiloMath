@@ -56,6 +56,14 @@ jobs:
             -ExecutionPolicy Bypass `
             -File "engineering\validate-baseline-change-process.ps1"
 
+      - name: Validate GATE-M0
+        shell: powershell
+        run: |
+          powershell.exe `
+            -NoProfile `
+            -ExecutionPolicy Bypass `
+            -File "engineering\validate-gate-m0.ps1"
+
       - name: Validate PostgreSQL V6 contract
         shell: powershell
         run: |
