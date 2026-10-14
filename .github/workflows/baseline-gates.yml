@@ -48,6 +48,14 @@ jobs:
             -ExecutionPolicy Bypass `
             -File "engineering\validate-adr-process.ps1"
 
+      - name: Validate Baseline Change process
+        shell: powershell
+        run: |
+          powershell.exe `
+            -NoProfile `
+            -ExecutionPolicy Bypass `
+            -File "engineering\validate-baseline-change-process.ps1"
+
       - name: Validate PostgreSQL V6 contract
         shell: powershell
         run: |
