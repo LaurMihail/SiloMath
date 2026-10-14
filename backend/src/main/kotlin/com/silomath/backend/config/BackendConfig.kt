@@ -8,11 +8,18 @@ data class BackendConfig(
     companion object {
         private const val DEFAULT_HOST = "127.0.0.1"
         private const val DEFAULT_PORT = 8080
-        private const val DEFAULT_RUNTIME_ENVIRONMENT = "local"
+        private const val DEFAULT_RUNTIME_ENVIRONMENT = "development"
 
         private const val HOST_ENV = "SILOMATH_BACKEND_HOST"
         private const val PORT_ENV = "SILOMATH_BACKEND_PORT"
         private const val RUNTIME_ENV_ENV = "SILOMATH_BACKEND_ENVIRONMENT"
+
+        private val ALLOWED_RUNTIME_ENVIRONMENTS =
+            setOf(
+                "development",
+                "staging",
+                "production"
+            )
 
         fun fromEnvironment(
             values: Map<String, String> = System.getenv()
@@ -37,8 +44,16 @@ data class BackendConfig(
             val runtimeEnvironment =
                 values[RUNTIME_ENV_ENV]
                     ?.trim()
+                    ?.lowercase()
                     ?.takeIf { it.isNotEmpty() }
                     ?: DEFAULT_RUNTIME_ENVIRONMENT
+
+            require(
+                runtimeEnvironment in ALLOWED_RUNTIME_ENVIRONMENTS
+            ) {
+                "$RUNTIME_ENV_ENV must be one of: " +
+                    ALLOWED_RUNTIME_ENVIRONMENTS.joinToString(", ")
+            }
 
             return BackendConfig(
                 host = host,

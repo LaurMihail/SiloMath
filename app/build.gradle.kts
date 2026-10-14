@@ -22,6 +22,28 @@ fun localProperty(name: String): String {
         .orEmpty()
 }
 
+fun buildConfigString(value: String): String {
+    return "\"${value.replace("\\", "\\\\").replace("\"", "\\\"")}\""
+}
+
+fun environmentProperty(
+    environment: String,
+    name: String,
+    developmentFallback: String? = null): String {
+    val environmentValue =
+        localProperty("${environment.uppercase()}_$name")
+
+    if (environmentValue.isNotEmpty()) {
+        return environmentValue
+    }
+
+    if (environment == "development" && developmentFallback != null) {
+        return localProperty(developmentFallback)
+    }
+
+    return ""
+}
+
 android {
     namespace = "com.silomath.app"
     compileSdk = 37
@@ -35,24 +57,143 @@ android {
 
         testInstrumentationRunner =
             "androidx.test.runner.AndroidJUnitRunner"
+    }
 
-        buildConfigField(
-            "String",
-            "SUPABASE_URL",
-            "\"${localProperty("SUPABASE_URL")}\""
-        )
+    flavorDimensions += "environment"
 
-        buildConfigField(
-            "String",
-            "SUPABASE_PUBLISHABLE_KEY",
-            "\"${localProperty("SUPABASE_PUBLISHABLE_KEY")}\""
-        )
+    productFlavors {
+        create("development") {
+            dimension = "environment"
 
-        buildConfigField(
-            "String",
-            "API_BASE_URL",
-            "\"${localProperty("API_BASE_URL")}\""
-        )
+            buildConfigField(
+                "String",
+                "ENVIRONMENT",
+                buildConfigString("development")
+            )
+
+            buildConfigField(
+                "String",
+                "API_BASE_URL",
+                buildConfigString(
+                    environmentProperty(
+                        environment = "development",
+                        name = "API_BASE_URL",
+                        developmentFallback = "API_BASE_URL"
+                    )
+                )
+            )
+
+            buildConfigField(
+                "String",
+                "SUPABASE_URL",
+                buildConfigString(
+                    environmentProperty(
+                        environment = "development",
+                        name = "SUPABASE_URL",
+                        developmentFallback = "SUPABASE_URL"
+                    )
+                )
+            )
+
+            buildConfigField(
+                "String",
+                "SUPABASE_PUBLISHABLE_KEY",
+                buildConfigString(
+                    environmentProperty(
+                        environment = "development",
+                        name = "SUPABASE_PUBLISHABLE_KEY",
+                        developmentFallback = "SUPABASE_PUBLISHABLE_KEY"
+                    )
+                )
+            )
+        }
+
+        create("staging") {
+            dimension = "environment"
+
+            buildConfigField(
+                "String",
+                "ENVIRONMENT",
+                buildConfigString("staging")
+            )
+
+            buildConfigField(
+                "String",
+                "API_BASE_URL",
+                buildConfigString(
+                    environmentProperty(
+                        environment = "staging",
+                        name = "API_BASE_URL"
+                    )
+                )
+            )
+
+            buildConfigField(
+                "String",
+                "SUPABASE_URL",
+                buildConfigString(
+                    environmentProperty(
+                        environment = "staging",
+                        name = "SUPABASE_URL"
+                    )
+                )
+            )
+
+            buildConfigField(
+                "String",
+                "SUPABASE_PUBLISHABLE_KEY",
+                buildConfigString(
+                    environmentProperty(
+                        environment = "staging",
+                        name = "SUPABASE_PUBLISHABLE_KEY"
+
+                    )
+                )
+            )
+        }
+
+        create("production") {
+            dimension = "environment"
+
+            buildConfigField(
+                "String",
+                "ENVIRONMENT",
+                buildConfigString("production")
+            )
+
+            buildConfigField(
+                "String",
+                "API_BASE_URL",
+                buildConfigString(
+                    environmentProperty(
+                        environment = "production",
+                        name = "API_BASE_URL"
+                    )
+                )
+            )
+
+            buildConfigField(
+                "String",
+                "SUPABASE_URL",
+                buildConfigString(
+                    environmentProperty(
+                        environment = "production",
+                        name = "SUPABASE_URL"
+                    )
+                )
+            )
+
+            buildConfigField(
+                "String",
+                "SUPABASE_PUBLISHABLE_KEY",
+                buildConfigString(
+                    environmentProperty(
+                        environment = "production",
+                        name = "SUPABASE_PUBLISHABLE_KEY"
+                    )
+                )
+            )
+        }
     }
 
     buildTypes {
