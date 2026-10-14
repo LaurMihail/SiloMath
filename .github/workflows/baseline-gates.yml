@@ -121,10 +121,7 @@ jobs:
             -Encoding UTF8
 
       - name: Compile Room migration instrumentation tests
-        run: |
-          ./gradlew \
-            :core:database:compileDebugAndroidTestKotlin \
-            --stacktrace
+        run: ./gradlew :core:database:compileDebugAndroidTestKotlin --stacktrace
 
       - name: Run canonical Room migrations 15 to 19
         uses: reactivecircus/android-emulator-runner@v2
@@ -132,11 +129,7 @@ jobs:
           api-level: 35
           arch: x86_64
           profile: pixel_6
-          script: |
-            ./gradlew \
-              :core:database:connectedDebugAndroidTest \
-              -Pandroid.testInstrumentationRunnerArguments.class=com.silomath.core.database.CanonicalRoomMigration15To19Test \
-              --stacktrace
+          script: ./gradlew :core:database:connectedDebugAndroidTest -Pandroid.testInstrumentationRunnerArguments.class=com.silomath.core.database.CanonicalRoomMigration15To19Test --stacktrace
 
   postgres-migrations:
     name: PostgreSQL Migration Validation
