@@ -23,4 +23,24 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "SiloMath"
-include(":app")
+include(
+    ":app",
+    ":core:model",
+    ":core:common",
+    ":core:domain",
+    ":core:database",
+    ":core:network",
+    ":core:sync",
+    ":core:designsystem",
+    ":core:navigation",
+    ":core:testing",
+    ":feature:auth",
+    ":feature:dashboard",
+    ":feature:masterdata",
+    ":feature:campaigns",
+    ":feature:stocktaking",
+    ":feature:close",
+    ":feature:reports",
+    ":feature:administration",
+    ":calculation-engine"
+)
