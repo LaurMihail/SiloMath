@@ -64,6 +64,14 @@ jobs:
             -ExecutionPolicy Bypass `
             -File "engineering\validate-gate-m0.ps1"
 
+      - name: Validate module dependencies
+        shell: powershell
+        run: |
+          powershell.exe `
+            -NoProfile `
+            -ExecutionPolicy Bypass `
+            -File "engineering\validate-module-dependencies.ps1"
+
       - name: Validate PostgreSQL V6 contract
         shell: powershell
         run: |
