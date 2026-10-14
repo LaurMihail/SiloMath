@@ -6,7 +6,7 @@
                           "engineering/requirement-id-registry.json",
                           "engineering/rvm-mappings.json"
                       ],
-    "generatedAtUtc":  "2026-10-14T07:24:52.5867914Z",
+    "generatedAtUtc":  "2026-10-14T10:38:30.9464964Z",
     "requirementCount":  1761,
     "referenceConvention":  {
                                 "id":  "RVM-REF-001",
@@ -43,8 +43,8 @@
                },
     "summary":  {
                     "total":  1761,
-                    "mapped":  15,
-                    "verified":  0,
+                    "mapped":  13,
+                    "verified":  2,
                     "unmapped":  1746
                 },
     "requirements":  [
@@ -20491,11 +20491,11 @@
                              "testIds":  "core/database/src/androidTest/java/com/silomath/core/database/CanonicalRoomMigration15To19Test.kt#migration15To19_preservesLegacyCampaignAndBackfillsCanonicalData; core/database/src/androidTest/java/com/silomath/core/database/CanonicalRoomMigration15To19Test.kt#migration16To19_preservesCampaignAndBackfillsScopeAndAssignment; core/database/src/androidTest/java/com/silomath/core/database/CanonicalRoomMigration15To19Test.kt#migration17To19_backfillsCanonicalCampaignScopeAndAssignmentData; core/database/src/androidTest/java/com/silomath/core/database/CanonicalRoomMigration15To19Test.kt#migration18To19_preservesCanonicalDataAndRelaxesLegacyBlockers",
                              "testLevel":  "DB",
                              "automation":  "Automated",
-                             "environment":  "Local/CI",
-                             "result":  "Not Run",
-                             "evidence":  null,
-                             "buildVersion":  null,
-                             "mappingStatus":  "MAPPED"
+                             "environment":  "CI",
+                             "result":  "Pass",
+                             "evidence":  "GitHub Actions / Baseline Gates / Room Migration Regression (pull_request): CanonicalRoomMigration15To19Test passed all four supported direct upgrade paths 15-\u003e19, 16-\u003e19, 17-\u003e19 and 18-\u003e19.",
+                             "buildVersion":  "6f2aa78",
+                             "mappingStatus":  "VERIFIED"
                          },
                          {
                              "requirementDecisionId":  "TA-D031",
@@ -20517,11 +20517,11 @@
                              "testIds":  "core/database/src/androidTest/java/com/silomath/core/database/CanonicalRoomMigration15To19Test.kt#migration15To19_preservesLegacyCampaignAndBackfillsCanonicalData; core/database/src/androidTest/java/com/silomath/core/database/CanonicalRoomMigration15To19Test.kt#migration16To19_preservesCampaignAndBackfillsScopeAndAssignment; core/database/src/androidTest/java/com/silomath/core/database/CanonicalRoomMigration15To19Test.kt#migration17To19_backfillsCanonicalCampaignScopeAndAssignmentData; core/database/src/androidTest/java/com/silomath/core/database/CanonicalRoomMigration15To19Test.kt#migration18To19_preservesCanonicalDataAndRelaxesLegacyBlockers",
                              "testLevel":  "DB",
                              "automation":  "Automated",
-                             "environment":  "Local/CI",
-                             "result":  "Not Run",
-                             "evidence":  null,
-                             "buildVersion":  null,
-                             "mappingStatus":  "MAPPED"
+                             "environment":  "CI",
+                             "result":  "Pass",
+                             "evidence":  "GitHub Actions / Baseline Gates / Room Migration Regression (pull_request): CanonicalRoomMigration15To19Test passed all four supported direct upgrade paths 15-\u003e19, 16-\u003e19, 17-\u003e19 and 18-\u003e19.",
+                             "buildVersion":  "6f2aa78",
+                             "mappingStatus":  "VERIFIED"
                          },
                          {
                              "requirementDecisionId":  "TA-D033",

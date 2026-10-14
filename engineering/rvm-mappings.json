@@ -197,10 +197,10 @@
       ],
       "testLevel": "DB",
       "automation": "Automated",
-      "environment": "Local/CI",
-      "result": "Not Run",
-      "evidence": null,
-      "buildVersion": null
+      "environment": "CI",
+      "result": "Pass",
+      "evidence": "GitHub Actions / Baseline Gates / Room Migration Regression (pull_request): CanonicalRoomMigration15To19Test passed all four supported direct upgrade paths 15->19, 16->19, 17->19 and 18->19.",
+      "buildVersion": "6f2aa78"
     },
     {
       "requirementDecisionId": "TA-D032",
@@ -213,10 +213,10 @@
       ],
       "testLevel": "DB",
       "automation": "Automated",
-      "environment": "Local/CI",
-      "result": "Not Run",
-      "evidence": null,
-      "buildVersion": null
+      "environment": "CI",
+      "result": "Pass",
+      "evidence": "GitHub Actions / Baseline Gates / Room Migration Regression (pull_request): CanonicalRoomMigration15To19Test passed all four supported direct upgrade paths 15->19, 16->19, 17->19 and 18->19.",
+      "buildVersion": "6f2aa78"
     }
   ]
 }
