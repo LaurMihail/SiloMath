@@ -180,7 +180,7 @@ dependencies {
     androidTestImplementation(libs.mockk.android)
 
     androidTestImplementation(
-        "androidx.room:room-testing:2.8.4"
+        libs.roomTesting
     )
 
     debugImplementation(libs.androidx.compose.ui.tooling)
