@@ -70,7 +70,7 @@ class AuthViewModel @Inject constructor(
 
         viewModelScope.launch {
             _uiState.value = _uiState.value.copy(isLoading = true, error = null)
-            val result = authRepository.signIn(email, password, _uiState.value.rememberMe)
+            val result = authRepository.signIn(email, password)
             if (result.isSuccess) {
                 _uiState.value = _uiState.value.copy(isLoading = false, isSuccess = true)
             } else {

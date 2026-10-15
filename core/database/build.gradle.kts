@@ -50,7 +50,7 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
 
     androidTestImplementation(
-        "androidx.room:room-testing:2.8.4"
+        libs.roomTesting
     )
 
     androidTestImplementation(

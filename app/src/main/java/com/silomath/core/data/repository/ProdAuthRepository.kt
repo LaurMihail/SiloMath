@@ -10,10 +10,10 @@ import javax.inject.Inject
 class ProdAuthRepository @Inject constructor(
     private val sessionStore: SessionStore
 ) : AuthRepository {
+
     override val sessionState: Flow<SessionState> = sessionStore.sessionState
 
-    override suspend fun signIn(email: String, password: String, rememberMe: Boolean): Result<Unit> {
-        // UNDEFINED — BACKEND CONTRACT REQUIRED
+    override suspend fun signIn(email: String, password: String): Result<Unit> {
         return Result.failure(Exception("Backend authentication contract required"))
     }
 
@@ -23,11 +23,14 @@ class ProdAuthRepository @Inject constructor(
     }
 
     override suspend fun resetPassword(email: String): Result<Unit> {
-        // UNDEFINED — BACKEND CONTRACT REQUIRED
         return Result.failure(Exception("Backend authentication contract required"))
     }
 
-    override suspend fun setActiveOrganization(organizationId: Long): Result<Unit> {
+    override suspend fun updatePassword(newPassword: String): Result<Unit> {
+        return Result.failure(Exception("Backend authentication contract required"))
+    }
+
+    override suspend fun setActiveOrganization(organizationId: String): Result<Unit> {
         return try {
             val currentState = sessionStore.sessionState.first()
             val newState = currentState.copy(activeOrganizationId = organizationId)
@@ -36,5 +39,9 @@ class ProdAuthRepository @Inject constructor(
         } catch (e: Exception) {
             Result.failure(e)
         }
+    }
+
+    override suspend fun restoreRemoteSession(): Result<Unit> {
+        return Result.failure(Exception("Backend authentication contract required"))
     }
 }
