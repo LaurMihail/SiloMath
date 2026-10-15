@@ -80,6 +80,43 @@ jobs:
             -ExecutionPolicy Bypass `
             -File "engineering\validate-postgres-v6-contract.ps1"
 
+  android-build-quality:
+    name: Android Build and Static Quality
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Java 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Run Android lint
+        run: ./gradlew lint --stacktrace
+
+      - name: Compile environment variants
+        run: ./gradlew :app:compileDevelopmentDebugKotlin :app:compileStagingDebugKotlin :app:compileProductionReleaseKotlin --stacktrace
+
+  backend-build:
+    name: Backend Build and Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Java 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Run backend tests
+        run: ./gradlew -p backend test --stacktrace
+
   android-room-migrations:
     name: Room Migration Regression
     runs-on: ubuntu-latest
