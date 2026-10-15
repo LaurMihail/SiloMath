@@ -24,7 +24,7 @@ import com.silomath.core.designsystem.EnterpriseNavy
 
 @Composable
 fun SelectOrganizationScreen(
-    onOrganizationSelected: (Long) -> Unit,
+    onOrganizationSelected: (String) -> Unit,
     viewModel: OrganizationViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsState()
@@ -89,7 +89,7 @@ fun SelectOrganizationScreen(
                         modifier = Modifier
                             .fillMaxWidth()
                             .heightIn(min = 72.dp)
-                            .clickable { viewModel.selectOrganization(org.id) },
+                            .clickable { org.organizationId?.let { uuid -> viewModel.selectOrganization(uuid) } },
                         shape = RoundedCornerShape(10.dp),
                         colors = CardDefaults.cardColors(
                             containerColor = Color.White

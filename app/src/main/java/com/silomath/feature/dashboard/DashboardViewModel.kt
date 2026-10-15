@@ -48,8 +48,8 @@ class DashboardViewModel @Inject constructor(
     init {
         viewModelScope.launch {
             // Global KPI: Active Campaigns
-            campaignRepository.getActiveCampaigns().collect { campaigns ->
-                _uiState.update { it.copy(activeCampaigns = campaigns.size) }
+            campaignRepository.observeActiveCampaignCount().collect { count ->
+                _uiState.update { it.copy(activeCampaigns = count) }
             }
         }
 

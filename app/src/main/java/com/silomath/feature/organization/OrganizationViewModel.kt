@@ -16,7 +16,7 @@ data class OrganizationUiState(
     val organizations: List<OrganizationEntity> = emptyList(),
     val isLoading: Boolean = false,
     val error: String? = null,
-    val selectedOrganizationId: Long? = null
+    val selectedOrganizationId: String? = null
 )
 
 @HiltViewModel
@@ -44,7 +44,7 @@ class OrganizationViewModel @Inject constructor(
         }
     }
 
-    fun selectOrganization(organizationId: Long) {
+    fun selectOrganization(organizationId: String) {
         viewModelScope.launch {
             _uiState.value = _uiState.value.copy(isLoading = true, error = null)
             val result = authRepository.setActiveOrganization(organizationId)

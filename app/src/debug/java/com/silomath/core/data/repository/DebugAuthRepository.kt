@@ -10,15 +10,15 @@ import javax.inject.Inject
 class DebugAuthRepository @Inject constructor(
     private val sessionStore: SessionStore
 ) : AuthRepository {
+
     override val sessionState: Flow<SessionState> = sessionStore.sessionState
 
-    override suspend fun signIn(email: String, password: String, rememberMe: Boolean): Result<Unit> {
+    override suspend fun signIn(email: String, password: String): Result<Unit> {
         return if (email == "laurentiu.caramarin@gmail.com" && password == "123456") {
             sessionStore.updateSession(
                 SessionState(
                     userId = "debug_user",
                     token = "debug_token",
-                    isRememberMeEnabled = rememberMe,
                     isOfflineCapable = true
                 )
             )
@@ -37,7 +37,11 @@ class DebugAuthRepository @Inject constructor(
         return Result.failure(Exception("Not available in debug auth"))
     }
 
-    override suspend fun setActiveOrganization(organizationId: Long): Result<Unit> {
+    override suspend fun updatePassword(newPassword: String): Result<Unit> {
+        return Result.failure(Exception("Not available in debug auth"))
+    }
+
+    override suspend fun setActiveOrganization(organizationId: String): Result<Unit> {
         return try {
             val currentState = sessionStore.sessionState.first()
             val newState = currentState.copy(activeOrganizationId = organizationId)
@@ -46,5 +50,9 @@ class DebugAuthRepository @Inject constructor(
         } catch (e: Exception) {
             Result.failure(e)
         }
+    }
+
+    override suspend fun restoreRemoteSession(): Result<Unit> {
+        return Result.failure(Exception("Not available in debug auth"))
     }
 }
