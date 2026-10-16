@@ -7,6 +7,7 @@ import androidx.room.TypeConverters
 import com.silomath.core.database.dao.*
 import com.silomath.core.database.entity.*
 import com.silomath.core.database.migration.CampaignCanonicalBackfill17To18
+import com.silomath.core.database.migration.MasterDataCanonicalBackfill20To21
 
 @Database(
     entities = [
@@ -36,7 +37,7 @@ import com.silomath.core.database.migration.CampaignCanonicalBackfill17To18
         DeviceInstallationEntity::class,
         AuditTrailEntity::class
     ],
-    version = 20,
+    version = 21,
     exportSchema = true,
     autoMigrations = [
         AutoMigration(
@@ -59,6 +60,11 @@ import com.silomath.core.database.migration.CampaignCanonicalBackfill17To18
         AutoMigration(
             from = 19,
             to = 20
+        ),
+        AutoMigration(
+            from = 20,
+            to = 21,
+            spec = MasterDataCanonicalBackfill20To21::class
         )
     ]
 )

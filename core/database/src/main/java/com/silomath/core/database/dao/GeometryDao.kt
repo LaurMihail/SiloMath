@@ -23,6 +23,9 @@ interface GeometryDao {
     @Query("SELECT * FROM geometry_profiles")
     fun getAllProfiles(): Flow<List<GeometryProfileEntity>>
 
+    @Query("SELECT * FROM geometry_profiles WHERE geometry_profile_id = :geometryProfileId LIMIT 1")
+    suspend fun getGeometryProfileByGeometryProfileId(geometryProfileId: String): GeometryProfileEntity?
+
     @Query("SELECT * FROM geometry_profiles WHERE remoteId = :remoteId LIMIT 1")
     suspend fun getGeometryProfileByRemoteId(remoteId: String): GeometryProfileEntity?
 
