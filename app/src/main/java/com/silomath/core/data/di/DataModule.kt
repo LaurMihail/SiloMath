@@ -27,7 +27,15 @@ abstract class DataModule {
 
     @Binds
     @Singleton
-    abstract fun bindStorageRepository(impl: OfflineStorageRepository): StorageRepository
+    abstract fun bindStorageUnitRepository(impl: OfflineStorageUnitRepository): StorageUnitRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindStorageSpaceRepository(impl: OfflineStorageSpaceRepository): StorageSpaceRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindClientRepository(impl: OfflineClientRepository): ClientRepository
 
     @Binds
     @Singleton

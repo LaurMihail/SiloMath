@@ -19,8 +19,14 @@ interface StorageDao {
     @Query("SELECT * FROM storage_spaces WHERE storage_unit_id = :storageUnitId")
     suspend fun getStorageSpacesByUnitSync(storageUnitId: Long): List<StorageSpaceEntity>
 
+    @Query("SELECT * FROM storage_units WHERE storage_unit_id = :storageUnitId LIMIT 1")
+    suspend fun getStorageUnitByStorageUnitId(storageUnitId: String): StorageUnitEntity?
+
     @Query("SELECT * FROM storage_units WHERE remoteId = :remoteId LIMIT 1")
     suspend fun getStorageUnitByRemoteId(remoteId: String): StorageUnitEntity?
+
+    @Query("SELECT * FROM storage_spaces WHERE storage_space_id = :storageSpaceId LIMIT 1")
+    suspend fun getStorageSpaceByStorageSpaceId(storageSpaceId: String): StorageSpaceEntity?
 
     @Query("SELECT * FROM storage_spaces WHERE remoteId = :remoteId LIMIT 1")
     suspend fun getStorageSpaceByRemoteId(remoteId: String): StorageSpaceEntity?

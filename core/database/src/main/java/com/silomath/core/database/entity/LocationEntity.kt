@@ -16,7 +16,10 @@ import androidx.room.PrimaryKey
             onDelete = ForeignKey.CASCADE
         )
     ],
-    indices = [Index("organization_id")]
+    indices = [
+        Index("organization_id"),
+        Index(value = ["organization_id", "code"], unique = true)
+    ]
 )
 data class LocationEntity(
     @PrimaryKey(autoGenerate = true) val id: Long = 0,
