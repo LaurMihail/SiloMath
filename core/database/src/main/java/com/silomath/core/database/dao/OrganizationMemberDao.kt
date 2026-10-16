@@ -19,6 +19,11 @@ interface OrganizationMemberDao {
     @Query("SELECT * FROM organization_members WHERE organization_id = :organizationId AND user_id = :userId LIMIT 1")
     suspend fun getMember(organizationId: Long, userId: String): OrganizationMemberEntity?
 
+    @Query("SELECT * FROM organization_members WHERE user_id = :userId ORDER BY organization_id")
+    fun observeMembershipsForUser(
+        userId: String
+    ): Flow<List<OrganizationMemberEntity>>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun upsertMembers(members: List<OrganizationMemberEntity>)
 

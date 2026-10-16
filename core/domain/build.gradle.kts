@@ -22,4 +22,6 @@ dependencies {
 
     implementation(libs.kotlinx.coroutines.android)
     implementation(libs.hilt.android)
+
+    testImplementation(libs.junit)
 }
