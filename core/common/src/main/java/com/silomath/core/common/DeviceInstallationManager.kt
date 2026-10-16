@@ -3,6 +3,7 @@ package com.silomath.core.common
 import android.content.Context
 import android.content.SharedPreferences
 import com.silomath.core.model.DeviceInstallation
+import com.silomath.core.model.DeviceInstallationId
 
 class DeviceInstallationManager(context: Context) {
     private val prefs: SharedPreferences =
@@ -25,6 +26,6 @@ class DeviceInstallationManager(context: Context) {
                     .apply()
             }
         }
-        return DeviceInstallation(deviceInstallationId = uuid)
+        return DeviceInstallation(deviceInstallationId = DeviceInstallationId(uuid))
     }
 }
