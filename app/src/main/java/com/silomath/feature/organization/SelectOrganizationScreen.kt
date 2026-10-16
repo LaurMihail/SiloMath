@@ -89,7 +89,7 @@ fun SelectOrganizationScreen(
                         modifier = Modifier
                             .fillMaxWidth()
                             .heightIn(min = 72.dp)
-                            .clickable { org.organizationId?.let { uuid -> viewModel.selectOrganization(uuid) } },
+                            .clickable { viewModel.selectOrganization(org.organizationId.value) },
                         shape = RoundedCornerShape(10.dp),
                         colors = CardDefaults.cardColors(
                             containerColor = Color.White

@@ -10,7 +10,10 @@ import com.silomath.core.database.dao.OrganizationMembershipDao
 import com.silomath.core.database.entity.OrganizationEntity
 import com.silomath.core.database.entity.OrganizationMemberEntity
 import com.silomath.core.database.entity.OrganizationMembershipEntity
+import com.silomath.core.domain.model.OrganizationReadModel
 import com.silomath.core.domain.repository.OrganizationRepository
+import com.silomath.core.model.OrganizationId
+import com.silomath.core.model.UserId
 import com.silomath.core.model.organization.OrganizationTransferRecord
 import com.silomath.core.model.organization.UserMembershipTransferRecord
 import java.time.OffsetDateTime
@@ -68,13 +71,76 @@ class OfflineOrganizationRepository @Inject constructor(
             )
     }
 
-    override fun getOrganizations():
-        Flow<List<OrganizationEntity>> {
-        return organizationDao
-            .getAllOrganizations()
+    override fun observeAuthorizedOrganizations(
+        userId: UserId
+    ): Flow<List<OrganizationReadModel>> {
+        return combine(
+            organizationDao.getAllOrganizations(),
+            organizationMembershipDao
+                .observeAuthoritativeCanonicalOrganizationIds(),
+            organizationMembershipDao
+                .observeActiveCanonicalMembershipsForUser(
+                    userId.value
+                ),
+            organizationMemberDao
+                .observeMembershipsForUser(
+                    userId.value
+                )
+        ) {
+                organizations,
+                authoritativeCanonicalOrganizationIds,
+                activeCanonicalMemberships,
+                legacyMemberships ->
+
+            val authoritativeIds =
+                authoritativeCanonicalOrganizationIds.toSet()
+
+            val activeCanonicalIds =
+                activeCanonicalMemberships
+                    .mapNotNull { it.organizationId }
+                    .toSet()
+
+            val legacyOrganizationIds =
+                legacyMemberships
+                    .filter {
+                        it.role == "Admin" ||
+                            it.role == "Standard" ||
+                            it.role == "Standard User"
+                    }
+                    .map { it.organizationId }
+                    .toSet()
+
+            organizations.mapNotNull { organization ->
+                val canonicalOrganizationId =
+                    organization.organizationId
+                        ?.let { canonicalUuidOrNull(it) }
+                        ?: return@mapNotNull null
+
+                val authorizedByCanonicalMembership =
+                    canonicalOrganizationId in activeCanonicalIds
+
+                val authorizedByLegacyFallback =
+                    canonicalOrganizationId !in authoritativeIds &&
+                        organization.id in legacyOrganizationIds
+
+                if (
+                    !authorizedByCanonicalMembership &&
+                    !authorizedByLegacyFallback
+                ) {
+                    return@mapNotNull null
+                }
+
+                OrganizationReadModel(
+                    organizationId =
+                        OrganizationId(canonicalOrganizationId),
+                    name = organization.name,
+                    code = organization.code
+                )
+            }
+        }
     }
 
-    override fun getMembersByOrganization(
+    fun getMembersByOrganization(
         organizationId: String
     ): Flow<List<OrganizationMemberEntity>> {
         val canonicalOrganizationId =
@@ -132,7 +198,7 @@ class OfflineOrganizationRepository @Inject constructor(
         }
     }
 
-    override suspend fun saveOrganization(
+    suspend fun saveOrganization(
         organization: OrganizationEntity
     ) {
         organizationDao
@@ -163,7 +229,7 @@ class OfflineOrganizationRepository @Inject constructor(
         }
     }
 
-    override suspend fun refreshOrganizationMembers(
+    suspend fun refreshOrganizationMembers(
         organizationId: String
     ): Result<Unit> {
         return try {
@@ -233,7 +299,7 @@ class OfflineOrganizationRepository @Inject constructor(
         }
     }
 
-    override suspend fun getOrganizationRemoteId(
+    suspend fun getOrganizationRemoteId(
         organizationId: String
     ): Result<String> {
         val organization =
