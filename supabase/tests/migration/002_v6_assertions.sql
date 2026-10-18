@@ -262,3 +262,28 @@ begin
         v_legacy_snapshot_id;
 end;
 $$;
+
+do $$
+declare
+    missing_table text;
+begin
+    foreach missing_table in array array[
+        'users',
+        'organizations',
+        'organization_memberships',
+        'device_installations',
+        'locations',
+        'clients'
+    ]
+    loop
+        if to_regclass('silomath.' || missing_table) is null then
+            raise exception
+                'ASSERTION FAILED: canonical foundation table silomath.% does not exist',
+                missing_table;
+        end if;
+    end loop;
+
+    raise notice
+        'V6 FOUNDATION ASSERTIONS PASSED: validated canonical foundation table inventory exists';
+end;
+$$;
