@@ -1,0 +1,24 @@
+{
+  "taskId": "IMP-GOV-006",
+  "baseline": "SILOMATH_V6",
+  "status": "LOCAL_RECONCILIATION_PASS_CI_PENDING",
+  "refreezeDate": "2026-10-17",
+  "documents": 21,
+  "registryRows": 2174,
+  "uniqueRequirementIds": 1838,
+  "previousUniqueRequirementIds": 1761,
+  "newUniqueIdsVsRepoSnapshot": 77,
+  "removedUniqueIdsVsRepoSnapshot": 0,
+  "rvm": {
+    "total": 1838,
+    "mapped": 15,
+    "verified": 0,
+    "unmapped": 1823
+  },
+  "mappingSourceRows": 15,
+  "notes": [
+    "Preserves repository governance mechanism; does not replace build-rvm/validate-rvm logic.",
+    "Canonical baseline source switched to exact refrozen Markdown files and SHA-256 manifest.",
+    "CI remains authoritative for closure."
+  ]
+}

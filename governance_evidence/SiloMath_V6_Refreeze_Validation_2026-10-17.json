@@ -1,0 +1,896 @@
+{
+  "passed": 152,
+  "failed": 0,
+  "errors": [],
+  "warnings": [],
+  "checks": [
+    [
+      "exact_21_document_set",
+      true,
+      "found=['01_PRODUCT_BASELINE.md', '02_DECISION_REGISTER.md', '03_BUSINESS_RULES.md', '04_USER_ROLES_PERMISSIONS.md', '05_WORKFLOWS_STATE_MACHINES.md', '06_UI_SCREEN_SPECIFICATION_AND_NAVIGATION.md', '07_ARCHITECTURE.md', '08_MODULE_ARCHITECTURE.md', '09_DATA_MODEL.md', '10_DATABASE_SCHEMA.md', '11_API_SPECIFICATION.md', '12_OFFLINE_SYNC_SPECIFICATION.md', '13_CALCULATION_ENGINE_SPECIFICATION.md', '14_COMMODITY_SPECIFICATION.md', '15_EVIDENCE_STORAGE_SPECIFICATION.md', '16_REPORTING_SPECIFICATION.md', '17_SECURITY_AUDIT_PRIVACY.md', '18_TEST_STRATEGY_ACCEPTANCE.md', '19_RETENTION_POLICY.md', '20_PRODUCTION_OPERATIONS.md', '21_UI_DESIGN_SYSTEM_FINAL.md']"
+    ],
+    [
+      "01_PRODUCT_BASELINE.md:status_frozen",
+      true,
+      ""
+    ],
+    [
+      "01_PRODUCT_BASELINE.md:revision_marker",
+      true,
+      ""
+    ],
+    [
+      "01_PRODUCT_BASELINE.md:utf8_no_bom",
+      true,
+      ""
+    ],
+    [
+      "01_PRODUCT_BASELINE.md:lf_only",
+      true,
+      ""
+    ],
+    [
+      "02_DECISION_REGISTER.md:status_frozen",
+      true,
+      ""
+    ],
+    [
+      "02_DECISION_REGISTER.md:revision_marker",
+      true,
+      ""
+    ],
+    [
+      "02_DECISION_REGISTER.md:utf8_no_bom",
+      true,
+      ""
+    ],
+    [
+      "02_DECISION_REGISTER.md:lf_only",
+      true,
+      ""
+    ],
+    [
+      "03_BUSINESS_RULES.md:status_frozen",
+      true,
+      ""
+    ],
+    [
+      "03_BUSINESS_RULES.md:revision_marker",
+      true,
+      ""
+    ],
+    [
+      "03_BUSINESS_RULES.md:utf8_no_bom",
+      true,
+      ""
+    ],
+    [
+      "03_BUSINESS_RULES.md:lf_only",
+      true,
+      ""
+    ],
+    [
+      "04_USER_ROLES_PERMISSIONS.md:status_frozen",
+      true,
+      ""
+    ],
+    [
+      "04_USER_ROLES_PERMISSIONS.md:revision_marker",
+      true,
+      ""
+    ],
+    [
+      "04_USER_ROLES_PERMISSIONS.md:utf8_no_bom",
+      true,
+      ""
+    ],
+    [
+      "04_USER_ROLES_PERMISSIONS.md:lf_only",
+      true,
+      ""
+    ],
+    [
+      "05_WORKFLOWS_STATE_MACHINES.md:status_frozen",
+      true,
+      ""
+    ],
+    [
+      "05_WORKFLOWS_STATE_MACHINES.md:revision_marker",
+      true,
+      ""
+    ],
+    [
+      "05_WORKFLOWS_STATE_MACHINES.md:utf8_no_bom",
+      true,
+      ""
+    ],
+    [
+      "05_WORKFLOWS_STATE_MACHINES.md:lf_only",
+      true,
+      ""
+    ],
+    [
+      "06_UI_SCREEN_SPECIFICATION_AND_NAVIGATION.md:status_frozen",
+      true,
+      ""
+    ],
+    [
+      "06_UI_SCREEN_SPECIFICATION_AND_NAVIGATION.md:revision_marker",
+      true,
+      ""
+    ],
+    [
+      "06_UI_SCREEN_SPECIFICATION_AND_NAVIGATION.md:utf8_no_bom",
+      true,
+      ""
+    ],
+    [
+      "06_UI_SCREEN_SPECIFICATION_AND_NAVIGATION.md:lf_only",
+      true,
+      ""
+    ],
+    [
+      "07_ARCHITECTURE.md:status_frozen",
+      true,
+      ""
+    ],
+    [
+      "07_ARCHITECTURE.md:revision_marker",
+      true,
+      ""
+    ],
+    [
+      "07_ARCHITECTURE.md:utf8_no_bom",
+      true,
+      ""
+    ],
+    [
+      "07_ARCHITECTURE.md:lf_only",
+      true,
+      ""
+    ],
+    [
+      "08_MODULE_ARCHITECTURE.md:status_frozen",
+      true,
+      ""
+    ],
+    [
+      "08_MODULE_ARCHITECTURE.md:revision_marker",
+      true,
+      ""
+    ],
+    [
+      "08_MODULE_ARCHITECTURE.md:utf8_no_bom",
+      true,
+      ""
+    ],
+    [
+      "08_MODULE_ARCHITECTURE.md:lf_only",
+      true,
+      ""
+    ],
+    [
+      "09_DATA_MODEL.md:status_frozen",
+      true,
+      ""
+    ],
+    [
+      "09_DATA_MODEL.md:revision_marker",
+      true,
+      ""
+    ],
+    [
+      "09_DATA_MODEL.md:utf8_no_bom",
+      true,
+      ""
+    ],
+    [
+      "09_DATA_MODEL.md:lf_only",
+      true,
+      ""
+    ],
+    [
+      "10_DATABASE_SCHEMA.md:status_frozen",
+      true,
+      ""
+    ],
+    [
+      "10_DATABASE_SCHEMA.md:revision_marker",
+      true,
+      ""
+    ],
+    [
+      "10_DATABASE_SCHEMA.md:utf8_no_bom",
+      true,
+      ""
+    ],
+    [
+      "10_DATABASE_SCHEMA.md:lf_only",
+      true,
+      ""
+    ],
+    [
+      "11_API_SPECIFICATION.md:status_frozen",
+      true,
+      ""
+    ],
+    [
+      "11_API_SPECIFICATION.md:revision_marker",
+      true,
+      ""
+    ],
+    [
+      "11_API_SPECIFICATION.md:utf8_no_bom",
+      true,
+      ""
+    ],
+    [
+      "11_API_SPECIFICATION.md:lf_only",
+      true,
+      ""
+    ],
+    [
+      "12_OFFLINE_SYNC_SPECIFICATION.md:status_frozen",
+      true,
+      ""
+    ],
+    [
+      "12_OFFLINE_SYNC_SPECIFICATION.md:revision_marker",
+      true,
+      ""
+    ],
+    [
+      "12_OFFLINE_SYNC_SPECIFICATION.md:utf8_no_bom",
+      true,
+      ""
+    ],
+    [
+      "12_OFFLINE_SYNC_SPECIFICATION.md:lf_only",
+      true,
+      ""
+    ],
+    [
+      "13_CALCULATION_ENGINE_SPECIFICATION.md:status_frozen",
+      true,
+      ""
+    ],
+    [
+      "13_CALCULATION_ENGINE_SPECIFICATION.md:revision_marker",
+      true,
+      ""
+    ],
+    [
+      "13_CALCULATION_ENGINE_SPECIFICATION.md:utf8_no_bom",
+      true,
+      ""
+    ],
+    [
+      "13_CALCULATION_ENGINE_SPECIFICATION.md:lf_only",
+      true,
+      ""
+    ],
+    [
+      "14_COMMODITY_SPECIFICATION.md:status_frozen",
+      true,
+      ""
+    ],
+    [
+      "14_COMMODITY_SPECIFICATION.md:revision_marker",
+      true,
+      ""
+    ],
+    [
+      "14_COMMODITY_SPECIFICATION.md:utf8_no_bom",
+      true,
+      ""
+    ],
+    [
+      "14_COMMODITY_SPECIFICATION.md:lf_only",
+      true,
+      ""
+    ],
+    [
+      "15_EVIDENCE_STORAGE_SPECIFICATION.md:status_frozen",
+      true,
+      ""
+    ],
+    [
+      "15_EVIDENCE_STORAGE_SPECIFICATION.md:revision_marker",
+      true,
+      ""
+    ],
+    [
+      "15_EVIDENCE_STORAGE_SPECIFICATION.md:utf8_no_bom",
+      true,
+      ""
+    ],
+    [
+      "15_EVIDENCE_STORAGE_SPECIFICATION.md:lf_only",
+      true,
+      ""
+    ],
+    [
+      "16_REPORTING_SPECIFICATION.md:status_frozen",
+      true,
+      ""
+    ],
+    [
+      "16_REPORTING_SPECIFICATION.md:revision_marker",
+      true,
+      ""
+    ],
+    [
+      "16_REPORTING_SPECIFICATION.md:utf8_no_bom",
+      true,
+      ""
+    ],
+    [
+      "16_REPORTING_SPECIFICATION.md:lf_only",
+      true,
+      ""
+    ],
+    [
+      "17_SECURITY_AUDIT_PRIVACY.md:status_frozen",
+      true,
+      ""
+    ],
+    [
+      "17_SECURITY_AUDIT_PRIVACY.md:revision_marker",
+      true,
+      ""
+    ],
+    [
+      "17_SECURITY_AUDIT_PRIVACY.md:utf8_no_bom",
+      true,
+      ""
+    ],
+    [
+      "17_SECURITY_AUDIT_PRIVACY.md:lf_only",
+      true,
+      ""
+    ],
+    [
+      "18_TEST_STRATEGY_ACCEPTANCE.md:status_frozen",
+      true,
+      ""
+    ],
+    [
+      "18_TEST_STRATEGY_ACCEPTANCE.md:revision_marker",
+      true,
+      ""
+    ],
+    [
+      "18_TEST_STRATEGY_ACCEPTANCE.md:utf8_no_bom",
+      true,
+      ""
+    ],
+    [
+      "18_TEST_STRATEGY_ACCEPTANCE.md:lf_only",
+      true,
+      ""
+    ],
+    [
+      "19_RETENTION_POLICY.md:status_frozen",
+      true,
+      ""
+    ],
+    [
+      "19_RETENTION_POLICY.md:revision_marker",
+      true,
+      ""
+    ],
+    [
+      "19_RETENTION_POLICY.md:utf8_no_bom",
+      true,
+      ""
+    ],
+    [
+      "19_RETENTION_POLICY.md:lf_only",
+      true,
+      ""
+    ],
+    [
+      "20_PRODUCTION_OPERATIONS.md:status_frozen",
+      true,
+      ""
+    ],
+    [
+      "20_PRODUCTION_OPERATIONS.md:revision_marker",
+      true,
+      ""
+    ],
+    [
+      "20_PRODUCTION_OPERATIONS.md:utf8_no_bom",
+      true,
+      ""
+    ],
+    [
+      "20_PRODUCTION_OPERATIONS.md:lf_only",
+      true,
+      ""
+    ],
+    [
+      "21_UI_DESIGN_SYSTEM_FINAL.md:status_frozen",
+      true,
+      ""
+    ],
+    [
+      "21_UI_DESIGN_SYSTEM_FINAL.md:revision_marker",
+      true,
+      ""
+    ],
+    [
+      "21_UI_DESIGN_SYSTEM_FINAL.md:utf8_no_bom",
+      true,
+      ""
+    ],
+    [
+      "21_UI_DESIGN_SYSTEM_FINAL.md:lf_only",
+      true,
+      ""
+    ],
+    [
+      "no_stale_marker:\\bTODO\\b",
+      true,
+      ""
+    ],
+    [
+      "no_stale_marker:\\bTBD\\b",
+      true,
+      ""
+    ],
+    [
+      "no_stale_marker:\\bFIXME\\b",
+      true,
+      ""
+    ],
+    [
+      "no_stale_marker:OPEN QUESTION",
+      true,
+      ""
+    ],
+    [
+      "no_stale_marker:Candidate freeze",
+      true,
+      ""
+    ],
+    [
+      "no_stale_marker:Conditional freeze",
+      true,
+      ""
+    ],
+    [
+      "no_stale_marker:After explicit approval",
+      true,
+      ""
+    ],
+    [
+      "no_stale_marker:no Doc21 is introduced",
+      true,
+      ""
+    ],
+    [
+      "no_stale_marker:add GET /api/v1/sync/pull later",
+      true,
+      ""
+    ],
+    [
+      "02_DECISION_REGISTER.md:D_1_36_contiguous",
+      true,
+      "missing=[] max=36"
+    ],
+    [
+      "02_DECISION_REGISTER.md:FD_1_71_contiguous",
+      true,
+      "missing=[] max=71"
+    ],
+    [
+      "09_DATA_MODEL.md:DM_1_64_contiguous",
+      true,
+      "missing=[] max=64"
+    ],
+    [
+      "10_DATABASE_SCHEMA.md:DB_1_68_contiguous",
+      true,
+      "missing=[] max=68"
+    ],
+    [
+      "12_OFFLINE_SYNC_SPECIFICATION.md:OS_1_41_contiguous",
+      true,
+      "missing=[] max=41"
+    ],
+    [
+      "13_CALCULATION_ENGINE_SPECIFICATION.md:CE_1_42_contiguous",
+      true,
+      "missing=[] max=42"
+    ],
+    [
+      "14_COMMODITY_SPECIFICATION.md:CO_1_32_contiguous",
+      true,
+      "missing=[] max=32"
+    ],
+    [
+      "15_EVIDENCE_STORAGE_SPECIFICATION.md:EV_1_44_contiguous",
+      true,
+      "missing=[] max=44"
+    ],
+    [
+      "16_REPORTING_SPECIFICATION.md:RP_1_107_contiguous",
+      true,
+      "missing=[] max=107"
+    ],
+    [
+      "17_SECURITY_AUDIT_PRIVACY.md:SEC_1_149_contiguous",
+      true,
+      "missing=[] max=149"
+    ],
+    [
+      "18_TEST_STRATEGY_ACCEPTANCE.md:TA_1_232_contiguous",
+      true,
+      "missing=[] max=232"
+    ],
+    [
+      "19_RETENTION_POLICY.md:RT_1_200_contiguous",
+      true,
+      "missing=[] max=200"
+    ],
+    [
+      "20_PRODUCTION_OPERATIONS.md:PO_1_293_contiguous",
+      true,
+      "missing=[] max=293"
+    ],
+    [
+      "exact_19_modules",
+      true,
+      "01_PRODUCT_BASELINE.md missing []"
+    ],
+    [
+      "bottom_nav_order",
+      true,
+      "06_UI_SCREEN_SPECIFICATION_AND_NAVIGATION.md missing []"
+    ],
+    [
+      "nav3",
+      true,
+      "07_ARCHITECTURE.md missing []"
+    ],
+    [
+      "predictive_back",
+      true,
+      "06_UI_SCREEN_SPECIFICATION_AND_NAVIGATION.md missing []"
+    ],
+    [
+      "edge_to_edge",
+      true,
+      "06_UI_SCREEN_SPECIFICATION_AND_NAVIGATION.md missing []"
+    ],
+    [
+      "lifecycle_state",
+      true,
+      "07_ARCHITECTURE.md missing []"
+    ],
+    [
+      "atomic_local_mutation",
+      true,
+      "12_OFFLINE_SYNC_SPECIFICATION.md missing []"
+    ],
+    [
+      "api_boundary",
+      true,
+      "11_API_SPECIFICATION.md missing []"
+    ],
+    [
+      "close_online_atomic",
+      true,
+      "01_PRODUCT_BASELINE.md missing []"
+    ],
+    [
+      "stitch_floor",
+      true,
+      "21_UI_DESIGN_SYSTEM_FINAL.md missing []"
+    ],
+    [
+      "dynamic_color_policy",
+      true,
+      "21_UI_DESIGN_SYSTEM_FINAL.md missing []"
+    ],
+    [
+      "geo_pair",
+      true,
+      "09_DATA_MODEL.md missing []"
+    ],
+    [
+      "geo_no_tracking",
+      true,
+      "17_SECURITY_AUDIT_PRIVACY.md missing []"
+    ],
+    [
+      "geo_offline_fallback",
+      true,
+      "12_OFFLINE_SYNC_SPECIFICATION.md missing []"
+    ],
+    [
+      "performance_release",
+      true,
+      "18_TEST_STRATEGY_ACCEPTANCE.md missing []"
+    ],
+    [
+      "implementation_no_approval",
+      true,
+      "02_DECISION_REGISTER.md missing []"
+    ],
+    [
+      "identity_transport_provenance",
+      true,
+      "11_API_SPECIFICATION.md missing []"
+    ],
+    [
+      "environment_endpoint_config",
+      true,
+      "20_PRODUCTION_OPERATIONS.md missing []"
+    ],
+    [
+      "geo_coverage:01_PRODUCT_BASELINE.md",
+      true,
+      ""
+    ],
+    [
+      "geo_coverage:02_DECISION_REGISTER.md",
+      true,
+      ""
+    ],
+    [
+      "geo_coverage:03_BUSINESS_RULES.md",
+      true,
+      ""
+    ],
+    [
+      "geo_coverage:04_USER_ROLES_PERMISSIONS.md",
+      true,
+      ""
+    ],
+    [
+      "geo_coverage:05_WORKFLOWS_STATE_MACHINES.md",
+      true,
+      ""
+    ],
+    [
+      "geo_coverage:06_UI_SCREEN_SPECIFICATION_AND_NAVIGATION.md",
+      true,
+      ""
+    ],
+    [
+      "geo_coverage:09_DATA_MODEL.md",
+      true,
+      ""
+    ],
+    [
+      "geo_coverage:10_DATABASE_SCHEMA.md",
+      true,
+      ""
+    ],
+    [
+      "geo_coverage:11_API_SPECIFICATION.md",
+      true,
+      ""
+    ],
+    [
+      "geo_coverage:12_OFFLINE_SYNC_SPECIFICATION.md",
+      true,
+      ""
+    ],
+    [
+      "geo_coverage:17_SECURITY_AUDIT_PRIVACY.md",
+      true,
+      ""
+    ],
+    [
+      "geo_coverage:18_TEST_STRATEGY_ACCEPTANCE.md",
+      true,
+      ""
+    ],
+    [
+      "geo_coverage:19_RETENTION_POLICY.md",
+      true,
+      ""
+    ],
+    [
+      "geo_coverage:20_PRODUCTION_OPERATIONS.md",
+      true,
+      ""
+    ],
+    [
+      "geo_coverage:21_UI_DESIGN_SYSTEM_FINAL.md",
+      true,
+      ""
+    ],
+    [
+      "no_stale_range:DM-D01–DM-D60",
+      true,
+      ""
+    ],
+    [
+      "no_stale_range:DB-D01–DB-D64",
+      true,
+      ""
+    ],
+    [
+      "no_stale_range:RT-D01-RT-D198",
+      true,
+      ""
+    ],
+    [
+      "no_stale_range:PO-D01-PO-D285",
+      true,
+      ""
+    ],
+    [
+      "ui_exact_36_plus_7",
+      true,
+      ""
+    ],
+    [
+      "loc_map_inside_LOC01",
+      true,
+      ""
+    ],
+    [
+      "no_gps_tracking_product",
+      true,
+      ""
+    ],
+    [
+      "map_provider_not_business_authority",
+      true,
+      ""
+    ],
+    [
+      "doc01_lists_doc21",
+      true,
+      ""
+    ],
+    [
+      "doc20_recognizes_21",
+      true,
+      ""
+    ],
+    [
+      "sync_pull_endpoint_doc11",
+      true,
+      ""
+    ],
+    [
+      "sync_pull_no_future_note",
+      true,
+      ""
+    ]
+  ],
+  "manifest": [
+    {
+      "file": "01_PRODUCT_BASELINE.md",
+      "sha256": "8b2c0a14f0e7355a4427ce86d3ffcbe334b143b616eb5df7592032f41dcd5160",
+      "bytes": 32858,
+      "lines": 859
+    },
+    {
+      "file": "02_DECISION_REGISTER.md",
+      "sha256": "ba2101fe455708a9f6e0575832688b2f0bf866456854a8c8bde9707c712806ec",
+      "bytes": 32100,
+      "lines": 229
+    },
+    {
+      "file": "03_BUSINESS_RULES.md",
+      "sha256": "64876e8f07d02b097d4b0cc4cd2c74a2a4687d795f63ef48a599b0e1cbc51fb7",
+      "bytes": 31232,
+      "lines": 229
+    },
+    {
+      "file": "04_USER_ROLES_PERMISSIONS.md",
+      "sha256": "a2172964fcf8a2ed949ecf4665f0dc40c092cbfb5cd3d30970049b59d99b0516",
+      "bytes": 18249,
+      "lines": 245
+    },
+    {
+      "file": "05_WORKFLOWS_STATE_MACHINES.md",
+      "sha256": "171ee45e554c1ff3250f0d276fead1ea2b179d0de39656becdf7756f03fe1bfc",
+      "bytes": 27158,
+      "lines": 317
+    },
+    {
+      "file": "06_UI_SCREEN_SPECIFICATION_AND_NAVIGATION.md",
+      "sha256": "637bf689cc818e35ec0399408e60624c49354f18d02b523cd98d69467b0a5b16",
+      "bytes": 143322,
+      "lines": 1713
+    },
+    {
+      "file": "07_ARCHITECTURE.md",
+      "sha256": "a1ea34c8a01eb03a457a362d1ae603fd7746e4308d120323dc579695196e5a73",
+      "bytes": 54855,
+      "lines": 853
+    },
+    {
+      "file": "08_MODULE_ARCHITECTURE.md",
+      "sha256": "a7b7afb410456e4ebdffbee47407353ee3f17809895a167272d735f2c1d6eb80",
+      "bytes": 40967,
+      "lines": 658
+    },
+    {
+      "file": "09_DATA_MODEL.md",
+      "sha256": "810a765fabb6363b98c1a820ac6288271cddb27fc5ab3a4cb6b8e44d676ccf84",
+      "bytes": 90858,
+      "lines": 1176
+    },
+    {
+      "file": "10_DATABASE_SCHEMA.md",
+      "sha256": "28ea03b5e54f880f423cdf905e7c70026bba2ddf6536bfba790dd895e983e337",
+      "bytes": 39932,
+      "lines": 353
+    },
+    {
+      "file": "11_API_SPECIFICATION.md",
+      "sha256": "76974fb8844595803c254ccfd80a0092b4c071e63ae69ba7a945f8509efd6140",
+      "bytes": 54535,
+      "lines": 530
+    },
+    {
+      "file": "12_OFFLINE_SYNC_SPECIFICATION.md",
+      "sha256": "82e0086c5008edf45bd71e54144fe2594b1f1b6574af82bf6f9647575f11dd17",
+      "bytes": 49673,
+      "lines": 654
+    },
+    {
+      "file": "13_CALCULATION_ENGINE_SPECIFICATION.md",
+      "sha256": "b7f90dbb4714641c46d3cbd49b43085be56bff455591a591af5203b443f6e1d3",
+      "bytes": 31311,
+      "lines": 508
+    },
+    {
+      "file": "14_COMMODITY_SPECIFICATION.md",
+      "sha256": "c91110962890c6b8eb032211d3a968d0deef1006abe08a67517bef607d938e0d",
+      "bytes": 28660,
+      "lines": 409
+    },
+    {
+      "file": "15_EVIDENCE_STORAGE_SPECIFICATION.md",
+      "sha256": "606cbcf10311f8d3346779e074b21d8b3ad9fb03ea2d6fe3da4cfa70b440e9cd",
+      "bytes": 29556,
+      "lines": 430
+    },
+    {
+      "file": "16_REPORTING_SPECIFICATION.md",
+      "sha256": "b198ebd68787fa01bba35c549ef168274df6bc708b277824b39f57ada9095f89",
+      "bytes": 42070,
+      "lines": 519
+    },
+    {
+      "file": "17_SECURITY_AUDIT_PRIVACY.md",
+      "sha256": "6cc1a8616ae67dd1ee5dc9c39dcd488f9528f8a4b7c5f95b48932724d0d4d7bb",
+      "bytes": 58413,
+      "lines": 548
+    },
+    {
+      "file": "18_TEST_STRATEGY_ACCEPTANCE.md",
+      "sha256": "3b821edba1872edc8ee4755c361abf051092d9599f6207dfc019a9a62e7faefc",
+      "bytes": 62470,
+      "lines": 604
+    },
+    {
+      "file": "19_RETENTION_POLICY.md",
+      "sha256": "ac7e60bb2dc676353c0d1be8cc0153c24b615e0c6973a55521ac310475af5215",
+      "bytes": 58319,
+      "lines": 507
+    },
+    {
+      "file": "20_PRODUCTION_OPERATIONS.md",
+      "sha256": "7c97c640521f61162e6737719789e4549746b32dc7bb3e77d082afb2bb79900d",
+      "bytes": 82264,
+      "lines": 730
+    },
+    {
+      "file": "21_UI_DESIGN_SYSTEM_FINAL.md",
+      "sha256": "e431cb6e08969e691a3f0580cdb985b5950db83dc565fcc0e485caf21a20a36d",
+      "bytes": 26613,
+      "lines": 567
+    }
+  ]
+}

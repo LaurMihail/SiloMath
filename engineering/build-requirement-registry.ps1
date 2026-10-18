@@ -58,7 +58,7 @@ $patterns = @(
 
     # Core and final decisions.
     '(?<![A-Z0-9-])D(?:0[1-9]|[12][0-9]|3[0-6])\b',
-    '\bFD-(?:0[1-9]|[1-4][0-9]|5[0-7])\b',
+    '\bFD-(?:0[1-9]|[1-6][0-9]|7[01])\b',
 
     # Business rules.
     '\bBR-[A-Z0-9]+-\d{3}\b',
@@ -125,22 +125,28 @@ $forbiddenRequirementPatterns = @(
     '^SYNC-T\d{2}$'
 )
 
-function Get-DocxText {
+function Get-BaselineText {
     param(
         [Parameter(Mandatory = $true)]
         [string] $Path
     )
 
-    Add-Type -AssemblyName System.IO.Compression.FileSystem
+    $extension = [System.IO.Path]::GetExtension($Path).ToLowerInvariant()
 
+    if ($extension -eq ".md" -or $extension -eq ".txt") {
+        return Get-Content -Path $Path -Raw -Encoding UTF8
+    }
+
+    if ($extension -ne ".docx") {
+        throw "Unsupported baseline document format: $extension ($Path)"
+    }
+
+    Add-Type -AssemblyName System.IO.Compression.FileSystem
     $archive = [System.IO.Compression.ZipFile]::OpenRead($Path)
 
     try {
-
         $entry = $archive.Entries |
-            Where-Object {
-                $_.FullName -eq "word/document.xml"
-            } |
+            Where-Object { $_.FullName -eq "word/document.xml" } |
             Select-Object -First 1
 
         if ($null -eq $entry) {
@@ -149,31 +155,14 @@ function Get-DocxText {
 
         $stream = $entry.Open()
         $reader = New-Object System.IO.StreamReader($stream)
-
-        try {
-            $xmlText = $reader.ReadToEnd()
-        }
-        finally {
-            $reader.Dispose()
-            $stream.Dispose()
-        }
+        try { $xmlText = $reader.ReadToEnd() }
+        finally { $reader.Dispose(); $stream.Dispose() }
 
         [xml] $xml = $xmlText
-
-        $nodes = $xml.SelectNodes(
-            "//*[local-name()='t']"
-        )
-
-        return (
-            $nodes |
-            ForEach-Object {
-                $_.'#text'
-            }
-        ) -join " "
+        $nodes = $xml.SelectNodes("//*[local-name()='t']")
+        return ($nodes | ForEach-Object { $_.'#text' }) -join " "
     }
-    finally {
-        $archive.Dispose()
-    }
+    finally { $archive.Dispose() }
 }
 
 $records = @()
@@ -190,7 +179,7 @@ foreach ($document in $baseline.documents) {
 
     Write-Host "Scanning $($document.id) $($document.name)..."
 
-    $text = Get-DocxText -Path $docPath
+    $text = Get-BaselineText -Path $docPath
 
     $foundIds = New-Object `
         System.Collections.Generic.HashSet[string]
@@ -345,25 +334,25 @@ $registry = [ordered]@{
     normalization = [ordered]@{
 
         coreDecisionRange = "D01-D36"
-        finalDecisionRange = "FD-01-FD-57"
+        finalDecisionRange = "FD-01-FD-71"
 
-        architectureDecisionRange = "ADR-001-ADR-017"
+        architectureDecisionRange = "ADR-001-ADR-023"
         architectureRequirementRange = "AR-NFR-01-AR-NFR-12"
-        architectureAcceptanceRange = "AR-AC-01-AR-AC-22"
+        architectureAcceptanceRange = "AR-AC-01-AR-AC-27"
 
-        moduleArchitectureAcceptanceRange = "MA-01-MA-22"
+        moduleArchitectureAcceptanceRange = "MA-01-MA-24"
 
-        dataModelDecisionRange = "DM-D01-DM-D60"
-        dataModelAcceptanceRange = "DM-01-DM-30"
+        dataModelDecisionRange = "DM-D01-DM-D64"
+        dataModelAcceptanceRange = "DM-01-DM-32"
 
-        securityDecisionCanonicalForm = "SEC-D001-SEC-D144"
-        testDecisionCanonicalForm = "TA-D001-TA-D218"
-        retentionDecisionCanonicalForm = "RT-D001-RT-D198"
-        productionDecisionCanonicalForm = "PO-D001-PO-D285"
+        securityDecisionCanonicalForm = "SEC-D001-SEC-D149"
+        testDecisionCanonicalForm = "TA-D001-TA-D232"
+        retentionDecisionCanonicalForm = "RT-D001-RT-D200"
+        productionDecisionCanonicalForm = "PO-D001-PO-D293"
 
         rangeHeadingRule = (
-            "SEC-D01-SEC-D144, TA-D01-TA-D218, " +
-            "RT-D01-RT-D198 and PO-D01-PO-D285 are range notation only; " +
+            "SEC-D01-SEC-D149, TA-D01-TA-D232, " +
+            "RT-D01-RT-D200 and PO-D01-PO-D293 are range notation only; " +
             "concrete registry rows use canonical three-digit IDs."
         )
 
