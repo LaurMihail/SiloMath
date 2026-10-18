@@ -81,7 +81,7 @@ value class GeometryProfileVersionId(val value: String) {
 @JvmInline
 @Serializable
 value class CommodityId(val value: String) {
-    init { require(value.isNotBlank()) { "CommodityId must not be blank" } }
+    init { requireCanonicalUuid(value) }
     override fun toString(): String = value
 }
 

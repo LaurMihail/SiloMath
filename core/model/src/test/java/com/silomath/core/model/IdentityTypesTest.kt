@@ -40,10 +40,10 @@ class IdentityTypesTest {
     }
 
     @Test
-    fun commodityIdAcceptsStablePlatformCode() {
-        assertEquals("WHEAT", CommodityId("WHEAT").value)
+    fun commodityIdRequiresCanonicalStableUuid() {
+        assertEquals(canonicalUuid, CommodityId(canonicalUuid).value)
         assertThrows(IllegalArgumentException::class.java) {
-            CommodityId("   ")
+            CommodityId("WHEAT")
         }
     }
 
