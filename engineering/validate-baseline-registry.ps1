@@ -26,6 +26,11 @@ if ($registry.status -ne "APPROVED_FROZEN") {
     )
 }
 
+
+if ($registry.refreezeDate -ne "2026-10-17") {
+    $errors.Add("refreezeDate must be 2026-10-17.")
+}
+
 if ($registry.documentCount -ne 21) {
     $errors.Add(
         "documentCount must be exactly 21."
@@ -106,6 +111,17 @@ foreach ($document in $registry.documents) {
             $errors.Add(
                 "Document file not found: $($document.file)"
             )
+        }
+        else {
+            if ([string]::IsNullOrWhiteSpace($document.sha256)) {
+                $errors.Add("Document $($document.id) has no SHA-256.")
+            }
+            else {
+                $actualHash = (Get-FileHash -Path $documentPath -Algorithm SHA256).Hash.ToLowerInvariant()
+                if ($actualHash -ne ([string]$document.sha256).ToLowerInvariant()) {
+                    $errors.Add("Document hash mismatch: $($document.file)")
+                }
+            }
         }
     }
 }

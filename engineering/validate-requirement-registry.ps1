@@ -130,7 +130,7 @@ Test-ExactRange `
     -Name "Final decision" `
     -Pattern '^FD-\d{2}$' `
     -Start 1 `
-    -End 57 `
+    -End 71 `
     -Formatter {
         param($n)
         "FD-{0:D2}" -f $n
@@ -140,7 +140,7 @@ Test-ExactRange `
     -Name "Architecture decision" `
     -Pattern '^ADR-\d{3}$' `
     -Start 1 `
-    -End 17 `
+    -End 23 `
     -Formatter {
         param($n)
         "ADR-{0:D3}" -f $n
@@ -160,7 +160,7 @@ Test-ExactRange `
     -Name "Architecture acceptance criterion" `
     -Pattern '^AR-AC-\d{2}$' `
     -Start 1 `
-    -End 22 `
+    -End 27 `
     -Formatter {
         param($n)
         "AR-AC-{0:D2}" -f $n
@@ -170,7 +170,7 @@ Test-ExactRange `
     -Name "Module architecture acceptance criterion" `
     -Pattern '^MA-\d{2}$' `
     -Start 1 `
-    -End 22 `
+    -End 24 `
     -Formatter {
         param($n)
         "MA-{0:D2}" -f $n
@@ -180,7 +180,7 @@ Test-ExactRange `
     -Name "Data-model decision" `
     -Pattern '^DM-D\d{2}$' `
     -Start 1 `
-    -End 60 `
+    -End 64 `
     -Formatter {
         param($n)
         "DM-D{0:D2}" -f $n
@@ -190,7 +190,7 @@ Test-ExactRange `
     -Name "Data-model acceptance criterion" `
     -Pattern '^DM-\d{2}$' `
     -Start 1 `
-    -End 30 `
+    -End 32 `
     -Formatter {
         param($n)
         "DM-{0:D2}" -f $n
@@ -200,7 +200,7 @@ Test-ExactRange `
     -Name "Database decision" `
     -Pattern '^DB-D\d{2}$' `
     -Start 1 `
-    -End 64 `
+    -End 68 `
     -Formatter {
         param($n)
         "DB-D{0:D2}" -f $n
@@ -210,7 +210,7 @@ Test-ExactRange `
     -Name "Database acceptance gate" `
     -Pattern '^DB-AC\d{2}$' `
     -Start 1 `
-    -End 16 `
+    -End 18 `
     -Formatter {
         param($n)
         "DB-AC{0:D2}" -f $n
@@ -230,7 +230,7 @@ Test-ExactRange `
     -Name "Offline/sync decision" `
     -Pattern '^OS-D\d{2}$' `
     -Start 1 `
-    -End 38 `
+    -End 41 `
     -Formatter {
         param($n)
         "OS-D{0:D2}" -f $n
@@ -240,7 +240,7 @@ Test-ExactRange `
     -Name "Sync acceptance gate" `
     -Pattern '^SYNC-AC\d{2}$' `
     -Start 1 `
-    -End 20 `
+    -End 22 `
     -Formatter {
         param($n)
         "SYNC-AC{0:D2}" -f $n
@@ -336,7 +336,7 @@ Test-ExactRange `
     -Name "Security decision" `
     -Pattern '^SEC-D\d{3}$' `
     -Start 1 `
-    -End 144 `
+    -End 149 `
     -Formatter {
         param($n)
         "SEC-D{0:D3}" -f $n
@@ -356,7 +356,7 @@ Test-ExactRange `
     -Name "Test-strategy decision" `
     -Pattern '^TA-D\d{3}$' `
     -Start 1 `
-    -End 218 `
+    -End 232 `
     -Formatter {
         param($n)
         "TA-D{0:D3}" -f $n
@@ -376,7 +376,7 @@ Test-ExactRange `
     -Name "Retention decision" `
     -Pattern '^RT-D\d{3}$' `
     -Start 1 `
-    -End 198 `
+    -End 200 `
     -Formatter {
         param($n)
         "RT-D{0:D3}" -f $n
@@ -386,7 +386,7 @@ Test-ExactRange `
     -Name "Production Operations decision" `
     -Pattern '^PO-D\d{3}$' `
     -Start 1 `
-    -End 285 `
+    -End 293 `
     -Formatter {
         param($n)
         "PO-D{0:D3}" -f $n
@@ -675,12 +675,12 @@ Write-Host "Unique source IDs           : $($uniqueIds.Count)"
 Write-Host "Documents with source IDs   : $($coveredDocumentIds.Count)/21"
 Write-Host "Documents without namespace : 01, 21"
 Write-Host ""
-Write-Host "ADR-001..ADR-017            : PASS"
+Write-Host "ADR-001..ADR-023            : PASS"
 Write-Host "AR-NFR-01..AR-NFR-12        : PASS"
-Write-Host "AR-AC-01..AR-AC-22          : PASS"
-Write-Host "MA-01..MA-22                : PASS"
-Write-Host "DM-D01..DM-D60              : PASS"
-Write-Host "DM-01..DM-30                : PASS"
+Write-Host "AR-AC-01..AR-AC-27          : PASS"
+Write-Host "MA-01..MA-24                : PASS"
+Write-Host "DM-D01..DM-D64              : PASS"
+Write-Host "DM-01..DM-32                : PASS"
 Write-Host "DB-AC01..DB-AC16            : PASS"
 Write-Host "SYNC-AC01..SYNC-AC20        : PASS"
 Write-Host "COM-AC01..COM-AC20          : PASS"
