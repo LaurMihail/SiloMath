@@ -256,6 +256,39 @@ begin
             'ASSERTION FAILED: canonical Campaign was linked to a fabricated snapshot';
     end if;
 
+    --------------------------------------------------------------------
+    -- CANONICAL FOUNDATION TABLE INVENTORY
+    --------------------------------------------------------------------
+
+    if to_regclass('silomath.users') is null then
+        raise exception
+            'ASSERTION FAILED: canonical foundation table silomath.users does not exist';
+    end if;
+
+    if to_regclass('silomath.organizations') is null then
+        raise exception
+            'ASSERTION FAILED: canonical foundation table silomath.organizations does not exist';
+    end if;
+
+    if to_regclass('silomath.organization_memberships') is null then
+        raise exception
+            'ASSERTION FAILED: canonical foundation table silomath.organization_memberships does not exist';
+    end if;
+
+    if to_regclass('silomath.device_installations') is null then
+        raise exception
+            'ASSERTION FAILED: canonical foundation table silomath.device_installations does not exist';
+    end if;
+
+    if to_regclass('silomath.locations') is null then
+        raise exception
+            'ASSERTION FAILED: canonical foundation table silomath.locations does not exist';
+    end if;
+
+    if to_regclass('silomath.clients') is null then
+        raise exception
+            'ASSERTION FAILED: canonical foundation table silomath.clients does not exist';
+    end if;
     raise notice
         'V6 MIGRATION ASSERTIONS PASSED: campaign_id=%, legacy_snapshot_id=%',
         v_campaign_id,
