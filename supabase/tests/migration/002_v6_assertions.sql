@@ -320,6 +320,15 @@ begin
         raise exception
             'ASSERTION FAILED: canonical table silomath.commodity_versions does not exist';
     end if;
+    if to_regclass('silomath.campaign_snapshot_scope_items') is null then
+        raise exception
+            'ASSERTION FAILED: canonical table silomath.campaign_snapshot_scope_items does not exist';
+    end if;
+
+    if to_regclass('silomath.campaign_snapshot_team_items') is null then
+        raise exception
+            'ASSERTION FAILED: canonical table silomath.campaign_snapshot_team_items does not exist';
+    end if;
     raise notice
         'V6 MIGRATION ASSERTIONS PASSED: campaign_id=%, legacy_snapshot_id=%',
         v_campaign_id,
