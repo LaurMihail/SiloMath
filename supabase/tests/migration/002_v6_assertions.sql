@@ -381,6 +381,10 @@ begin
         raise exception
             'ASSERTION FAILED: canonical table silomath.audit_events does not exist';
     end if;
+    if to_regclass('silomath.notifications') is null then
+        raise exception
+            'ASSERTION FAILED: canonical table silomath.notifications does not exist';
+    end if;
     raise notice
         'V6 MIGRATION ASSERTIONS PASSED: campaign_id=%, legacy_snapshot_id=%',
         v_campaign_id,
