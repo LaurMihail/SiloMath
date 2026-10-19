@@ -329,6 +329,10 @@ begin
         raise exception
             'ASSERTION FAILED: canonical table silomath.campaign_snapshot_team_items does not exist';
     end if;
+    if to_regclass('silomath.offline_working_set_manifests') is null then
+        raise exception
+            'ASSERTION FAILED: canonical table silomath.offline_working_set_manifests does not exist';
+    end if;
     raise notice
         'V6 MIGRATION ASSERTIONS PASSED: campaign_id=%, legacy_snapshot_id=%',
         v_campaign_id,
