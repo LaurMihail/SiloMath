@@ -350,6 +350,20 @@ begin
         raise exception
             'ASSERTION FAILED: canonical table silomath.calculation_results does not exist';
     end if;
+    if to_regclass('silomath.issues') is null then
+        raise exception
+            'ASSERTION FAILED: canonical table silomath.issues does not exist';
+    end if;
+
+    if to_regclass('silomath.issue_resolutions') is null then
+        raise exception
+            'ASSERTION FAILED: canonical table silomath.issue_resolutions does not exist';
+    end if;
+
+    if to_regclass('silomath.issue_status_events') is null then
+        raise exception
+            'ASSERTION FAILED: canonical table silomath.issue_status_events does not exist';
+    end if;
     raise notice
         'V6 MIGRATION ASSERTIONS PASSED: campaign_id=%, legacy_snapshot_id=%',
         v_campaign_id,
