@@ -307,6 +307,10 @@ begin
         raise exception
             'ASSERTION FAILED: canonical foundation table silomath.storage_spaces does not exist';
     end if;
+    if to_regclass('silomath.geometry_profile_versions') is null then
+        raise exception
+            'ASSERTION FAILED: canonical table silomath.geometry_profile_versions does not exist';
+    end if;
     raise notice
         'V6 MIGRATION ASSERTIONS PASSED: campaign_id=%, legacy_snapshot_id=%',
         v_campaign_id,
