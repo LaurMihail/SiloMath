@@ -17,9 +17,24 @@
     {
       "id": "CR-DB-CAMPAIGN-SNAPSHOT-COMMODITY-001",
       "title": "Define canonical physical mapping for CampaignSnapshot commodity compatibility",
-      "status": "PROPOSED",
+      "status": "APPROVED",
       "changesFrozenBaseline": true,
-      "file": "engineering/baseline-change/CR-DB-CAMPAIGN-SNAPSHOT-COMMODITY-001.md"
+      "file": "engineering/baseline-change/CR-DB-CAMPAIGN-SNAPSHOT-COMMODITY-001.md",
+      "decisionDate": "2026-10-20",
+      "approvedBy": "Product Owner",
+      "baselineRefs": [
+        "01_PRODUCT_BASELINE",
+        "02_DECISION_REGISTER",
+        "09_DATA_MODEL",
+        "10_DATABASE_SCHEMA",
+        "11_API_SPECIFICATION",
+        "12_OFFLINE_SYNC_SPECIFICATION",
+        "14_COMMODITY_SPECIFICATION",
+        "18_TEST_STRATEGY_ACCEPTANCE"
+      ],
+      "approvedDelta": "Approve explicit immutable CampaignSnapshot commodity compatibility child collection persisted as campaign_snapshot_commodity_items with snapshot_commodity_item_id, campaign_snapshot_id, commodity_id, and commodity_version_id. No additional product behavior is approved.",
+      "rvmImpact": "Update CampaignSnapshot and Commodity historical-integrity verification coverage to reference the canonical commodity compatibility child mapping.",
+      "testImpact": "Add migration and persistence verification for campaign_snapshot_commodity_items, canonical column types, historical immutability, and offline/package mapping where applicable."
     }
   ]
 }
