@@ -405,6 +405,85 @@ begin
         raise exception
             'ASSERTION FAILED: canonical table silomath.sync_conflicts does not exist';
     end if;
+    --------------------------------------------------------------------
+    -- IMP-DB-001 Slice 21: CampaignSnapshot frozen-context columns
+    --------------------------------------------------------------------
+
+    if exists (
+        select required.column_name
+        from (
+            values
+                ('organization_name'),
+                ('organization_code'),
+                ('snapshot_schema_version'),
+                ('calculation_schema_versions')
+        ) as required(column_name)
+        where not exists (
+            select 1
+            from information_schema.columns c
+            where c.table_schema = 'silomath'
+              and c.table_name = 'campaign_snapshots'
+              and c.column_name = required.column_name
+        )
+    ) then
+        raise exception
+            'ASSERTION FAILED: campaign_snapshots frozen-context reconciliation columns are incomplete';
+    end if;
+
+    if exists (
+        select required.column_name
+        from (
+            values
+                ('location_id'),
+                ('location_code'),
+                ('location_name'),
+                ('storage_unit_id'),
+                ('storage_unit_code'),
+                ('storage_unit_name'),
+                ('storage_space_code'),
+                ('geometry_family_id'),
+                ('geometry_family_code'),
+                ('geometry_family_name'),
+                ('geometry_profile_code'),
+                ('geometry_profile_name'),
+                ('geometry_formula_version'),
+                ('geometry_dimensions'),
+                ('measurement_reference_height_m'),
+                ('maximum_fill_height_m'),
+                ('max_capacity_m3')
+        ) as required(column_name)
+        where not exists (
+            select 1
+            from information_schema.columns c
+            where c.table_schema = 'silomath'
+              and c.table_name = 'campaign_snapshot_scope_items'
+              and c.column_name = required.column_name
+        )
+    ) then
+        raise exception
+            'ASSERTION FAILED: campaign_snapshot_scope_items frozen-context columns are incomplete';
+    end if;
+
+    if exists (
+        select required.column_name
+        from (
+            values
+                ('organization_membership_id'),
+                ('role_at_assignment'),
+                ('user_full_name'),
+                ('user_email')
+        ) as required(column_name)
+        where not exists (
+            select 1
+            from information_schema.columns c
+            where c.table_schema = 'silomath'
+              and c.table_name = 'campaign_snapshot_team_items'
+              and c.column_name = required.column_name
+        )
+    ) then
+        raise exception
+            'ASSERTION FAILED: campaign_snapshot_team_items frozen-context columns are incomplete';
+    end if;
     raise notice
         'V6 MIGRATION ASSERTIONS PASSED: campaign_id=%, legacy_snapshot_id=%',
         v_campaign_id,
