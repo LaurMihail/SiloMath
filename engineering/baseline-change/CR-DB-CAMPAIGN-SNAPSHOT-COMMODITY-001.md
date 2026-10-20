@@ -4,7 +4,7 @@
 
 - CR ID: CR-DB-CAMPAIGN-SNAPSHOT-COMMODITY-001
 - Title: Define canonical physical mapping for CampaignSnapshot commodity compatibility
-- Status: PROPOSED
+- Status: APPROVED
 - Baseline: SILOMATH_V6
 - Changes frozen V6 baseline: YES
 - Owner: SiloMath
@@ -13,9 +13,9 @@
 
 ## Approval
 
-- Decision:
-- Decision date:
-- Approved / rejected by:
+- Decision: APPROVED
+- Decision date: 2026-10-20
+- Approved / rejected by: Product Owner
 - Superseded by:
 
 Only an APPROVED Change Request authorizes the explicitly approved frozen
@@ -307,11 +307,35 @@ mapping is implemented and closure-audited.
 
 ## Approved delta
 
-Complete only when Status is APPROVED.
+APPROVED:
 
-State exactly what has been approved.
+CampaignSnapshot.commodityCompatibilitySnapshot is persisted as an explicit
+immutable N-valued child collection.
 
-Do not expand the approved scope during implementation.
+Canonical PostgreSQL physical entity:
+
+campaign_snapshot_commodity_items
+
+Minimum canonical fields:
+
+- snapshot_commodity_item_id UUID primary key
+- campaign_snapshot_id UUID parent reference
+- commodity_id UUID stable Commodity identity reference
+- commodity_version_id UUID immutable CommodityVersion reference
+
+The collection represents launch-time Commodity compatibility context only.
+
+The representation must not be an opaque JSON business object.
+
+The approved delta does not change Commodity governance, Commodity selection,
+Stocktaking semantics, Campaign lifecycle, calculation behavior,
+authorization, offline authority, reporting semantics or Final Snapshot
+semantics.
+
+Detailed FK, uniqueness, CHECK, index and immutability enforcement remain
+governed by the existing database-hardening tasks and frozen database rules.
+
+No additional product behavior is approved by this Change Request.
 
 ## Implementation verification
 
