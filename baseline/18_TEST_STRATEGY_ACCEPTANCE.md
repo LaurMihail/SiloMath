@@ -1,7 +1,7 @@
 # SiloMath V6 - 18_TEST_STRATEGY_ACCEPTANCE
 
 **Status:** APPROVED / FROZEN V6
-**Baseline revision:** 2026-10-17 — Android/UX implementation-closure refreeze  
+**Baseline revision:** 2026-10-20 — CR-DB-CAMPAIGN-SNAPSHOT-COMMODITY-001 baseline-change refreeze
 
 ## 1. Purpose and authority
 
@@ -70,6 +70,7 @@ This document is the normative V6 verification and acceptance contract. It conve
 - Campaign Code allocation has concurrency testing for atomic uniqueness.
 - Tenant-scope constraints have cross-Organization negative tests.
 - Immutable versions/snapshots/events have mutation, repoint and delete rejection tests.
+- CampaignSnapshot Commodity compatibility persistence verifies canonical `campaign_snapshot_commodity_items`, Commodity/CommodityVersion identity preservation, launch-time immutability and non-reinterpretation from later Commodity catalog changes.
 
 ## 7. Offline and sync verification
 - Doc12 mandatory tests are release-required regression tests.
@@ -412,7 +413,7 @@ The suite catalog defines mandatory verification domains without inventing place
 | **TA-D049** | Offline and sync | Airplane-mode regression is mandatory for the canonical assigned-Campaign stocktaking flow. |
 | **TA-D050** | Offline and sync | Restart with IN_FLIGHT and no ACK retries the same operation identity. |
 | **TA-D051** | Campaign, Stocktaking and Close | Canonical Campaign E2E is Create -> Scope/Team -> Save & Launch -> Active -> field work -> Review -> Close -> Completed -> Final Snapshot/report. |
-| **TA-D052** | Campaign, Stocktaking and Close | Save & Launch tests guards, atomic CampaignSnapshot creation, frozen Scope/version context and ACTIVE state. |
+| **TA-D052** | Campaign, Stocktaking and Close | Save & Launch tests guards, atomic CampaignSnapshot creation, frozen Scope/version context, frozen Commodity compatibility identity/version child collection and ACTIVE state. |
 | **TA-D053** | Campaign, Stocktaking and Close | Failed Save & Launch cannot create a partially launched Campaign or incomplete snapshot. |
 | **TA-D054** | Campaign, Stocktaking and Close | Campaign Scope is immutable after launch and negative mutation tests are required. |
 | **TA-D055** | Campaign, Stocktaking and Close | Team Assignment remains Admin-only editable while Active; launch team snapshot is never rewritten. |
@@ -601,4 +602,4 @@ The suite catalog defines mandatory verification domains without inventing place
 
 ## 27. Freeze statement
 
-This document is the canonical APPROVED / FROZEN SiloMath V6 Test Strategy & Acceptance contract after the 2026-10-17 implementation-closure refreeze, defined by TA-D01-TA-D232, including layered risk-based testing, critical-rule traceability, mandatory Calculation/Sync/Security regression, adaptive/accessibility verification, defect severity, UAT, exact release gates and the policy of no arbitrary global code-coverage percentage as a release gate.
+This document is the canonical APPROVED / FROZEN SiloMath V6 Test Strategy & Acceptance contract after the 2026-10-20 CR-DB-CAMPAIGN-SNAPSHOT-COMMODITY-001 baseline-change refreeze, defined by TA-D01-TA-D232, including layered risk-based testing, critical-rule traceability, mandatory Calculation/Sync/Security regression, adaptive/accessibility verification, defect severity, UAT, exact release gates and the policy of no arbitrary global code-coverage percentage as a release gate.

@@ -1,7 +1,7 @@
 # SiloMath V6 - 17_SECURITY_AUDIT_PRIVACY
 
 **Status:** APPROVED / FROZEN V6
-**Baseline revision:** 2026-10-17 — Android/UX implementation-closure refreeze  
+**Baseline revision:** 2026-10-20 — CR-DB-CAMPAIGN-SNAPSHOT-COMMODITY-001 baseline-change refreeze
 
 ## 1. Purpose and normative scope
 
@@ -545,4 +545,4 @@ It defines trust boundaries, authentication/session controls, transport and loca
 
 ## 27. Freeze statement
 
-This document is the canonical APPROVED / FROZEN SiloMath V6 security, audit and privacy contract after the 2026-10-17 implementation-closure refreeze, defined by SEC-D01-SEC-D149, including authorization boundaries, 15-minute access tokens, 30-day refresh/session maximum, Production Room and local PHOTO encryption, privacy minimization, append-only audit rules, safe telemetry, throttling/reset controls, encrypted infrastructure storage/backups and fail-closed security behavior.
+This document is the canonical APPROVED / FROZEN SiloMath V6 security, audit and privacy contract after the 2026-10-20 CR-DB-CAMPAIGN-SNAPSHOT-COMMODITY-001 baseline-change refreeze, defined by SEC-D01-SEC-D149, including authorization boundaries, 15-minute access tokens, 30-day refresh/session maximum, Production Room and local PHOTO encryption, privacy minimization, append-only audit rules, safe telemetry, throttling/reset controls, encrypted infrastructure storage/backups and fail-closed security behavior.

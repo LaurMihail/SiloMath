@@ -130,7 +130,7 @@ Test-ExactRange `
     -Name "Final decision" `
     -Pattern '^FD-\d{2}$' `
     -Start 1 `
-    -End 71 `
+    -End 72 `
     -Formatter {
         param($n)
         "FD-{0:D2}" -f $n

@@ -1,0 +1,710 @@
+{
+    "passed":  114,
+    "failed":  0,
+    "errors":  [
+
+               ],
+    "warnings":  [
+
+                 ],
+    "checks":  [
+                   [
+                       "exact_21_document_set",
+                       true,
+                       "found=01_PRODUCT_BASELINE.md,02_DECISION_REGISTER.md,03_BUSINESS_RULES.md,04_USER_ROLES_PERMISSIONS.md,05_WORKFLOWS_STATE_MACHINES.md,06_UI_SCREEN_SPECIFICATION_AND_NAVIGATION.md,07_ARCHITECTURE.md,08_MODULE_ARCHITECTURE.md,09_DATA_MODEL.md,10_DATABASE_SCHEMA.md,11_API_SPECIFICATION.md,12_OFFLINE_SYNC_SPECIFICATION.md,13_CALCULATION_ENGINE_SPECIFICATION.md,14_COMMODITY_SPECIFICATION.md,15_EVIDENCE_STORAGE_SPECIFICATION.md,16_REPORTING_SPECIFICATION.md,17_SECURITY_AUDIT_PRIVACY.md,18_TEST_STRATEGY_ACCEPTANCE.md,19_RETENTION_POLICY.md,20_PRODUCTION_OPERATIONS.md,21_UI_DESIGN_SYSTEM_FINAL.md"
+                   ],
+                   [
+                       "01_PRODUCT_BASELINE.md:status_frozen",
+                       true,
+                       ""
+                   ],
+                   [
+                       "01_PRODUCT_BASELINE.md:revision_marker",
+                       true,
+                       ""
+                   ],
+                   [
+                       "01_PRODUCT_BASELINE.md:utf8_no_bom",
+                       true,
+                       ""
+                   ],
+                   [
+                       "01_PRODUCT_BASELINE.md:lf_only",
+                       true,
+                       ""
+                   ],
+                   [
+                       "02_DECISION_REGISTER.md:status_frozen",
+                       true,
+                       ""
+                   ],
+                   [
+                       "02_DECISION_REGISTER.md:revision_marker",
+                       true,
+                       ""
+                   ],
+                   [
+                       "02_DECISION_REGISTER.md:utf8_no_bom",
+                       true,
+                       ""
+                   ],
+                   [
+                       "02_DECISION_REGISTER.md:lf_only",
+                       true,
+                       ""
+                   ],
+                   [
+                       "03_BUSINESS_RULES.md:status_frozen",
+                       true,
+                       ""
+                   ],
+                   [
+                       "03_BUSINESS_RULES.md:revision_marker",
+                       true,
+                       ""
+                   ],
+                   [
+                       "03_BUSINESS_RULES.md:utf8_no_bom",
+                       true,
+                       ""
+                   ],
+                   [
+                       "03_BUSINESS_RULES.md:lf_only",
+                       true,
+                       ""
+                   ],
+                   [
+                       "04_USER_ROLES_PERMISSIONS.md:status_frozen",
+                       true,
+                       ""
+                   ],
+                   [
+                       "04_USER_ROLES_PERMISSIONS.md:revision_marker",
+                       true,
+                       ""
+                   ],
+                   [
+                       "04_USER_ROLES_PERMISSIONS.md:utf8_no_bom",
+                       true,
+                       ""
+                   ],
+                   [
+                       "04_USER_ROLES_PERMISSIONS.md:lf_only",
+                       true,
+                       ""
+                   ],
+                   [
+                       "05_WORKFLOWS_STATE_MACHINES.md:status_frozen",
+                       true,
+                       ""
+                   ],
+                   [
+                       "05_WORKFLOWS_STATE_MACHINES.md:revision_marker",
+                       true,
+                       ""
+                   ],
+                   [
+                       "05_WORKFLOWS_STATE_MACHINES.md:utf8_no_bom",
+                       true,
+                       ""
+                   ],
+                   [
+                       "05_WORKFLOWS_STATE_MACHINES.md:lf_only",
+                       true,
+                       ""
+                   ],
+                   [
+                       "06_UI_SCREEN_SPECIFICATION_AND_NAVIGATION.md:status_frozen",
+                       true,
+                       ""
+                   ],
+                   [
+                       "06_UI_SCREEN_SPECIFICATION_AND_NAVIGATION.md:revision_marker",
+                       true,
+                       ""
+                   ],
+                   [
+                       "06_UI_SCREEN_SPECIFICATION_AND_NAVIGATION.md:utf8_no_bom",
+                       true,
+                       ""
+                   ],
+                   [
+                       "06_UI_SCREEN_SPECIFICATION_AND_NAVIGATION.md:lf_only",
+                       true,
+                       ""
+                   ],
+                   [
+                       "07_ARCHITECTURE.md:status_frozen",
+                       true,
+                       ""
+                   ],
+                   [
+                       "07_ARCHITECTURE.md:revision_marker",
+                       true,
+                       ""
+                   ],
+                   [
+                       "07_ARCHITECTURE.md:utf8_no_bom",
+                       true,
+                       ""
+                   ],
+                   [
+                       "07_ARCHITECTURE.md:lf_only",
+                       true,
+                       ""
+                   ],
+                   [
+                       "08_MODULE_ARCHITECTURE.md:status_frozen",
+                       true,
+                       ""
+                   ],
+                   [
+                       "08_MODULE_ARCHITECTURE.md:revision_marker",
+                       true,
+                       ""
+                   ],
+                   [
+                       "08_MODULE_ARCHITECTURE.md:utf8_no_bom",
+                       true,
+                       ""
+                   ],
+                   [
+                       "08_MODULE_ARCHITECTURE.md:lf_only",
+                       true,
+                       ""
+                   ],
+                   [
+                       "09_DATA_MODEL.md:status_frozen",
+                       true,
+                       ""
+                   ],
+                   [
+                       "09_DATA_MODEL.md:revision_marker",
+                       true,
+                       ""
+                   ],
+                   [
+                       "09_DATA_MODEL.md:utf8_no_bom",
+                       true,
+                       ""
+                   ],
+                   [
+                       "09_DATA_MODEL.md:lf_only",
+                       true,
+                       ""
+                   ],
+                   [
+                       "10_DATABASE_SCHEMA.md:status_frozen",
+                       true,
+                       ""
+                   ],
+                   [
+                       "10_DATABASE_SCHEMA.md:revision_marker",
+                       true,
+                       ""
+                   ],
+                   [
+                       "10_DATABASE_SCHEMA.md:utf8_no_bom",
+                       true,
+                       ""
+                   ],
+                   [
+                       "10_DATABASE_SCHEMA.md:lf_only",
+                       true,
+                       ""
+                   ],
+                   [
+                       "11_API_SPECIFICATION.md:status_frozen",
+                       true,
+                       ""
+                   ],
+                   [
+                       "11_API_SPECIFICATION.md:revision_marker",
+                       true,
+                       ""
+                   ],
+                   [
+                       "11_API_SPECIFICATION.md:utf8_no_bom",
+                       true,
+                       ""
+                   ],
+                   [
+                       "11_API_SPECIFICATION.md:lf_only",
+                       true,
+                       ""
+                   ],
+                   [
+                       "12_OFFLINE_SYNC_SPECIFICATION.md:status_frozen",
+                       true,
+                       ""
+                   ],
+                   [
+                       "12_OFFLINE_SYNC_SPECIFICATION.md:revision_marker",
+                       true,
+                       ""
+                   ],
+                   [
+                       "12_OFFLINE_SYNC_SPECIFICATION.md:utf8_no_bom",
+                       true,
+                       ""
+                   ],
+                   [
+                       "12_OFFLINE_SYNC_SPECIFICATION.md:lf_only",
+                       true,
+                       ""
+                   ],
+                   [
+                       "13_CALCULATION_ENGINE_SPECIFICATION.md:status_frozen",
+                       true,
+                       ""
+                   ],
+                   [
+                       "13_CALCULATION_ENGINE_SPECIFICATION.md:revision_marker",
+                       true,
+                       ""
+                   ],
+                   [
+                       "13_CALCULATION_ENGINE_SPECIFICATION.md:utf8_no_bom",
+                       true,
+                       ""
+                   ],
+                   [
+                       "13_CALCULATION_ENGINE_SPECIFICATION.md:lf_only",
+                       true,
+                       ""
+                   ],
+                   [
+                       "14_COMMODITY_SPECIFICATION.md:status_frozen",
+                       true,
+                       ""
+                   ],
+                   [
+                       "14_COMMODITY_SPECIFICATION.md:revision_marker",
+                       true,
+                       ""
+                   ],
+                   [
+                       "14_COMMODITY_SPECIFICATION.md:utf8_no_bom",
+                       true,
+                       ""
+                   ],
+                   [
+                       "14_COMMODITY_SPECIFICATION.md:lf_only",
+                       true,
+                       ""
+                   ],
+                   [
+                       "15_EVIDENCE_STORAGE_SPECIFICATION.md:status_frozen",
+                       true,
+                       ""
+                   ],
+                   [
+                       "15_EVIDENCE_STORAGE_SPECIFICATION.md:revision_marker",
+                       true,
+                       ""
+                   ],
+                   [
+                       "15_EVIDENCE_STORAGE_SPECIFICATION.md:utf8_no_bom",
+                       true,
+                       ""
+                   ],
+                   [
+                       "15_EVIDENCE_STORAGE_SPECIFICATION.md:lf_only",
+                       true,
+                       ""
+                   ],
+                   [
+                       "16_REPORTING_SPECIFICATION.md:status_frozen",
+                       true,
+                       ""
+                   ],
+                   [
+                       "16_REPORTING_SPECIFICATION.md:revision_marker",
+                       true,
+                       ""
+                   ],
+                   [
+                       "16_REPORTING_SPECIFICATION.md:utf8_no_bom",
+                       true,
+                       ""
+                   ],
+                   [
+                       "16_REPORTING_SPECIFICATION.md:lf_only",
+                       true,
+                       ""
+                   ],
+                   [
+                       "17_SECURITY_AUDIT_PRIVACY.md:status_frozen",
+                       true,
+                       ""
+                   ],
+                   [
+                       "17_SECURITY_AUDIT_PRIVACY.md:revision_marker",
+                       true,
+                       ""
+                   ],
+                   [
+                       "17_SECURITY_AUDIT_PRIVACY.md:utf8_no_bom",
+                       true,
+                       ""
+                   ],
+                   [
+                       "17_SECURITY_AUDIT_PRIVACY.md:lf_only",
+                       true,
+                       ""
+                   ],
+                   [
+                       "18_TEST_STRATEGY_ACCEPTANCE.md:status_frozen",
+                       true,
+                       ""
+                   ],
+                   [
+                       "18_TEST_STRATEGY_ACCEPTANCE.md:revision_marker",
+                       true,
+                       ""
+                   ],
+                   [
+                       "18_TEST_STRATEGY_ACCEPTANCE.md:utf8_no_bom",
+                       true,
+                       ""
+                   ],
+                   [
+                       "18_TEST_STRATEGY_ACCEPTANCE.md:lf_only",
+                       true,
+                       ""
+                   ],
+                   [
+                       "19_RETENTION_POLICY.md:status_frozen",
+                       true,
+                       ""
+                   ],
+                   [
+                       "19_RETENTION_POLICY.md:revision_marker",
+                       true,
+                       ""
+                   ],
+                   [
+                       "19_RETENTION_POLICY.md:utf8_no_bom",
+                       true,
+                       ""
+                   ],
+                   [
+                       "19_RETENTION_POLICY.md:lf_only",
+                       true,
+                       ""
+                   ],
+                   [
+                       "20_PRODUCTION_OPERATIONS.md:status_frozen",
+                       true,
+                       ""
+                   ],
+                   [
+                       "20_PRODUCTION_OPERATIONS.md:revision_marker",
+                       true,
+                       ""
+                   ],
+                   [
+                       "20_PRODUCTION_OPERATIONS.md:utf8_no_bom",
+                       true,
+                       ""
+                   ],
+                   [
+                       "20_PRODUCTION_OPERATIONS.md:lf_only",
+                       true,
+                       ""
+                   ],
+                   [
+                       "21_UI_DESIGN_SYSTEM_FINAL.md:status_frozen",
+                       true,
+                       ""
+                   ],
+                   [
+                       "21_UI_DESIGN_SYSTEM_FINAL.md:revision_marker",
+                       true,
+                       ""
+                   ],
+                   [
+                       "21_UI_DESIGN_SYSTEM_FINAL.md:utf8_no_bom",
+                       true,
+                       ""
+                   ],
+                   [
+                       "21_UI_DESIGN_SYSTEM_FINAL.md:lf_only",
+                       true,
+                       ""
+                   ],
+                   [
+                       "cr_status_approved",
+                       true,
+                       ""
+                   ],
+                   [
+                       "cr_decision_approved",
+                       true,
+                       ""
+                   ],
+                   [
+                       "cr_registered_approved",
+                       true,
+                       "status=APPROVED"
+                   ],
+                   [
+                       "fd72_present",
+                       true,
+                       ""
+                   ],
+                   [
+                       "dm_commodity_mapping_present",
+                       true,
+                       ""
+                   ],
+                   [
+                       "db_table_present",
+                       true,
+                       ""
+                   ],
+                   [
+                       "db43_mapping_present",
+                       true,
+                       ""
+                   ],
+                   [
+                       "test_strategy_mapping_present",
+                       true,
+                       ""
+                   ],
+                   [
+                       "registry_hash:01",
+                       true,
+                       ""
+                   ],
+                   [
+                       "registry_hash:02",
+                       true,
+                       ""
+                   ],
+                   [
+                       "registry_hash:03",
+                       true,
+                       ""
+                   ],
+                   [
+                       "registry_hash:04",
+                       true,
+                       ""
+                   ],
+                   [
+                       "registry_hash:05",
+                       true,
+                       ""
+                   ],
+                   [
+                       "registry_hash:06",
+                       true,
+                       ""
+                   ],
+                   [
+                       "registry_hash:07",
+                       true,
+                       ""
+                   ],
+                   [
+                       "registry_hash:08",
+                       true,
+                       ""
+                   ],
+                   [
+                       "registry_hash:09",
+                       true,
+                       ""
+                   ],
+                   [
+                       "registry_hash:10",
+                       true,
+                       ""
+                   ],
+                   [
+                       "registry_hash:11",
+                       true,
+                       ""
+                   ],
+                   [
+                       "registry_hash:12",
+                       true,
+                       ""
+                   ],
+                   [
+                       "registry_hash:13",
+                       true,
+                       ""
+                   ],
+                   [
+                       "registry_hash:14",
+                       true,
+                       ""
+                   ],
+                   [
+                       "registry_hash:15",
+                       true,
+                       ""
+                   ],
+                   [
+                       "registry_hash:16",
+                       true,
+                       ""
+                   ],
+                   [
+                       "registry_hash:17",
+                       true,
+                       ""
+                   ],
+                   [
+                       "registry_hash:18",
+                       true,
+                       ""
+                   ],
+                   [
+                       "registry_hash:19",
+                       true,
+                       ""
+                   ],
+                   [
+                       "registry_hash:20",
+                       true,
+                       ""
+                   ],
+                   [
+                       "registry_hash:21",
+                       true,
+                       ""
+                   ]
+               ],
+    "manifest":  [
+                     {
+                         "file":  "01_PRODUCT_BASELINE.md",
+                         "sha256":  "68642567481bea5247c828002e32753ab6738265be21b89a472c64fd54ac296c",
+                         "bytes":  32876,
+                         "lines":  860
+                     },
+                     {
+                         "file":  "02_DECISION_REGISTER.md",
+                         "sha256":  "922f7731436ba568271587ff87a8d83f39e074744a223420d9a358ec6331a37c",
+                         "bytes":  32872,
+                         "lines":  232
+                     },
+                     {
+                         "file":  "03_BUSINESS_RULES.md",
+                         "sha256":  "4bb763c4091f20cf9517e16713a7c1957dbaebd17c55c562054095f3edb2d0ec",
+                         "bytes":  31250,
+                         "lines":  229
+                     },
+                     {
+                         "file":  "04_USER_ROLES_PERMISSIONS.md",
+                         "sha256":  "c33f1452f5d2454f039b7f235d5036c909672f257ff84541bd8eb50801d1dadb",
+                         "bytes":  18267,
+                         "lines":  245
+                     },
+                     {
+                         "file":  "05_WORKFLOWS_STATE_MACHINES.md",
+                         "sha256":  "04c0bbc60effee5e082d5f713e07d7568213cbca9992f34c264f70b066881e57",
+                         "bytes":  27176,
+                         "lines":  317
+                     },
+                     {
+                         "file":  "06_UI_SCREEN_SPECIFICATION_AND_NAVIGATION.md",
+                         "sha256":  "0f6cb1e3a44a161ad054b94cdaefde1e1e4840686c760573aaaecbabb43039b2",
+                         "bytes":  143340,
+                         "lines":  1713
+                     },
+                     {
+                         "file":  "07_ARCHITECTURE.md",
+                         "sha256":  "4162f654b1bf78674f25d91fca49d4766fe9540a458e76a83aebb668a4e4b219",
+                         "bytes":  54875,
+                         "lines":  854
+                     },
+                     {
+                         "file":  "08_MODULE_ARCHITECTURE.md",
+                         "sha256":  "424e3e25f4f54d9c463ced7074445b2332668ff2ca5194d74e02338bb05205fe",
+                         "bytes":  40985,
+                         "lines":  659
+                     },
+                     {
+                         "file":  "09_DATA_MODEL.md",
+                         "sha256":  "ef563540d92b75f309ae4cfc87d29b9d6791845b79be2ccba22890df78568d6b",
+                         "bytes":  91016,
+                         "lines":  1177
+                     },
+                     {
+                         "file":  "10_DATABASE_SCHEMA.md",
+                         "sha256":  "666e1d0cc935579b64e38918f52050e3bbbbcf4ffe59bc19195b94b03c6bd7c5",
+                         "bytes":  40598,
+                         "lines":  354
+                     },
+                     {
+                         "file":  "11_API_SPECIFICATION.md",
+                         "sha256":  "70ad04a67d9edc9d6d4b6929d15c3eede402bb857623d236b9c99a2f4bf94df3",
+                         "bytes":  54584,
+                         "lines":  530
+                     },
+                     {
+                         "file":  "12_OFFLINE_SYNC_SPECIFICATION.md",
+                         "sha256":  "2f7ddd8c6c80635dbba57300237cf4a5e65b6013b17fa5033a096eadeb77f49f",
+                         "bytes":  49722,
+                         "lines":  655
+                     },
+                     {
+                         "file":  "13_CALCULATION_ENGINE_SPECIFICATION.md",
+                         "sha256":  "1e3adde81afd4bddcbe26634aef180d0584bdbb4560b46397671eb50e6a65139",
+                         "bytes":  31329,
+                         "lines":  509
+                     },
+                     {
+                         "file":  "14_COMMODITY_SPECIFICATION.md",
+                         "sha256":  "485a5d913248650036d83ffb8b6fd2326c3b181069b807f59de23131e32317db",
+                         "bytes":  28678,
+                         "lines":  410
+                     },
+                     {
+                         "file":  "15_EVIDENCE_STORAGE_SPECIFICATION.md",
+                         "sha256":  "fef2a9c26ec581f44335bf6a7683b78bed89c0296d928f8d50e36e561ac961e2",
+                         "bytes":  29574,
+                         "lines":  431
+                     },
+                     {
+                         "file":  "16_REPORTING_SPECIFICATION.md",
+                         "sha256":  "10bf8eedcaabb310bf557dc34cc82334dfedd9d965f24cc87dbd1811b5f6dc30",
+                         "bytes":  42088,
+                         "lines":  520
+                     },
+                     {
+                         "file":  "17_SECURITY_AUDIT_PRIVACY.md",
+                         "sha256":  "5b3a08bcd816047f97c9e8caad79eb44f7d1b61dcf9cf9d97296e0f85455a61f",
+                         "bytes":  58462,
+                         "lines":  549
+                     },
+                     {
+                         "file":  "18_TEST_STRATEGY_ACCEPTANCE.md",
+                         "sha256":  "e09e682c6c129674becff44c3f4266feeff92dc9a991b06779de793695d1827a",
+                         "bytes":  62834,
+                         "lines":  606
+                     },
+                     {
+                         "file":  "19_RETENTION_POLICY.md",
+                         "sha256":  "11141167589209e198b812c333e5ce267f39ef1dd214a07ae3215a2c1c8f8156",
+                         "bytes":  58368,
+                         "lines":  508
+                     },
+                     {
+                         "file":  "20_PRODUCTION_OPERATIONS.md",
+                         "sha256":  "b60909c640ec17c16d15df82758d43f129f61a579ae76d582ef16dcdd5cc57e1",
+                         "bytes":  82313,
+                         "lines":  731
+                     },
+                     {
+                         "file":  "21_UI_DESIGN_SYSTEM_FINAL.md",
+                         "sha256":  "d32fe16731038ceee1a6b7044a42d0904dfef5352ffb93c318f890683a1a54c9",
+                         "bytes":  26631,
+                         "lines":  568
+                     }
+                 ]
+}

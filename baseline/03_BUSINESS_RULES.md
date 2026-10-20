@@ -3,7 +3,7 @@
 **Document ID:** 03_BUSINESS_RULES  
 **Version:** V6 Final Documentation — Business Rules 1.0  
 **Status:** APPROVED / FROZEN V6
-**Baseline revision:** 2026-10-17 — Android/UX implementation-closure refreeze  
+**Baseline revision:** 2026-10-20 — CR-DB-CAMPAIGN-SNAPSHOT-COMMODITY-001 baseline-change refreeze
 **Product:** SiloMath  
 **Normative role:** Canonical registry of enforceable V6 business rules. Rules in this document are implementation-independent and apply across UI, domain, persistence, API, synchronization, reporting, security, and tests as relevant.
 

@@ -27,8 +27,8 @@ if ($registry.status -ne "APPROVED_FROZEN") {
 }
 
 
-if ($registry.refreezeDate -ne "2026-10-17") {
-    $errors.Add("refreezeDate must be 2026-10-17.")
+if ($registry.refreezeDate -ne "2026-10-20") {
+    $errors.Add("refreezeDate must be 2026-10-20.")
 }
 
 if ($registry.documentCount -ne 21) {

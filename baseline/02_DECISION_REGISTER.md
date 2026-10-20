@@ -5,7 +5,7 @@
 **Document ID:** 02_DECISION_REGISTER  
 **Version:** V6 Final Documentation — Decision Register 1.1  
 **Status:** APPROVED / FROZEN V6
-**Baseline revision:** 2026-10-17 — Android/UX implementation-closure refreeze  
+**Baseline revision:** 2026-10-20 — CR-DB-CAMPAIGN-SNAPSHOT-COMMODITY-001 baseline-change refreeze
 **Product:** SiloMath  
 **Normative role:** Canonical register of approved V6 decisions
 
@@ -140,6 +140,7 @@ All decisions listed below have status APPROVED / FROZEN.
 | FD-69 | Implementation closure | The approved V6 documentation set is implementation-ready. Non-semantic technical choices that preserve Documents 01–21 are implementation decisions and do not require Product/Baseline approval; architecturally material choices may be recorded through IADR. Baseline Change is required only when frozen product behavior or structure is intentionally changed. | Governance / Implementation |
 | FD-70 | User versus Membership transport provenance | API projections that combine User and OrganizationMembership data preserve the canonical metadata/version of each entity separately. User metadata must never be fabricated from Membership metadata. `UserMembershipResponse` is an explicit composition of `UserResponse` and `MembershipResponse`. | API / Identity / Data |
 | FD-71 | Environment endpoint provisioning | Concrete Development/Staging/Production hostnames/base URLs, certificates and provider endpoints are deployment configuration, not Product Baseline values. They are supplied through controlled environment configuration consistent with the frozen `/api/v1` contract and require no Product/Baseline approval when semantics/security boundaries remain unchanged. | Operations / API / Implementation |
+| FD-72 | CampaignSnapshot Commodity compatibility physical mapping | CampaignSnapshot `commodityCompatibilitySnapshot` is persisted as an explicit immutable N-valued child collection through canonical physical table `campaign_snapshot_commodity_items`, containing `snapshot_commodity_item_id`, `campaign_snapshot_id`, `commodity_id` and `commodity_version_id`. It represents launch-time Commodity compatibility context and must not be replaced by opaque JSON or inferred later from mutable current Commodity state. | Campaign Snapshot / Data / Database |
 
 ## 5. Consolidated Decision Effects
 
@@ -163,6 +164,7 @@ All decisions listed below have status APPROVED / FROZEN.
 ### 5.3 Historical integrity
 
 - Campaign Snapshot freezes launch-time campaign context.
+- CampaignSnapshot Commodity compatibility is frozen through the explicit immutable `campaign_snapshot_commodity_items` child collection and is not reconstructed from later mutable Commodity state.
 - Final Inventory Snapshot freezes completed inventory history.
 - Completed historical reports read the Final Inventory Snapshot.
 - Historical calculations are never recalculated from current master data.
