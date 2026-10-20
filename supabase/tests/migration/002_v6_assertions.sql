@@ -397,6 +397,10 @@ begin
         raise exception
             'ASSERTION FAILED: canonical table silomath.sync_operations does not exist';
     end if;
+    if to_regclass('silomath.sync_operation_dependencies') is null then
+        raise exception
+            'ASSERTION FAILED: canonical table silomath.sync_operation_dependencies does not exist';
+    end if;
     raise notice
         'V6 MIGRATION ASSERTIONS PASSED: campaign_id=%, legacy_snapshot_id=%',
         v_campaign_id,
