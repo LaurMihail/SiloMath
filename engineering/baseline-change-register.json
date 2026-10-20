@@ -13,5 +13,13 @@
     "SUPERSEDED"
   ],
   "authoritativeApprovalStatus": "APPROVED",
-  "records": []
+  "records": [
+    {
+      "id": "CR-DB-CAMPAIGN-SNAPSHOT-COMMODITY-001",
+      "title": "Define canonical physical mapping for CampaignSnapshot commodity compatibility",
+      "status": "PROPOSED",
+      "changesFrozenBaseline": true,
+      "file": "engineering/baseline-change/CR-DB-CAMPAIGN-SNAPSHOT-COMMODITY-001.md"
+    }
+  ]
 }
