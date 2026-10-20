@@ -499,6 +499,31 @@ begin
         raise exception
             'ASSERTION FAILED: commodity_versions.definition_metadata jsonb does not exist';
     end if;
+    --------------------------------------------------------------------
+    -- IMP-DB-001 Slice 23: SyncConflict canonical server_version
+    --------------------------------------------------------------------
+
+    if not exists (
+        select 1
+        from information_schema.columns c
+        where c.table_schema = 'silomath'
+          and c.table_name = 'sync_conflicts'
+          and c.column_name = 'server_version'
+          and c.data_type = 'bigint'
+    ) then
+        raise exception
+            'ASSERTION FAILED: sync_conflicts.server_version bigint does not exist';
+    end if;
+
+    if exists (
+        select 1
+        from silomath.sync_conflicts sc
+        where sc.server_entity_version is not null
+          and sc.server_version is distinct from sc.server_entity_version
+    ) then
+        raise exception
+            'ASSERTION FAILED: sync_conflicts.server_version was not reconciled from server_entity_version';
+    end if;
     raise notice
         'V6 MIGRATION ASSERTIONS PASSED: campaign_id=%, legacy_snapshot_id=%',
         v_campaign_id,
