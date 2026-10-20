@@ -3,7 +3,7 @@
 **Document ID:** 05_WORKFLOWS_STATE_MACHINES  
 **Version:** V6 Final Documentation — Workflows & State Machines 1.0  
 **Status:** APPROVED / FROZEN V6
-**Baseline revision:** 2026-10-17 — Android/UX implementation-closure refreeze  
+**Baseline revision:** 2026-10-20 — CR-DB-CAMPAIGN-SNAPSHOT-COMMODITY-001 baseline-change refreeze
 **Product:** SiloMath  
 **Normative role:** Canonical lifecycle, workflow, transition, guard, failure, and terminal-state contract for V6.
 

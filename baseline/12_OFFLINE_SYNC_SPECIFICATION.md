@@ -2,7 +2,7 @@
 
 **Version:** V6 Final Documentation — Offline & Sync Specification 1.0  
 **Status:** APPROVED / FROZEN V6
-**Baseline revision:** 2026-10-17 — Android/UX implementation-closure refreeze  
+**Baseline revision:** 2026-10-20 — CR-DB-CAMPAIGN-SNAPSHOT-COMMODITY-001 baseline-change refreeze
 **Normative role:** Canonical offline-first, synchronization, conflict, package, retry and recovery contract for SiloMath V6.
 
 ## 1. Purpose, authority and scope
@@ -647,7 +647,7 @@ Cross-document consistency status: Document 11 already contains GET `/api/v1/syn
 
 ## 36. Freeze statement
 
-This document is the canonical APPROVED / FROZEN SiloMath V6 Offline & Sync contract after the 2026-10-17 implementation-closure refreeze. Implementation may tune bounded worker concurrency, WorkManager scheduling windows, smaller batch sizes, compression, map-tile technical caching, and transport plumbing without Product/Baseline approval only if it preserves OS-D01–OS-D41, all acceptance gates, durable local-first semantics, authorization, idempotency, ordering, explicit conflicts, package integrity, Evidence identity, Close safety and historical immutability.
+This document is the canonical APPROVED / FROZEN SiloMath V6 Offline & Sync contract after the 2026-10-20 CR-DB-CAMPAIGN-SNAPSHOT-COMMODITY-001 baseline-change refreeze. Implementation may tune bounded worker concurrency, WorkManager scheduling windows, smaller batch sizes, compression, map-tile technical caching, and transport plumbing without Product/Baseline approval only if it preserves OS-D01–OS-D41, all acceptance gates, durable local-first semantics, authorization, idempotency, ordering, explicit conflicts, package integrity, Evidence identity, Close safety and historical immutability.
 
 
 ---

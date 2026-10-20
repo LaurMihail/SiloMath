@@ -3,7 +3,7 @@
 **Physical persistence contract — PostgreSQL + Room**
 
 **Status:** APPROVED / FROZEN V6
-**Baseline revision:** 2026-10-17 — Android/UX implementation-closure refreeze  
+**Baseline revision:** 2026-10-20 — CR-DB-CAMPAIGN-SNAPSHOT-COMMODITY-001 baseline-change refreeze
 
 ## 1. Purpose and authority
 
@@ -79,6 +79,7 @@ Authority chain for this document: `01_PRODUCT_BASELINE` → approved/frozen dec
 | campaign_snapshots | CampaignSnapshot | Server + package Room | campaign_snapshot_id UUID PK; campaign_id UQ FK; organization/campaign frozen header; inventory type/dates; schema/calculation compatibility; created metadata | Immutable launch header. |
 | campaign_snapshot_scope_items | CampaignSnapshot child | Server + package Room | snapshot_scope_item_id UUID PK; campaign_snapshot_id FK; frozen space/hierarchy/profile/version values | Explicit frozen collection. |
 | campaign_snapshot_team_items | CampaignSnapshot child | Server + package Room | snapshot_team_item_id UUID PK; campaign_snapshot_id FK; user_id + frozen display/role/team values | Launch team; later assignment changes do not rewrite. |
+| campaign_snapshot_commodity_items | CampaignSnapshot child | Server + package Room | snapshot_commodity_item_id UUID PK; campaign_snapshot_id FK; commodity_id UUID; commodity_version_id UUID | Explicit immutable launch-time Commodity compatibility collection; later Commodity catalog/version changes do not rewrite. |
 | offline_working_set_manifests | OfflineWorkingSetManifest | Server + device Room | manifest_id UUID PK; campaign_id; organization_id; device_installation_id; package_version; content_manifest; integrity metadata; generated/downloaded/verified times; is_current | UQ campaign/device/version; one current. |
 | stocktaking_records | StocktakingRecord | Server + Room local-first | stocktaking_record_id UUID PK; organization_id; campaign_id; storage_space_id; current_revision_id; mutation metadata | UQ(campaign,space); classification derived. |
 | stocktaking_revisions | StocktakingRevision | Server + Room local-first | stocktaking_revision_id UUID PK; stocktaking_record_id; revision_number; state; based_on_revision_id; is_empty; commodity_version_id; density; ownership; client_id; notes; calculation_result_id; validation/creation/version metadata | Validated immutable; UQ(root,revision_no). |
@@ -100,7 +101,7 @@ Authority chain for this document: `01_PRODUCT_BASELINE` → approved/frozen dec
 
 ### 6.1 Snapshot child structures
 
-`campaign_snapshots` and `final_inventory_snapshot_entries` are not opaque JSON dumps. N-valued launch collections are persisted through explicit child structures. Final snapshot entries freeze sufficient scalar and structured historical values to render completed history without joining mutable current master data.
+`campaign_snapshots` and `final_inventory_snapshot_entries` are not opaque JSON dumps. N-valued launch collections are persisted through explicit child structures. CampaignSnapshot Commodity compatibility is persisted through `campaign_snapshot_commodity_items`, with one immutable child row per frozen Commodity identity/version compatibility entry. Final snapshot entries freeze sufficient scalar and structured historical values to render completed history without joining mutable current master data.
 
 ### 6.2 Geometry parameter structure
 
@@ -309,7 +310,7 @@ Dashboard summaries, Stocktaking classifications, Sync Status, reports, Inventor
 | **DB-D40** | Commodity uses logical identity plus immutable CommodityVersion, with version number unique per Commodity. |
 | **DB-D41** | Save & Launch is one PostgreSQL transaction covering code allocation, ACTIVE campaign, frozen scope/team snapshot, CampaignSnapshot and required audit effects; failure rolls back completely. |
 | **DB-D42** | Campaign sequence allocation is atomic per Organization/year and server-owned. |
-| **DB-D43** | CampaignSnapshot is persisted as a header plus explicit child snapshot tables for N-valued frozen collections; it is not one opaque JSON business object. |
+| **DB-D43** | CampaignSnapshot is persisted as a header plus explicit child snapshot tables for N-valued frozen collections, including canonical `campaign_snapshot_commodity_items` for Commodity compatibility identity/version entries; it is not one opaque JSON business object. |
 | **DB-D44** | Snapshot rows are immutable; later current-state changes never rewrite launch snapshot meaning. |
 | **DB-D45** | StocktakingRecord is the stable root and points to `current_revision_id`; revision state resides in StocktakingRevision. |
 | **DB-D46** | `current_revision_id` may be null only during controlled root creation; setting/repointing it and creating the corresponding revision occurs transactionally, with same-root validation. |
@@ -347,7 +348,7 @@ Dashboard summaries, Stocktaking classifications, Sync Status, reports, Inventor
 
 ## 24. Freeze statement
 
-This document is the canonical APPROVED / FROZEN SiloMath V6 physical database schema contract after the 2026-10-17 implementation-closure refreeze. Later implementation may refine non-semantic index tuning, SQL syntax, migration scripts and operational mechanics without Product/Baseline approval, but may not change DB-D01–DB-D68, the physical representation strategy, tenant/referential integrity, transactional boundaries, historical immutability or the logical semantics frozen by Document 09 without an approved V6 change.
+This document is the canonical APPROVED / FROZEN SiloMath V6 physical database schema contract after the 2026-10-20 CR-DB-CAMPAIGN-SNAPSHOT-COMMODITY-001 baseline-change refreeze. Later implementation may refine non-semantic index tuning, SQL syntax, migration scripts and operational mechanics without Product/Baseline approval, but may not change DB-D01–DB-D68, the physical representation strategy, tenant/referential integrity, transactional boundaries, historical immutability or the logical semantics frozen by Document 09 without an approved V6 change.
 
 ---
 **End of Document — 10_DATABASE_SCHEMA**

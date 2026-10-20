@@ -3,7 +3,7 @@
 **Document ID:** 04_USER_ROLES_PERMISSIONS  
 **Version:** V6 Final Documentation — Roles & Permissions 1.0  
 **Status:** APPROVED / FROZEN V6
-**Baseline revision:** 2026-10-17 — Android/UX implementation-closure refreeze  
+**Baseline revision:** 2026-10-20 — CR-DB-CAMPAIGN-SNAPSHOT-COMMODITY-001 baseline-change refreeze
 **Product:** SiloMath  
 **Normative role:** Canonical authorization and permission contract for organization roles, Campaign Team membership, user lifecycle, operation-level permissions, and UI access in V6.
 

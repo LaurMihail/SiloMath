@@ -3,10 +3,10 @@
   "baselineName": "SiloMath V6 Master Baseline",
   "status": "APPROVED_FROZEN",
   "documentCount": 21,
-  "refreezeDate": "2026-10-17",
-  "refreezeType": "implementation-closure refreeze",
-  "manifest": "governance_evidence/SiloMath_V6_FROZEN_MANIFEST_2026-10-17.json",
-  "validationEvidence": "governance_evidence/SiloMath_V6_Refreeze_Validation_2026-10-17.json",
+  "refreezeDate": "2026-10-20",
+  "refreezeType": "CR-DB-CAMPAIGN-SNAPSHOT-COMMODITY-001 baseline-change refreeze",
+  "manifest": "governance_evidence/SiloMath_V6_FROZEN_MANIFEST_2026-10-20.json",
+  "validationEvidence": "governance_evidence/SiloMath_V6_Refreeze_Validation_2026-10-20.json",
   "governance": {
     "overallProductAuthority": "01_PRODUCT_BASELINE",
     "decisionAuthority": "02_DECISION_REGISTER",
@@ -24,9 +24,9 @@
       "file": "baseline/01_PRODUCT_BASELINE.md",
       "authority": "overall_product_contract",
       "status": "APPROVED_FROZEN",
-      "sha256": "8b2c0a14f0e7355a4427ce86d3ffcbe334b143b616eb5df7592032f41dcd5160",
-      "bytes": 32858,
-      "lines": 859
+      "sha256": "68642567481bea5247c828002e32753ab6738265be21b89a472c64fd54ac296c",
+      "bytes": 32876,
+      "lines": 860
     },
     {
       "id": "02",
@@ -34,9 +34,9 @@
       "file": "baseline/02_DECISION_REGISTER.md",
       "authority": "approved_frozen_decisions",
       "status": "APPROVED_FROZEN",
-      "sha256": "ba2101fe455708a9f6e0575832688b2f0bf866456854a8c8bde9707c712806ec",
-      "bytes": 32100,
-      "lines": 229
+      "sha256": "922f7731436ba568271587ff87a8d83f39e074744a223420d9a358ec6331a37c",
+      "bytes": 32872,
+      "lines": 232
     },
     {
       "id": "03",
@@ -44,8 +44,8 @@
       "file": "baseline/03_BUSINESS_RULES.md",
       "authority": "business_rules",
       "status": "APPROVED_FROZEN",
-      "sha256": "64876e8f07d02b097d4b0cc4cd2c74a2a4687d795f63ef48a599b0e1cbc51fb7",
-      "bytes": 31232,
+      "sha256": "4bb763c4091f20cf9517e16713a7c1957dbaebd17c55c562054095f3edb2d0ec",
+      "bytes": 31250,
       "lines": 229
     },
     {
@@ -54,8 +54,8 @@
       "file": "baseline/04_USER_ROLES_PERMISSIONS.md",
       "authority": "roles_permissions_authorization",
       "status": "APPROVED_FROZEN",
-      "sha256": "a2172964fcf8a2ed949ecf4665f0dc40c092cbfb5cd3d30970049b59d99b0516",
-      "bytes": 18249,
+      "sha256": "c33f1452f5d2454f039b7f235d5036c909672f257ff84541bd8eb50801d1dadb",
+      "bytes": 18267,
       "lines": 245
     },
     {
@@ -64,8 +64,8 @@
       "file": "baseline/05_WORKFLOWS_STATE_MACHINES.md",
       "authority": "workflows_state_machines",
       "status": "APPROVED_FROZEN",
-      "sha256": "171ee45e554c1ff3250f0d276fead1ea2b179d0de39656becdf7756f03fe1bfc",
-      "bytes": 27158,
+      "sha256": "04c0bbc60effee5e082d5f713e07d7568213cbca9992f34c264f70b066881e57",
+      "bytes": 27176,
       "lines": 317
     },
     {
@@ -74,8 +74,8 @@
       "file": "baseline/06_UI_SCREEN_SPECIFICATION_AND_NAVIGATION.md",
       "authority": "ui_functionality_navigation",
       "status": "APPROVED_FROZEN",
-      "sha256": "637bf689cc818e35ec0399408e60624c49354f18d02b523cd98d69467b0a5b16",
-      "bytes": 143322,
+      "sha256": "0f6cb1e3a44a161ad054b94cdaefde1e1e4840686c760573aaaecbabb43039b2",
+      "bytes": 143340,
       "lines": 1713
     },
     {
@@ -84,9 +84,9 @@
       "file": "baseline/07_ARCHITECTURE.md",
       "authority": "system_architecture",
       "status": "APPROVED_FROZEN",
-      "sha256": "a1ea34c8a01eb03a457a362d1ae603fd7746e4308d120323dc579695196e5a73",
-      "bytes": 54855,
-      "lines": 853
+      "sha256": "4162f654b1bf78674f25d91fca49d4766fe9540a458e76a83aebb668a4e4b219",
+      "bytes": 54875,
+      "lines": 854
     },
     {
       "id": "08",
@@ -94,9 +94,9 @@
       "file": "baseline/08_MODULE_ARCHITECTURE.md",
       "authority": "gradle_module_architecture",
       "status": "APPROVED_FROZEN",
-      "sha256": "a7b7afb410456e4ebdffbee47407353ee3f17809895a167272d735f2c1d6eb80",
-      "bytes": 40967,
-      "lines": 658
+      "sha256": "424e3e25f4f54d9c463ced7074445b2332668ff2ca5194d74e02338bb05205fe",
+      "bytes": 40985,
+      "lines": 659
     },
     {
       "id": "09",
@@ -104,9 +104,9 @@
       "file": "baseline/09_DATA_MODEL.md",
       "authority": "logical_data_model",
       "status": "APPROVED_FROZEN",
-      "sha256": "810a765fabb6363b98c1a820ac6288271cddb27fc5ab3a4cb6b8e44d676ccf84",
-      "bytes": 90858,
-      "lines": 1176
+      "sha256": "ef563540d92b75f309ae4cfc87d29b9d6791845b79be2ccba22890df78568d6b",
+      "bytes": 91016,
+      "lines": 1177
     },
     {
       "id": "10",
@@ -114,9 +114,9 @@
       "file": "baseline/10_DATABASE_SCHEMA.md",
       "authority": "physical_database_schema",
       "status": "APPROVED_FROZEN",
-      "sha256": "28ea03b5e54f880f423cdf905e7c70026bba2ddf6536bfba790dd895e983e337",
-      "bytes": 39932,
-      "lines": 353
+      "sha256": "666e1d0cc935579b64e38918f52050e3bbbbcf4ffe59bc19195b94b03c6bd7c5",
+      "bytes": 40598,
+      "lines": 354
     },
     {
       "id": "11",
@@ -124,8 +124,8 @@
       "file": "baseline/11_API_SPECIFICATION.md",
       "authority": "backend_api_contract",
       "status": "APPROVED_FROZEN",
-      "sha256": "76974fb8844595803c254ccfd80a0092b4c071e63ae69ba7a945f8509efd6140",
-      "bytes": 54535,
+      "sha256": "70ad04a67d9edc9d6d4b6929d15c3eede402bb857623d236b9c99a2f4bf94df3",
+      "bytes": 54584,
       "lines": 530
     },
     {
@@ -134,9 +134,9 @@
       "file": "baseline/12_OFFLINE_SYNC_SPECIFICATION.md",
       "authority": "offline_sync",
       "status": "APPROVED_FROZEN",
-      "sha256": "82e0086c5008edf45bd71e54144fe2594b1f1b6574af82bf6f9647575f11dd17",
-      "bytes": 49673,
-      "lines": 654
+      "sha256": "2f7ddd8c6c80635dbba57300237cf4a5e65b6013b17fa5033a096eadeb77f49f",
+      "bytes": 49722,
+      "lines": 655
     },
     {
       "id": "13",
@@ -144,9 +144,9 @@
       "file": "baseline/13_CALCULATION_ENGINE_SPECIFICATION.md",
       "authority": "calculation_engine",
       "status": "APPROVED_FROZEN",
-      "sha256": "b7f90dbb4714641c46d3cbd49b43085be56bff455591a591af5203b443f6e1d3",
-      "bytes": 31311,
-      "lines": 508
+      "sha256": "1e3adde81afd4bddcbe26634aef180d0584bdbb4560b46397671eb50e6a65139",
+      "bytes": 31329,
+      "lines": 509
     },
     {
       "id": "14",
@@ -154,9 +154,9 @@
       "file": "baseline/14_COMMODITY_SPECIFICATION.md",
       "authority": "commodity_catalog",
       "status": "APPROVED_FROZEN",
-      "sha256": "c91110962890c6b8eb032211d3a968d0deef1006abe08a67517bef607d938e0d",
-      "bytes": 28660,
-      "lines": 409
+      "sha256": "485a5d913248650036d83ffb8b6fd2326c3b181069b807f59de23131e32317db",
+      "bytes": 28678,
+      "lines": 410
     },
     {
       "id": "15",
@@ -164,9 +164,9 @@
       "file": "baseline/15_EVIDENCE_STORAGE_SPECIFICATION.md",
       "authority": "evidence_storage",
       "status": "APPROVED_FROZEN",
-      "sha256": "606cbcf10311f8d3346779e074b21d8b3ad9fb03ea2d6fe3da4cfa70b440e9cd",
-      "bytes": 29556,
-      "lines": 430
+      "sha256": "fef2a9c26ec581f44335bf6a7683b78bed89c0296d928f8d50e36e561ac961e2",
+      "bytes": 29574,
+      "lines": 431
     },
     {
       "id": "16",
@@ -174,9 +174,9 @@
       "file": "baseline/16_REPORTING_SPECIFICATION.md",
       "authority": "reporting_history_dossier",
       "status": "APPROVED_FROZEN",
-      "sha256": "b198ebd68787fa01bba35c549ef168274df6bc708b277824b39f57ada9095f89",
-      "bytes": 42070,
-      "lines": 519
+      "sha256": "10bf8eedcaabb310bf557dc34cc82334dfedd9d965f24cc87dbd1811b5f6dc30",
+      "bytes": 42088,
+      "lines": 520
     },
     {
       "id": "17",
@@ -184,9 +184,9 @@
       "file": "baseline/17_SECURITY_AUDIT_PRIVACY.md",
       "authority": "security_audit_privacy",
       "status": "APPROVED_FROZEN",
-      "sha256": "6cc1a8616ae67dd1ee5dc9c39dcd488f9528f8a4b7c5f95b48932724d0d4d7bb",
-      "bytes": 58413,
-      "lines": 548
+      "sha256": "5b3a08bcd816047f97c9e8caad79eb44f7d1b61dcf9cf9d97296e0f85455a61f",
+      "bytes": 58462,
+      "lines": 549
     },
     {
       "id": "18",
@@ -194,9 +194,9 @@
       "file": "baseline/18_TEST_STRATEGY_ACCEPTANCE.md",
       "authority": "test_strategy_acceptance",
       "status": "APPROVED_FROZEN",
-      "sha256": "3b821edba1872edc8ee4755c361abf051092d9599f6207dfc019a9a62e7faefc",
-      "bytes": 62470,
-      "lines": 604
+      "sha256": "e09e682c6c129674becff44c3f4266feeff92dc9a991b06779de793695d1827a",
+      "bytes": 62834,
+      "lines": 606
     },
     {
       "id": "19",
@@ -204,9 +204,9 @@
       "file": "baseline/19_RETENTION_POLICY.md",
       "authority": "retention_policy",
       "status": "APPROVED_FROZEN",
-      "sha256": "ac7e60bb2dc676353c0d1be8cc0153c24b615e0c6973a55521ac310475af5215",
-      "bytes": 58319,
-      "lines": 507
+      "sha256": "11141167589209e198b812c333e5ce267f39ef1dd214a07ae3215a2c1c8f8156",
+      "bytes": 58368,
+      "lines": 508
     },
     {
       "id": "20",
@@ -214,9 +214,9 @@
       "file": "baseline/20_PRODUCTION_OPERATIONS.md",
       "authority": "production_operations",
       "status": "APPROVED_FROZEN",
-      "sha256": "7c97c640521f61162e6737719789e4549746b32dc7bb3e77d082afb2bb79900d",
-      "bytes": 82264,
-      "lines": 730
+      "sha256": "b60909c640ec17c16d15df82758d43f129f61a579ae76d582ef16dcdd5cc57e1",
+      "bytes": 82313,
+      "lines": 731
     },
     {
       "id": "21",
@@ -224,9 +224,9 @@
       "file": "baseline/21_UI_DESIGN_SYSTEM_FINAL.md",
       "authority": "ui_visual_design",
       "status": "APPROVED_FROZEN",
-      "sha256": "e431cb6e08969e691a3f0580cdb985b5950db83dc565fcc0e485caf21a20a36d",
-      "bytes": 26613,
-      "lines": 567
+      "sha256": "d32fe16731038ceee1a6b7044a42d0904dfef5352ffb93c318f890683a1a54c9",
+      "bytes": 26631,
+      "lines": 568
     }
   ]
 }

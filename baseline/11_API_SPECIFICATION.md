@@ -2,7 +2,7 @@
 
 **Version:** V6 Final Documentation — API Specification 1.0 Candidate  
 **Status:** APPROVED / FROZEN V6
-**Baseline revision:** 2026-10-17 — Android/UX implementation-closure refreeze  
+**Baseline revision:** 2026-10-20 — CR-DB-CAMPAIGN-SNAPSHOT-COMMODITY-001 baseline-change refreeze
 **Normative role:** Canonical external/backend REST contract for Android ↔ server communication.
 
 ## 1. Purpose, authority and scope
@@ -524,7 +524,7 @@ Organization Configuration is Admin-mutable only for approved registry keys and 
 
 ## 33. Freeze statement
 
-This document is the canonical APPROVED / FROZEN SiloMath V6 API contract after the 2026-10-17 implementation-closure refreeze. Implementation may refine non-semantic route plumbing, transport optimization, map provider plumbing, concrete environment host/base-URL provisioning, and deployment mechanics without Product/Baseline approval only if endpoint semantics, authorization, canonical User/Membership metadata provenance, DTO meaning, idempotency/concurrency, error behavior, historical immutability, offline/sync integrity, Evidence separation, Close atomicity and report source rules remain unchanged.
+This document is the canonical APPROVED / FROZEN SiloMath V6 API contract after the 2026-10-20 CR-DB-CAMPAIGN-SNAPSHOT-COMMODITY-001 baseline-change refreeze. Implementation may refine non-semantic route plumbing, transport optimization, map provider plumbing, concrete environment host/base-URL provisioning, and deployment mechanics without Product/Baseline approval only if endpoint semantics, authorization, canonical User/Membership metadata provenance, DTO meaning, idempotency/concurrency, error behavior, historical immutability, offline/sync integrity, Evidence separation, Close atomicity and report source rules remain unchanged.
 
 ---
 **End of Document — 11_API_SPECIFICATION**

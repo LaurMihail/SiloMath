@@ -1,7 +1,7 @@
 # SiloMath V6 - 20_PRODUCTION_OPERATIONS
 
 **Status:** APPROVED / FROZEN V6
-**Baseline revision:** 2026-10-17 — Android/UX implementation-closure refreeze  
+**Baseline revision:** 2026-10-20 — CR-DB-CAMPAIGN-SNAPSHOT-COMMODITY-001 baseline-change refreeze
 
 ## 1. Purpose and authority
 
@@ -723,7 +723,7 @@ This document is the normative V6 production-operations contract. It consolidate
 - Doc13 remains the calculation authority; Production operations cannot repair historical results by recalculation.
 - Doc16 remains the reporting authority; operational availability cannot justify misleading or non-authoritative final exports.
 - Documents 01–21 are the complete authoritative SiloMath V6 baseline. Doc21 is the canonical visual-design authority; Doc20 does not supersede its UI/design/accessibility requirements.
-- The 2026-10-17 implementation-closure refreeze is complete only when the 21-document cross-document audit passes with no known unresolved semantic gap that would require a Product/Baseline decision during implementation.
+- The 2026-10-20 CR-DB-CAMPAIGN-SNAPSHOT-COMMODITY-001 baseline-change refreeze is complete only when the 21-document cross-document audit passes with no known unresolved semantic gap that would require a Product/Baseline decision during implementation.
 
 ## 37. Freeze statement
 

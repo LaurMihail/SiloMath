@@ -1,7 +1,7 @@
 # SiloMath V6 - 19_RETENTION_POLICY
 
 **Status:** APPROVED / FROZEN V6
-**Baseline revision:** 2026-10-17 — Android/UX implementation-closure refreeze  
+**Baseline revision:** 2026-10-20 — CR-DB-CAMPAIGN-SNAPSHOT-COMMODITY-001 baseline-change refreeze
 
 ## 1. Purpose and authority
 
@@ -504,4 +504,4 @@ This document is the normative V6 retention, archival, purge and safe-cleanup co
 
 ## 28. Freeze statement
 
-This document is the canonical APPROVED / FROZEN SiloMath V6 Retention Policy after the 2026-10-17 implementation-closure refreeze, defined by RT-D01-RT-D200, including retention clocks, minimum periods, dependency preservation, safe device/Evidence cleanup, logs and diagnostics windows, release-evidence retention, session/reset metadata, backup interaction, RetentionHold, tenant offboarding, privacy disposition, server-side purge, archive integrity/restoration, retention tests and release gates.
+This document is the canonical APPROVED / FROZEN SiloMath V6 Retention Policy after the 2026-10-20 CR-DB-CAMPAIGN-SNAPSHOT-COMMODITY-001 baseline-change refreeze, defined by RT-D01-RT-D200, including retention clocks, minimum periods, dependency preservation, safe device/Evidence cleanup, logs and diagnostics windows, release-evidence retention, session/reset metadata, backup interaction, RetentionHold, tenant offboarding, privacy disposition, server-side purge, archive integrity/restoration, retention tests and release gates.

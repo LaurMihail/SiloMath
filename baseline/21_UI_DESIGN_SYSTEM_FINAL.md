@@ -3,7 +3,7 @@
 **Document ID:** 21  
 **Version:** V6 UI Design System 1.0  
 **Status:** APPROVED / FROZEN V6
-**Baseline revision:** 2026-10-17 — Android/UX implementation-closure refreeze  
+**Baseline revision:** 2026-10-20 — CR-DB-CAMPAIGN-SNAPSHOT-COMMODITY-001 baseline-change refreeze
 **Product:** SiloMath  
 **Platform:** Android native  
 **UI toolkit:** Jetpack Compose  

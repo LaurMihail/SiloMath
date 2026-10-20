@@ -1,7 +1,7 @@
 # SiloMath V6 — 15_EVIDENCE_STORAGE_SPECIFICATION
 
 **Status:** APPROVED / FROZEN V6
-**Baseline revision:** 2026-10-17 — Android/UX implementation-closure refreeze  
+**Baseline revision:** 2026-10-20 — CR-DB-CAMPAIGN-SNAPSHOT-COMMODITY-001 baseline-change refreeze
 
 ## 1. Purpose and authority
 

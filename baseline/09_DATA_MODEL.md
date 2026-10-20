@@ -3,7 +3,7 @@
 **Document ID:** 09_DATA_MODEL  
 **Version:** V6 Final Documentation — Data Model 1.0  
 **Status:** APPROVED / FROZEN V6
-**Baseline revision:** 2026-10-17 — Android/UX implementation-closure refreeze  
+**Baseline revision:** 2026-10-20 — CR-DB-CAMPAIGN-SNAPSHOT-COMMODITY-001 baseline-change refreeze
 **Product:** SiloMath  
 **Normative role:** Canonical logical/conceptual data model for V6. It defines entities, semantic attributes, relationships, cardinalities, ownership, mutability, versioning, historical integrity and cross-aggregate invariants. Physical SQL/Room types, exact table/column names, indexes and foreign-key actions are delegated to Document 10.
 
@@ -383,7 +383,7 @@ This document is derived from the frozen V6 contract in Documents 01–08. It do
 | campaignConfiguration | Structured frozen context | Yes | No | Code/name/type/dates and relevant launch configuration. |  |
 | scopeSnapshot | Structured refs/data | Yes | No | Exact hierarchy/scope. |  |
 | geometrySnapshot | Structured refs/data | Yes | No | Family/profile/version/dimensions/calculation context. |  |
-| commodityCompatibilitySnapshot | Structured refs/data | As required | No | Relevant Commodity identity/version data. |  |
+| commodityCompatibilitySnapshot | Structured refs/data | As required | No | Relevant Commodity identity/version data. | Immutable N-valued child collection; physical mapping is `campaign_snapshot_commodity_items` per Document 10. |
 | teamSnapshot | Structured refs/data | Yes | No | Campaign Team at launch. |  |
 | calculationSchemaVersions | Version set | Yes | No | Engine/formula/schema/aggregation compatibility identifiers. |  |
 | createdAt/createdBy | Creation metadata | Yes | No | Launch snapshot creation. |  |
@@ -1173,4 +1173,4 @@ All decisions below are **APPROVED / FROZEN V6** and are normative for this docu
 
 ## 29. Freeze statement
 
-This document is the canonical APPROVED / FROZEN V6 logical data model after the 2026-10-17 implementation-closure refreeze. All semantic data-model decisions required to proceed to the physical schema are closed by Documents 01–08 and DM-D01–DM-D64. Document 10 may select physical persistence structures, SQL/Room names, concrete scalar storage types, indexes and FK mechanics only where those choices preserve every entity meaning, value contract, cardinality, uniqueness rule, lifecycle, ownership rule, revision boundary, tenant boundary, snapshot rule and historical-integrity invariant defined here. It may not invent or change business semantics. Adding/removing an authoritative entity or changing these semantics requires an approved V6 change.
+This document is the canonical APPROVED / FROZEN V6 logical data model after the 2026-10-20 CR-DB-CAMPAIGN-SNAPSHOT-COMMODITY-001 baseline-change refreeze. All semantic data-model decisions required to proceed to the physical schema are closed by Documents 01–08 and DM-D01–DM-D64. Document 10 may select physical persistence structures, SQL/Room names, concrete scalar storage types, indexes and FK mechanics only where those choices preserve every entity meaning, value contract, cardinality, uniqueness rule, lifecycle, ownership rule, revision boundary, tenant boundary, snapshot rule and historical-integrity invariant defined here. It may not invent or change business semantics. Adding/removing an authoritative entity or changing these semantics requires an approved V6 change.
