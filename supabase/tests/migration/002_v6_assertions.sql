@@ -484,6 +484,21 @@ begin
         raise exception
             'ASSERTION FAILED: campaign_snapshot_team_items frozen-context columns are incomplete';
     end if;
+    --------------------------------------------------------------------
+    -- IMP-DB-001 Slice 22: CommodityVersion definitionMetadata
+    --------------------------------------------------------------------
+
+    if not exists (
+        select 1
+        from information_schema.columns c
+        where c.table_schema = 'silomath'
+          and c.table_name = 'commodity_versions'
+          and c.column_name = 'definition_metadata'
+          and c.data_type = 'jsonb'
+    ) then
+        raise exception
+            'ASSERTION FAILED: commodity_versions.definition_metadata jsonb does not exist';
+    end if;
     raise notice
         'V6 MIGRATION ASSERTIONS PASSED: campaign_id=%, legacy_snapshot_id=%',
         v_campaign_id,
