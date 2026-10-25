@@ -6,6 +6,7 @@ import androidx.test.platform.app.InstrumentationRegistry
 import com.silomath.core.database.entity.EvidenceRoomEntity
 import com.silomath.core.database.entity.SyncOperationEntity
 import com.silomath.core.database.transaction.RoomAtomicMutationExecutor
+import com.silomath.core.model.SyncOperationState
 import kotlinx.coroutines.test.runTest
 import org.junit.After
 import org.junit.Assert.assertEquals
@@ -56,21 +57,21 @@ class RoomAtomicMutationExecutorTest {
     fun execute_rollsBackBusinessMutationWhenOutboxInsertFails() = runTest {
         val existing = operation(
             operationId = "operation-existing",
-            idempotencyKey = "idem-duplicate",
+            idempotencyKey = "idem-existing",
             entityId = "existing-entity"
         )
         database.syncOperationDao().insertOperation(existing)
 
         val evidence = evidence("evidence-rollback")
-        val duplicateIdempotencyOperation = operation(
-            operationId = "operation-new",
-            idempotencyKey = "idem-duplicate",
+        val duplicatePrimaryKeyOperation = operation(
+            operationId = "operation-existing",
+            idempotencyKey = "idem-new-attempt",
             entityId = evidence.evidenceId
         )
 
         var failed = false
         try {
-            executor.execute(duplicateIdempotencyOperation) {
+            executor.execute(duplicatePrimaryKeyOperation) {
                 database.evidenceDao().insert(evidence)
             }
         } catch (_: Exception) {
@@ -79,7 +80,6 @@ class RoomAtomicMutationExecutorTest {
 
         assertEquals(true, failed)
         assertNull(database.evidenceDao().getById(evidence.evidenceId))
-        assertNull(database.syncOperationDao().getOperationById("operation-new"))
         assertNotNull(database.syncOperationDao().getOperationById("operation-existing"))
     }
 
@@ -101,23 +101,19 @@ class RoomAtomicMutationExecutorTest {
         entityId: String
     ) = SyncOperationEntity(
         syncOperationId = operationId,
+        idempotencyKey = idempotencyKey,
         organizationId = "00000000-0000-0000-0000-000000000001",
         campaignId = "00000000-0000-0000-0000-000000000002",
         entityType = "EVIDENCE",
         entityId = entityId,
         operationType = "UPSERT",
-        payload = "{}",
-        baseEntityVersion = null,
-        state = "PENDING",
-        idempotencyKey = idempotencyKey,
-        attemptCount = 0,
-        nextAttemptAt = null,
-        lastAttemptAt = null,
-        lastErrorCode = null,
-        correlationId = null,
+        baseEntityVersion = 1,
         eventAt = 1_700_000_000_000,
-        acknowledgedAt = null,
-        authoritativeEntityVersion = null,
+        payloadJson = "{}",
+        state = SyncOperationState.PENDING,
+        attemptCount = 0,
+        retryMetadata = null,
+        lastError = null,
         createdAt = 1_700_000_000_000,
         updatedAt = 1_700_000_000_000
     )
