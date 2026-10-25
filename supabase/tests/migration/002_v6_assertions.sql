@@ -528,5 +528,73 @@ begin
         'V6 MIGRATION ASSERTIONS PASSED: campaign_id=%, legacy_snapshot_id=%',
         v_campaign_id,
         v_legacy_snapshot_id;
+
+    --------------------------------------------------------------------
+    -- CAMPAIGN SNAPSHOT COMMODITY COMPATIBILITY FOUNDATION
+    --------------------------------------------------------------------
+
+    if to_regclass('silomath.campaign_snapshot_commodity_items') is null then
+        raise exception
+            'ASSERTION FAILED: silomath.campaign_snapshot_commodity_items does not exist';
+    end if;
+
+    if not exists (
+        select 1
+        from information_schema.columns
+        where table_schema = 'silomath'
+          and table_name = 'campaign_snapshot_commodity_items'
+          and column_name = 'snapshot_commodity_item_id'
+          and data_type = 'uuid'
+    ) then
+        raise exception
+            'ASSERTION FAILED: campaign_snapshot_commodity_items.snapshot_commodity_item_id UUID is missing';
+    end if;
+
+    if not exists (
+        select 1
+        from information_schema.columns
+        where table_schema = 'silomath'
+          and table_name = 'campaign_snapshot_commodity_items'
+          and column_name = 'campaign_snapshot_id'
+          and data_type = 'uuid'
+    ) then
+        raise exception
+            'ASSERTION FAILED: campaign_snapshot_commodity_items.campaign_snapshot_id UUID is missing';
+    end if;
+
+    if not exists (
+        select 1
+        from information_schema.columns
+        where table_schema = 'silomath'
+          and table_name = 'campaign_snapshot_commodity_items'
+          and column_name = 'commodity_id'
+          and data_type = 'uuid'
+    ) then
+        raise exception
+            'ASSERTION FAILED: campaign_snapshot_commodity_items.commodity_id UUID is missing';
+    end if;
+
+    if not exists (
+        select 1
+        from information_schema.columns
+        where table_schema = 'silomath'
+          and table_name = 'campaign_snapshot_commodity_items'
+          and column_name = 'commodity_version_id'
+          and data_type = 'uuid'
+    ) then
+        raise exception
+            'ASSERTION FAILED: campaign_snapshot_commodity_items.commodity_version_id UUID is missing';
+    end if;
+
+    if not exists (
+        select 1
+        from information_schema.table_constraints
+        where table_schema = 'silomath'
+          and table_name = 'campaign_snapshot_commodity_items'
+          and constraint_type = 'PRIMARY KEY'
+    ) then
+        raise exception
+            'ASSERTION FAILED: campaign_snapshot_commodity_items primary key is missing';
+    end if;
 end;
 $$;
