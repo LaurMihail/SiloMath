@@ -71,6 +71,7 @@ fun Route.withActiveBearerAuthentication(
 ) {
     route("") {
         intercept(ApplicationCallPipeline.Plugins) {
+            val call = context
             val token = extractBearerToken(
                 call.request.headers[HttpHeaders.Authorization]
             )
