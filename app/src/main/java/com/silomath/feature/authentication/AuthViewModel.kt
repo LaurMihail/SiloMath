@@ -16,7 +16,6 @@ import javax.inject.Inject
 data class AuthUiState(
     val email: String = "",
     val password: String = "",
-    val rememberMe: Boolean = false,
     val isLoading: Boolean = false,
     val error: String? = null,
     val isSuccess: Boolean = false,
@@ -55,14 +54,10 @@ class AuthViewModel @Inject constructor(
         _uiState.value = _uiState.value.copy(password = password, error = null)
     }
 
-    fun onRememberMeChanged(rememberMe: Boolean) {
-        _uiState.value = _uiState.value.copy(rememberMe = rememberMe)
-    }
-
     fun signIn() {
         val email = _uiState.value.email
         val password = _uiState.value.password
-        
+
         if (email.isBlank() || password.isBlank()) {
             _uiState.value = _uiState.value.copy(error = "Please fill in all fields")
             return
