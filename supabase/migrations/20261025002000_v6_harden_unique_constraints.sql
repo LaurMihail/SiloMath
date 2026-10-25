@@ -5,6 +5,7 @@
 -- Governing baseline:
 --   09_DATA_MODEL
 --   10_DATABASE_SCHEMA
+--   12_OFFLINE_SYNC_SPECIFICATION
 --
 -- Scope:
 --   * enforce only frozen business uniqueness;
@@ -42,6 +43,7 @@ BEGIN
             ('offline_working_set_manifests', 'campaign_id,device_installation_id,package_version', 'uq_offline_manifests_campaign_device_version'),
             ('user_preferences', 'user_id', 'uq_user_preferences_user'),
             ('organization_configurations', 'organization_id,configuration_key', 'uq_organization_configurations_org_key'),
+            ('sync_operations', 'idempotency_key', 'uq_sync_operations_idempotency_key'),
             ('sync_operation_dependencies', 'parent_operation_id,dependent_operation_id', 'uq_sync_dependencies_parent_dependent')
         ) AS x(table_name, columns_csv, index_name)
     LOOP
