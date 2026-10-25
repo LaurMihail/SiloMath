@@ -1,8 +1,9 @@
 package com.silomath.backend.security
 
+import com.silomath.backend.api.ApiErrorCode
+import com.silomath.backend.api.respondApiError
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.application.ApplicationCallPipeline
-import io.ktor.server.response.respond
 import io.ktor.server.routing.Route
 import io.ktor.server.routing.route
 
@@ -55,7 +56,11 @@ fun Route.requireCampaignTeamMutationAccess(
             ) {
                 CampaignTeamAuthorizationResult.Authorized -> Unit
                 CampaignTeamAuthorizationResult.Forbidden -> {
-                    call.respond(HttpStatusCode.Forbidden)
+                    call.respondApiError(
+                        status = HttpStatusCode.Forbidden,
+                        code = ApiErrorCode.STOCKTAKING_NOT_TEAM_MEMBER,
+                        message = "Active Campaign Team membership is required for this mutation."
+                    )
                     finish()
                 }
             }
