@@ -57,6 +57,7 @@ fun Route.requireEntityState(
 ) {
     route("") {
         intercept(ApplicationCallPipeline.Plugins) {
+            val call = context
             val subject = call.requireAuthenticatedSubject()
             val membership =
                 call.requireAuthorizedOrganizationMembership()
