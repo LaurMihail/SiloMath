@@ -22,6 +22,10 @@ $TenantIsolationAssertions = Join-Path `
     $PSScriptRoot `
     "..\supabase\tests\migration\003_v6_tenant_isolation_assertions.sql"
 
+$PrimaryForeignKeyAssertions = Join-Path `
+    $PSScriptRoot `
+    "..\supabase\tests\migration\004_v6_primary_foreign_key_assertions.sql"
+
 function Write-Section {
     param(
         [Parameter(Mandatory = $true)]
@@ -86,6 +90,10 @@ if (-not (Test-Path $TenantIsolationAssertions)) {
     throw "Tenant-isolation assertions file not found: $TenantIsolationAssertions"
 }
 
+if (-not (Test-Path $PrimaryForeignKeyAssertions)) {
+    throw "Primary/foreign-key assertions file not found: $PrimaryForeignKeyAssertions"
+}
+
 if (Test-Path $TemporaryBootstrapMigration) {
     throw "Temporary bootstrap migration already exists: $TemporaryBootstrapMigration"
 }
@@ -137,6 +145,12 @@ try {
         -Path $TenantIsolationAssertions `
         -Description "Run V6 DB002 tenant-isolation assertions"
 
+    Write-Section "Assert V6 primary/foreign-key model"
+
+    Invoke-SupabaseSqlFile `
+        -Path $PrimaryForeignKeyAssertions `
+        -Description "Run V6 DB003 primary/foreign-key assertions"
+
     Write-Section "PostgreSQL migration regression PASS"
 
     Write-Host "Legacy boundary   : $LegacyBoundary"
@@ -145,6 +159,7 @@ try {
     Write-Host "V6 migrations     : PASS"
     Write-Host "V6 assertions     : PASS"
     Write-Host "DB002 tenant keys : PASS"
+    Write-Host "DB003 PK/FK       : PASS"
 }
 finally {
     Write-Section "Cleanup"
