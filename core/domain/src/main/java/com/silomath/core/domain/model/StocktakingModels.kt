@@ -39,11 +39,8 @@ data class MeasurementDatum(
     val measurementReferenceHeightM: CanonicalDecimal
 ) {
     init {
-        require(reference.isNotBlank()) {
-            "MeasurementDatum reference must not be blank"
-        }
-        require(reference == reference.trim()) {
-            "MeasurementDatum reference must be trimmed"
+        require(reference.isNotBlank() && reference == reference.trim()) {
+            "MeasurementDatum reference must be non-blank and trimmed"
         }
         require(measurementReferenceHeightM.value.signum() > 0) {
             "MeasurementDatum measurementReferenceHeightM must be > 0"
@@ -85,8 +82,7 @@ data class StocktakingRecord(
 
         return when {
             hasOpenIssue -> StocktakingClassification.ISSUES
-            currentRevisionState == StocktakingRevisionState.VALIDATED ->
-                StocktakingClassification.VALIDATED
+            currentRevisionState == StocktakingRevisionState.VALIDATED -> StocktakingClassification.VALIDATED
             else -> StocktakingClassification.TO_DO
         }
     }
@@ -121,12 +117,13 @@ data class StocktakingRevision(
         require(basedOnRevisionId != stocktakingRevisionId) {
             "StocktakingRevision cannot be based on itself"
         }
+        require(notes == null || notes == notes.trim()) {
+            "StocktakingRevision notes must be null or trimmed"
+        }
 
         when (revisionState) {
-            StocktakingRevisionState.WORKING -> {
-                require(validatedAt == null && validatedBy == null) {
-                    "WORKING StocktakingRevision must not define validation metadata"
-                }
+            StocktakingRevisionState.WORKING -> require(validatedAt == null && validatedBy == null) {
+                "WORKING StocktakingRevision must not define validation metadata"
             }
 
             StocktakingRevisionState.VALIDATED -> {
@@ -140,6 +137,9 @@ data class StocktakingRevision(
         }
 
         if (isEmpty) {
+            require(revisionState == StocktakingRevisionState.VALIDATED) {
+                "Mark Empty produces a VALIDATED StocktakingRevision"
+            }
             require(commodityVersionId == null) {
                 "Mark Empty must not fabricate CommodityVersion"
             }
@@ -151,6 +151,9 @@ data class StocktakingRevision(
             }
             require(clientId == null) {
                 "Mark Empty must not fabricate Client"
+            }
+            require(calculationResultId == null) {
+                "Mark Empty does not require a fabricated CalculationResult"
             }
         } else {
             require(commodityVersionId != null) {
@@ -241,6 +244,9 @@ object StocktakingDomainRules {
         require(measurements.map { it.sequenceNumber }.distinct().size == measurements.size) {
             "Measurement sequenceNumber must be unique within a revision"
         }
+        require(measurements.map { it.sequenceNumber }.sorted() == (1..measurements.size).toList()) {
+            "Measurement sequenceNumber must form a contiguous 1..N order"
+        }
 
         val geometryVersion = measurements.first().geometryProfileVersionId
         val datum = measurements.first().datumMetadata
@@ -254,6 +260,30 @@ object StocktakingDomainRules {
         }
         require(measurements.all { it.measurementType == type }) {
             "Measurements must use the same measurement type"
+        }
+    }
+
+    fun validateResetValidation(
+        validatedRevision: StocktakingRevision,
+        newWorkingRevision: StocktakingRevision
+    ) {
+        require(validatedRevision.revisionState == StocktakingRevisionState.VALIDATED) {
+            "Reset Validation source must be VALIDATED"
+        }
+        require(newWorkingRevision.revisionState == StocktakingRevisionState.WORKING) {
+            "Reset Validation creates a WORKING revision"
+        }
+        require(!newWorkingRevision.isEmpty) {
+            "Reset Validation creates an editable non-empty WORKING revision"
+        }
+        require(newWorkingRevision.stocktakingRecordId == validatedRevision.stocktakingRecordId) {
+            "Reset Validation must stay on the same StocktakingRecord"
+        }
+        require(newWorkingRevision.basedOnRevisionId == validatedRevision.stocktakingRevisionId) {
+            "Reset Validation must reference the prior VALIDATED revision"
+        }
+        require(newWorkingRevision.revisionNumber == validatedRevision.revisionNumber + 1) {
+            "Reset Validation revisionNumber must increment by exactly one"
         }
     }
 }
