@@ -38,6 +38,7 @@ enum class AuthorizationDenialReason {
     CAMPAIGN_ACCESS_REQUIRED,
     CAMPAIGN_TEAM_MEMBERSHIP_REQUIRED,
     ACTIVE_CAMPAIGN_REQUIRED,
+    CAMPAIGN_SCOPE_IMMUTABLE,
     ONLINE_REQUIRED,
     OFFLINE_WORKING_SET_REQUIRED,
     CLOSE_GUARDS_FAILED,
@@ -81,10 +82,14 @@ object AuthorizationPolicy {
             AuthorizationOperation.MASTER_DATA_MUTATE ->
                 requireAdmin(context)
 
-            AuthorizationOperation.CAMPAIGN_CREATE_LAUNCH,
-            AuthorizationOperation.CAMPAIGN_SCOPE_MANAGE,
-            AuthorizationOperation.CAMPAIGN_TEAM_ASSIGN ->
+            AuthorizationOperation.CAMPAIGN_CREATE_LAUNCH ->
                 requireAdminOnline(context)
+
+            AuthorizationOperation.CAMPAIGN_SCOPE_MANAGE ->
+                authorizeCampaignScopeManage(context)
+
+            AuthorizationOperation.CAMPAIGN_TEAM_ASSIGN ->
+                authorizeCampaignTeamAssign(context)
 
             AuthorizationOperation.STOCKTAKING_MUTATE,
             AuthorizationOperation.ISSUE_REPORT ->
@@ -124,6 +129,29 @@ object AuthorizationPolicy {
         context.membershipStatus != MembershipStatus.ACTIVE -> AuthorizationDenialReason.MEMBERSHIP_DISABLED
         context.membershipOrganizationId != context.resourceOrganizationId -> AuthorizationDenialReason.CROSS_ORGANIZATION
         else -> null
+    }
+
+    private fun authorizeCampaignScopeManage(context: AuthorizationContext): AuthorizationDecision {
+        val adminDecision = requireAdminOnline(context)
+        if (adminDecision is AuthorizationDecision.Denied) return adminDecision
+
+        // Scope is editable only inside the pre-launch Save & Launch composition.
+        // Once a Campaign identity exists, its scope is frozen and cannot be mutated.
+        return if (context.campaignId == null) {
+            AuthorizationDecision.Allowed
+        } else {
+            AuthorizationDecision.Denied(AuthorizationDenialReason.CAMPAIGN_SCOPE_IMMUTABLE)
+        }
+    }
+
+    private fun authorizeCampaignTeamAssign(context: AuthorizationContext): AuthorizationDecision {
+        // Before launch, the Admin composes the initial team in Save & Launch.
+        if (context.campaignId == null) {
+            return requireAdminOnline(context)
+        }
+
+        // After launch, Team remains Admin-editable only while the Campaign is ACTIVE.
+        return requireAdminCampaignOnline(context, requireCloseGuards = false)
     }
 
     private fun requireAdmin(context: AuthorizationContext): AuthorizationDecision =
