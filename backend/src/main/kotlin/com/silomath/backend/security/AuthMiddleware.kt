@@ -1,10 +1,11 @@
 package com.silomath.backend.security
 
+import com.silomath.backend.api.ApiErrorCode
+import com.silomath.backend.api.respondApiError
 import io.ktor.http.HttpHeaders
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.application.ApplicationCall
 import io.ktor.server.application.ApplicationCallPipeline
-import io.ktor.server.response.respond
 import io.ktor.server.routing.Route
 import io.ktor.server.routing.route
 import io.ktor.util.AttributeKey
@@ -74,19 +75,31 @@ fun Route.withActiveBearerAuthentication(
             )
 
             if (token == null) {
-                call.respond(HttpStatusCode.Unauthorized)
+                call.respondApiError(
+                    status = HttpStatusCode.Unauthorized,
+                    code = ApiErrorCode.AUTH_SESSION_EXPIRED,
+                    message = "Authentication is required."
+                )
                 finish()
                 return@intercept
             }
 
             when (val result = verifier.verify(token)) {
                 AccessTokenVerificationResult.InvalidOrExpired -> {
-                    call.respond(HttpStatusCode.Unauthorized)
+                    call.respondApiError(
+                        status = HttpStatusCode.Unauthorized,
+                        code = ApiErrorCode.AUTH_SESSION_EXPIRED,
+                        message = "The session is invalid or expired."
+                    )
                     finish()
                 }
 
                 AccessTokenVerificationResult.DisabledUser -> {
-                    call.respond(HttpStatusCode.Forbidden)
+                    call.respondApiError(
+                        status = HttpStatusCode.Forbidden,
+                        code = ApiErrorCode.AUTH_USER_DISABLED,
+                        message = "The user is disabled."
+                    )
                     finish()
                 }
 
