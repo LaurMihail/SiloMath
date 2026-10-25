@@ -149,3 +149,62 @@ data class SyncConflict(
         }
     }
 }
+
+object SyncDomainRules {
+
+    /**
+     * Frozen SyncOperation lifecycle from Doc12. This validates business/domain
+     * transitions only; scheduling, connectivity and WorkManager belong to M8.
+     */
+    fun validateOperationTransition(
+        from: SyncOperationState,
+        to: SyncOperationState
+    ) {
+        val allowed = when (from) {
+            SyncOperationState.PENDING -> setOf(SyncOperationState.IN_FLIGHT)
+            SyncOperationState.IN_FLIGHT -> setOf(
+                SyncOperationState.ACKNOWLEDGED,
+                SyncOperationState.RETRYABLE_ERROR,
+                SyncOperationState.CONFLICT,
+                SyncOperationState.PERMANENT_ERROR,
+                // Crash/startup recovery may replay the same durable operation.
+                SyncOperationState.PENDING,
+            )
+            SyncOperationState.RETRYABLE_ERROR -> setOf(SyncOperationState.PENDING)
+            SyncOperationState.ACKNOWLEDGED,
+            SyncOperationState.CONFLICT,
+            SyncOperationState.PERMANENT_ERROR -> emptySet()
+        }
+        require(to in allowed) {
+            "Illegal SyncOperation transition: $from -> $to"
+        }
+    }
+
+    /** ACKNOWLEDGED is the only successful terminal state. */
+    fun requireSuccessfulTerminal(state: SyncOperationState) {
+        require(state == SyncOperationState.ACKNOWLEDGED) {
+            "Only ACKNOWLEDGED is a successful terminal synchronization state"
+        }
+    }
+
+    /** Conflict history is retained and lifecycle is exactly OPEN -> RESOLVED. */
+    fun validateConflictTransition(
+        from: SyncConflictStatus,
+        to: SyncConflictStatus
+    ) {
+        require(from == SyncConflictStatus.OPEN && to == SyncConflictStatus.RESOLVED) {
+            "SyncConflict lifecycle permits only OPEN -> RESOLVED"
+        }
+    }
+
+    /** Frozen V6 never permits force-overwrite or automatic merge resolution. */
+    fun validateConflictResolutionType(type: SyncConflictResolutionType) {
+        require(
+            type == SyncConflictResolutionType.RELOAD_AND_REENTER ||
+                type == SyncConflictResolutionType.DISCARD_LOCAL_ATTEMPT ||
+                type == SyncConflictResolutionType.NO_ACTION_REQUIRED
+        ) {
+            "Unsupported SyncConflict resolution type"
+        }
+    }
+}
