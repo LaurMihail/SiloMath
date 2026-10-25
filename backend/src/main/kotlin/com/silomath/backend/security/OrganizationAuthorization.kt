@@ -1,9 +1,10 @@
 package com.silomath.backend.security
 
+import com.silomath.backend.api.ApiErrorCode
+import com.silomath.backend.api.respondApiError
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.application.ApplicationCall
 import io.ktor.server.application.ApplicationCallPipeline
-import io.ktor.server.response.respond
 import io.ktor.server.routing.Route
 import io.ktor.server.routing.route
 import io.ktor.util.AttributeKey
@@ -71,7 +72,11 @@ fun Route.withOrganizationAuthorization(
                 )
             ) {
                 OrganizationAuthorizationResult.Forbidden -> {
-                    call.respond(HttpStatusCode.Forbidden)
+                    call.respondApiError(
+                        status = HttpStatusCode.Forbidden,
+                        code = ApiErrorCode.TENANT_SCOPE_VIOLATION,
+                        message = "The requested organization is outside the authorized scope."
+                    )
                     finish()
                 }
 
