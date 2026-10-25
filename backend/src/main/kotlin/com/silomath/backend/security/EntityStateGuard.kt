@@ -1,8 +1,9 @@
 package com.silomath.backend.security
 
+import com.silomath.backend.api.ApiErrorCode
+import com.silomath.backend.api.respondApiError
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.application.ApplicationCallPipeline
-import io.ktor.server.response.respond
 import io.ktor.server.routing.Route
 import io.ktor.server.routing.route
 
@@ -28,7 +29,11 @@ data class EntityStateGuardContext(
 
 sealed interface EntityStateGuardResult {
     data object Allowed : EntityStateGuardResult
-    data object Conflict : EntityStateGuardResult
+
+    data class Conflict(
+        val code: ApiErrorCode,
+        val message: String
+    ) : EntityStateGuardResult
 }
 
 /**
@@ -74,7 +79,7 @@ fun Route.requireEntityState(
             }
 
             when (
-                resolver.evaluate(
+                val result = resolver.evaluate(
                     EntityStateGuardContext(
                         userId = subject.userId,
                         organizationId = membership.organizationId,
@@ -85,8 +90,12 @@ fun Route.requireEntityState(
                 )
             ) {
                 EntityStateGuardResult.Allowed -> Unit
-                EntityStateGuardResult.Conflict -> {
-                    call.respond(HttpStatusCode.Conflict)
+                is EntityStateGuardResult.Conflict -> {
+                    call.respondApiError(
+                        status = HttpStatusCode.Conflict,
+                        code = result.code,
+                        message = result.message
+                    )
                     finish()
                 }
             }
