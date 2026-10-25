@@ -19,7 +19,9 @@ data class AuthUiState(
     val isLoading: Boolean = false,
     val error: String? = null,
     val isSuccess: Boolean = false,
-    val canContinueOffline: Boolean = false
+    val canContinueOffline: Boolean = false,
+    val isSessionRestoreComplete: Boolean = false,
+    val isRestoredSessionReady: Boolean = false
 )
 
 @HiltViewModel
@@ -44,6 +46,15 @@ class AuthViewModel @Inject constructor(
                 )
             }
         }
+
+        viewModelScope.launch {
+            val restoreResult = authRepository.restoreRemoteSession()
+            val restoredSession = authRepository.sessionState.first()
+            _uiState.value = _uiState.value.copy(
+                isSessionRestoreComplete = true,
+                isRestoredSessionReady = restoreResult.isSuccess && restoredSession.isLoggedIn
+            )
+        }
     }
 
     fun onEmailChanged(email: String) {
@@ -67,7 +78,11 @@ class AuthViewModel @Inject constructor(
             _uiState.value = _uiState.value.copy(isLoading = true, error = null)
             val result = authRepository.signIn(email, password)
             if (result.isSuccess) {
-                _uiState.value = _uiState.value.copy(isLoading = false, isSuccess = true)
+                _uiState.value = _uiState.value.copy(
+                    isLoading = false,
+                    isSuccess = true,
+                    isRestoredSessionReady = true
+                )
             } else {
                 _uiState.value = _uiState.value.copy(
                     isLoading = false,
