@@ -19,10 +19,6 @@ abstract class DataModule {
 
     @Binds
     @Singleton
-    abstract fun bindAuthRepository(impl: ProdAuthRepository): AuthRepository
-
-    @Binds
-    @Singleton
     abstract fun bindOrganizationRepository(impl: OfflineOrganizationRepository): OrganizationRepository
 
     @Binds
