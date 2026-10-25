@@ -8,7 +8,7 @@
 --   12_OFFLINE_SYNC_SPECIFICATION
 --
 -- Scope:
---   * apply only to canonical entities that physically carry entity_version;
+--   * apply only to entities explicitly versioned by the frozen logical model;
 --   * entity_version is BIGINT NOT NULL, starts at 1;
 --   * ordinary UPDATE increments the authoritative version exactly once;
 --   * callers may not assign entity_version directly;
@@ -51,7 +51,6 @@ BEGIN
         'stocktaking_revisions',
         'measurements',
         'issues',
-        'evidence',
         'organization_configurations'
     ] LOOP
         EXECUTE format(
