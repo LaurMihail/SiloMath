@@ -3,6 +3,7 @@ package com.silomath.core.domain.model
 import com.silomath.core.model.CanonicalDecimal
 import com.silomath.core.model.CommodityId
 import com.silomath.core.model.CommodityVersionId
+import java.math.BigDecimal
 import java.time.Instant
 import java.util.Locale
 
@@ -51,6 +52,11 @@ data class Commodity(
 
     fun isSelectableForNewOperation(versionId: CommodityVersionId): Boolean =
         lifecycleStatus == CommodityLifecycleStatus.ACTIVE && currentVersionId == versionId
+
+    fun isSelectableForNewOperation(version: CommodityVersion): Boolean =
+        version.commodityId == commodityId &&
+            lifecycleStatus == CommodityLifecycleStatus.ACTIVE &&
+            currentVersionId == version.commodityVersionId
 }
 
 data class CommodityVersion(
@@ -74,6 +80,124 @@ data class CommodityVersion(
         require(definitionMetadata.keys.all { it.isNotBlank() && it == it.trim() }) {
             "CommodityVersion definitionMetadata keys must be non-blank and trimmed"
         }
+    }
+
+    fun requireGovernedDefinitionMetadata(schema: CommodityDefinitionMetadataSchema) {
+        schema.requireValid(definitionMetadata)
+    }
+}
+
+data class CommodityCatalogEntry(
+    val commodity: Commodity,
+    val currentVersion: CommodityVersion
+) {
+    init {
+        require(currentVersion.commodityId == commodity.commodityId) {
+            "CommodityCatalogEntry version must belong to Commodity"
+        }
+        require(currentVersion.commodityVersionId == commodity.currentVersionId) {
+            "CommodityCatalogEntry must expose the governed current CommodityVersion"
+        }
+    }
+}
+
+enum class CommodityMetadataValueType {
+    BOOLEAN,
+    INTEGER,
+    DECIMAL,
+    TEXT,
+    ENUM
+}
+
+data class CommodityMetadataKeyDefinition(
+    val key: String,
+    val semanticLabel: String,
+    val valueType: CommodityMetadataValueType,
+    val unit: String? = null,
+    val enumDomain: Set<String> = emptySet(),
+    val nullable: Boolean,
+    val versionApplicability: String,
+    val historicalReferenceMaterial: Boolean
+) {
+    init {
+        require(key.isNotBlank() && key == key.trim()) {
+            "Commodity metadata key must be non-blank and trimmed"
+        }
+        require(semanticLabel.isNotBlank() && semanticLabel == semanticLabel.trim()) {
+            "Commodity metadata semanticLabel must be non-blank and trimmed"
+        }
+        require(versionApplicability.isNotBlank() && versionApplicability == versionApplicability.trim()) {
+            "Commodity metadata versionApplicability must be non-blank and trimmed"
+        }
+        require(unit == null || (unit.isNotBlank() && unit == unit.trim())) {
+            "Commodity metadata unit must be null or non-blank and trimmed"
+        }
+        require(enumDomain.all { it.isNotBlank() && it == it.trim() }) {
+            "Commodity metadata enum values must be non-blank and trimmed"
+        }
+        require(valueType == CommodityMetadataValueType.ENUM || enumDomain.isEmpty()) {
+            "enumDomain is permitted only for ENUM metadata"
+        }
+        require(valueType != CommodityMetadataValueType.ENUM || enumDomain.isNotEmpty()) {
+            "ENUM metadata requires a non-empty enumDomain"
+        }
+    }
+}
+
+/**
+ * Platform-controlled schema for CommodityVersion.definitionMetadata.
+ *
+ * V6 does not define a tenant/customer extension point. The concrete registry is
+ * supplied by platform governance; therefore this domain type validates only keys
+ * admitted by that registry and their governed scalar types without inventing
+ * additional product metadata keys.
+ */
+class CommodityDefinitionMetadataSchema(
+    definitions: Collection<CommodityMetadataKeyDefinition>
+) {
+    private val definitionsByKey: Map<String, CommodityMetadataKeyDefinition>
+
+    init {
+        require(definitions.map { it.key }.distinct().size == definitions.size) {
+            "Commodity metadata schema keys must be unique"
+        }
+        definitionsByKey = definitions.associateBy { it.key }
+    }
+
+    fun requireValid(values: Map<String, String>) {
+        val unknownKeys = values.keys - definitionsByKey.keys
+        require(unknownKeys.isEmpty()) {
+            "Unknown Commodity definitionMetadata keys: ${unknownKeys.sorted().joinToString()}"
+        }
+
+        definitionsByKey.values
+            .filterNot { it.nullable }
+            .forEach { definition ->
+                require(values.containsKey(definition.key)) {
+                    "Missing required Commodity definitionMetadata key: ${definition.key}"
+                }
+            }
+
+        values.forEach { (key, value) ->
+            val definition = requireNotNull(definitionsByKey[key])
+            require(value == value.trim()) {
+                "Commodity definitionMetadata value for $key must be trimmed"
+            }
+            require(matchesType(value, definition)) {
+                "Commodity definitionMetadata value for $key does not match ${definition.valueType}"
+            }
+        }
+    }
+
+    private fun matchesType(
+        value: String,
+        definition: CommodityMetadataKeyDefinition
+    ): Boolean = when (definition.valueType) {
+        CommodityMetadataValueType.BOOLEAN -> value == "true" || value == "false"
+        CommodityMetadataValueType.INTEGER -> value.toLongOrNull() != null
+        CommodityMetadataValueType.DECIMAL -> runCatching { BigDecimal(value) }.isSuccess
+        CommodityMetadataValueType.TEXT -> value.isNotEmpty()
+        CommodityMetadataValueType.ENUM -> value in definition.enumDomain
     }
 }
 
