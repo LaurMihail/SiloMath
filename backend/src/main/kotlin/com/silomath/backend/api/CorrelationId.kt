@@ -16,16 +16,7 @@ private val CorrelationIdPlugin = createApplicationPlugin(
     name = "SiloMathCorrelationId"
 ) {
     onCall { call ->
-        val correlationId = call.request.headers[CORRELATION_ID_HEADER]
-            ?.trim()
-            ?.takeIf { it.isNotEmpty() }
-            ?: UUID.randomUUID().toString()
-
-        call.attributes.put(CorrelationIdKey, correlationId)
-        call.response.headers.append(
-            CORRELATION_ID_HEADER,
-            correlationId
-        )
+        call.correlationId()
     }
 }
 
@@ -40,5 +31,27 @@ fun Application.configureCorrelationIds() {
     install(CorrelationIdPlugin)
 }
 
-fun ApplicationCall.correlationId(): String =
-    attributes[CorrelationIdKey]
+/**
+ * Returns the request-scoped correlation identifier.
+ *
+ * The normal runtime path initializes it through [CorrelationIdPlugin]. The
+ * lazy fallback keeps isolated route/test calls safe while preserving the same
+ * one-id-per-call contract and response header.
+ */
+fun ApplicationCall.correlationId(): String {
+    if (attributes.contains(CorrelationIdKey)) {
+        return attributes[CorrelationIdKey]
+    }
+
+    val correlationId = request.headers[CORRELATION_ID_HEADER]
+        ?.trim()
+        ?.takeIf { it.isNotEmpty() }
+        ?: UUID.randomUUID().toString()
+
+    attributes.put(CorrelationIdKey, correlationId)
+    response.headers.append(
+        CORRELATION_ID_HEADER,
+        correlationId
+    )
+    return correlationId
+}
