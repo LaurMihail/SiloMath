@@ -8,7 +8,6 @@ group = "com.silomath"
 version = "0.1.0-SNAPSHOT"
 
 val ktorVersion = "3.2.1"
-
 val kotlinxSerializationVersion = "1.9.0"
 
 dependencies {
@@ -16,6 +15,7 @@ dependencies {
     implementation("io.ktor:ktor-server-netty-jvm:$ktorVersion")
     implementation("io.ktor:ktor-server-content-negotiation-jvm:$ktorVersion")
     implementation("io.ktor:ktor-serialization-kotlinx-json-jvm:$ktorVersion")
+    implementation("io.ktor:ktor-server-status-pages-jvm:$ktorVersion")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:$kotlinxSerializationVersion")
 
     testImplementation(kotlin("test-junit"))
