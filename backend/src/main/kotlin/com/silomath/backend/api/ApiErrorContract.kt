@@ -1,5 +1,6 @@
 package com.silomath.backend.api
 
+import io.ktor.http.ContentType
 import io.ktor.http.HttpStatusCode
 import io.ktor.serialization.kotlinx.json.json
 import io.ktor.server.application.Application
@@ -10,9 +11,10 @@ import io.ktor.server.plugins.statuspages.StatusPages
 import io.ktor.server.plugins.statuspages.exception
 import io.ktor.server.plugins.statuspages.status
 import io.ktor.server.request.path
-import io.ktor.server.response.respond
+import io.ktor.server.response.respondText
 import java.util.UUID
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonObject
 
@@ -67,14 +69,14 @@ data class ApiErrorResponse(
     val details: JsonObject? = null
 )
 
+private val ApiJson = Json {
+    encodeDefaults = true
+    explicitNulls = false
+}
+
 fun Application.configureApiSerialization() {
     install(ContentNegotiation) {
-        json(
-            Json {
-                encodeDefaults = true
-                explicitNulls = false
-            }
-        )
+        json(ApiJson)
     }
 
     install(StatusPages) {
@@ -118,16 +120,19 @@ suspend fun ApplicationCall.respondApiError(
     details: JsonObject? = null,
     correlationId: String = UUID.randomUUID().toString()
 ) {
-    respond(
-        status = status,
-        message = ApiErrorResponse(
-            code = code,
-            message = message,
-            fieldErrors = fieldErrors,
-            correlationId = correlationId,
-            retryable = retryable,
-            details = details
-        )
+    val body = ApiErrorResponse(
+        code = code,
+        message = message,
+        fieldErrors = fieldErrors,
+        correlationId = correlationId,
+        retryable = retryable,
+        details = details
+    )
+
+    respondText(
+        text = ApiJson.encodeToString(body),
+        contentType = ContentType.Application.Json,
+        status = status
     )
 }
 
