@@ -74,11 +74,7 @@ BEGIN
     ) THEN
         RAISE EXCEPTION 'DB006 Notification index must order created_at DESC';
     END IF;
-END;
-$$;
 
-DO $$
-BEGIN
     RAISE NOTICE 'V6 DB006 INDEX STRATEGY ASSERTIONS PASSED';
 END;
 $$;
