@@ -38,6 +38,10 @@ $IndexStrategyAssertions = Join-Path `
     $PSScriptRoot `
     "..\supabase\tests\migration\007_v6_index_strategy_assertions.sql"
 
+$EntityVersionAssertions = Join-Path `
+    $PSScriptRoot `
+    "..\supabase\tests\migration\008_v6_entity_version_assertions.sql"
+
 function Write-Section {
     param(
         [Parameter(Mandatory = $true)]
@@ -118,6 +122,10 @@ if (-not (Test-Path $IndexStrategyAssertions)) {
     throw "Index-strategy assertions file not found: $IndexStrategyAssertions"
 }
 
+if (-not (Test-Path $EntityVersionAssertions)) {
+    throw "Entity-version assertions file not found: $EntityVersionAssertions"
+}
+
 if (Test-Path $TemporaryBootstrapMigration) {
     throw "Temporary bootstrap migration already exists: $TemporaryBootstrapMigration"
 }
@@ -193,6 +201,12 @@ try {
         -Path $IndexStrategyAssertions `
         -Description "Run V6 DB006 index-strategy assertions"
 
+    Write-Section "Assert V6 entity-version persistence"
+
+    Invoke-SupabaseSqlFile `
+        -Path $EntityVersionAssertions `
+        -Description "Run V6 DB007 entity-version assertions"
+
     Write-Section "PostgreSQL migration regression PASS"
 
     Write-Host "Legacy boundary   : $LegacyBoundary"
@@ -205,6 +219,7 @@ try {
     Write-Host "DB004 unique keys : PASS"
     Write-Host "DB005 CHECKs      : PASS"
     Write-Host "DB006 indexes     : PASS"
+    Write-Host "DB007 versions    : PASS"
 }
 finally {
     Write-Section "Cleanup"
