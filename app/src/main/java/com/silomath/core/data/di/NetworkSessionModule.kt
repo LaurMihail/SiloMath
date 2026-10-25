@@ -1,6 +1,6 @@
 package com.silomath.core.data.di
 
-import com.silomath.core.data.auth.SupabaseNetworkSessionProvider
+import com.silomath.core.data.auth.BackendNetworkSessionProvider
 import com.silomath.core.data.network.auth.NetworkSessionProvider
 import dagger.Binds
 import dagger.Module
@@ -15,6 +15,6 @@ abstract class NetworkSessionModule {
     @Binds
     @Singleton
     abstract fun bindNetworkSessionProvider(
-        implementation: SupabaseNetworkSessionProvider
+        implementation: BackendNetworkSessionProvider
     ): NetworkSessionProvider
 }

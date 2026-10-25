@@ -1,9 +1,11 @@
 package com.silomath.core.network.di
 
 import com.silomath.app.BuildConfig
+import com.silomath.core.data.network.api.AuthApi
 import com.silomath.core.data.network.api.CampaignApi
 import com.silomath.core.data.network.api.OrganizationApi
 import com.silomath.core.data.network.api.OrganizationMembershipApi
+import com.silomath.core.data.network.client.AuthApiFactory
 import com.silomath.core.data.network.client.CampaignApiFactory
 import com.silomath.core.data.network.client.RetrofitFactory
 import com.silomath.core.data.network.config.ApiEnvironmentConfig
@@ -23,6 +25,15 @@ object RestApiModule {
         return ApiEnvironmentConfig(
             baseUrl = BuildConfig.API_BASE_URL
         )
+    }
+
+    @Provides
+    @Singleton
+    fun provideAuthApi(
+        authApiFactory: AuthApiFactory,
+        environmentConfig: ApiEnvironmentConfig
+    ): AuthApi {
+        return authApiFactory.create(environmentConfig)
     }
 
     @Provides

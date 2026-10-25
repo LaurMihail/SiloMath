@@ -3,8 +3,19 @@ package com.silomath.backend.config
 data class BackendConfig(
     val host: String,
     val port: Int,
-    val runtimeEnvironment: String
+    val runtimeEnvironment: String,
+    val databaseUrl: String? = null,
+    val databaseUser: String? = null,
+    val databasePassword: String? = null,
+    val supabaseUrl: String? = null,
+    val supabaseSecretKey: String? = null
 ) {
+    val authRuntimeConfigured: Boolean
+        get() =
+            !databaseUrl.isNullOrBlank() &&
+                !supabaseUrl.isNullOrBlank() &&
+                !supabaseSecretKey.isNullOrBlank()
+
     companion object {
         private const val DEFAULT_HOST = "127.0.0.1"
         private const val DEFAULT_PORT = 8080
@@ -13,6 +24,11 @@ data class BackendConfig(
         private const val HOST_ENV = "SILOMATH_BACKEND_HOST"
         private const val PORT_ENV = "SILOMATH_BACKEND_PORT"
         private const val RUNTIME_ENV_ENV = "SILOMATH_BACKEND_ENVIRONMENT"
+        private const val DATABASE_URL_ENV = "SILOMATH_DATABASE_URL"
+        private const val DATABASE_USER_ENV = "SILOMATH_DATABASE_USER"
+        private const val DATABASE_PASSWORD_ENV = "SILOMATH_DATABASE_PASSWORD"
+        private const val SUPABASE_URL_ENV = "SILOMATH_SUPABASE_URL"
+        private const val SUPABASE_SECRET_KEY_ENV = "SILOMATH_SUPABASE_SECRET_KEY"
 
         private val ALLOWED_RUNTIME_ENVIRONMENTS =
             setOf(
@@ -55,11 +71,27 @@ data class BackendConfig(
                     ALLOWED_RUNTIME_ENVIRONMENTS.joinToString(", ")
             }
 
-            return BackendConfig(
+            val config = BackendConfig(
                 host = host,
                 port = port,
-                runtimeEnvironment = runtimeEnvironment
+                runtimeEnvironment = runtimeEnvironment,
+                databaseUrl = values.nonBlank(DATABASE_URL_ENV),
+                databaseUser = values.nonBlank(DATABASE_USER_ENV),
+                databasePassword = values.nonBlank(DATABASE_PASSWORD_ENV),
+                supabaseUrl = values.nonBlank(SUPABASE_URL_ENV)?.trimEnd('/'),
+                supabaseSecretKey = values.nonBlank(SUPABASE_SECRET_KEY_ENV)
             )
+
+            if (runtimeEnvironment == "production") {
+                require(config.authRuntimeConfigured) {
+                    "Production requires database and Supabase Auth server secrets."
+                }
+            }
+
+            return config
         }
+
+        private fun Map<String, String>.nonBlank(key: String): String? =
+            this[key]?.trim()?.takeIf { it.isNotEmpty() }
     }
 }

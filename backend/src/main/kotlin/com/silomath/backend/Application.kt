@@ -2,7 +2,9 @@ package com.silomath.backend
 
 import com.silomath.backend.api.configureApiSerialization
 import com.silomath.backend.api.configureCorrelationIds
+import com.silomath.backend.auth.AuthRuntimeFactory
 import com.silomath.backend.config.BackendConfig
+import com.silomath.backend.routes.configureAuthRouting
 import com.silomath.backend.routes.configureFoundationRouting
 import io.ktor.server.application.Application
 import io.ktor.server.engine.embeddedServer
@@ -29,4 +31,5 @@ fun Application.module(
     configureCorrelationIds()
     configureApiSerialization()
     configureFoundationRouting()
+    configureAuthRouting(AuthRuntimeFactory.create(config))
 }
