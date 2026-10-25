@@ -4,17 +4,28 @@ import com.silomath.core.model.CampaignId
 import com.silomath.core.model.CampaignScopeId
 import com.silomath.core.model.CampaignSnapshotId
 import com.silomath.core.model.CampaignTeamAssignmentId
+import com.silomath.core.model.CanonicalDecimal
 import com.silomath.core.model.CommodityId
 import com.silomath.core.model.CommodityVersionId
+import com.silomath.core.model.GeometryProfileId
 import com.silomath.core.model.GeometryProfileVersionId
+import com.silomath.core.model.LocationId
 import com.silomath.core.model.OrganizationId
 import com.silomath.core.model.OrganizationMembershipId
 import com.silomath.core.model.StorageSpaceId
+import com.silomath.core.model.StorageUnitId
 import com.silomath.core.model.UserId
 import java.time.Instant
 import java.time.LocalDate
 
 private val campaignCodePattern = Regex("^INV-\\d{4}-\\d{4}$")
+private val emailPattern = Regex("^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$")
+
+private fun requireFrozenText(value: String, field: String) {
+    require(value.isNotBlank() && value == value.trim()) {
+        "$field must be non-blank and trimmed"
+    }
+}
 
 enum class CampaignStatus {
     ACTIVE,
@@ -50,12 +61,7 @@ data class InventoryCampaign(
         require(campaignCodePattern.matches(campaignCode)) {
             "InventoryCampaign campaignCode must match INV-YYYY-NNNN"
         }
-        require(name.isNotBlank()) {
-            "InventoryCampaign name must not be blank"
-        }
-        require(name == name.trim()) {
-            "InventoryCampaign name must be trimmed"
-        }
+        requireFrozenText(name, "InventoryCampaign name")
         require(!plannedEndDate.isBefore(startDate)) {
             "InventoryCampaign plannedEndDate must be on or after startDate"
         }
@@ -70,10 +76,8 @@ data class InventoryCampaign(
         }
 
         when (status) {
-            CampaignStatus.ACTIVE -> {
-                require(completedAt == null && completedBy == null) {
-                    "ACTIVE Campaign must not define completion metadata"
-                }
+            CampaignStatus.ACTIVE -> require(completedAt == null && completedBy == null) {
+                "ACTIVE Campaign must not define completion metadata"
             }
 
             CampaignStatus.COMPLETED -> {
@@ -86,6 +90,9 @@ data class InventoryCampaign(
             }
         }
     }
+
+    fun canTransitionTo(next: CampaignStatus): Boolean =
+        status == CampaignStatus.ACTIVE && next == CampaignStatus.COMPLETED
 }
 
 data class CampaignScope(
@@ -97,12 +104,7 @@ data class CampaignScope(
     val createdBy: UserId
 ) {
     init {
-        require(snapshotHierarchyRef.isNotBlank()) {
-            "CampaignScope snapshotHierarchyRef must not be blank"
-        }
-        require(snapshotHierarchyRef == snapshotHierarchyRef.trim()) {
-            "CampaignScope snapshotHierarchyRef must be trimmed"
-        }
+        requireFrozenText(snapshotHierarchyRef, "CampaignScope snapshotHierarchyRef")
     }
 }
 
@@ -134,10 +136,8 @@ data class CampaignTeamAssignment(
         }
 
         when (assignmentStatus) {
-            CampaignTeamAssignmentStatus.ACTIVE -> {
-                require(removedAt == null && removedBy == null) {
-                    "ACTIVE CampaignTeamAssignment must not define removal metadata"
-                }
+            CampaignTeamAssignmentStatus.ACTIVE -> require(removedAt == null && removedBy == null) {
+                "ACTIVE CampaignTeamAssignment must not define removal metadata"
             }
 
             CampaignTeamAssignmentStatus.REMOVED -> {
@@ -148,6 +148,23 @@ data class CampaignTeamAssignment(
                     "CampaignTeamAssignment removedAt must not be before assignedAt"
                 }
             }
+        }
+    }
+}
+
+data class CampaignOrganizationSnapshot(
+    val organizationId: OrganizationId,
+    val name: String,
+    val code: String,
+    val address: String?,
+    val city: String?,
+    val country: String?
+) {
+    init {
+        requireFrozenText(name, "CampaignOrganizationSnapshot name")
+        requireFrozenText(code, "CampaignOrganizationSnapshot code")
+        listOf(address, city, country).filterNotNull().forEach {
+            require(it == it.trim()) { "CampaignOrganizationSnapshot optional text must be trimmed" }
         }
     }
 }
@@ -163,9 +180,7 @@ data class CampaignConfigurationSnapshot(
         require(campaignCodePattern.matches(campaignCode)) {
             "CampaignConfigurationSnapshot campaignCode must match INV-YYYY-NNNN"
         }
-        require(name.isNotBlank() && name == name.trim()) {
-            "CampaignConfigurationSnapshot name must be non-blank and trimmed"
-        }
+        requireFrozenText(name, "CampaignConfigurationSnapshot name")
         require(!plannedEndDate.isBefore(startDate)) {
             "CampaignConfigurationSnapshot plannedEndDate must be on or after startDate"
         }
@@ -174,22 +189,43 @@ data class CampaignConfigurationSnapshot(
 
 data class CampaignScopeSnapshotEntry(
     val storageSpaceId: StorageSpaceId,
-    val snapshotHierarchyRef: String
+    val storageSpaceCode: String,
+    val storageUnitId: StorageUnitId,
+    val storageUnitCode: String,
+    val storageUnitName: String,
+    val locationId: LocationId,
+    val locationCode: String,
+    val locationName: String,
+    val geometryProfileId: GeometryProfileId,
+    val geometryProfileVersionId: GeometryProfileVersionId,
+    val geometryProfileCode: String,
+    val geometryProfileName: String,
+    val geometryFamilyCode: String,
+    val geometryFamilyName: String,
+    val geometryFormulaVersion: String,
+    val geometryDimensions: Map<String, CanonicalDecimal>,
+    val measurementReferenceHeightM: CanonicalDecimal?,
+    val maximumFillHeightM: CanonicalDecimal?,
+    val maxCapacityM3: CanonicalDecimal?
 ) {
     init {
-        require(snapshotHierarchyRef.isNotBlank()) {
-            "CampaignScopeSnapshotEntry snapshotHierarchyRef must not be blank"
-        }
-        require(snapshotHierarchyRef == snapshotHierarchyRef.trim()) {
-            "CampaignScopeSnapshotEntry snapshotHierarchyRef must be trimmed"
+        listOf(
+            storageSpaceCode,
+            storageUnitCode,
+            storageUnitName,
+            locationCode,
+            locationName,
+            geometryProfileCode,
+            geometryProfileName,
+            geometryFamilyCode,
+            geometryFamilyName,
+            geometryFormulaVersion
+        ).forEach { requireFrozenText(it, "CampaignScopeSnapshotEntry frozen display value") }
+        require(geometryDimensions.keys.all { it.isNotBlank() && it == it.trim() }) {
+            "CampaignScopeSnapshotEntry geometry dimension keys must be non-blank and trimmed"
         }
     }
 }
-
-data class CampaignGeometrySnapshotEntry(
-    val storageSpaceId: StorageSpaceId,
-    val geometryProfileVersionId: GeometryProfileVersionId
-)
 
 data class CampaignCommodityCompatibilitySnapshotEntry(
     val commodityId: CommodityId,
@@ -198,24 +234,36 @@ data class CampaignCommodityCompatibilitySnapshotEntry(
 
 data class CampaignTeamSnapshotEntry(
     val userId: UserId,
-    val organizationMembershipId: OrganizationMembershipId
-)
+    val organizationMembershipId: OrganizationMembershipId,
+    val userFullName: String,
+    val userEmail: String,
+    val organizationRole: OrganizationRole
+) {
+    init {
+        requireFrozenText(userFullName, "CampaignTeamSnapshotEntry userFullName")
+        require(userEmail == userEmail.trim() && emailPattern.matches(userEmail)) {
+            "CampaignTeamSnapshotEntry userEmail must be a trimmed email address"
+        }
+    }
+}
 
 data class CampaignSnapshot(
     val campaignSnapshotId: CampaignSnapshotId,
     val campaignId: CampaignId,
-    val organizationId: OrganizationId,
+    val organizationSnapshot: CampaignOrganizationSnapshot,
     val campaignConfiguration: CampaignConfigurationSnapshot,
     val scopeSnapshot: List<CampaignScopeSnapshotEntry>,
-    val geometrySnapshot: List<CampaignGeometrySnapshotEntry>,
-    val commodityCompatibilitySnapshot:
-        List<CampaignCommodityCompatibilitySnapshotEntry>,
+    val commodityCompatibilitySnapshot: List<CampaignCommodityCompatibilitySnapshotEntry>,
     val teamSnapshot: List<CampaignTeamSnapshotEntry>,
     val calculationSchemaVersions: Set<String>,
+    val calculationEngineVersion: String,
     val createdAt: Instant,
     val createdBy: UserId,
     val snapshotSchemaVersion: String
 ) {
+    val organizationId: OrganizationId
+        get() = organizationSnapshot.organizationId
+
     init {
         require(scopeSnapshot.isNotEmpty()) {
             "CampaignSnapshot requires non-empty scopeSnapshot"
@@ -223,30 +271,21 @@ data class CampaignSnapshot(
         require(teamSnapshot.isNotEmpty()) {
             "CampaignSnapshot requires at least one launch-time team member"
         }
+        require(commodityCompatibilitySnapshot.isNotEmpty()) {
+            "CampaignSnapshot requires explicit Commodity compatibility entries"
+        }
         require(calculationSchemaVersions.isNotEmpty()) {
             "CampaignSnapshot requires calculationSchemaVersions"
         }
         require(calculationSchemaVersions.all { it.isNotBlank() && it == it.trim() }) {
             "CampaignSnapshot calculation schema versions must be non-blank and trimmed"
         }
-        require(snapshotSchemaVersion.isNotBlank()) {
-            "CampaignSnapshot snapshotSchemaVersion must not be blank"
-        }
-        require(snapshotSchemaVersion == snapshotSchemaVersion.trim()) {
-            "CampaignSnapshot snapshotSchemaVersion must be trimmed"
-        }
+        requireFrozenText(calculationEngineVersion, "CampaignSnapshot calculationEngineVersion")
+        requireFrozenText(snapshotSchemaVersion, "CampaignSnapshot snapshotSchemaVersion")
 
         val scopeIds = scopeSnapshot.map { it.storageSpaceId }
         require(scopeIds.size == scopeIds.toSet().size) {
             "CampaignSnapshot scopeSnapshot must not duplicate StorageSpace identity"
-        }
-
-        val geometrySpaceIds = geometrySnapshot.map { it.storageSpaceId }
-        require(geometrySpaceIds.size == geometrySpaceIds.toSet().size) {
-            "CampaignSnapshot geometrySnapshot must not duplicate StorageSpace identity"
-        }
-        require(geometrySpaceIds.all { it in scopeIds }) {
-            "CampaignSnapshot geometrySnapshot must reference scoped StorageSpaces"
         }
 
         val teamUsers = teamSnapshot.map { it.userId }
@@ -254,11 +293,20 @@ data class CampaignSnapshot(
             "CampaignSnapshot teamSnapshot must not duplicate User identity"
         }
 
+        val teamMemberships = teamSnapshot.map { it.organizationMembershipId }
+        require(teamMemberships.size == teamMemberships.toSet().size) {
+            "CampaignSnapshot teamSnapshot must not duplicate OrganizationMembership identity"
+        }
+
         val commodityPairs = commodityCompatibilitySnapshot.map {
             it.commodityId to it.commodityVersionId
         }
         require(commodityPairs.size == commodityPairs.toSet().size) {
             "CampaignSnapshot commodity compatibility entries must be unique"
+        }
+        require(commodityCompatibilitySnapshot.map { it.commodityId }.distinct().size ==
+            commodityCompatibilitySnapshot.size) {
+            "CampaignSnapshot must freeze at most one compatible CommodityVersion per Commodity"
         }
     }
 }
