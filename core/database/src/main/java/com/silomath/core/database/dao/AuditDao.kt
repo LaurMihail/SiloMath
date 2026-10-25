@@ -12,6 +12,9 @@ interface AuditDao {
     @Query("SELECT * FROM audit_trail ORDER BY timestamp DESC")
     fun getAllEvents(): Flow<List<AuditTrailEntity>>
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    // Local audit projection is append-only as well: duplicate primary keys fail
+    // closed instead of replacing historical rows. Canonical AuditEvent remains
+    // server-authoritative per the frozen V6 persistence contract.
+    @Insert(onConflict = OnConflictStrategy.ABORT)
     suspend fun insertEvent(event: AuditTrailEntity): Long
 }
