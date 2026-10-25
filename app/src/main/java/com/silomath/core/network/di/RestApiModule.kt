@@ -1,6 +1,7 @@
 package com.silomath.core.network.di
 
 import com.silomath.app.BuildConfig
+import com.silomath.core.data.network.api.AuthApi
 import com.silomath.core.data.network.api.CampaignApi
 import com.silomath.core.data.network.api.OrganizationApi
 import com.silomath.core.data.network.api.OrganizationMembershipApi
@@ -23,6 +24,17 @@ object RestApiModule {
         return ApiEnvironmentConfig(
             baseUrl = BuildConfig.API_BASE_URL
         )
+    }
+
+    @Provides
+    @Singleton
+    fun provideAuthApi(
+        retrofitFactory: RetrofitFactory,
+        environmentConfig: ApiEnvironmentConfig
+    ): AuthApi {
+        return retrofitFactory
+            .create(environmentConfig)
+            .create(AuthApi::class.java)
     }
 
     @Provides
