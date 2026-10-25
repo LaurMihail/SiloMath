@@ -96,6 +96,12 @@ data class Evidence(
         require(localPrivateRef == null || localPrivateRef.isNotBlank()) {
             "PHOTO localPrivateRef must be opaque and non-blank"
         }
+        require(localPrivateRef == null || !localPrivateRef.contains("://")) {
+            "PHOTO localPrivateRef must be an opaque app-private reference, not a URI"
+        }
+        require(localPrivateRef == null || !localPrivateRef.startsWith("/")) {
+            "PHOTO localPrivateRef must not expose an absolute filesystem path"
+        }
         require(remoteObjectRef == null || remoteObjectRef.isNotBlank()) {
             "PHOTO remoteObjectRef must be opaque and non-blank"
         }
@@ -184,6 +190,14 @@ object EvidenceDomainRules {
         }
     }
 
+    /**
+     * Enforces the frozen five-PHOTO rule across already-bound historical revisions,
+     * unbound working Stocktaking evidence, and Issue-owned evidence.
+     *
+     * Unbound working evidence is grouped by StocktakingRecord because V6 explicitly
+     * allows stocktakingRevisionId to remain null until Validation binds the evidence
+     * to the exact validated revision.
+     */
     fun validatePhotoLimits(evidence: Collection<Evidence>) {
         val activePhotos = evidence.filter { it.evidenceType == EvidenceType.PHOTO && it.isActive }
 
@@ -197,6 +211,15 @@ object EvidenceDomainRules {
             }
 
         activePhotos
+            .filter { it.stocktakingRecordId != null && it.stocktakingRevisionId == null }
+            .groupBy { it.stocktakingRecordId }
+            .forEach { (recordId, photos) ->
+                require(photos.size <= Evidence.MAX_PHOTO_COUNT) {
+                    "Working StocktakingRecord $recordId exceeds the five-PHOTO limit before revision binding"
+                }
+            }
+
+        activePhotos
             .filter { it.issueId != null }
             .groupBy { it.issueId }
             .forEach { (issueId, photos) ->
@@ -204,6 +227,28 @@ object EvidenceDomainRules {
                     "Issue $issueId exceeds the five-PHOTO limit"
                 }
             }
+    }
+
+    /**
+     * Enforces the current working revision limit when the caller knows the current
+     * revision identity. Unbound working photos and photos already bound to that
+     * revision consume the same five-photo budget; prior historical revisions do not.
+     */
+    fun validateWorkingStocktakingPhotoLimit(
+        stocktakingRecordId: StocktakingRecordId,
+        currentWorkingRevisionId: StocktakingRevisionId,
+        evidence: Collection<Evidence>
+    ) {
+        val workingPhotos = evidence.filter {
+            it.isActive &&
+                it.evidenceType == EvidenceType.PHOTO &&
+                it.stocktakingRecordId == stocktakingRecordId &&
+                it.issueId == null &&
+                (it.stocktakingRevisionId == null || it.stocktakingRevisionId == currentWorkingRevisionId)
+        }
+        require(workingPhotos.size <= Evidence.MAX_PHOTO_COUNT) {
+            "Current StocktakingRevision $currentWorkingRevisionId exceeds the five-PHOTO limit"
+        }
     }
 
     private fun contentIdentity(evidence: Evidence): List<Any?> = listOf(
