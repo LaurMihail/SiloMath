@@ -35,9 +35,29 @@ import com.silomath.core.database.migration.MasterDataCanonicalBackfill20To21
         SyncOutboxEntity::class,
         SyncOperationEntity::class,
         DeviceInstallationEntity::class,
-        AuditTrailEntity::class
+        AuditTrailEntity::class,
+
+        // V6 additive canonical Room baseline (schema 22).
+        CommodityVersionRoomEntity::class,
+        CampaignSnapshotRoomEntity::class,
+        CampaignSnapshotScopeItemRoomEntity::class,
+        CampaignSnapshotTeamItemRoomEntity::class,
+        CampaignSnapshotCommodityItemRoomEntity::class,
+        OfflineWorkingSetManifestRoomEntity::class,
+        StocktakingRevisionRoomEntity::class,
+        IssueResolutionRoomEntity::class,
+        IssueStatusEventRoomEntity::class,
+        EvidenceRoomEntity::class,
+        FinalInventorySnapshotRoomEntity::class,
+        FinalInventorySnapshotEntryRoomEntity::class,
+        SyncOperationDependencyRoomEntity::class,
+        SyncConflictRoomEntity::class,
+        AuditEventRoomEntity::class,
+        NotificationRoomEntity::class,
+        UserPreferenceRoomEntity::class,
+        OrganizationConfigurationRoomEntity::class
     ],
-    version = 21,
+    version = 22,
     exportSchema = true,
     autoMigrations = [
         AutoMigration(
@@ -65,6 +85,10 @@ import com.silomath.core.database.migration.MasterDataCanonicalBackfill20To21
             from = 20,
             to = 21,
             spec = MasterDataCanonicalBackfill20To21::class
+        ),
+        AutoMigration(
+            from = 21,
+            to = 22
         )
     ]
 )
