@@ -1,34 +1,59 @@
 package com.silomath.core.domain.model
 
-enum class CampaignInventoryType(val wireValue: String) {
-    ANNUAL("Annual"),
-    MONTHLY("Monthly"),
-    CONTROL("Control");
+import com.silomath.core.model.CampaignId
+import com.silomath.core.model.CampaignSnapshotId
+import com.silomath.core.model.OrganizationId
+import com.silomath.core.model.StorageSpaceId
+import com.silomath.core.model.UserId
+import java.time.LocalDate
 
-    companion object {
-        fun fromWireValue(value: String): CampaignInventoryType? {
-            return entries.find { it.wireValue == value }
+enum class CampaignInventoryType {
+    ANNUAL,
+    MONTHLY,
+    CONTROL
+}
+
+data class SaveAndLaunchTeamMember(
+    val userId: UserId,
+    val organizationRole: OrganizationRole
+)
+
+data class SaveAndLaunchCampaignInput(
+    val organizationId: OrganizationId,
+    val name: String,
+    val inventoryType: CampaignInventoryType,
+    val startDate: LocalDate,
+    val plannedEndDate: LocalDate,
+    val scopeStorageSpaceIds: List<StorageSpaceId>,
+    val team: List<SaveAndLaunchTeamMember>,
+    val idempotencyKey: String
+) {
+    init {
+        require(name.isNotBlank() && name == name.trim()) {
+            "Campaign name must be non-blank and trimmed"
+        }
+        require(!plannedEndDate.isBefore(startDate)) {
+            "Campaign plannedEndDate must be on or after startDate"
+        }
+        require(scopeStorageSpaceIds.isNotEmpty()) {
+            "Campaign launch requires at least one StorageSpace in scope"
+        }
+        require(scopeStorageSpaceIds.distinct().size == scopeStorageSpaceIds.size) {
+            "Campaign launch scope must not duplicate StorageSpace identity"
+        }
+        require(team.isNotEmpty()) {
+            "Campaign launch requires at least one Team member"
+        }
+        require(team.map { it.userId }.distinct().size == team.size) {
+            "Campaign launch Team must not duplicate User identity"
+        }
+        require(idempotencyKey.isNotBlank() && idempotencyKey == idempotencyKey.trim()) {
+            "Campaign launch idempotencyKey must be non-blank and trimmed"
         }
     }
 }
 
-data class SaveAndLaunchTeamMember(
-    val userId: String,
-    val roleAtAssignment: String
-)
-
-data class SaveAndLaunchCampaignInput(
-    val organizationId: String,
-    val name: String,
-    val inventoryType: CampaignInventoryType,
-    val startDate: String,
-    val plannedEndDate: String,
-    val scopeStorageSpaceIds: List<String>,
-    val team: List<SaveAndLaunchTeamMember>,
-    val idempotencyKey: String
-)
-
 data class SaveAndLaunchCampaignResult(
-    val campaignId: String,
-    val launchSnapshotId: String
+    val campaignId: CampaignId,
+    val campaignSnapshotId: CampaignSnapshotId
 )
