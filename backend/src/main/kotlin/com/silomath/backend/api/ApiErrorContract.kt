@@ -11,7 +11,6 @@ import io.ktor.server.plugins.statuspages.StatusPages
 import io.ktor.server.plugins.statuspages.exception
 import io.ktor.server.request.path
 import io.ktor.server.response.respondText
-import java.util.UUID
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
@@ -103,13 +102,7 @@ fun Application.configureApiSerialization() {
     }
 }
 
-/**
- * Standard frozen V6 JSON error responder.
- *
- * API007 will replace the fallback UUID generation with the request-scoped
- * correlation-id pipeline. Until then every error still receives a valid
- * opaque correlation identifier and no secret/request payload is reflected.
- */
+/** Standard frozen V6 JSON error responder. */
 suspend fun ApplicationCall.respondApiError(
     status: HttpStatusCode,
     code: ApiErrorCode,
@@ -117,7 +110,7 @@ suspend fun ApplicationCall.respondApiError(
     retryable: Boolean = false,
     fieldErrors: List<ApiFieldError> = emptyList(),
     details: JsonObject? = null,
-    correlationId: String = UUID.randomUUID().toString()
+    correlationId: String = correlationId()
 ) {
     val body = ApiErrorResponse(
         code = code,
