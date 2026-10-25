@@ -78,10 +78,34 @@ BEGIN
 END;
 $$;
 
-CREATE UNIQUE INDEX IF NOT EXISTS uq_campaign_team_assignments_one_active
-    ON silomath.campaign_team_assignments (campaign_id, user_id)
-    WHERE status = 'ACTIVE';
+DO $$
+BEGIN
+    IF NOT EXISTS (
+        SELECT 1
+        FROM pg_indexes
+        WHERE schemaname = 'silomath'
+          AND tablename = 'campaign_team_assignments'
+          AND lower(indexdef) LIKE '%unique index%'
+          AND lower(indexdef) LIKE '%(campaign_id, user_id)%'
+          AND lower(indexdef) LIKE '%where (status = ''active''::text)%'
+    ) THEN
+        CREATE UNIQUE INDEX uq_campaign_team_assignments_one_active
+            ON silomath.campaign_team_assignments (campaign_id, user_id)
+            WHERE status = 'ACTIVE';
+    END IF;
 
-CREATE UNIQUE INDEX IF NOT EXISTS uq_offline_manifests_one_current
-    ON silomath.offline_working_set_manifests (campaign_id, device_installation_id)
-    WHERE is_current;
+    IF NOT EXISTS (
+        SELECT 1
+        FROM pg_indexes
+        WHERE schemaname = 'silomath'
+          AND tablename = 'offline_working_set_manifests'
+          AND lower(indexdef) LIKE '%unique index%'
+          AND lower(indexdef) LIKE '%(campaign_id, device_installation_id)%'
+          AND lower(indexdef) LIKE '%where is_current%'
+    ) THEN
+        CREATE UNIQUE INDEX uq_offline_manifests_one_current
+            ON silomath.offline_working_set_manifests (campaign_id, device_installation_id)
+            WHERE is_current;
+    END IF;
+END;
+$$;
