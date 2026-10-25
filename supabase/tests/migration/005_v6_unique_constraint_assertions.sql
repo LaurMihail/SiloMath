@@ -89,11 +89,7 @@ BEGIN
     ) THEN
         RAISE EXCEPTION 'DB004 missing one-current-manifest partial UNIQUE key';
     END IF;
-END;
-$$;
 
-DO $$
-BEGIN
     RAISE NOTICE 'V6 DB004 UNIQUE CONSTRAINT ASSERTIONS PASSED';
 END;
 $$;
