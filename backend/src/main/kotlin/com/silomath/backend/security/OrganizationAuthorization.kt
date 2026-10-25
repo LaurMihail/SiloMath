@@ -56,6 +56,7 @@ fun Route.withOrganizationAuthorization(
 ) {
     route("") {
         intercept(ApplicationCallPipeline.Plugins) {
+            val call = context
             val subject = call.requireAuthenticatedSubject()
             val organizationId =
                 call.parameters[organizationParameterName]
