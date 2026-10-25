@@ -42,6 +42,14 @@ $EntityVersionAssertions = Join-Path `
     $PSScriptRoot `
     "..\supabase\tests\migration\008_v6_entity_version_assertions.sql"
 
+$SnapshotImmutabilityAssertions = Join-Path `
+    $PSScriptRoot `
+    "..\supabase\tests\migration\009_v6_snapshot_immutability_assertions.sql"
+
+$AuditAppendOnlyAssertions = Join-Path `
+    $PSScriptRoot `
+    "..\supabase\tests\migration\010_v6_audit_append_only_assertions.sql"
+
 function Write-Section {
     param(
         [Parameter(Mandatory = $true)]
@@ -126,6 +134,14 @@ if (-not (Test-Path $EntityVersionAssertions)) {
     throw "Entity-version assertions file not found: $EntityVersionAssertions"
 }
 
+if (-not (Test-Path $SnapshotImmutabilityAssertions)) {
+    throw "Snapshot-immutability assertions file not found: $SnapshotImmutabilityAssertions"
+}
+
+if (-not (Test-Path $AuditAppendOnlyAssertions)) {
+    throw "Audit append-only assertions file not found: $AuditAppendOnlyAssertions"
+}
+
 if (Test-Path $TemporaryBootstrapMigration) {
     throw "Temporary bootstrap migration already exists: $TemporaryBootstrapMigration"
 }
@@ -207,6 +223,18 @@ try {
         -Path $EntityVersionAssertions `
         -Description "Run V6 DB007 entity-version assertions"
 
+    Write-Section "Assert V6 immutable snapshot persistence"
+
+    Invoke-SupabaseSqlFile `
+        -Path $SnapshotImmutabilityAssertions `
+        -Description "Run V6 DB008 snapshot-immutability assertions"
+
+    Write-Section "Assert V6 audit append-only persistence"
+
+    Invoke-SupabaseSqlFile `
+        -Path $AuditAppendOnlyAssertions `
+        -Description "Run V6 DB009 audit append-only assertions"
+
     Write-Section "PostgreSQL migration regression PASS"
 
     Write-Host "Legacy boundary   : $LegacyBoundary"
@@ -220,6 +248,8 @@ try {
     Write-Host "DB005 CHECKs      : PASS"
     Write-Host "DB006 indexes     : PASS"
     Write-Host "DB007 versions    : PASS"
+    Write-Host "DB008 snapshots   : PASS"
+    Write-Host "DB009 audit       : PASS"
 }
 finally {
     Write-Section "Cleanup"
