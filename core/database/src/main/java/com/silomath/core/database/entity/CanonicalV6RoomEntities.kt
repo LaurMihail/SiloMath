@@ -54,7 +54,10 @@ data class CampaignSnapshotRoomEntity(
 
 @Entity(
     tableName = "campaign_snapshot_scope_items",
-    indices = [Index("campaign_snapshot_id"), Index(value = ["campaign_snapshot_id", "storage_space_id"], unique = true)]
+    indices = [
+        Index("campaign_snapshot_id"),
+        Index(value = ["campaign_snapshot_id", "storage_space_id"], unique = true)
+    ]
 )
 data class CampaignSnapshotScopeItemRoomEntity(
     @PrimaryKey @ColumnInfo(name = "snapshot_scope_item_id") val snapshotScopeItemId: String,
@@ -83,7 +86,10 @@ data class CampaignSnapshotScopeItemRoomEntity(
 
 @Entity(
     tableName = "campaign_snapshot_team_items",
-    indices = [Index("campaign_snapshot_id"), Index(value = ["campaign_snapshot_id", "user_id"], unique = true)]
+    indices = [
+        Index("campaign_snapshot_id"),
+        Index(value = ["campaign_snapshot_id", "user_id"], unique = true)
+    ]
 )
 data class CampaignSnapshotTeamItemRoomEntity(
     @PrimaryKey @ColumnInfo(name = "snapshot_team_item_id") val snapshotTeamItemId: String,
@@ -97,7 +103,10 @@ data class CampaignSnapshotTeamItemRoomEntity(
 
 @Entity(
     tableName = "campaign_snapshot_commodity_items",
-    indices = [Index("campaign_snapshot_id"), Index(value = ["campaign_snapshot_id", "commodity_id", "commodity_version_id"], unique = true)]
+    indices = [
+        Index("campaign_snapshot_id"),
+        Index(value = ["campaign_snapshot_id", "commodity_id", "commodity_version_id"], unique = true)
+    ]
 )
 data class CampaignSnapshotCommodityItemRoomEntity(
     @PrimaryKey @ColumnInfo(name = "snapshot_commodity_item_id") val snapshotCommodityItemId: String,
@@ -173,7 +182,11 @@ data class IssueStatusEventRoomEntity(
 
 @Entity(
     tableName = "evidence",
-    indices = [Index("stocktaking_record_id", "stocktaking_revision_id", "evidence_type"), Index("issue_id", "evidence_type"), Index("sync_state")]
+    indices = [
+        Index(value = ["stocktaking_record_id", "stocktaking_revision_id", "evidence_type"]),
+        Index(value = ["issue_id", "evidence_type"]),
+        Index("sync_state")
+    ]
 )
 data class EvidenceRoomEntity(
     @PrimaryKey @ColumnInfo(name = "evidence_id") val evidenceId: String,
@@ -199,7 +212,13 @@ data class EvidenceRoomEntity(
     @ColumnInfo(name = "entity_version") val entityVersion: Long = 1
 )
 
-@Entity(tableName = "final_inventory_snapshots", indices = [Index(value = ["campaign_id"], unique = true), Index("organization_id", "closed_at")])
+@Entity(
+    tableName = "final_inventory_snapshots",
+    indices = [
+        Index(value = ["campaign_id"], unique = true),
+        Index(value = ["organization_id", "closed_at"])
+    ]
+)
 data class FinalInventorySnapshotRoomEntity(
     @PrimaryKey @ColumnInfo(name = "final_snapshot_id") val finalSnapshotId: String,
     @ColumnInfo(name = "organization_id") val organizationId: String,
@@ -213,7 +232,10 @@ data class FinalInventorySnapshotRoomEntity(
     @ColumnInfo(name = "created_by") val createdBy: String
 )
 
-@Entity(tableName = "final_inventory_snapshot_entries", indices = [Index(value = ["final_snapshot_id", "storage_space_id"], unique = true)])
+@Entity(
+    tableName = "final_inventory_snapshot_entries",
+    indices = [Index(value = ["final_snapshot_id", "storage_space_id"], unique = true)]
+)
 data class FinalInventorySnapshotEntryRoomEntity(
     @PrimaryKey @ColumnInfo(name = "entry_id") val entryId: String,
     @ColumnInfo(name = "final_snapshot_id") val finalSnapshotId: String,
@@ -233,7 +255,10 @@ data class FinalInventorySnapshotEntryRoomEntity(
 
 @Entity(
     tableName = "sync_operation_dependencies",
-    indices = [Index(value = ["parent_operation_id", "dependent_operation_id"], unique = true), Index("dependent_operation_id")]
+    indices = [
+        Index(value = ["parent_operation_id", "dependent_operation_id"], unique = true),
+        Index("dependent_operation_id")
+    ]
 )
 data class SyncOperationDependencyRoomEntity(
     @PrimaryKey @ColumnInfo(name = "dependency_id") val dependencyId: String,
@@ -261,7 +286,13 @@ data class SyncConflictRoomEntity(
     @ColumnInfo(name = "resolved_by") val resolvedBy: String? = null
 )
 
-@Entity(tableName = "audit_events", indices = [Index("organization_id", "occurred_at"), Index("entity_type", "entity_id", "occurred_at")])
+@Entity(
+    tableName = "audit_events",
+    indices = [
+        Index(value = ["organization_id", "occurred_at"]),
+        Index(value = ["entity_type", "entity_id", "occurred_at"])
+    ]
+)
 data class AuditEventRoomEntity(
     @PrimaryKey @ColumnInfo(name = "audit_event_id") val auditEventId: String,
     @ColumnInfo(name = "organization_id") val organizationId: String,
@@ -279,7 +310,10 @@ data class AuditEventRoomEntity(
     @ColumnInfo(name = "system_actor") val systemActor: String? = null
 )
 
-@Entity(tableName = "notifications", indices = [Index("recipient_user_id", "read_at", "created_at")])
+@Entity(
+    tableName = "notifications",
+    indices = [Index(value = ["recipient_user_id", "read_at", "created_at"])]
+)
 data class NotificationRoomEntity(
     @PrimaryKey @ColumnInfo(name = "notification_id") val notificationId: String,
     @ColumnInfo(name = "organization_id") val organizationId: String,
@@ -301,7 +335,10 @@ data class UserPreferenceRoomEntity(
     @ColumnInfo(name = "updated_at") val updatedAt: Long
 )
 
-@Entity(tableName = "organization_configurations", indices = [Index(value = ["organization_id", "configuration_key"], unique = true)])
+@Entity(
+    tableName = "organization_configurations",
+    indices = [Index(value = ["organization_id", "configuration_key"], unique = true)]
+)
 data class OrganizationConfigurationRoomEntity(
     @PrimaryKey @ColumnInfo(name = "organization_configuration_id") val organizationConfigurationId: String,
     @ColumnInfo(name = "organization_id") val organizationId: String,
