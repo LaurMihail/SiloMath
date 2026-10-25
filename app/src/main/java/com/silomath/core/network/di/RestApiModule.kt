@@ -5,6 +5,7 @@ import com.silomath.core.data.network.api.AuthApi
 import com.silomath.core.data.network.api.CampaignApi
 import com.silomath.core.data.network.api.OrganizationApi
 import com.silomath.core.data.network.api.OrganizationMembershipApi
+import com.silomath.core.data.network.client.AuthApiFactory
 import com.silomath.core.data.network.client.CampaignApiFactory
 import com.silomath.core.data.network.client.RetrofitFactory
 import com.silomath.core.data.network.config.ApiEnvironmentConfig
@@ -29,12 +30,10 @@ object RestApiModule {
     @Provides
     @Singleton
     fun provideAuthApi(
-        retrofitFactory: RetrofitFactory,
+        authApiFactory: AuthApiFactory,
         environmentConfig: ApiEnvironmentConfig
     ): AuthApi {
-        return retrofitFactory
-            .create(environmentConfig)
-            .create(AuthApi::class.java)
+        return authApiFactory.create(environmentConfig)
     }
 
     @Provides
