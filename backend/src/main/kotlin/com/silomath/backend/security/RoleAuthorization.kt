@@ -1,8 +1,9 @@
 package com.silomath.backend.security
 
+import com.silomath.backend.api.ApiErrorCode
+import com.silomath.backend.api.respondApiError
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.application.ApplicationCallPipeline
-import io.ktor.server.response.respond
 import io.ktor.server.routing.Route
 import io.ktor.server.routing.route
 
@@ -26,7 +27,11 @@ fun Route.requireOrganizationRole(
                 call.requireAuthorizedOrganizationMembership()
 
             if (membership.role !in allowedRoles) {
-                call.respond(HttpStatusCode.Forbidden)
+                call.respondApiError(
+                    status = HttpStatusCode.Forbidden,
+                    code = ApiErrorCode.AUTH_FORBIDDEN,
+                    message = "The authenticated user is not authorized for this operation."
+                )
                 finish()
             }
         }
