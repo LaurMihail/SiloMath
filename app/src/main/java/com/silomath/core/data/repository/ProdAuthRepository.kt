@@ -3,6 +3,7 @@ package com.silomath.core.data.repository
 import com.silomath.core.data.auth.SessionStore
 import com.silomath.core.data.network.api.AuthApi
 import com.silomath.core.data.network.dto.ForgotPasswordRequestDto
+import com.silomath.core.data.network.dto.RefreshSessionRequestDto
 import com.silomath.core.data.network.dto.SignInRequestDto
 import com.silomath.core.domain.model.SessionState
 import com.silomath.core.domain.repository.AuthRepository
@@ -79,11 +80,24 @@ class ProdAuthRepository @Inject constructor(
     }
 
     override suspend fun restoreRemoteSession(): Result<Unit> {
-        // Session restoration/rotation is implemented through the canonical
-        // NetworkSessionProvider in AUTH-003; this repository remains fail-closed
-        // until that flow invokes the provider with stored protected credentials.
-        return Result.failure(
-            IllegalStateException("Session restoration flow not initialized")
-        )
+        val currentState = sessionStore.sessionState.first()
+        val refreshToken = currentState.refreshToken?.takeIf { it.isNotBlank() }
+            ?: return Result.failure(
+                IllegalStateException("No protected refresh credential available")
+            )
+
+        return runCatching {
+            val response = authApi.refreshSession(
+                RefreshSessionRequestDto(refreshToken = refreshToken)
+            )
+
+            sessionStore.updateSession(
+                currentState.copy(
+                    userId = response.user.userId,
+                    token = response.accessToken,
+                    refreshToken = response.refreshToken
+                )
+            )
+        }
     }
 }
