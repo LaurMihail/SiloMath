@@ -1,5 +1,6 @@
 package com.silomath.backend.api
 
+import io.ktor.http.HttpStatusCode
 import io.ktor.server.application.ApplicationCall
 
 const val IDEMPOTENCY_KEY_HEADER = "Idempotency-Key"
@@ -14,6 +15,7 @@ data class IdempotencyRecord(
 sealed interface IdempotencyClaimResult {
     data object New : IdempotencyClaimResult
     data class Replay(val record: IdempotencyRecord) : IdempotencyClaimResult
+    data object MissingKey : IdempotencyClaimResult
     data object Mismatch : IdempotencyClaimResult
 }
 
@@ -44,12 +46,26 @@ suspend fun IdempotencyRegistry.claimOrReject(
     requestFingerprint: String
 ): IdempotencyClaimResult {
     val key = call.idempotencyKeyOrNull()
-        ?: return IdempotencyClaimResult.Mismatch
+    if (key == null) {
+        call.respondApiError(
+            status = HttpStatusCode.UnprocessableEntity,
+            code = ApiErrorCode.VALIDATION_FAILED,
+            message = "An idempotency key is required for this mutation.",
+            fieldErrors = listOf(
+                ApiFieldError(
+                    field = IDEMPOTENCY_KEY_HEADER,
+                    code = "REQUIRED",
+                    message = "Required"
+                )
+            )
+        )
+        return IdempotencyClaimResult.MissingKey
+    }
 
     val result = claim(namespace, key, requestFingerprint)
     if (result == IdempotencyClaimResult.Mismatch) {
         call.respondApiError(
-            status = io.ktor.http.HttpStatusCode.Conflict,
+            status = HttpStatusCode.Conflict,
             code = ApiErrorCode.IDEMPOTENCY_KEY_REUSE_MISMATCH,
             message = "The idempotency key was reused for a different logical request."
         )
