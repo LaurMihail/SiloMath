@@ -77,11 +77,7 @@ BEGIN
             RAISE EXCEPTION 'DB005 missing CHECK %.%', r.table_name, r.constraint_name;
         END IF;
     END LOOP;
-END;
-$$;
 
-DO $$
-BEGIN
     RAISE NOTICE 'V6 DB005 CHECK CONSTRAINT ASSERTIONS PASSED';
 END;
 $$;
