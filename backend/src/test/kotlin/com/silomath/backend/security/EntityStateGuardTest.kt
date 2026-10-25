@@ -1,5 +1,6 @@
 package com.silomath.backend.security
 
+import com.silomath.backend.api.ApiErrorCode
 import io.ktor.client.request.get
 import io.ktor.client.request.header
 import io.ktor.http.HttpHeaders
@@ -22,9 +23,12 @@ class EntityStateGuardTest {
         )
 
     @Test
-    fun `invalid entity state blocks mutation with conflict`() =
+    fun `invalid entity state blocks mutation with typed conflict`() =
         assertStateGuardResult(
-            guardResult = EntityStateGuardResult.Conflict,
+            guardResult = EntityStateGuardResult.Conflict(
+                code = ApiErrorCode.CAMPAIGN_COMPLETED_IMMUTABLE,
+                message = "Completed Campaign is immutable."
+            ),
             expectedStatus = HttpStatusCode.Conflict
         )
 
