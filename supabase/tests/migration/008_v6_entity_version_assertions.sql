@@ -4,13 +4,13 @@
 
 DO $$
 DECLARE
-    table_name text;
-    trigger_name text;
-    data_type text;
-    is_nullable text;
-    column_default text;
+    v_table_name text;
+    v_trigger_name text;
+    v_data_type text;
+    v_is_nullable text;
+    v_column_default text;
 BEGIN
-    FOREACH table_name IN ARRAY ARRAY[
+    FOREACH v_table_name IN ARRAY ARRAY[
         'users',
         'organizations',
         'organization_memberships',
@@ -28,29 +28,29 @@ BEGIN
         'organization_configurations'
     ] LOOP
         SELECT c.data_type, c.is_nullable, c.column_default
-          INTO data_type, is_nullable, column_default
+          INTO v_data_type, v_is_nullable, v_column_default
         FROM information_schema.columns c
         WHERE c.table_schema = 'silomath'
-          AND c.table_name = table_name
+          AND c.table_name = v_table_name
           AND c.column_name = 'entity_version';
 
-        IF data_type IS NULL THEN
-            RAISE EXCEPTION 'DB007 missing entity_version on silomath.%', table_name;
+        IF v_data_type IS NULL THEN
+            RAISE EXCEPTION 'DB007 missing entity_version on silomath.%', v_table_name;
         END IF;
 
-        IF data_type <> 'bigint' THEN
-            RAISE EXCEPTION 'DB007 entity_version must be BIGINT on silomath.% (found %)', table_name, data_type;
+        IF v_data_type <> 'bigint' THEN
+            RAISE EXCEPTION 'DB007 entity_version must be BIGINT on silomath.% (found %)', v_table_name, v_data_type;
         END IF;
 
-        IF is_nullable <> 'NO' THEN
-            RAISE EXCEPTION 'DB007 entity_version must be NOT NULL on silomath.%', table_name;
+        IF v_is_nullable <> 'NO' THEN
+            RAISE EXCEPTION 'DB007 entity_version must be NOT NULL on silomath.%', v_table_name;
         END IF;
 
-        IF column_default IS NULL OR replace(column_default, '::bigint', '') <> '1' THEN
-            RAISE EXCEPTION 'DB007 entity_version must default to 1 on silomath.% (found %)', table_name, column_default;
+        IF v_column_default IS NULL OR replace(v_column_default, '::bigint', '') <> '1' THEN
+            RAISE EXCEPTION 'DB007 entity_version must default to 1 on silomath.% (found %)', v_table_name, v_column_default;
         END IF;
 
-        trigger_name := format('trg_%s_entity_version', table_name);
+        v_trigger_name := format('trg_%s_entity_version', v_table_name);
 
         IF NOT EXISTS (
             SELECT 1
@@ -60,13 +60,13 @@ BEGIN
             JOIN pg_proc p ON p.oid = tg.tgfoid
             JOIN pg_namespace pn ON pn.oid = p.pronamespace
             WHERE n.nspname = 'silomath'
-              AND t.relname = table_name
-              AND tg.tgname = trigger_name
+              AND t.relname = v_table_name
+              AND tg.tgname = v_trigger_name
               AND NOT tg.tgisinternal
               AND pn.nspname = 'silomath'
               AND p.proname = 'enforce_entity_version_increment'
         ) THEN
-            RAISE EXCEPTION 'DB007 missing authoritative entity_version trigger on silomath.%', table_name;
+            RAISE EXCEPTION 'DB007 missing authoritative entity_version trigger on silomath.%', v_table_name;
         END IF;
     END LOOP;
 
