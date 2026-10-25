@@ -13,9 +13,13 @@ enum class CampaignInventoryType {
     CONTROL
 }
 
+/**
+ * Initial Campaign Team selection. Organization role is not client-authored;
+ * the server resolves the active OrganizationMembership and freezes the role
+ * in CampaignSnapshot at launch.
+ */
 data class SaveAndLaunchTeamMember(
-    val userId: UserId,
-    val organizationRole: OrganizationRole
+    val userId: UserId
 )
 
 data class SaveAndLaunchCampaignInput(
