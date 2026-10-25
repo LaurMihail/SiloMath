@@ -4,6 +4,7 @@ import androidx.room.withTransaction
 import com.silomath.core.database.SiloMathDatabase
 import com.silomath.core.database.entity.SyncOperationDependencyRoomEntity
 import com.silomath.core.database.entity.SyncOperationEntity
+import com.silomath.core.model.SyncOperationState
 
 /**
  * Frozen V6 local-first commit boundary.
@@ -21,7 +22,7 @@ class RoomAtomicMutationExecutor(
         dependencies: List<SyncOperationDependencyRoomEntity> = emptyList(),
         businessMutation: suspend () -> T
     ): T {
-        require(operation.state == "PENDING") {
+        require(operation.state == SyncOperationState.PENDING) {
             "New offline mutation SyncOperation must start in PENDING"
         }
         require(operation.idempotencyKey.isNotBlank()) {
