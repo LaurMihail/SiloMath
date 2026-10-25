@@ -157,7 +157,7 @@ private suspend fun <T> ApplicationCall.respondAuthResult(
                 Unit -> respond(HttpStatusCode.NoContent)
                 is AcceptedResponse -> respond(HttpStatusCode.Accepted, value)
                 is SessionResponse -> respond(HttpStatusCode.OK, value)
-                else -> respond(HttpStatusCode.OK, value as Any)
+                else -> error("Unsupported authentication response type")
             }
         }
 
