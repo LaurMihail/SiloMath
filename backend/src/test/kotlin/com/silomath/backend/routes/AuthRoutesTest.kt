@@ -8,7 +8,6 @@ import com.silomath.backend.auth.AuthService
 import com.silomath.backend.auth.AuthorizedMembershipSummary
 import com.silomath.backend.auth.SessionResponse
 import com.silomath.backend.auth.SessionUserSummary
-import io.ktor.client.request.contentType
 import io.ktor.client.request.header
 import io.ktor.client.request.post
 import io.ktor.client.request.setBody
@@ -33,7 +32,7 @@ class AuthRoutesTest {
             }
 
             val response = client.post("/api/v1/auth/sign-in") {
-                contentType(ContentType.Application.Json)
+                header(HttpHeaders.ContentType, ContentType.Application.Json.toString())
                 setBody("""{"email":"user@example.com","password":"secret"}""")
             }
 
@@ -54,7 +53,7 @@ class AuthRoutesTest {
             }
 
             val response = client.post("/api/v1/auth/forgot-password") {
-                contentType(ContentType.Application.Json)
+                header(HttpHeaders.ContentType, ContentType.Application.Json.toString())
                 setBody("""{"email":"unknown@example.com"}""")
             }
 
