@@ -4,9 +4,13 @@ import io.ktor.http.HttpStatusCode
 import io.ktor.serialization.kotlinx.json.json
 import io.ktor.server.application.Application
 import io.ktor.server.application.ApplicationCall
-import io.ktor.server.plugins.contentnegotiation.ContentNegotiation
-import io.ktor.server.response.respond
 import io.ktor.server.application.install
+import io.ktor.server.plugins.contentnegotiation.ContentNegotiation
+import io.ktor.server.plugins.statuspages.StatusPages
+import io.ktor.server.plugins.statuspages.exception
+import io.ktor.server.plugins.statuspages.status
+import io.ktor.server.request.path
+import io.ktor.server.response.respond
 import java.util.UUID
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
@@ -72,6 +76,30 @@ fun Application.configureApiSerialization() {
             }
         )
     }
+
+    install(StatusPages) {
+        status(HttpStatusCode.NotFound) { call, _ ->
+            if (call.request.path().startsWith(API_BASE_PATH)) {
+                call.respondApiError(
+                    status = HttpStatusCode.NotFound,
+                    code = ApiErrorCode.RESOURCE_NOT_FOUND,
+                    message = "The requested resource is not available."
+                )
+            }
+        }
+
+        exception<Throwable> { call, cause ->
+            if (call.request.path().startsWith(API_BASE_PATH)) {
+                call.respondApiError(
+                    status = HttpStatusCode.InternalServerError,
+                    code = ApiErrorCode.INTERNAL_ERROR,
+                    message = "An unexpected server error occurred."
+                )
+            } else {
+                throw cause
+            }
+        }
+    }
 }
 
 /**
@@ -102,3 +130,5 @@ suspend fun ApplicationCall.respondApiError(
         )
     )
 }
+
+private const val API_BASE_PATH = "/api/v1"
