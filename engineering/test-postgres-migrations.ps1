@@ -26,6 +26,10 @@ $PrimaryForeignKeyAssertions = Join-Path `
     $PSScriptRoot `
     "..\supabase\tests\migration\004_v6_primary_foreign_key_assertions.sql"
 
+$UniqueConstraintAssertions = Join-Path `
+    $PSScriptRoot `
+    "..\supabase\tests\migration\005_v6_unique_constraint_assertions.sql"
+
 function Write-Section {
     param(
         [Parameter(Mandatory = $true)]
@@ -94,6 +98,10 @@ if (-not (Test-Path $PrimaryForeignKeyAssertions)) {
     throw "Primary/foreign-key assertions file not found: $PrimaryForeignKeyAssertions"
 }
 
+if (-not (Test-Path $UniqueConstraintAssertions)) {
+    throw "Unique-constraint assertions file not found: $UniqueConstraintAssertions"
+}
+
 if (Test-Path $TemporaryBootstrapMigration) {
     throw "Temporary bootstrap migration already exists: $TemporaryBootstrapMigration"
 }
@@ -151,6 +159,12 @@ try {
         -Path $PrimaryForeignKeyAssertions `
         -Description "Run V6 DB003 primary/foreign-key assertions"
 
+    Write-Section "Assert V6 unique-constraint model"
+
+    Invoke-SupabaseSqlFile `
+        -Path $UniqueConstraintAssertions `
+        -Description "Run V6 DB004 unique-constraint assertions"
+
     Write-Section "PostgreSQL migration regression PASS"
 
     Write-Host "Legacy boundary   : $LegacyBoundary"
@@ -160,6 +174,7 @@ try {
     Write-Host "V6 assertions     : PASS"
     Write-Host "DB002 tenant keys : PASS"
     Write-Host "DB003 PK/FK       : PASS"
+    Write-Host "DB004 unique keys : PASS"
 }
 finally {
     Write-Section "Cleanup"
