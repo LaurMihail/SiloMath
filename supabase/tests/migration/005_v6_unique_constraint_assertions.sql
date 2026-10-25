@@ -32,6 +32,7 @@ BEGIN
             ('offline_working_set_manifests', 'campaign_id,device_installation_id,package_version'),
             ('user_preferences', 'user_id'),
             ('organization_configurations', 'organization_id,configuration_key'),
+            ('sync_operations', 'idempotency_key'),
             ('sync_operation_dependencies', 'parent_operation_id,dependent_operation_id')
         ) AS x(table_name, columns_csv)
     LOOP
