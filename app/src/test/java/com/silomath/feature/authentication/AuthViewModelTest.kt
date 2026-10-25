@@ -43,7 +43,6 @@ class AuthViewModelTest {
 
         viewModel.onEmailChanged("admin@silo.com")
         viewModel.onPasswordChanged("password")
-        viewModel.onRememberMeChanged(true)
         viewModel.signIn()
 
         assertEquals(true, viewModel.uiState.value.isSuccess)
@@ -61,9 +60,9 @@ class AuthViewModelTest {
     @Test
     fun `continueOffline with valid session succeeds`() = runTest {
         sessionStateFlow.value = SessionState(userId = "1", token = "abc", isOfflineCapable = true)
-        
+
         viewModel.continueOffline()
-        
+
         assertEquals(true, viewModel.uiState.value.isSuccess)
         assertNull(viewModel.uiState.value.error)
     }
@@ -71,9 +70,9 @@ class AuthViewModelTest {
     @Test
     fun `continueOffline with invalid session fails`() = runTest {
         sessionStateFlow.value = SessionState(userId = null, isOfflineCapable = false)
-        
+
         viewModel.continueOffline()
-        
+
         assertEquals(false, viewModel.uiState.value.isSuccess)
         assertEquals("No valid offline session available", viewModel.uiState.value.error)
     }
