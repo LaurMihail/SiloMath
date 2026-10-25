@@ -192,7 +192,7 @@ jobs:
       - name: Compile Room migration instrumentation tests
         run: ./gradlew :core:database:compileDebugAndroidTestKotlin --stacktrace
 
-      - name: Run supported Room migrations through schema 22
+      - name: Run supported Room migrations and V6 local persistence tests through schema 22
         uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: 35
@@ -205,6 +205,8 @@ jobs:
             ./gradlew :core:database:connectedDebugAndroidTest "-Pandroid.testInstrumentationRunnerArguments.class=com.silomath.core.database.CanonicalRoomMigration19To20Test" --stacktrace
             ./gradlew :core:database:connectedDebugAndroidTest "-Pandroid.testInstrumentationRunnerArguments.class=com.silomath.core.database.CanonicalRoomMigration20To21Test" --stacktrace
             ./gradlew :core:database:connectedDebugAndroidTest "-Pandroid.testInstrumentationRunnerArguments.class=com.silomath.core.database.CanonicalRoomMigration21To22Test" --stacktrace
+            ./gradlew :core:database:connectedDebugAndroidTest "-Pandroid.testInstrumentationRunnerArguments.class=com.silomath.core.database.RoomAtomicMutationExecutorTest" --stacktrace
+            ./gradlew :core:database:connectedDebugAndroidTest "-Pandroid.testInstrumentationRunnerArguments.class=com.silomath.core.database.OfficialDecimalStorageAdapterTest" --stacktrace
 
   postgres-migrations:
     name: PostgreSQL Migration Validation
