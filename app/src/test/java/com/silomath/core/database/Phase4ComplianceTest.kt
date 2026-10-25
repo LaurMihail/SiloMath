@@ -1,4 +1,4 @@
-package com.silomath.core.database
+﻿package com.silomath.core.database
 
 import com.silomath.core.data.repository.OfflineGeometryRepository
 import com.silomath.core.data.repository.OfflineInventorySnapshotRepository
@@ -51,12 +51,18 @@ class Phase4ComplianceTest {
     fun `GeometryVersion append-only logic enforced`() = runTest {
         coEvery { geometryDao.getMaxVersionNumber(1) } returns 2
 
-        val newVersion = GeometryVersionEntity(
-            id = 0,
-            geometryProfileId = 1,
-            versionNumber = 2,
-            dimensionsJson = "{}"
-        )
+        val newVersion =
+            GeometryVersionEntity(
+                id = 0,
+                geometryProfileId = 1,
+                versionNumber = 2,
+                fixedParameters = "{}",
+                requiredDimensionsSchema = "{}",
+                measurementSchema = "{}",
+                supportedUnits = "{}",
+                calculationMethod = "test",
+                validationConstraints = "{}"
+            )
 
         try {
             geometryRepository.createNewVersion(newVersion)
