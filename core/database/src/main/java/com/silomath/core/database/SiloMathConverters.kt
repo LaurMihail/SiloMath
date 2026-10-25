@@ -19,21 +19,21 @@ class SiloMathConverters {
 
     @TypeConverter
     fun fromBigDecimal(value: BigDecimal?): String? {
-        return value?.setScale(6, java.math.RoundingMode.HALF_UP)?.toPlainString()
+        return value?.let(OfficialDecimalStorageAdapter::encode)
     }
 
     @TypeConverter
     fun toBigDecimal(value: String?): BigDecimal? {
-        return value?.let { BigDecimal(it).setScale(6, java.math.RoundingMode.HALF_UP) }
+        return value?.let(OfficialDecimalStorageAdapter::decodeBigDecimal)
     }
 
     @TypeConverter
     fun fromCanonicalDecimal(decimal: CanonicalDecimal?): String? {
-        return decimal?.toPlainString()
+        return decimal?.let(OfficialDecimalStorageAdapter::encode)
     }
 
     @TypeConverter
     fun toCanonicalDecimal(value: String?): CanonicalDecimal? {
-        return value?.let { CanonicalDecimal.from(it) }
+        return value?.let(OfficialDecimalStorageAdapter::decode)
     }
 }
