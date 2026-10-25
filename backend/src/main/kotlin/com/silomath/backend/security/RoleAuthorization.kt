@@ -24,6 +24,7 @@ fun Route.requireOrganizationRole(
 
     route("") {
         intercept(ApplicationCallPipeline.Plugins) {
+            val call = context
             val membership =
                 call.requireAuthorizedOrganizationMembership()
 
