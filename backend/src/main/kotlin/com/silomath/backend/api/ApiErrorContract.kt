@@ -9,7 +9,6 @@ import io.ktor.server.application.install
 import io.ktor.server.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.server.plugins.statuspages.StatusPages
 import io.ktor.server.plugins.statuspages.exception
-import io.ktor.server.plugins.statuspages.status
 import io.ktor.server.request.path
 import io.ktor.server.response.respondText
 import java.util.UUID
