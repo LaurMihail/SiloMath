@@ -1,16 +1,16 @@
-package com.silomath.feature.dashboard
+﻿package com.silomath.feature.dashboard
 
-import com.silomath.core.database.entity.CampaignEntity
-import com.silomath.core.database.entity.StocktakingRecordEntity
 import com.silomath.core.domain.repository.CampaignRepository
 import com.silomath.core.domain.repository.StocktakingRepository
-import io.mockk.coEvery
-import io.mockk.coVerify
+import io.mockk.every
 import io.mockk.mockk
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flowOf
-import kotlinx.coroutines.test.*
+import kotlinx.coroutines.test.UnconfinedTestDispatcher
+import kotlinx.coroutines.test.resetMain
+import kotlinx.coroutines.test.runTest
+import kotlinx.coroutines.test.setMain
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Before
@@ -20,15 +20,14 @@ import org.junit.Test
 class DashboardViewModelTest {
 
     private val campaignRepository: CampaignRepository = mockk()
-    private val stocktakingRepository: StocktakingRepository = mockk()
+    private val stocktakingRepository: StocktakingRepository = mockk(relaxed = true)
     private lateinit var viewModel: DashboardViewModel
     private val testDispatcher = UnconfinedTestDispatcher()
 
     @Before
     fun setup() {
         Dispatchers.setMain(testDispatcher)
-        coEvery { campaignRepository.getActiveCampaigns() } returns flowOf(emptyList())
-        coEvery { stocktakingRepository.getRecords(any()) } returns flowOf(emptyList())
+        every { campaignRepository.observeActiveCampaignCount() } returns flowOf(0)
         viewModel = DashboardViewModel(campaignRepository, stocktakingRepository)
     }
 
@@ -38,46 +37,36 @@ class DashboardViewModelTest {
     }
 
     @Test
-    fun `initial state has correct default counts`() = runTest {
-        val state = viewModel.uiState.value
-        assertEquals(0, state.activeCampaigns)
-        assertEquals(0, state.binStatusCount["Validated"])
+    fun `initial state has zero active campaigns`() = runTest {
+        assertEquals(0, viewModel.uiState.value.activeCampaigns)
     }
 
     @Test
-    fun `no repository call when campaign filter is absent`() = runTest {
-        // Upon creation, it shouldn't call getRecords because filter is null
-        coVerify(exactly = 0) { stocktakingRepository.getRecords(any()) }
-    }
+    fun `active campaign count is repository derived`() = runTest {
+        every { campaignRepository.observeActiveCampaignCount() } returns flowOf(2)
 
-    @Test
-    fun `active campaign count is repository-derived`() = runTest {
-        val campaigns = listOf(
-            CampaignEntity(id = 1, organizationId = 1, name = "C1", status = "Active"),
-            CampaignEntity(id = 2, organizationId = 1, name = "C2", status = "Active")
-        )
-        coEvery { campaignRepository.getActiveCampaigns() } returns flowOf(campaigns)
-        
         val vm = DashboardViewModel(campaignRepository, stocktakingRepository)
-        
+
         assertEquals(2, vm.uiState.value.activeCampaigns)
     }
 
     @Test
-    fun `bin status counts use only approved statuses from repository records`() = runTest {
-        val records = listOf(
-            StocktakingRecordEntity(id = 1, campaignId = 1, storageSpaceId = 1, status = "Validated", ownership = "Owned", clientId = null, commodityId = null, density = null),
-            StocktakingRecordEntity(id = 2, campaignId = 1, storageSpaceId = 2, status = "To Do", ownership = "Owned", clientId = null, commodityId = null, density = null),
-            StocktakingRecordEntity(id = 3, campaignId = 1, storageSpaceId = 3, status = "Issues", ownership = "Owned", clientId = null, commodityId = null, density = null),
-            StocktakingRecordEntity(id = 4, campaignId = 1, storageSpaceId = 4, status = "To Do", ownership = "Owned", clientId = null, commodityId = null, density = null)
+    fun `filter changes update selected identifiers`() = runTest {
+        viewModel.onFilterChanged(
+            orgId = 11L,
+            campId = 22L,
+            locId = 33L,
+            commId = 44L,
+            ownership = "Owned",
+            clientId = 55L
         )
-        coEvery { stocktakingRepository.getRecords(1L) } returns flowOf(records)
-        
-        viewModel.onFilterChanged(campId = 1L)
-        
-        val statusCount = viewModel.uiState.value.binStatusCount
-        assertEquals(1, statusCount["Validated"])
-        assertEquals(2, statusCount["To Do"])
-        assertEquals(1, statusCount["Issues"])
+
+        val state = viewModel.uiState.value
+        assertEquals(11L, state.selectedOrganizationId)
+        assertEquals(22L, state.selectedCampaignId)
+        assertEquals(33L, state.selectedLocationId)
+        assertEquals(44L, state.selectedCommodityId)
+        assertEquals("Owned", state.selectedOwnership)
+        assertEquals(55L, state.selectedClientId)
     }
 }

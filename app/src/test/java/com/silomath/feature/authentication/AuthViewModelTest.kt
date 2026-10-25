@@ -39,7 +39,7 @@ class AuthViewModelTest {
 
     @Test
     fun `signIn with valid credentials sets success state`() = runTest {
-        coEvery { authRepository.signIn(any(), any(), any()) } returns Result.success(Unit)
+        coEvery { authRepository.signIn(any(), any()) } returns Result.success(Unit)
 
         viewModel.onEmailChanged("admin@silo.com")
         viewModel.onPasswordChanged("password")
