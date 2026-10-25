@@ -1,5 +1,6 @@
 package com.silomath.backend
 
+import com.silomath.backend.api.configureApiSerialization
 import com.silomath.backend.config.BackendConfig
 import com.silomath.backend.routes.configureFoundationRouting
 import io.ktor.server.application.Application
@@ -24,5 +25,6 @@ fun Application.module(
     @Suppress("UNUSED_VARIABLE")
     val runtimeEnvironment = config.runtimeEnvironment
 
+    configureApiSerialization()
     configureFoundationRouting()
 }
