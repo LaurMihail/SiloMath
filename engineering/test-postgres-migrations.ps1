@@ -18,6 +18,10 @@ $V6Assertions = Join-Path `
     $PSScriptRoot `
     "..\supabase\tests\migration\002_v6_assertions.sql"
 
+$TenantIsolationAssertions = Join-Path `
+    $PSScriptRoot `
+    "..\supabase\tests\migration\003_v6_tenant_isolation_assertions.sql"
+
 function Write-Section {
     param(
         [Parameter(Mandatory = $true)]
@@ -78,6 +82,10 @@ if (-not (Test-Path $V6Assertions)) {
     throw "V6 assertions file not found: $V6Assertions"
 }
 
+if (-not (Test-Path $TenantIsolationAssertions)) {
+    throw "Tenant-isolation assertions file not found: $TenantIsolationAssertions"
+}
+
 if (Test-Path $TemporaryBootstrapMigration) {
     throw "Temporary bootstrap migration already exists: $TemporaryBootstrapMigration"
 }
@@ -123,13 +131,20 @@ try {
         -Path $V6Assertions `
         -Description "Run V6 PostgreSQL migration assertions"
 
+    Write-Section "Assert V6 tenant-isolation key model"
+
+    Invoke-SupabaseSqlFile `
+        -Path $TenantIsolationAssertions `
+        -Description "Run V6 DB002 tenant-isolation assertions"
+
     Write-Section "PostgreSQL migration regression PASS"
 
-    Write-Host "Legacy boundary : $LegacyBoundary"
-    Write-Host "Bootstrap       : TEST-ONLY GAP-PG-MIG-003 reconstruction"
-    Write-Host "Legacy fixture  : PASS"
-    Write-Host "V6 migrations   : PASS"
-    Write-Host "V6 assertions   : PASS"
+    Write-Host "Legacy boundary   : $LegacyBoundary"
+    Write-Host "Bootstrap         : TEST-ONLY GAP-PG-MIG-003 reconstruction"
+    Write-Host "Legacy fixture    : PASS"
+    Write-Host "V6 migrations     : PASS"
+    Write-Host "V6 assertions     : PASS"
+    Write-Host "DB002 tenant keys : PASS"
 }
 finally {
     Write-Section "Cleanup"
