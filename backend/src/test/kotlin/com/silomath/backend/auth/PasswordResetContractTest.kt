@@ -6,7 +6,7 @@ import kotlin.test.assertIs
 class PasswordResetContractTest {
 
     @Test
-    fun `reset password success is exposed only after provider confirms revocation`() =
+    fun `reset password success is exposed only after provider confirms revocation`() {
         kotlinx.coroutines.runBlocking {
             val service = DefaultAuthService(
                 provider = object : AuthenticationProvider {
@@ -39,4 +39,5 @@ class PasswordResetContractTest {
                 service.resetPassword("recovery-token", "new-password")
             )
         }
+    }
 }
