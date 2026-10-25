@@ -4,7 +4,6 @@ import io.ktor.http.HttpHeaders
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.application.ApplicationCall
 import io.ktor.server.application.ApplicationCallPipeline
-import io.ktor.server.request.header
 import io.ktor.server.response.respond
 import io.ktor.server.routing.Route
 import io.ktor.server.routing.route
@@ -71,7 +70,7 @@ fun Route.withActiveBearerAuthentication(
     route("") {
         intercept(ApplicationCallPipeline.Plugins) {
             val token = extractBearerToken(
-                call.request.header(HttpHeaders.Authorization)
+                call.request.headers[HttpHeaders.Authorization]
             )
 
             if (token == null) {
