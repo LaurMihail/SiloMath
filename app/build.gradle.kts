@@ -250,6 +250,7 @@ dependencies {
     implementation(project(":core:sync"))
     implementation(project(":core:designsystem"))
     implementation(project(":core:navigation"))
+    implementation(project(":feature:masterdata"))
     implementation(project(":calculation-engine"))
 
     implementation(libs.androidx.core.ktx)
