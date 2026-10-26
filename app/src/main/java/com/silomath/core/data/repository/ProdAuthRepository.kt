@@ -4,6 +4,7 @@ import com.silomath.core.data.auth.SessionStore
 import com.silomath.core.data.network.api.AuthApi
 import com.silomath.core.data.network.dto.ForgotPasswordRequestDto
 import com.silomath.core.data.network.dto.RefreshSessionRequestDto
+import com.silomath.core.data.network.dto.ResetPasswordRequestDto
 import com.silomath.core.data.network.dto.SignInRequestDto
 import com.silomath.core.domain.model.SessionState
 import com.silomath.core.domain.repository.AuthRepository
@@ -61,13 +62,35 @@ class ProdAuthRepository @Inject constructor(
             )
         }.map { Unit }
 
-    override suspend fun updatePassword(newPassword: String): Result<Unit> {
-        // The frozen reset endpoint requires a server-issued recovery context.
-        // The current domain method does not carry that context; AUTH-006 UI
-        // integration must supply it rather than bypassing the backend.
-        return Result.failure(
-            IllegalStateException("Recovery context is required by backend authentication contract")
-        )
+    override suspend fun updatePassword(
+        recoveryContext: String,
+        newPassword: String
+    ): Result<Unit> {
+        if (recoveryContext.isBlank()) {
+            return Result.failure(
+                IllegalArgumentException("Recovery context is required")
+            )
+        }
+
+        if (newPassword.isBlank()) {
+            return Result.failure(
+                IllegalArgumentException("New password is required")
+            )
+        }
+
+        return runCatching {
+            authApi.resetPassword(
+                ResetPasswordRequestDto(
+                    recoveryToken = recoveryContext,
+                    newPassword = newPassword
+                )
+            )
+
+            // The backend reports success only after password reset and global
+            // session/refresh revocation. Local active auth credentials must
+            // therefore be removed as well. Room/business data is untouched.
+            sessionStore.clearSession()
+        }
     }
 
     override suspend fun setActiveOrganization(

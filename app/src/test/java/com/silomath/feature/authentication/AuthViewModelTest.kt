@@ -3,6 +3,7 @@ package com.silomath.feature.authentication
 import com.silomath.core.domain.model.SessionState
 import com.silomath.core.domain.repository.AuthRepository
 import io.mockk.coEvery
+import io.mockk.coVerify
 import io.mockk.mockk
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -25,14 +26,22 @@ class AuthViewModelTest {
     private val authRepository: AuthRepository = mockk()
     private lateinit var viewModel: AuthViewModel
     private val testDispatcher = UnconfinedTestDispatcher()
-    private val sessionStateFlow = MutableStateFlow(SessionState())
+    private val sessionStateFlow =
+        MutableStateFlow(SessionState())
 
     @Before
     fun setup() {
         Dispatchers.setMain(testDispatcher)
-        coEvery { authRepository.sessionState } returns sessionStateFlow
-        coEvery { authRepository.restoreRemoteSession() } returns
-            Result.failure(IllegalStateException("No stored session"))
+        coEvery {
+            authRepository.sessionState
+        } returns sessionStateFlow
+
+        coEvery {
+            authRepository.restoreRemoteSession()
+        } returns Result.failure(
+            IllegalStateException("No stored session")
+        )
+
         viewModel = AuthViewModel(authRepository)
     }
 
@@ -42,67 +51,159 @@ class AuthViewModelTest {
     }
 
     @Test
-    fun `startup restoration failure completes bootstrap without authenticated session`() = runTest {
-        assertTrue(viewModel.uiState.value.isSessionRestoreComplete)
-        assertFalse(viewModel.uiState.value.isRestoredSessionReady)
-    }
-
-    @Test
-    fun `startup restoration success marks restored session ready`() = runTest {
-        coEvery { authRepository.restoreRemoteSession() } answers {
-            sessionStateFlow.value =
-                SessionState(
-                    userId = "user-123",
-                    token = "rotated-access-token",
-                    refreshToken = "rotated-refresh-token"
-                )
-            Result.success(Unit)
+    fun `startup restoration failure completes bootstrap without authenticated session`() =
+        runTest {
+            assertTrue(
+                viewModel.uiState.value.isSessionRestoreComplete
+            )
+            assertFalse(
+                viewModel.uiState.value.isRestoredSessionReady
+            )
         }
 
-        viewModel = AuthViewModel(authRepository)
+    @Test
+    fun `startup restoration success marks restored session ready`() =
+        runTest {
+            coEvery {
+                authRepository.restoreRemoteSession()
+            } answers {
+                sessionStateFlow.value =
+                    SessionState(
+                        userId = "user-123",
+                        token = "rotated-access-token",
+                        refreshToken = "rotated-refresh-token"
+                    )
+                Result.success(Unit)
+            }
 
-        assertTrue(viewModel.uiState.value.isSessionRestoreComplete)
-        assertTrue(viewModel.uiState.value.isRestoredSessionReady)
-    }
+            viewModel = AuthViewModel(authRepository)
+
+            assertTrue(
+                viewModel.uiState.value.isSessionRestoreComplete
+            )
+            assertTrue(
+                viewModel.uiState.value.isRestoredSessionReady
+            )
+        }
 
     @Test
-    fun `signIn with valid credentials sets success state`() = runTest {
-        coEvery { authRepository.signIn(any(), any()) } returns Result.success(Unit)
+    fun `signIn with valid credentials sets success state`() =
+        runTest {
+            coEvery {
+                authRepository.signIn(any(), any())
+            } returns Result.success(Unit)
 
-        viewModel.onEmailChanged("admin@silo.com")
-        viewModel.onPasswordChanged("password")
-        viewModel.signIn()
+            viewModel.onEmailChanged("admin@silo.com")
+            viewModel.onPasswordChanged("password")
+            viewModel.signIn()
 
-        assertTrue(viewModel.uiState.value.isSuccess)
-        assertTrue(viewModel.uiState.value.isRestoredSessionReady)
-    }
-
-    @Test
-    fun `signIn with empty fields sets error state`() = runTest {
-        viewModel.onEmailChanged("")
-        viewModel.onPasswordChanged("")
-        viewModel.signIn()
-
-        assertEquals("Please fill in all fields", viewModel.uiState.value.error)
-    }
+            assertTrue(viewModel.uiState.value.isSuccess)
+            assertTrue(
+                viewModel.uiState.value.isRestoredSessionReady
+            )
+        }
 
     @Test
-    fun `continueOffline with valid session succeeds`() = runTest {
-        sessionStateFlow.value = SessionState(userId = "1", token = "abc", isOfflineCapable = true)
+    fun `signIn with empty fields sets error state`() =
+        runTest {
+            viewModel.onEmailChanged("")
+            viewModel.onPasswordChanged("")
+            viewModel.signIn()
 
-        viewModel.continueOffline()
-
-        assertTrue(viewModel.uiState.value.isSuccess)
-        assertNull(viewModel.uiState.value.error)
-    }
+            assertEquals(
+                "Please fill in all fields",
+                viewModel.uiState.value.error
+            )
+        }
 
     @Test
-    fun `continueOffline with invalid session fails`() = runTest {
-        sessionStateFlow.value = SessionState(userId = null, isOfflineCapable = false)
+    fun `continueOffline with valid session succeeds`() =
+        runTest {
+            sessionStateFlow.value =
+                SessionState(
+                    userId = "1",
+                    token = "abc",
+                    isOfflineCapable = true
+                )
 
-        viewModel.continueOffline()
+            viewModel.continueOffline()
 
-        assertFalse(viewModel.uiState.value.isSuccess)
-        assertEquals("No valid offline session available", viewModel.uiState.value.error)
-    }
+            assertTrue(viewModel.uiState.value.isSuccess)
+            assertNull(viewModel.uiState.value.error)
+        }
+
+    @Test
+    fun `continueOffline with invalid session fails`() =
+        runTest {
+            sessionStateFlow.value =
+                SessionState(
+                    userId = null,
+                    isOfflineCapable = false
+                )
+
+            viewModel.continueOffline()
+
+            assertFalse(viewModel.uiState.value.isSuccess)
+            assertEquals(
+                "No valid offline session available",
+                viewModel.uiState.value.error
+            )
+        }
+
+    @Test
+    fun `password reset forwards recovery context and reports success`() =
+        runTest {
+            coEvery {
+                authRepository.updatePassword(
+                    "recovery-token",
+                    "new-password"
+                )
+            } returns Result.success(Unit)
+
+            viewModel.updatePassword(
+                recoveryContext = "recovery-token",
+                newPassword = "new-password"
+            )
+
+            assertTrue(
+                viewModel.passwordResetUiState.value.isSuccess
+            )
+            assertFalse(
+                viewModel.passwordResetUiState.value.isSubmitting
+            )
+            assertNull(
+                viewModel.passwordResetUiState.value.error
+            )
+
+            coVerify(exactly = 1) {
+                authRepository.updatePassword(
+                    "recovery-token",
+                    "new-password"
+                )
+            }
+        }
+
+    @Test
+    fun `password reset failure exposes generic recovery error`() =
+        runTest {
+            coEvery {
+                authRepository.updatePassword(any(), any())
+            } returns Result.failure(
+                IllegalStateException("provider detail")
+            )
+
+            viewModel.updatePassword(
+                recoveryContext = "recovery-token",
+                newPassword = "new-password"
+            )
+
+            assertFalse(
+                viewModel.passwordResetUiState.value.isSuccess
+            )
+            assertEquals(
+                "The recovery context is invalid or expired, " +
+                    "or the password was rejected.",
+                viewModel.passwordResetUiState.value.error
+            )
+        }
 }

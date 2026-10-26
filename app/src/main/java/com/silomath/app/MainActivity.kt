@@ -20,27 +20,43 @@ import com.silomath.core.designsystem.SiloMathTheme
 import com.silomath.core.designsystem.components.AppHeader
 import com.silomath.core.designsystem.components.SiloMathBottomNav
 import com.silomath.feature.authentication.AuthViewModel
-import com.silomath.feature.authentication.SignInScreen
 import com.silomath.feature.authentication.ForgotPasswordSheet
+import com.silomath.feature.authentication.ResetPasswordScreen
+import com.silomath.feature.authentication.SignInScreen
 import com.silomath.feature.dashboard.DashboardScreen
 import com.silomath.feature.organization.SelectOrganizationScreen
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+
+        val recoveryContext =
+            intent
+                ?.getStringExtra(EXTRA_RECOVERY_CONTEXT)
+                ?.takeIf { it.isNotBlank() }
+
         setContent {
             SiloMathTheme {
-                SiloMathApp()
+                SiloMathApp(
+                    recoveryContext = recoveryContext
+                )
             }
         }
+    }
+
+    companion object {
+        const val EXTRA_RECOVERY_CONTEXT =
+            "com.silomath.app.extra.RECOVERY_CONTEXT"
     }
 }
 
 @Composable
 fun SiloMathApp(
+    recoveryContext: String? = null,
     authViewModel: AuthViewModel = hiltViewModel()
 ) {
     val navController = rememberNavController()
@@ -51,7 +67,9 @@ fun SiloMathApp(
 
     var showForgotPasswordSheet by remember { mutableStateOf(false) }
 
-    if (!authUiState.isSessionRestoreComplete) {
+    val isRecoveryFlow = !recoveryContext.isNullOrBlank()
+
+    if (!isRecoveryFlow && !authUiState.isSessionRestoreComplete) {
         Box(
             modifier = Modifier.fillMaxSize(),
             contentAlignment = Alignment.Center
@@ -62,8 +80,13 @@ fun SiloMathApp(
     }
 
     val isLoggedIn =
-        authUiState.isRestoredSessionReady && sessionState?.isLoggedIn == true
-    val showShell = isLoggedIn && currentRoute != "login"
+        authUiState.isRestoredSessionReady &&
+            sessionState?.isLoggedIn == true
+
+    val showShell =
+        !isRecoveryFlow &&
+            isLoggedIn &&
+            currentRoute != "login"
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
@@ -97,7 +120,12 @@ fun SiloMathApp(
     ) { innerPadding ->
         NavHost(
             navController = navController,
-            startDestination = if (isLoggedIn) "select_organization" else "login",
+            startDestination =
+                when {
+                    isRecoveryFlow -> "reset_password"
+                    isLoggedIn -> "select_organization"
+                    else -> "login"
+                },
             modifier = Modifier.padding(innerPadding)
         ) {
             composable("login") {
@@ -107,22 +135,50 @@ fun SiloMathApp(
                             popUpTo("login") { inclusive = true }
                         }
                     },
-                    onForgotPasswordClick = { showForgotPasswordSheet = true },
+                    onForgotPasswordClick = {
+                        showForgotPasswordSheet = true
+                    },
                     viewModel = authViewModel
                 )
             }
+
+            composable("reset_password") {
+                ResetPasswordScreen(
+                    recoveryContext = recoveryContext.orEmpty(),
+                    onResetSuccess = {
+                        navController.navigate("login") {
+                            popUpTo("reset_password") {
+                                inclusive = true
+                            }
+                        }
+                    },
+                    onBackToSignIn = {
+                        navController.navigate("login") {
+                            popUpTo("reset_password") {
+                                inclusive = true
+                            }
+                        }
+                    },
+                    viewModel = authViewModel
+                )
+            }
+
             composable("select_organization") {
                 SelectOrganizationScreen(
                     onOrganizationSelected = {
                         navController.navigate("dashboard") {
-                            popUpTo("select_organization") { inclusive = true }
+                            popUpTo("select_organization") {
+                                inclusive = true
+                            }
                         }
                     }
                 )
             }
+
             composable("dashboard") {
                 DashboardScreen()
             }
+
             composable("campaigns") { /* Technical boundary */ }
             composable("stocktaking") { /* Technical boundary */ }
             composable("locations") { /* Technical boundary */ }
@@ -131,7 +187,9 @@ fun SiloMathApp(
 
         if (showForgotPasswordSheet) {
             ForgotPasswordSheet(
-                onDismiss = { showForgotPasswordSheet = false },
+                onDismiss = {
+                    showForgotPasswordSheet = false
+                },
                 onSubmit = { email ->
                     authViewModel.resetPassword(email)
                     showForgotPasswordSheet = false
