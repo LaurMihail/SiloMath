@@ -44,6 +44,7 @@ import com.silomath.core.database.migration.MasterDataCanonicalBackfill20To21
         CampaignSnapshotTeamItemRoomEntity::class,
         CampaignSnapshotCommodityItemRoomEntity::class,
         OfflineWorkingSetManifestRoomEntity::class,
+        OfflinePackageDownloadEntity::class,
         StocktakingRevisionRoomEntity::class,
         IssueResolutionRoomEntity::class,
         IssueStatusEventRoomEntity::class,
@@ -57,7 +58,7 @@ import com.silomath.core.database.migration.MasterDataCanonicalBackfill20To21
         UserPreferenceRoomEntity::class,
         OrganizationConfigurationRoomEntity::class
     ],
-    version = 24,
+    version = 25,
     exportSchema = true,
     autoMigrations = [
         AutoMigration(from = 15, to = 16),
@@ -68,7 +69,8 @@ import com.silomath.core.database.migration.MasterDataCanonicalBackfill20To21
         AutoMigration(from = 20, to = 21, spec = MasterDataCanonicalBackfill20To21::class),
         AutoMigration(from = 21, to = 22),
         AutoMigration(from = 22, to = 23),
-        AutoMigration(from = 23, to = 24)
+        AutoMigration(from = 23, to = 24),
+        AutoMigration(from = 24, to = 25)
     ]
 )
 @TypeConverters(SiloMathConverters::class)
@@ -94,6 +96,7 @@ abstract class SiloMathDatabase : RoomDatabase() {
     // Canonical V6 DAO surface introduced with schema 22.
     abstract fun commodityVersionDao(): CommodityVersionDao
     abstract fun campaignSnapshotDao(): CampaignSnapshotDao
+    abstract fun offlinePackageDownloadDao(): OfflinePackageDownloadDao
     abstract fun offlineWorkingSetManifestDao(): OfflineWorkingSetManifestDao
     abstract fun stocktakingRevisionDao(): StocktakingRevisionDao
     abstract fun issueHistoryDao(): IssueHistoryDao
