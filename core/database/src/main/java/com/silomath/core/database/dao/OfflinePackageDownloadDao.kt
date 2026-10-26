@@ -22,6 +22,6 @@ interface OfflinePackageDownloadDao {
     @Query("SELECT * FROM offline_package_downloads WHERE authorized_user_id = :userId ORDER BY updated_at DESC")
     fun observeForUser(userId: String): Flow<List<OfflinePackageDownloadEntity>>
 
-    @Query("SELECT * FROM offline_package_downloads WHERE state IN ('DOWNLOAD_PENDING','DOWNLOADING','VERIFYING') AND authorized_user_id = :userId")
+    @Query("SELECT * FROM offline_package_downloads WHERE state IN ('DOWNLOAD_PENDING','DOWNLOADING','VERIFYING','DOWNLOAD_ERROR') AND authorized_user_id = :userId ORDER BY updated_at DESC")
     suspend fun recoverableForUser(userId: String): List<OfflinePackageDownloadEntity>
 }

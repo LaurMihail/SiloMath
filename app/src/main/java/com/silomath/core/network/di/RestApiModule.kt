@@ -1,6 +1,9 @@
 package com.silomath.core.network.di
 
 import com.silomath.app.BuildConfig
+import com.silomath.core.data.network.api.OfflinePackageApi
+import com.silomath.core.data.network.source.OfflinePackageRemoteSource
+import com.silomath.core.data.network.source.RestOfflinePackageRemoteSource
 import com.silomath.core.data.network.api.AuthApi
 import com.silomath.core.data.network.api.CampaignApi
 import com.silomath.core.data.network.api.LocationApi
@@ -47,6 +50,15 @@ object RestApiModule {
             environmentConfig
         )
     }
+
+    @Provides
+    @Singleton
+    fun provideOfflinePackageApi(factory: RetrofitFactory, environment: ApiEnvironmentConfig): OfflinePackageApi =
+        factory.create(environment).create(OfflinePackageApi::class.java)
+
+    @Provides
+    @Singleton
+    fun provideOfflinePackageRemoteSource(source: RestOfflinePackageRemoteSource): OfflinePackageRemoteSource = source
 
     @Provides
     @Singleton
