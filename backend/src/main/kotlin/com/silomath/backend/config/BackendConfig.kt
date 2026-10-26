@@ -8,7 +8,8 @@ data class BackendConfig(
     val databaseUser: String? = null,
     val databasePassword: String? = null,
     val supabaseUrl: String? = null,
-    val supabaseSecretKey: String? = null
+    val supabaseSecretKey: String? = null,
+    val offlinePackageDirectory: String? = null
 ) {
     val authRuntimeConfigured: Boolean
         get() =
@@ -79,7 +80,8 @@ data class BackendConfig(
                 databaseUser = values.nonBlank(DATABASE_USER_ENV),
                 databasePassword = values.nonBlank(DATABASE_PASSWORD_ENV),
                 supabaseUrl = values.nonBlank(SUPABASE_URL_ENV)?.trimEnd('/'),
-                supabaseSecretKey = values.nonBlank(SUPABASE_SECRET_KEY_ENV)
+                supabaseSecretKey = values.nonBlank(SUPABASE_SECRET_KEY_ENV),
+                offlinePackageDirectory = values.nonBlank("SILOMATH_OFFLINE_PACKAGE_DIRECTORY")
             )
 
             if (runtimeEnvironment == "production") {

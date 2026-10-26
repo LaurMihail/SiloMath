@@ -9,6 +9,9 @@ import com.silomath.backend.routes.configureAuthRouting
 import com.silomath.backend.routes.configureFoundationRouting
 import com.silomath.backend.routes.configureOfflineManifestRouting
 import com.silomath.backend.offline.JdbcOfflineManifestService
+import com.silomath.backend.offline.JdbcOfflinePackageService
+import com.silomath.backend.routes.configureOfflinePackageRouting
+import java.nio.file.Path
 import com.silomath.backend.routes.configureLocationRouting
 import io.ktor.server.application.Application
 import io.ktor.server.engine.embeddedServer
@@ -40,11 +43,17 @@ fun Application.module(
     )
     val locationRuntime = LocationRuntimeFactory.create(config)
     configureLocationRouting(locationRuntime)
+    val packageService = config.offlinePackageDirectory?.let { directory ->
+        config.databaseUrl?.let { url ->
+            JdbcOfflinePackageService(url, config.databaseUser, config.databasePassword, Path.of(directory))
+        }
+    }
     configureOfflineManifestRouting(
         locationRuntime.accessTokenVerifier,
         locationRuntime.organizationAuthorizationResolver,
-        config.databaseUrl?.let {
+        packageService ?: config.databaseUrl?.let {
             JdbcOfflineManifestService(it, config.databaseUser, config.databasePassword)
         }
     )
+    configureOfflinePackageRouting(locationRuntime.accessTokenVerifier, locationRuntime.organizationAuthorizationResolver, packageService)
 }

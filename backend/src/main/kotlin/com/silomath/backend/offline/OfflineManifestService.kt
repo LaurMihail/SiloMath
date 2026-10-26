@@ -70,6 +70,8 @@ internal class JdbcOfflineManifestService(
                 where c.campaign_id = ?::uuid and c.organization_id = ?::uuid
                   and m.user_id = ?::uuid and m.lifecycle_status = 'ACTIVE'
                   and u.lifecycle_status = 'ACTIVE' and o.lifecycle_status = 'ACTIVE'
+                  and exists (select 1 from silomath.device_installations d
+                      where d.device_installation_id = ?::uuid and d.user_id = m.user_id and d.revoked_at is null)
                   and (m.role = 'ADMIN' or exists (
                       select 1 from silomath.campaign_team_assignments t
                       where t.campaign_id = c.campaign_id and t.user_id = m.user_id
@@ -79,6 +81,7 @@ internal class JdbcOfflineManifestService(
                 statement.setString(1, campaignId)
                 statement.setString(2, organizationId)
                 statement.setString(3, userId)
+                statement.setString(4, deviceInstallationId)
                 statement.executeQuery().use { rows ->
                     if (!rows.next()) return@withContext OfflineManifestResult.Forbidden
                 }
