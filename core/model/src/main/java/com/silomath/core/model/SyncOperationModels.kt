@@ -20,7 +20,7 @@ data class SyncOperation(
     val entityType: String,
     val entityId: String,
     val operationType: String,
-    val baseEntityVersion: Long = 1,
+    val baseEntityVersion: Long? = null,
     val eventAt: Long = System.currentTimeMillis(),
     val payload: String,
     val state: SyncOperationState = SyncOperationState.PENDING,

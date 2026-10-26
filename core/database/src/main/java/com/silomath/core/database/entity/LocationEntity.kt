@@ -5,6 +5,7 @@ import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.Index
 import androidx.room.PrimaryKey
+import java.math.BigDecimal
 
 @Entity(
     tableName = "locations",
@@ -35,6 +36,8 @@ data class LocationEntity(
     val city: String? = null,
     val country: String? = null,
     val notes: String? = null,
+    @ColumnInfo(name = "latitude_deg") val latitudeDeg: BigDecimal? = null,
+    @ColumnInfo(name = "longitude_deg") val longitudeDeg: BigDecimal? = null,
     @ColumnInfo(name = "created_at") val createdAt: Long? = null,
     @ColumnInfo(name = "created_by") val createdBy: String? = null,
     @ColumnInfo(name = "updated_at") val updatedAt: Long? = null,

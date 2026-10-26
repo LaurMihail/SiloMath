@@ -2,8 +2,9 @@ package com.silomath.core.database
 
 import androidx.room.withTransaction
 import com.silomath.core.database.entity.SyncOperationEntity
+import javax.inject.Inject
 
-class AtomicMutationRunner(
+class AtomicMutationRunner @Inject constructor(
     private val database: SiloMathDatabase
 ) {
     suspend fun <T> executeAtomicMutation(

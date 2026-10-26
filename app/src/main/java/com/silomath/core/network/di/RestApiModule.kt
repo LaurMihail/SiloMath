@@ -3,6 +3,7 @@ package com.silomath.core.network.di
 import com.silomath.app.BuildConfig
 import com.silomath.core.data.network.api.AuthApi
 import com.silomath.core.data.network.api.CampaignApi
+import com.silomath.core.data.network.api.LocationApi
 import com.silomath.core.data.network.api.OrganizationApi
 import com.silomath.core.data.network.api.OrganizationMembershipApi
 import com.silomath.core.data.network.client.AuthApiFactory
@@ -45,6 +46,17 @@ object RestApiModule {
         return campaignApiFactory.create(
             environmentConfig
         )
+    }
+
+    @Provides
+    @Singleton
+    fun provideLocationApi(
+        retrofitFactory: RetrofitFactory,
+        environmentConfig: ApiEnvironmentConfig
+    ): LocationApi {
+        return retrofitFactory
+            .create(environmentConfig)
+            .create(LocationApi::class.java)
     }
 
     @Provides
