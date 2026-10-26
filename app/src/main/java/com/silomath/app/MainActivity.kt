@@ -4,10 +4,12 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
@@ -42,13 +44,25 @@ fun SiloMathApp(
     authViewModel: AuthViewModel = hiltViewModel()
 ) {
     val navController = rememberNavController()
+    val authUiState by authViewModel.uiState.collectAsState()
     val sessionState by authViewModel.sessionState.collectAsState()
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
 
     var showForgotPasswordSheet by remember { mutableStateOf(false) }
 
-    val isLoggedIn = sessionState?.isLoggedIn == true
+    if (!authUiState.isSessionRestoreComplete) {
+        Box(
+            modifier = Modifier.fillMaxSize(),
+            contentAlignment = Alignment.Center
+        ) {
+            CircularProgressIndicator()
+        }
+        return
+    }
+
+    val isLoggedIn =
+        authUiState.isRestoredSessionReady && sessionState?.isLoggedIn == true
     val showShell = isLoggedIn && currentRoute != "login"
 
     Scaffold(
@@ -93,7 +107,8 @@ fun SiloMathApp(
                             popUpTo("login") { inclusive = true }
                         }
                     },
-                    onForgotPasswordClick = { showForgotPasswordSheet = true }
+                    onForgotPasswordClick = { showForgotPasswordSheet = true },
+                    viewModel = authViewModel
                 )
             }
             composable("select_organization") {

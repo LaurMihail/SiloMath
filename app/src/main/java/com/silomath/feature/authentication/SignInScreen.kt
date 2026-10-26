@@ -45,7 +45,6 @@ fun SignInScreen(
                 .padding(24.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            // BRANDING
             Text(
                 text = "SiloMath",
                 fontWeight = FontWeight.Bold,
@@ -54,10 +53,8 @@ fun SignInScreen(
                 textAlign = TextAlign.Center
             )
 
-            // BRANDING TO CARD SPACING
             Spacer(modifier = Modifier.height(28.dp))
 
-            // AUTHENTICATION CARD
             ElevatedCard(
                 modifier = Modifier.fillMaxWidth(),
                 shape = RoundedCornerShape(10.dp),
@@ -72,7 +69,6 @@ fun SignInScreen(
                         .padding(20.dp),
                     verticalArrangement = Arrangement.spacedBy(14.dp)
                 ) {
-                    // EMAIL FIELD
                     OutlinedTextField(
                         value = uiState.email,
                         onValueChange = viewModel::onEmailChanged,
@@ -89,7 +85,6 @@ fun SignInScreen(
                         )
                     )
 
-                    // PASSWORD FIELD
                     OutlinedTextField(
                         value = uiState.password,
                         onValueChange = viewModel::onPasswordChanged,
@@ -107,23 +102,13 @@ fun SignInScreen(
                         )
                     )
 
-                    // REMEMBER ME / FORGOT PASSWORD ROW
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
                             .heightIn(min = 48.dp),
-                        verticalAlignment = Alignment.CenterVertically
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.End
                     ) {
-                        Checkbox(
-                            checked = uiState.rememberMe,
-                            onCheckedChange = viewModel::onRememberMeChanged
-                        )
-                        Text(
-                            text = "Remember me",
-                            style = MaterialTheme.typography.bodyMedium,
-                            modifier = Modifier.padding(start = 8.dp)
-                        )
-                        Spacer(modifier = Modifier.weight(1f))
                         TextButton(
                             onClick = onForgotPasswordClick,
                             contentPadding = PaddingValues(0.dp)
@@ -136,7 +121,6 @@ fun SignInScreen(
                         }
                     }
 
-                    // SIGN IN BUTTON
                     Button(
                         onClick = viewModel::signIn,
                         modifier = Modifier
@@ -163,7 +147,6 @@ fun SignInScreen(
                         }
                     }
 
-                    // CONTINUE OFFLINE
                     if (uiState.canContinueOffline) {
                         OutlinedButton(
                             onClick = viewModel::continueOffline,
@@ -182,7 +165,6 @@ fun SignInScreen(
                         }
                     }
 
-                    // ERROR MESSAGE
                     if (uiState.error != null) {
                         Text(
                             text = uiState.error!!,

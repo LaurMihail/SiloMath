@@ -13,7 +13,9 @@ import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.test.setMain
 import org.junit.After
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNull
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 
@@ -29,6 +31,8 @@ class AuthViewModelTest {
     fun setup() {
         Dispatchers.setMain(testDispatcher)
         coEvery { authRepository.sessionState } returns sessionStateFlow
+        coEvery { authRepository.restoreRemoteSession() } returns
+            Result.failure(IllegalStateException("No stored session"))
         viewModel = AuthViewModel(authRepository)
     }
 
@@ -38,15 +42,39 @@ class AuthViewModelTest {
     }
 
     @Test
+    fun `startup restoration failure completes bootstrap without authenticated session`() = runTest {
+        assertTrue(viewModel.uiState.value.isSessionRestoreComplete)
+        assertFalse(viewModel.uiState.value.isRestoredSessionReady)
+    }
+
+    @Test
+    fun `startup restoration success marks restored session ready`() = runTest {
+        coEvery { authRepository.restoreRemoteSession() } answers {
+            sessionStateFlow.value =
+                SessionState(
+                    userId = "user-123",
+                    token = "rotated-access-token",
+                    refreshToken = "rotated-refresh-token"
+                )
+            Result.success(Unit)
+        }
+
+        viewModel = AuthViewModel(authRepository)
+
+        assertTrue(viewModel.uiState.value.isSessionRestoreComplete)
+        assertTrue(viewModel.uiState.value.isRestoredSessionReady)
+    }
+
+    @Test
     fun `signIn with valid credentials sets success state`() = runTest {
         coEvery { authRepository.signIn(any(), any()) } returns Result.success(Unit)
 
         viewModel.onEmailChanged("admin@silo.com")
         viewModel.onPasswordChanged("password")
-        viewModel.onRememberMeChanged(true)
         viewModel.signIn()
 
-        assertEquals(true, viewModel.uiState.value.isSuccess)
+        assertTrue(viewModel.uiState.value.isSuccess)
+        assertTrue(viewModel.uiState.value.isRestoredSessionReady)
     }
 
     @Test
@@ -61,20 +89,20 @@ class AuthViewModelTest {
     @Test
     fun `continueOffline with valid session succeeds`() = runTest {
         sessionStateFlow.value = SessionState(userId = "1", token = "abc", isOfflineCapable = true)
-        
+
         viewModel.continueOffline()
-        
-        assertEquals(true, viewModel.uiState.value.isSuccess)
+
+        assertTrue(viewModel.uiState.value.isSuccess)
         assertNull(viewModel.uiState.value.error)
     }
 
     @Test
     fun `continueOffline with invalid session fails`() = runTest {
         sessionStateFlow.value = SessionState(userId = null, isOfflineCapable = false)
-        
+
         viewModel.continueOffline()
-        
-        assertEquals(false, viewModel.uiState.value.isSuccess)
+
+        assertFalse(viewModel.uiState.value.isSuccess)
         assertEquals("No valid offline session available", viewModel.uiState.value.error)
     }
 }

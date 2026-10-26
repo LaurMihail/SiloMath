@@ -16,11 +16,12 @@ import javax.inject.Inject
 data class AuthUiState(
     val email: String = "",
     val password: String = "",
-    val rememberMe: Boolean = false,
     val isLoading: Boolean = false,
     val error: String? = null,
     val isSuccess: Boolean = false,
-    val canContinueOffline: Boolean = false
+    val canContinueOffline: Boolean = false,
+    val isSessionRestoreComplete: Boolean = false,
+    val isRestoredSessionReady: Boolean = false
 )
 
 @HiltViewModel
@@ -45,6 +46,15 @@ class AuthViewModel @Inject constructor(
                 )
             }
         }
+
+        viewModelScope.launch {
+            val restoreResult = authRepository.restoreRemoteSession()
+            val restoredSession = authRepository.sessionState.first()
+            _uiState.value = _uiState.value.copy(
+                isSessionRestoreComplete = true,
+                isRestoredSessionReady = restoreResult.isSuccess && restoredSession.isLoggedIn
+            )
+        }
     }
 
     fun onEmailChanged(email: String) {
@@ -55,14 +65,10 @@ class AuthViewModel @Inject constructor(
         _uiState.value = _uiState.value.copy(password = password, error = null)
     }
 
-    fun onRememberMeChanged(rememberMe: Boolean) {
-        _uiState.value = _uiState.value.copy(rememberMe = rememberMe)
-    }
-
     fun signIn() {
         val email = _uiState.value.email
         val password = _uiState.value.password
-        
+
         if (email.isBlank() || password.isBlank()) {
             _uiState.value = _uiState.value.copy(error = "Please fill in all fields")
             return
@@ -72,7 +78,11 @@ class AuthViewModel @Inject constructor(
             _uiState.value = _uiState.value.copy(isLoading = true, error = null)
             val result = authRepository.signIn(email, password)
             if (result.isSuccess) {
-                _uiState.value = _uiState.value.copy(isLoading = false, isSuccess = true)
+                _uiState.value = _uiState.value.copy(
+                    isLoading = false,
+                    isSuccess = true,
+                    isRestoredSessionReady = true
+                )
             } else {
                 _uiState.value = _uiState.value.copy(
                     isLoading = false,
