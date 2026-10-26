@@ -37,8 +37,17 @@ class OfflinePackageDownloadWorker @AssistedInject constructor(
             val session=auth.sessionState.first()
             if(session.userId!=user || !session.isLoggedIn || session.authorizedOrganizations.none { it.organizationId==org }) return@withContext Result.failure()
             try {
-                OfflinePackageDownloadRunner(remote,database.offlinePackageDownloadDao(),staging)
+                val record=OfflinePackageDownloadRunner(remote,database.offlinePackageDownloadDao(),staging)
                     .run(session.token!!,user,org,campaign,device)
+                try {
+                    OfflinePackageIntegrityVerifier(staging).verify(record)
+                    database.offlinePackageDownloadDao().update(record.copy(verifiedAt=System.currentTimeMillis(),updatedAt=System.currentTimeMillis()))
+                } catch(cancelled: CancellationException) {
+                    throw cancelled
+                } catch(_: Exception) {
+                    database.offlinePackageDownloadDao().update(record.copy(state="DOWNLOAD_ERROR",errorCode="PACKAGE_INTEGRITY_FAILED",updatedAt=System.currentTimeMillis()))
+                    return@withContext Result.failure()
+                }
                 return@withContext Result.success()
             } catch(cancelled: CancellationException) {
                 throw cancelled
