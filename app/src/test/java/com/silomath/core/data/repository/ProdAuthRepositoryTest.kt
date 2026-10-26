@@ -1,8 +1,10 @@
-﻿package com.silomath.core.data.repository
+package com.silomath.core.data.repository
 
 import com.silomath.core.data.auth.SessionStore
 import com.silomath.core.data.network.api.AuthApi
+import com.silomath.core.data.network.dto.AcceptedResponseDto
 import com.silomath.core.data.network.dto.RefreshSessionRequestDto
+import com.silomath.core.data.network.dto.ResetPasswordRequestDto
 import com.silomath.core.data.network.dto.SessionResponseDto
 import com.silomath.core.data.network.dto.SessionUserSummaryDto
 import com.silomath.core.data.network.dto.SignInRequestDto
@@ -73,7 +75,9 @@ class ProdAuthRepositoryTest {
         every { sessionStore.sessionState } returns flowOf(existingSession)
         coEvery {
             authApi.refreshSession(
-                RefreshSessionRequestDto(refreshToken = "stored-refresh-token")
+                RefreshSessionRequestDto(
+                    refreshToken = "stored-refresh-token"
+                )
             )
         } returns sessionResponse()
 
@@ -94,7 +98,12 @@ class ProdAuthRepositoryTest {
     @Test
     fun `restoreRemoteSession fails closed without protected refresh credential`() = runTest {
         every { sessionStore.sessionState } returns
-            flowOf(SessionState(userId = "user-123", token = "expired-access-token"))
+            flowOf(
+                SessionState(
+                    userId = "user-123",
+                    token = "expired-access-token"
+                )
+            )
 
         val result = repository.restoreRemoteSession()
 
@@ -103,7 +112,58 @@ class ProdAuthRepositoryTest {
             "No protected refresh credential available",
             result.exceptionOrNull()?.message
         )
-        coVerify(exactly = 0) { authApi.refreshSession(any()) }
+        coVerify(exactly = 0) {
+            authApi.refreshSession(any())
+        }
+    }
+
+    @Test
+    fun `updatePassword sends recovery context and clears local auth after server success`() = runTest {
+        coEvery {
+            authApi.resetPassword(
+                ResetPasswordRequestDto(
+                    recoveryToken = "recovery-token",
+                    newPassword = "new-password"
+                )
+            )
+        } returns AcceptedResponseDto(accepted = true)
+
+        val result =
+            repository.updatePassword(
+                recoveryContext = "recovery-token",
+                newPassword = "new-password"
+            )
+
+        assertTrue(result.isSuccess)
+        coVerify(exactly = 1) {
+            authApi.resetPassword(
+                ResetPasswordRequestDto(
+                    recoveryToken = "recovery-token",
+                    newPassword = "new-password"
+                )
+            )
+        }
+        coVerify(exactly = 1) {
+            sessionStore.clearSession()
+        }
+    }
+
+    @Test
+    fun `updatePassword keeps local auth until server reset succeeds`() = runTest {
+        coEvery {
+            authApi.resetPassword(any())
+        } throws IllegalStateException("Reset rejected")
+
+        val result =
+            repository.updatePassword(
+                recoveryContext = "recovery-token",
+                newPassword = "new-password"
+            )
+
+        assertTrue(result.isFailure)
+        coVerify(exactly = 0) {
+            sessionStore.clearSession()
+        }
     }
 
     @Test
@@ -117,39 +177,62 @@ class ProdAuthRepositoryTest {
             )
         every { sessionStore.sessionState } returns flowOf(existingSession)
 
-        val result = repository.setActiveOrganization("org-42")
+        val result =
+            repository.setActiveOrganization("org-42")
 
         assertTrue(result.isSuccess)
         coVerify(exactly = 1) {
             sessionStore.updateSession(
-                existingSession.copy(activeOrganizationId = "org-42")
+                existingSession.copy(
+                    activeOrganizationId = "org-42"
+                )
             )
         }
     }
 
     @Test
     fun `setActiveOrganization returns persistence failure`() = runTest {
-        every { sessionStore.sessionState } returns flowOf(SessionState())
-        coEvery { sessionStore.updateSession(any()) } throws
-            IllegalStateException("Persistence failed")
+        every {
+            sessionStore.sessionState
+        } returns flowOf(SessionState())
 
-        val result = repository.setActiveOrganization("org-42")
+        coEvery {
+            sessionStore.updateSession(any())
+        } throws IllegalStateException("Persistence failed")
+
+        val result =
+            repository.setActiveOrganization("org-42")
 
         assertTrue(result.isFailure)
-        assertEquals("Persistence failed", result.exceptionOrNull()?.message)
+        assertEquals(
+            "Persistence failed",
+            result.exceptionOrNull()?.message
+        )
     }
 
     @Test
     fun `signOut clears local session after backend sign out`() = runTest {
-        every { sessionStore.sessionState } returns
-            flowOf(SessionState(token = "access-token"))
-        coEvery { authApi.signOut("Bearer access-token") } returns Unit
+        every {
+            sessionStore.sessionState
+        } returns flowOf(
+            SessionState(token = "access-token")
+        )
+
+        coEvery {
+            authApi.signOut("Bearer access-token")
+        } returns Unit
 
         val result = repository.signOut()
 
         assertTrue(result.isSuccess)
-        coVerify(exactly = 1) { authApi.signOut("Bearer access-token") }
-        coVerify(exactly = 1) { sessionStore.clearSession() }
+
+        coVerify(exactly = 1) {
+            authApi.signOut("Bearer access-token")
+        }
+
+        coVerify(exactly = 1) {
+            sessionStore.clearSession()
+        }
     }
 
     private fun sessionResponse(): SessionResponseDto =

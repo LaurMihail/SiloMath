@@ -41,7 +41,11 @@ class MockAuthRepository @Inject constructor(
         return Result.success(Unit)
     }
 
-    override suspend fun updatePassword(newPassword: String): Result<Unit> {
+    override suspend fun updatePassword(
+        recoveryContext: String,
+        newPassword: String
+    ): Result<Unit> {
+        sessionStore.clearSession()
         return Result.success(Unit)
     }
 

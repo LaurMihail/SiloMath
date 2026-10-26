@@ -37,7 +37,10 @@ class DebugAuthRepository @Inject constructor(
         return Result.failure(Exception("Not available in debug auth"))
     }
 
-    override suspend fun updatePassword(newPassword: String): Result<Unit> {
+    override suspend fun updatePassword(
+        recoveryContext: String,
+        newPassword: String
+    ): Result<Unit> {
         return Result.failure(Exception("Not available in debug auth"))
     }
 

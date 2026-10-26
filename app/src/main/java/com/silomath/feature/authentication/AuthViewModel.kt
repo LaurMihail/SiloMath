@@ -24,6 +24,12 @@ data class AuthUiState(
     val isRestoredSessionReady: Boolean = false
 )
 
+data class PasswordResetUiState(
+    val isSubmitting: Boolean = false,
+    val isSuccess: Boolean = false,
+    val error: String? = null
+)
+
 @HiltViewModel
 class AuthViewModel @Inject constructor(
     private val authRepository: AuthRepository
@@ -31,6 +37,11 @@ class AuthViewModel @Inject constructor(
 
     private val _uiState = MutableStateFlow(AuthUiState())
     val uiState: StateFlow<AuthUiState> = _uiState.asStateFlow()
+
+    private val _passwordResetUiState =
+        MutableStateFlow(PasswordResetUiState())
+    val passwordResetUiState: StateFlow<PasswordResetUiState> =
+        _passwordResetUiState.asStateFlow()
 
     val sessionState = authRepository.sessionState.stateIn(
         scope = viewModelScope,
@@ -52,7 +63,8 @@ class AuthViewModel @Inject constructor(
             val restoredSession = authRepository.sessionState.first()
             _uiState.value = _uiState.value.copy(
                 isSessionRestoreComplete = true,
-                isRestoredSessionReady = restoreResult.isSuccess && restoredSession.isLoggedIn
+                isRestoredSessionReady =
+                    restoreResult.isSuccess && restoredSession.isLoggedIn
             )
         }
     }
@@ -70,12 +82,17 @@ class AuthViewModel @Inject constructor(
         val password = _uiState.value.password
 
         if (email.isBlank() || password.isBlank()) {
-            _uiState.value = _uiState.value.copy(error = "Please fill in all fields")
+            _uiState.value = _uiState.value.copy(
+                error = "Please fill in all fields"
+            )
             return
         }
 
         viewModelScope.launch {
-            _uiState.value = _uiState.value.copy(isLoading = true, error = null)
+            _uiState.value = _uiState.value.copy(
+                isLoading = true,
+                error = null
+            )
             val result = authRepository.signIn(email, password)
             if (result.isSuccess) {
                 _uiState.value = _uiState.value.copy(
@@ -86,7 +103,8 @@ class AuthViewModel @Inject constructor(
             } else {
                 _uiState.value = _uiState.value.copy(
                     isLoading = false,
-                    error = result.exceptionOrNull()?.message ?: "Sign in failed"
+                    error = result.exceptionOrNull()?.message
+                        ?: "Sign in failed"
                 )
             }
         }
@@ -98,7 +116,9 @@ class AuthViewModel @Inject constructor(
             if (session.isOfflineEligible) {
                 _uiState.value = _uiState.value.copy(isSuccess = true)
             } else {
-                _uiState.value = _uiState.value.copy(error = "No valid offline session available")
+                _uiState.value = _uiState.value.copy(
+                    error = "No valid offline session available"
+                )
             }
         }
     }
@@ -107,5 +127,56 @@ class AuthViewModel @Inject constructor(
         viewModelScope.launch {
             authRepository.resetPassword(email)
         }
+    }
+
+    fun updatePassword(
+        recoveryContext: String,
+        newPassword: String
+    ) {
+        if (recoveryContext.isBlank()) {
+            _passwordResetUiState.value =
+                PasswordResetUiState(
+                    error = "Recovery context is missing or invalid."
+                )
+            return
+        }
+
+        if (newPassword.isBlank()) {
+            _passwordResetUiState.value =
+                PasswordResetUiState(
+                    error = "Enter a new password."
+                )
+            return
+        }
+
+        viewModelScope.launch {
+            _passwordResetUiState.value =
+                PasswordResetUiState(isSubmitting = true)
+
+            val result =
+                authRepository.updatePassword(
+                    recoveryContext = recoveryContext,
+                    newPassword = newPassword
+                )
+
+            _passwordResetUiState.value =
+                if (result.isSuccess) {
+                    PasswordResetUiState(isSuccess = true)
+                } else {
+                    PasswordResetUiState(
+                        error =
+                            "The recovery context is invalid or expired, " +
+                                "or the password was rejected."
+                    )
+                }
+        }
+    }
+
+    fun consumePasswordResetSuccess() {
+        _passwordResetUiState.value = PasswordResetUiState()
+        _uiState.value = _uiState.value.copy(
+            isSuccess = false,
+            isRestoredSessionReady = false
+        )
     }
 }
