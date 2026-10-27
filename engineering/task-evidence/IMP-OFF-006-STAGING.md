@@ -1,6 +1,6 @@
 # IMP-OFF-006 — Verified canonical staged import
 
-Status: canonical staging IMPLEMENTED / LOCAL VERIFIED. Package remains VERIFYING; operational READY/activation and AUTH-010 are not completed by this task.
+Status: IMP-OFF-006 Staged Package Import PASS / LOCAL VERIFIED. Package remains VERIFYING; operational READY/activation and AUTH-010 are outside this task. Final scope correction and closure verification: IMP-OFF-006-resumed-after-IADR-0003.md.
 
 Authority: accepted IADR-0002; 01 section 18; 02 D29/D30/FD-69/FD-72; 09 canonical aggregates; 10 explicit physical types/relationships and forward migration; 11 package transport; 12 sections 13–16; 17 offline authorization/security.
 
@@ -20,3 +20,6 @@ Final verification after code changes:
 Next real gate: Production Room protection (backlog IMP-SEC-005). Existing DatabaseModule still opens the default unencrypted SQLite database; the catalog and accepted IADRs contain no database-encryption provider. IADR-0002 explicitly does not waive that security requirement. A security-provider/forward conversion decision is needed before enabling Production canonical population and READY. OFF-007/008 and AUTH-010 remain pending. No false compatibility/authorization/protection certificate or DataStore flag was used.
 
 Pre-existing/background IDE configuration changes are excluded. No push or external deployment.
+## Task-boundary closure correction
+
+The user explicitly confirmed OFF-006 is staged import, not atomic activation (OFF-007) or compatibility (OFF-010). IADR-0003 is committed and security verified. Calculation-engine absence does not block OFF-006. Staged canonical import is PASS; no active-package mutation or READY is authorized by closure. GATE-M5 is restored before later activation, with all audited terminal branches required.
