@@ -28,6 +28,9 @@ import com.silomath.core.navigation.*
 import com.silomath.feature.authentication.*
 import com.silomath.feature.dashboard.DashboardScreen
 import com.silomath.feature.masterdata.organization.SelectOrganizationScreen
+import com.silomath.feature.masterdata.location.LocationEditorRoute
+import com.silomath.feature.masterdata.location.LocationsRoute
+import com.silomath.feature.masterdata.location.LocationUnitsRoute
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
@@ -148,7 +151,8 @@ private fun OperationalShell(organizationId: OrganizationId, currentScope: Navig
             { currentScopeProvider() },authorizer) }
     }) {
         Column(Modifier.fillMaxSize()) {
-            AppHeader(state.activeSection.title,windowInsets = WindowInsets(0,0,0,0))
+            AppHeader(state.activeSection.title,windowInsets = WindowInsets(0,0,0,0),
+                onBackClick=if(state.current !is ShellDestination)state::back else null)
             val entries = state.decoratedEntries { key -> NavEntry(key) {
                 val target = key as? OrganizationDestination
                 // Scope validation occurs before protected content on every recompose/restore.
@@ -156,8 +160,15 @@ private fun OperationalShell(organizationId: OrganizationId, currentScope: Navig
                     when(target) {
                         is ShellDestination -> when(target.section) {
                             ShellSection.Dashboard -> DashboardScreen()
+                            ShellSection.Locations -> LocationsRoute(target.organizationId,onNavigate = {next ->
+                                state.open(next,{currentScopeProvider()},authorizer)
+                            })
                             else -> Box(Modifier.fillMaxSize()) // existing unimplemented feature boundary
                         }
+                        is LocationEditor -> LocationEditorRoute(target.organizationId,target.locationId,onDismiss={state.back()})
+                        is LocationUnits -> LocationUnitsRoute(target.organizationId,target.locationId,navigate = {next ->
+                            state.open(next,{currentScopeProvider()},authorizer)
+                        })
                         else -> Box(Modifier.fillMaxSize()) // domain/feature owner not implemented yet
                     }
                 }

@@ -56,6 +56,12 @@ class OfflineLocationRepository @Inject constructor(
         )
     }
 
+    override suspend fun hasHistoricalReferences(organizationId: OrganizationId, locationId: LocationId): Result<Boolean> = runCatching {
+        val row=checkNotNull(locationDao.getLocationByLocationId(locationId.value))
+        require(row.canonicalOrganizationId==organizationId.value)
+        locationDao.hasHistoricalReferences(locationId.value)
+    }
+
     override suspend fun saveLocation(
         location: Location
     ): Result<Unit> {
@@ -129,6 +135,18 @@ class OfflineLocationRepository @Inject constructor(
             .executeAtomicMutation(
                 syncOperation = syncOperation
             ) {
+                val current=locationDao.getLocationByLocationId(location.locationId.value)
+                require(current==null || current.canonicalOrganizationId==location.organizationId.value)
+                require(current?.entityVersion==existing?.entityVersion) { "Location changed while saving" }
+                require(locationDao.getLocationsByOrganizationSync(organization.id).none {
+                    it.locationId!=location.locationId.value && it.code.equals(location.code,ignoreCase=true)
+                }) { "Location Code must be unique in Organization" }
+                if(current==null || current.country!=location.country) {
+                    require(com.silomath.core.domain.model.CountryCatalog.isAllowedNewValue(location.country)) { "Country must be a catalogue value" }
+                }
+                if(current!=null && current.code!=location.code) {
+                    require(!locationDao.hasHistoricalReferences(location.locationId.value)) { "Historically referenced Location Code is stable" }
+                }
                 if (existing == null) {
                     locationDao.insertLocation(entity)
                 } else {

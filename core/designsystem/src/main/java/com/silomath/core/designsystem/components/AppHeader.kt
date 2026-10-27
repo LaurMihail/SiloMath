@@ -1,6 +1,7 @@
 package com.silomath.core.designsystem.components
 
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Sync
@@ -15,10 +16,14 @@ fun AppHeader(
     onSyncClick: () -> Unit = {},
     onNotificationsClick: () -> Unit = {},
     onProfileClick: () -> Unit = {},
-    windowInsets: WindowInsets = TopAppBarDefaults.windowInsets
+    windowInsets: WindowInsets = TopAppBarDefaults.windowInsets,
+    onBackClick: (() -> Unit)? = null
 ) {
     CenterAlignedTopAppBar(
         windowInsets = windowInsets,
+        navigationIcon = { if(onBackClick!=null)IconButton(onClick=onBackClick) {
+            Icon(Icons.AutoMirrored.Filled.ArrowBack,contentDescription="Back")
+        } },
         title = {
             Text(
                 text = title,

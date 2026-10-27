@@ -1,0 +1,226 @@
+{
+  "task": "IMP-MD-002",
+  "status": "GREEN / DONE",
+  "baselineCommit": "ccfa3a0d58c4564963cfa6bf4c9c8ef9a922872b",
+  "approvedScope": "LOC-01 and P1-SH-01; bounded canonical LOC-02 read destination for selection",
+  "dependencies": {
+    "IMP-MD-001": "accepted checkpoint 91227af",
+    "IMP-UI-007": "4afe034f877819edcb0762d868d44033d4a80de9",
+    "IMP-UI-008": "d8c129594c8b795535fa160a7afa7f29b267b01d"
+  },
+  "testTotal": 49,
+  "failed": 0,
+  "skipped": 0,
+  "suites": [
+    {
+      "suite": "com.silomath.feature.masterdata.location.LocationEditorViewModelTest",
+      "tests": 8,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "timestamp": "2026-10-27T21:36:03.278Z",
+      "reportPath": "feature/masterdata/build/test-results/testDebugUnitTest/TEST-com.silomath.feature.masterdata.location.LocationEditorViewModelTest.xml",
+      "reportSha256": "3bf3f0572b7f83486e9f47d921253f964d0cdf7fe9ad875c6783bdbe6f0ded74",
+      "cases": [
+        "historyLocksCodeAndEditPreservesIdentityVersionAndCreationMetadata",
+        "standardAndRevokedAdminCannotMutate",
+        "historicalCountryRemainsVerbatimAndInvalidNewValuesFailClosed",
+        "staleSourceAndUnverifiableHistoryDoNotUnlockEdit",
+        "restoredDraftPreservesHistoricalEmptyCountryWithoutImplicitNormalization",
+        "saveFailureRetainsDraftAndNeverEmitsSuccess",
+        "createUsesCanonicalSelectionAndSignalsSuccessOnlyAfterDurableSave",
+        "validationCoversLimitsUniquenessOptionalNullsAndCoordinatePair"
+      ]
+    },
+    {
+      "suite": "com.silomath.feature.masterdata.location.LocationsViewModelTest",
+      "tests": 5,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "timestamp": "2026-10-27T21:36:05.612Z",
+      "reportPath": "feature/masterdata/build/test-results/testDebugUnitTest/TEST-com.silomath.feature.masterdata.location.LocationsViewModelTest.xml",
+      "reportSha256": "a41c3436e5c6ac131bf24abb2aee3073791fc84a6d889b34ccabfe90c75c72a6",
+      "cases": [
+        "oneAuthorizedDatasetFeedsBothModesAndNoPositionRowsRemainInList",
+        "markerAndRowUseSameTypedDestinationAndRejectForeignOrFilteredIds",
+        "organizationRevocationAndLogoutClearRowsAndPreventNavigation",
+        "standardCannotRequestMutationAndSourceErrorsDoNotLeakDetails",
+        "stateRestoresFiltersModeAndValidSelectionWithoutStoringDomainPayload"
+      ]
+    },
+    {
+      "suite": "com.silomath.feature.masterdata.location.MapPrivacyTest",
+      "tests": 4,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "timestamp": "2026-10-27T21:36:05.727Z",
+      "reportPath": "feature/masterdata/build/test-results/testDebugUnitTest/TEST-com.silomath.feature.masterdata.location.MapPrivacyTest.xml",
+      "reportSha256": "307e7a26ffd0a3e01ff31ecf696c826b8389892a81faaa141790739157f4ff6e",
+      "cases": [
+        "networkAndHttpFailureArePresentationSignalsOnly",
+        "siloCredentialsHeadersAndBusinessBodyNeverReachProvider",
+        "onlyConfiguredHttpsNumericTilesArePermitted",
+        "externalStylesTelemetryAndRedirectTargetsAreDeniedBeforeNetwork"
+      ]
+    },
+    {
+      "suite": "com.silomath.feature.masterdata.organization.OrganizationViewModelTest",
+      "tests": 4,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "timestamp": "2026-10-27T21:36:06.024Z",
+      "reportPath": "feature/masterdata/build/test-results/testDebugUnitTest/TEST-com.silomath.feature.masterdata.organization.OrganizationViewModelTest.xml",
+      "reportSha256": "de8b2647cf486db2029810b7d6fbe115c7410336c33eebf1f2e9991e8499f921",
+      "cases": [
+        "unauthorized organization cannot be selected",
+        "authorized organizations come from server session context",
+        "authorized organization selection persists active context",
+        "search filters by organization code case insensitively"
+      ]
+    },
+    {
+      "suite": "com.silomath.core.domain.model.CountryCatalogTest",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "timestamp": "2026-10-27T21:26:12.410Z",
+      "reportPath": "core/domain/build/test-results/testDebugUnitTest/TEST-com.silomath.core.domain.model.CountryCatalogTest.xml",
+      "reportSha256": "018805938be92577615200f07f4e646a7513e900caed7e4fc2466f157da03fb5",
+      "cases": [
+        "packagedCatalogueHasCompleteAssignedCodesWithoutReservedOrUserAssignedValues"
+      ]
+    },
+    {
+      "suite": "com.silomath.core.domain.model.LocationCoordinateContractTest",
+      "tests": 5,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "timestamp": "2026-10-27T21:26:12.500Z",
+      "reportPath": "core/domain/build/test-results/testDebugUnitTest/TEST-com.silomath.core.domain.model.LocationCoordinateContractTest.xml",
+      "reportSha256": "68d0517f44c07de2a7cf3022e2663db1a7388916aa3d9ac01bca7abf13b78ce8",
+      "cases": [
+        "out of range latitude is rejected",
+        "partial coordinate pair is rejected",
+        "out of range longitude is rejected",
+        "coordinate pair accepts exact boundary values",
+        "coordinate pair may be absent"
+      ]
+    },
+    {
+      "suite": "com.silomath.app.navigation.ProductionDestinationAuthorizerTest",
+      "tests": 6,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "timestamp": "2026-10-27T21:36:06.825Z",
+      "reportPath": "app/build/test-results/testProductionDebugUnitTest/TEST-com.silomath.app.navigation.ProductionDestinationAuthorizerTest.xml",
+      "reportSha256": "c9ed8e8d04ebf8cc5eada25b5963c5c79d1c22aa7f9a308f9f29630fdbb3431a",
+      "cases": [
+        "missingAuthenticationNeverAcceptsAContextualReference",
+        "locationLookupCannotGrantAccessAfterSessionChanges",
+        "unimplementedFeatureReferencesDoNotExposeNewBlankDestinations",
+        "shellRequiresCurrentAuthorizedOrganization",
+        "editorRequiresAdminForCreateAndCanonicalScopeForEdit",
+        "locationUnitsRequiresCanonicalParentAndSupportedMembership"
+      ]
+    },
+    {
+      "suite": "com.silomath.feature.masterdata.location.LocationEditorSheetTest",
+      "tests": 4,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "timestamp": "2026-10-27T21:40:24",
+      "reportPath": "feature/masterdata/build/outputs/androidTest-results/connected/debug/TEST-Pixel_8(AVD) - 17.xml",
+      "reportSha256": "03a02d6436a43c74629ad5b2ba9d255064ad0a7a7d91a503c77fa0e787755c44",
+      "cases": [
+        "clearingCoordinatesIsAtomicAndCancelDoesNotSave",
+        "protectedCodeCannotBeEditedAndHistoricalCountryIsNotNormalized",
+        "countrySelectorUsesLocalOptionsAndEmitsCodeNotLabel",
+        "unauthorizedStateExposesNoMutationFieldsOrSave"
+      ]
+    },
+    {
+      "suite": "com.silomath.feature.masterdata.location.LocationsScreenTest",
+      "tests": 7,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "timestamp": "2026-10-27T21:40:24",
+      "reportPath": "feature/masterdata/build/outputs/androidTest-results/connected/debug/TEST-Pixel_8(AVD) - 17.xml",
+      "reportSha256": "03a02d6436a43c74629ad5b2ba9d255064ad0a7a7d91a503c77fa0e787755c44",
+      "cases": [
+        "loadingErrorEmptyAndFilteredEmptyAreExplicit",
+        "nativeEditorMapPicksExplicitCoordinatesWithoutDeviceLocation",
+        "expandedBoundsCoordinateListAndMapFromSameDataset",
+        "nativeMapWithoutProviderExposesAccessibleStoredMarkerAndFallback",
+        "mapSlotReceivesOnlyPositionedSubsetAndLabeledMarkerUsesStableId",
+        "missingBasemapKeepsListAndUnpositionedRowsUsable",
+        "compactLargeFontShortWindowRetainsControlsAndRows"
+      ]
+    },
+    {
+      "suite": "com.silomath.core.data.repository.LocationUiPersistenceTest",
+      "tests": 5,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "timestamp": "2026-10-27T21:41:47",
+      "reportPath": "app/build/outputs/androidTest-results/connected/debug/flavors/production/TEST-Pixel_8(AVD) - 17.xml",
+      "reportSha256": "9eefe46e5b5f49d11ded7f79d60ae71d4cb25b5ace62a00ae8f9919455e19db6",
+      "cases": [
+        "outboxFailureRollsBackBusinessRow",
+        "localSaveCommitsCanonicalReadModelAndOutboxTogether",
+        "canonicalReadNeverFallsBackToInsufficientLegacyRowsAndCodeUniquenessIsCaseInsensitive",
+        "countryNewValuesFailClosedButHistoricalValueRemainsVerbatim",
+        "localHistoricalReferenceProtectsCodeWithoutRewritingHistory"
+      ]
+    }
+  ],
+  "finalGradleCommands": [
+    ".\\gradlew.bat :feature:masterdata:connectedDebugAndroidTest '-Pandroid.testInstrumentationRunnerArguments.package=com.silomath.feature.masterdata.location' :feature:masterdata:testDebugUnitTest :core:domain:testDebugUnitTest --tests com.silomath.core.domain.model.CountryCatalogTest --tests com.silomath.core.domain.model.LocationCoordinateContractTest :app:testProductionDebugUnitTest --tests com.silomath.app.navigation.ProductionDestinationAuthorizerTest :app:compileProductionDebugKotlin",
+    ".\\gradlew.bat :app:connectedProductionDebugAndroidTest '-Pandroid.testInstrumentationRunnerArguments.class=com.silomath.core.data.repository.LocationUiPersistenceTest' :app:compileProductionDebugKotlin"
+  ],
+  "productionCompile": "PASS",
+  "moduleValidator": "PASS; 19/19 modules, 65 project dependencies, 0 violations",
+  "iadrValidator": "PASS; 4 registered IADRs",
+  "productionManifest": {
+    "path": "app/build/intermediates/merged_manifests/productionDebug/processProductionDebugManifest/AndroidManifest.xml",
+    "sha256": "56c56d57dceaf5e1846fb9949a1748f2de42d4f970013b3364c2091e2dce1fcd",
+    "permissions": [
+      "android.permission.INTERNET",
+      "android.permission.ACCESS_NETWORK_STATE",
+      "android.permission.ACCESS_WIFI_STATE",
+      "android.permission.WAKE_LOCK",
+      "android.permission.RECEIVE_BOOT_COMPLETED",
+      "android.permission.FOREGROUND_SERVICE",
+      "com.silomath.app.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+    ],
+    "locationPermissionCheck": "PASS",
+    "allowBackup": false
+  },
+  "countryCatalogue": {
+    "source": "https://raw.githubusercontent.com/pycountry/pycountry/main/src/pycountry/databases/iso3166-1.json",
+    "sourceSha256": "f01b812b57fba9f31ff621bf33e7c7570a01964dbeb5be2167e94decf538c89f",
+    "retrievedOn": "2026-10-27",
+    "catalogue": "ISO 3166-1 officially assigned alpha-2 entries",
+    "entryCount": 249,
+    "transformation": "alpha_2 TAB name, sorted alpha_2; UTF-8 LF",
+    "outputSha256": "7b1c0453710dd37f20457fe56849d0a9dbf02bd6a8b74216ccc651541f1a766a",
+    "contract": "FD-74; entry count is evidence, not a frozen product version",
+    "license": "LGPL-2.1; upstream license included; data-only component source is this TSV; no pycountry executable code used"
+  },
+  "limitations": [
+    "No live-provider availability/contract/cache-coverage certification; basemap remains best-effort.",
+    "No live backend/Supabase integration or external mutation.",
+    "Country historical data audit/migration not performed; nonconforming values remain unchanged.",
+    "UI-009 Stitch visual comparison not claimed.",
+    "AUTH-010/READY/GATE-M3 and snapshotSchemaVersion remain unresolved and untouched."
+  ],
+  "reportNote": "Latest report per suite; Gradle reuses unchanged tasks where up-to-date. Counts include 4 existing Organization UI and 5 existing coordinate-domain regressions."
+}

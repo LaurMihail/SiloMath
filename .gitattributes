@@ -1,1 +1,2 @@
 baseline/*.md text eol=lf
+core/domain/src/main/resources/country/* text eol=lf

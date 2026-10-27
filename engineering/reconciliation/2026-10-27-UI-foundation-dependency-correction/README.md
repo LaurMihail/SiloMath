@@ -9,3 +9,7 @@ GATE-M1 is recorded DONE in the audited source with PR7 CI/local build evidence;
 validation.json records 321nodes,607retained edges,2approved added edges,609total and a verified topological order. The TSV is the exact deterministic formal order (tie-break original Order then ID), not authorization to ignore unsatisfied predecessors. The semantic AUTH-010/READY/M3 cycle and snapshotSchemaVersion UNRESOLVED are deliberately untouched.
 
 Current execution: UI-007 GREEN/committed4afe034; UI-008 GREEN with evidence in engineering/task-evidence/IMP-UI-008.md (commit containing this update); MD-002 becomes executable after the UI-008 commit. The previous MD-002 blocker evidence is retained as history; its ordering decision is now resolved by this approval.
+
+## MD-002 completion evidence
+
+IMP-MD-002 is now GREEN / DONE in the atomic commit containing engineering/task-evidence/IMP-MD-002.md and MD002-completion.json. Scope includes LOC-01 and explicitly approved P1-SH-01 under refrozen FD-74. The earlier pending assessment above is retained as historical execution context. No dependency edge, other task status, gate, original workbook or unresolved boundary changes.

@@ -196,6 +196,12 @@ android {
         }
     }
 
+    productFlavors.all {
+        listOf("MAP_RASTER_TILE_TEMPLATE", "MAP_ATTRIBUTION_TEXT", "MAP_ATTRIBUTION_URL").forEach { key ->
+            buildConfigField("String", key, buildConfigString(environmentProperty(name, key)))
+        }
+    }
+
     buildTypes {
         release {
             isMinifyEnabled = false
