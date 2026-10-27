@@ -6,6 +6,7 @@ import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Sync
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.foundation.layout.WindowInsets
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -13,9 +14,11 @@ fun AppHeader(
     title: String,
     onSyncClick: () -> Unit = {},
     onNotificationsClick: () -> Unit = {},
-    onProfileClick: () -> Unit = {}
+    onProfileClick: () -> Unit = {},
+    windowInsets: WindowInsets = TopAppBarDefaults.windowInsets
 ) {
     CenterAlignedTopAppBar(
+        windowInsets = windowInsets,
         title = {
             Text(
                 text = title,
