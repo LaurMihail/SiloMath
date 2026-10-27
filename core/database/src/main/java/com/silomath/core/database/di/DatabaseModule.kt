@@ -1,6 +1,7 @@
 package com.silomath.core.database.di
 
 import android.content.Context
+import com.silomath.core.database.offline.CanonicalOfflineGuards
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.migration.Migration
@@ -612,6 +613,7 @@ object DatabaseModule {
         )
         .addCallback(object : RoomDatabase.Callback() {
             override fun onCreate(db: SupportSQLiteDatabase) {
+                CanonicalOfflineGuards.install(db)
                 createOrganizationTriggers(db)
             }
             override fun onOpen(db: SupportSQLiteDatabase) {

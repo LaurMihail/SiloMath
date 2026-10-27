@@ -28,7 +28,7 @@
   },
   "implementationAdrNamespace": {
     "pattern": "^IADR-[0-9]{4}$",
-    "nextId": "IADR-0002"
+    "nextId": "IADR-0003"
   },
   "allowedStatuses": [
     "PROPOSED",
@@ -60,6 +60,29 @@
         "AR-NFR-06",
         "AR-NFR-12",
         "FD-52"
+      ]
+    },
+    {
+      "id": "IADR-0002",
+      "title": "Canonical Room Offline Import with Preserved Legacy Data",
+      "status": "ACCEPTED",
+      "file": "engineering/adr/IADR-0002-canonical-room-offline-import.md",
+      "changesFrozenBaseline": false,
+      "decisionDate": "2026-10-27",
+      "owner": "SiloMath",
+      "baselineRefs": [
+        "01_PRODUCT_BASELINE",
+        "02_DECISION_REGISTER",
+        "07_ARCHITECTURE",
+        "08_MODULE_ARCHITECTURE",
+        "09_DATA_MODEL",
+        "10_DATABASE_SCHEMA",
+        "12_OFFLINE_SYNC_SPECIFICATION",
+        "17_SECURITY_AUDIT_PRIVACY",
+        "18_TEST_STRATEGY_ACCEPTANCE",
+        "D29",
+        "D30",
+        "FD-69"
       ]
     }
   ]
