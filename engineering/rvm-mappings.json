@@ -231,7 +231,7 @@
       "environment": "Local/CI",
       "result": "Pass",
       "evidence": "engineering/task-evidence/CR-CALC-VERSION-CONTRACT-001.md",
-      "buildVersion": "calculation-engine-source-sha256:662d01411d1757df3bcab60297c3e24a97fb62707b0dfb3480e3d0b0722826c3"
+      "buildVersion": "calculation-engine-source-sha256:d2562d5d39116a9e701bd0cf66233cb29be71b93a264bd9a4a957ff02e85d94c"
     },
     {
       "requirementDecisionId": "CE-D39",
@@ -245,7 +245,7 @@
       "environment": "Local/CI",
       "result": "Not Run",
       "evidence": "engineering/task-evidence/CR-CALC-VERSION-CONTRACT-001.md",
-      "buildVersion": "calculation-engine-source-sha256:662d01411d1757df3bcab60297c3e24a97fb62707b0dfb3480e3d0b0722826c3"
+      "buildVersion": "calculation-engine-source-sha256:d2562d5d39116a9e701bd0cf66233cb29be71b93a264bd9a4a957ff02e85d94c"
     },
     {
       "requirementDecisionId": "CE-D40",
@@ -258,7 +258,7 @@
       "environment": "Local/CI",
       "result": "Not Run",
       "evidence": "engineering/task-evidence/CR-CALC-VERSION-CONTRACT-001.md",
-      "buildVersion": "calculation-engine-source-sha256:662d01411d1757df3bcab60297c3e24a97fb62707b0dfb3480e3d0b0722826c3"
+      "buildVersion": "calculation-engine-source-sha256:d2562d5d39116a9e701bd0cf66233cb29be71b93a264bd9a4a957ff02e85d94c"
     },
     {
       "requirementDecisionId": "CE-D41",
@@ -272,7 +272,7 @@
       "environment": "Local/CI",
       "result": "Not Run",
       "evidence": "engineering/task-evidence/CR-CALC-VERSION-CONTRACT-001.md",
-      "buildVersion": "calculation-engine-source-sha256:662d01411d1757df3bcab60297c3e24a97fb62707b0dfb3480e3d0b0722826c3"
+      "buildVersion": "calculation-engine-source-sha256:d2562d5d39116a9e701bd0cf66233cb29be71b93a264bd9a4a957ff02e85d94c"
     },
     {
       "requirementDecisionId": "CE-D42",
@@ -286,7 +286,7 @@
       "environment": "Local/CI",
       "result": "Not Run",
       "evidence": "engineering/task-evidence/CR-CALC-VERSION-CONTRACT-001.md",
-      "buildVersion": "calculation-engine-source-sha256:662d01411d1757df3bcab60297c3e24a97fb62707b0dfb3480e3d0b0722826c3"
+      "buildVersion": "calculation-engine-source-sha256:d2562d5d39116a9e701bd0cf66233cb29be71b93a264bd9a4a957ff02e85d94c"
     },
     {
       "requirementDecisionId": "CALC-AC15",
@@ -299,7 +299,7 @@
       "environment": "Local/CI",
       "result": "Not Run",
       "evidence": "engineering/task-evidence/CR-CALC-VERSION-CONTRACT-001.md",
-      "buildVersion": "calculation-engine-source-sha256:662d01411d1757df3bcab60297c3e24a97fb62707b0dfb3480e3d0b0722826c3"
+      "buildVersion": "calculation-engine-source-sha256:d2562d5d39116a9e701bd0cf66233cb29be71b93a264bd9a4a957ff02e85d94c"
     },
     {
       "requirementDecisionId": "CALC-AC16",
@@ -312,7 +312,7 @@
       "environment": "Local/CI",
       "result": "Not Run",
       "evidence": "engineering/task-evidence/CR-CALC-VERSION-CONTRACT-001.md",
-      "buildVersion": "calculation-engine-source-sha256:662d01411d1757df3bcab60297c3e24a97fb62707b0dfb3480e3d0b0722826c3"
+      "buildVersion": "calculation-engine-source-sha256:d2562d5d39116a9e701bd0cf66233cb29be71b93a264bd9a4a957ff02e85d94c"
     }
   ]
 }

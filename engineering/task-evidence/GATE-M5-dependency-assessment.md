@@ -65,3 +65,17 @@ No calculation source code or gate status has been changed. No CALC test has bee
 ## Approved version-contract resolution
 
 CR-CALC-VERSION-CONTRACT-001 is now APPROVED by explicit user instruction. The former missing-identifier/aggregation wording boundary is resolved by controlled baseline update, FD-73 and a real exact-tuple Production registry. See CR-CALC-VERSION-CONTRACT-001.md for current verification and remaining integration boundaries. This supersedes earlier unapproved-version blocker statements, not the historical findings or CAM-008/GATE-M5 integration requirements.
+
+## Current CALC component verification after the approved contract
+
+All following component results come from implemented code, not from approval alone: canonical numerical API and SI input checks, exact mean/fill, F01-F10, density/quantity, rational/symbolic precision, approved tuple-to-handler registry, canonical fingerprint/stale detection and stored-input history reproduction are independently implemented and tested. Golden/boundary suite and backend numerical parity pass. Latest component total:63 client-engine tests plus4 backend verifier tests, no failures/skips. Details are in CR-CALC-VERSION-CONTRACT-001.md and the CALC-021/022 evidence files.
+
+This does not complete the integrated CAM-008 -> pinned calculation context path. GATE-M5 remains OPEN. No previously unknown historical tuple is inferred or aliased to2.0. The earlier table is historical, not the current component status.
+
+### CAM-008 boundary on returning from the independent engine
+
+Doc09 CampaignSnapshot requires snapshotSchemaVersion (table near line390); FinalInventorySnapshot has its own snapshotSchemaVersion near line562. Neither field is calculation inputSchemaVersion. The approved calculation CR assigns inputSchemaVersion1 and the calculation tuple; it does NOT assign a Production CampaignSnapshot schema identifier or equate these distinct version fields.
+
+The available21 official documents describe the snapshot schema version but do not assign its concrete current identifier. The inspected existing package test fixture uses the explicit test-only snapshot-v1 label. That is not Production authority. Current schema/provenance migrations explicitly prohibit inventing historical snapshot/calculation identifiers. No separate attachment was available to supply another approved snapshot version contract.
+
+Therefore the Production snapshot-schema binding boundary is not filled with a guessed1 or snapshot-v1. CAM-008 remains incomplete (and its CAM-007 predecessor is not certified by these numerical tests). Required next input is an approved concrete CampaignSnapshot schema identifier/source and compatibility mapping, distinct from calculation inputSchemaVersion; a separate approved contract may provide it. The standalone mathematical and versioned calculation work remains valid/PASS; this does not reopen OFF-006 or the resolved calculation-version CR. No decision on this snapshot boundary or full campaign integration has been implemented by assumption.

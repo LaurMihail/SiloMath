@@ -6,7 +6,7 @@
     "engineering/requirement-id-registry.json",
     "engineering/rvm-mappings.json"
   ],
-  "generatedAtUtc": "2026-10-27T18:27:21.9310357Z",
+  "generatedAtUtc": "2026-10-27T18:46:46.8186476Z",
   "requirementCount": 1840,
   "referenceConvention": {
     "id": "RVM-REF-001",
@@ -3139,7 +3139,7 @@
       "environment": "Local/CI",
       "result": "Not Run",
       "evidence": "engineering/task-evidence/CR-CALC-VERSION-CONTRACT-001.md",
-      "buildVersion": "calculation-engine-source-sha256:662d01411d1757df3bcab60297c3e24a97fb62707b0dfb3480e3d0b0722826c3",
+      "buildVersion": "calculation-engine-source-sha256:d2562d5d39116a9e701bd0cf66233cb29be71b93a264bd9a4a957ff02e85d94c",
       "mappingStatus": "MAPPED"
     },
     {
@@ -3152,7 +3152,7 @@
       "environment": "Local/CI",
       "result": "Not Run",
       "evidence": "engineering/task-evidence/CR-CALC-VERSION-CONTRACT-001.md",
-      "buildVersion": "calculation-engine-source-sha256:662d01411d1757df3bcab60297c3e24a97fb62707b0dfb3480e3d0b0722826c3",
+      "buildVersion": "calculation-engine-source-sha256:d2562d5d39116a9e701bd0cf66233cb29be71b93a264bd9a4a957ff02e85d94c",
       "mappingStatus": "MAPPED"
     },
     {
@@ -3711,7 +3711,7 @@
       "environment": "Local/CI",
       "result": "Not Run",
       "evidence": "engineering/task-evidence/CR-CALC-VERSION-CONTRACT-001.md",
-      "buildVersion": "calculation-engine-source-sha256:662d01411d1757df3bcab60297c3e24a97fb62707b0dfb3480e3d0b0722826c3",
+      "buildVersion": "calculation-engine-source-sha256:d2562d5d39116a9e701bd0cf66233cb29be71b93a264bd9a4a957ff02e85d94c",
       "mappingStatus": "MAPPED"
     },
     {
@@ -3724,7 +3724,7 @@
       "environment": "Local/CI",
       "result": "Not Run",
       "evidence": "engineering/task-evidence/CR-CALC-VERSION-CONTRACT-001.md",
-      "buildVersion": "calculation-engine-source-sha256:662d01411d1757df3bcab60297c3e24a97fb62707b0dfb3480e3d0b0722826c3",
+      "buildVersion": "calculation-engine-source-sha256:d2562d5d39116a9e701bd0cf66233cb29be71b93a264bd9a4a957ff02e85d94c",
       "mappingStatus": "MAPPED"
     },
     {
@@ -3737,7 +3737,7 @@
       "environment": "Local/CI",
       "result": "Not Run",
       "evidence": "engineering/task-evidence/CR-CALC-VERSION-CONTRACT-001.md",
-      "buildVersion": "calculation-engine-source-sha256:662d01411d1757df3bcab60297c3e24a97fb62707b0dfb3480e3d0b0722826c3",
+      "buildVersion": "calculation-engine-source-sha256:d2562d5d39116a9e701bd0cf66233cb29be71b93a264bd9a4a957ff02e85d94c",
       "mappingStatus": "MAPPED"
     },
     {
@@ -3750,7 +3750,7 @@
       "environment": "Local/CI",
       "result": "Not Run",
       "evidence": "engineering/task-evidence/CR-CALC-VERSION-CONTRACT-001.md",
-      "buildVersion": "calculation-engine-source-sha256:662d01411d1757df3bcab60297c3e24a97fb62707b0dfb3480e3d0b0722826c3",
+      "buildVersion": "calculation-engine-source-sha256:d2562d5d39116a9e701bd0cf66233cb29be71b93a264bd9a4a957ff02e85d94c",
       "mappingStatus": "MAPPED"
     },
     {
@@ -9106,7 +9106,7 @@
       "environment": "Local/CI",
       "result": "Pass",
       "evidence": "engineering/task-evidence/CR-CALC-VERSION-CONTRACT-001.md",
-      "buildVersion": "calculation-engine-source-sha256:662d01411d1757df3bcab60297c3e24a97fb62707b0dfb3480e3d0b0722826c3",
+      "buildVersion": "calculation-engine-source-sha256:d2562d5d39116a9e701bd0cf66233cb29be71b93a264bd9a4a957ff02e85d94c",
       "mappingStatus": "VERIFIED"
     },
     {

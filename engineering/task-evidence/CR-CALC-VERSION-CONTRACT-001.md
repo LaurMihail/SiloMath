@@ -31,3 +31,7 @@ For approved schema1/normalization1, UTF-8 JSON keys sort lexicographically recu
 The initial exact tuple is backed by the real Doc13 numerical handler for every family. Stored inputs/tuple are captured defensively, history resolves its stored handler, and unknown versions reject GEOM_VERSION_UNSUPPORTED without a latest-handler fallback. This does not claim support for any unapproved/unimplemented pre-2.0 historical engine.
 
 CAM-008, snapshot-to-pinned-input binding, complete end-to-end CALC acceptance, client/server parity integration and GATE-M5 remain pending. The approval and this commit do not complete them. Continue audited CALC work next, then the required campaign integration before offline activation. The earlier metadata gap/aggregation contradiction is resolved by this APPROVED Baseline Change, not by an IADR.
+
+## Subsequent numerical branch verification
+
+CALC-022 shared-engine backend verification is implemented and locally verified in IMP-CALC-022-shared-engine-parity.md. CALC-021 additional boundaries/explicit Empty numerical branch are verified in IMP-CALC-021-boundary-properties.md:63 client-module tests and4 backend parity tests PASS after the latest shared source change. Existing controlled mapping source hashes now identify that exact tested source. Earlier58-test baseline-change results remain the historical initial verification record. CampaignSnapshot integration and GATE-M5 remain pending.
