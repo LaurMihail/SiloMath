@@ -12,6 +12,7 @@ hilt = "2.60.1"
 hiltExt = "1.4.0"
 ksp = "2.3.6"
 room = "2.8.4"
+sqlcipher = "4.19.1"
 navigationCompose = "2.10.0"
 workManager = "2.11.2"
 retrofit = "3.0.0"
@@ -25,6 +26,7 @@ supabase = "3.2.0"
 ktor = "3.2.1"
 
 [libraries]
+sqlcipher-android = { group = "net.zetetic", name = "sqlcipher-android", version.ref = "sqlcipher" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }

@@ -28,7 +28,7 @@
   },
   "implementationAdrNamespace": {
     "pattern": "^IADR-[0-9]{4}$",
-    "nextId": "IADR-0003"
+    "nextId": "IADR-0004"
   },
   "allowedStatuses": [
     "PROPOSED",
@@ -83,6 +83,26 @@
         "D29",
         "D30",
         "FD-69"
+      ]
+    },
+    {
+      "id": "IADR-0003",
+      "title": "SQLCipher Room Encryption and Forward-safe Protection Conversion",
+      "status": "ACCEPTED",
+      "file": "engineering/adr/IADR-0003-sqlcipher-production-room-encryption.md",
+      "changesFrozenBaseline": false,
+      "decisionDate": "2026-10-27",
+      "owner": "SiloMath",
+      "baselineRefs": [
+        "01_PRODUCT_BASELINE",
+        "02_DECISION_REGISTER",
+        "07_ARCHITECTURE",
+        "10_DATABASE_SCHEMA",
+        "12_OFFLINE_SYNC_SPECIFICATION",
+        "17_SECURITY_AUDIT_PRIVACY",
+        "18_TEST_STRATEGY_ACCEPTANCE",
+        "FD-69",
+        "SEC-AC07"
       ]
     }
   ]
