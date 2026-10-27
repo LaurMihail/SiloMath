@@ -11,6 +11,7 @@ val ktorVersion = "3.2.1"
 val kotlinxSerializationVersion = "1.9.0"
 
 dependencies {
+    implementation(project(":calculation-engine"))
     implementation("io.ktor:ktor-server-core-jvm:$ktorVersion")
     implementation("io.ktor:ktor-server-netty-jvm:$ktorVersion")
     implementation("io.ktor:ktor-server-content-negotiation-jvm:$ktorVersion")
@@ -45,4 +46,8 @@ kotlin {
 
 application {
     mainClass.set("com.silomath.backend.ApplicationKt")
+}
+
+tasks.test {
+    systemProperty("silomath.repoRoot", rootProject.projectDir.parentFile.absolutePath)
 }

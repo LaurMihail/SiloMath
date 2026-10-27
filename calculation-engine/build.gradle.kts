@@ -20,5 +20,5 @@ kotlin {
 }
 
 tasks.test {
-    systemProperty("silomath.repoRoot", rootProject.projectDir.absolutePath)
+    systemProperty("silomath.repoRoot", project.projectDir.parentFile.absolutePath)
 }
