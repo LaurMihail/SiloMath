@@ -50,7 +50,7 @@ internal class JdbcOfflinePackageService(
                 for ((table, predicate) in selections) {
                     val projection = if (table == "evidence") "to_jsonb(t) - 'local_private_ref'" else "to_jsonb(t)"
                     connection.prepareStatement("""
-                        with context as (select ?::uuid as campaign_id, ?::uuid as organization_id, ?::uuid as user_id),
+                        with context as (select ?::uuid as campaign_id, ?::uuid as organization_id, ?::uuid as user_id, ?::uuid as device_id),
                         scope as (select s.storage_space_id from silomath.campaign_scopes s, context c where s.campaign_id=c.campaign_id),
                         frozen_scope as (select s.* from silomath.campaign_snapshot_scope_items s
                           join silomath.campaign_snapshots h on h.campaign_snapshot_id=s.campaign_snapshot_id,
@@ -58,13 +58,14 @@ internal class JdbcOfflinePackageService(
                         select coalesce(jsonb_agg(payload order by payload::text), '[]'::jsonb)::text
                         from (select $projection as payload from silomath.$table t, context c where $predicate) selected
                     """.trimIndent()).use { statement ->
-                        statement.setString(1, campaignId); statement.setString(2, organizationId); statement.setString(3, userId)
+                        statement.setString(1, campaignId); statement.setString(2, organizationId); statement.setString(3, userId); statement.setString(4, deviceInstallationId)
                         statement.executeQuery().use { rows ->
                             check(rows.next())
                             tables[table] = Json.parseToJsonElement(rows.getString(1)).jsonArray
                         }
                     }
                 }
+                completeReferencedContext(connection,tables,organizationId,campaignId)
                 val id = UUID.randomUUID().toString()
                 val artifact = OfflinePackageEncoder.encode(OfflinePackageEnvelope(
                     manifestId=id, organizationId=organizationId, campaignId=campaignId,
@@ -132,9 +133,154 @@ internal class JdbcOfflinePackageService(
             statement.executeQuery().use { it.next() }
         }
 
+    private fun completeReferencedContext(connection: Connection,tables: MutableMap<String,JsonArray>,organizationId: String,campaignId: String) {
+        val rows=tables.mapValues { (table,items) ->
+            items.associateBy { it.jsonObject.getValue(primaryKeys.getValue(table)).jsonPrimitive.content }.toMutableMap()
+        }.toMutableMap()
+        fun checkScope(row: JsonObject) {
+            row["organization_id"]?.takeIf { it!=JsonNull }?.let { check(it.jsonPrimitive.content==organizationId) { "Cross-tenant package reference" } }
+            row["campaign_id"]?.takeIf { it!=JsonNull }?.let { check(it.jsonPrimitive.content==campaignId) { "Cross-campaign package reference" } }
+        }
+        rows.values.forEach { items -> items.values.forEach { checkScope(it.jsonObject) } }
+        var changed: Boolean
+        do {
+            changed=false
+            val requested=mutableMapOf<String,MutableSet<String>>()
+            for((child,column,parent) in referenceEdges) {
+                rows.getValue(child).values.forEach { value ->
+                    value.jsonObject[column]?.takeIf { it!=JsonNull }?.let {
+                        val id=it.jsonPrimitive.content
+                        if(id !in rows.getValue(parent)) requested.getOrPut(parent) { mutableSetOf() }.add(id)
+                    }
+                }
+            }
+            rows.values.forEach { items -> items.values.forEach { value ->
+                value.jsonObject.filterKeys { it.endsWith("_by") }.values.filter { it!=JsonNull }.forEach {
+                    val id=it.jsonPrimitive.content
+                    if(id !in rows.getValue("users")) requested.getOrPut("users") { mutableSetOf() }.add(id)
+                }
+            }}
+            for((table,ids) in requested) {
+                // Bounded parameter batches; relation/table/PK names come only from the closed inventory below.
+                for(batch in ids.toList().chunked(200)) {
+                    val placeholders=batch.joinToString(",") { "?::uuid" }
+                    val pk=primaryKeys.getValue(table)
+                    val projection=if(table=="evidence") "to_jsonb(t)-'local_private_ref'" else "to_jsonb(t)"
+                    connection.prepareStatement("SELECT ($projection)::text FROM silomath.$table t WHERE $pk IN ($placeholders)").use { statement ->
+                        batch.forEachIndexed { i,id -> statement.setString(i+1,id) }
+                        statement.executeQuery().use { result -> while(result.next()) {
+                            val value=Json.parseToJsonElement(result.getString(1)).jsonObject
+                            checkScope(value)
+                            rows.getValue(table)[value.getValue(pk).jsonPrimitive.content]=value
+                            changed=true
+                        }}
+                    }
+                    check(batch.all { it in rows.getValue(table) }) { "Missing authoritative package reference" }
+                }
+            }
+        } while(changed)
+        rows.forEach { (table,items) -> tables[table]=JsonArray(items.toSortedMap().values.toList()) }
+    }
+
     companion object {
+        private val primaryKeys=mapOf(
+            "calculation_results" to "calculation_result_id",
+            "campaign_scopes" to "campaign_scope_id",
+            "campaign_snapshot_commodity_items" to "snapshot_commodity_item_id",
+            "campaign_snapshot_scope_items" to "snapshot_scope_item_id",
+            "campaign_snapshot_team_items" to "snapshot_team_item_id",
+            "campaign_snapshots" to "campaign_snapshot_id",
+            "campaign_team_assignments" to "assignment_id",
+            "clients" to "client_id",
+            "commodities" to "commodity_id",
+            "commodity_versions" to "commodity_version_id",
+            "device_installations" to "device_installation_id",
+            "evidence" to "evidence_id",
+            "geometry_families" to "geometry_family_id",
+            "geometry_profile_versions" to "geometry_profile_version_id",
+            "geometry_profiles" to "geometry_profile_id",
+            "inventory_campaigns" to "campaign_id",
+            "issue_resolutions" to "issue_resolution_id",
+            "issue_status_events" to "issue_status_event_id",
+            "issues" to "issue_id",
+            "locations" to "location_id",
+            "measurements" to "measurement_id",
+            "organization_memberships" to "membership_id",
+            "organizations" to "organization_id",
+            "stocktaking_records" to "stocktaking_record_id",
+            "stocktaking_revisions" to "stocktaking_revision_id",
+            "storage_spaces" to "storage_space_id",
+            "storage_units" to "storage_unit_id",
+            "users" to "user_id"
+        )
+        private val referenceEdges=listOf(
+            Triple("calculation_results","stocktaking_revision_id","stocktaking_revisions"),
+            Triple("calculation_results","geometry_family_id","geometry_families"),
+            Triple("calculation_results","geometry_profile_version_id","geometry_profile_versions"),
+            Triple("campaign_scopes","campaign_id","inventory_campaigns"),
+            Triple("campaign_scopes","storage_space_id","storage_spaces"),
+            Triple("campaign_snapshot_commodity_items","campaign_snapshot_id","campaign_snapshots"),
+            Triple("campaign_snapshot_commodity_items","commodity_id","commodities"),
+            Triple("campaign_snapshot_commodity_items","commodity_version_id","commodity_versions"),
+            Triple("campaign_snapshot_scope_items","campaign_snapshot_id","campaign_snapshots"),
+            Triple("campaign_snapshot_scope_items","storage_space_id","storage_spaces"),
+            Triple("campaign_snapshot_scope_items","location_id","locations"),
+            Triple("campaign_snapshot_scope_items","storage_unit_id","storage_units"),
+            Triple("campaign_snapshot_scope_items","geometry_family_id","geometry_families"),
+            Triple("campaign_snapshot_scope_items","geometry_profile_id","geometry_profiles"),
+            Triple("campaign_snapshot_scope_items","geometry_profile_version_id","geometry_profile_versions"),
+            Triple("campaign_snapshot_team_items","campaign_snapshot_id","campaign_snapshots"),
+            Triple("campaign_snapshot_team_items","user_id","users"),
+            Triple("campaign_snapshot_team_items","organization_membership_id","organization_memberships"),
+            Triple("campaign_snapshots","campaign_id","inventory_campaigns"),
+            Triple("campaign_snapshots","organization_id","organizations"),
+            Triple("campaign_team_assignments","campaign_id","inventory_campaigns"),
+            Triple("campaign_team_assignments","user_id","users"),
+            Triple("clients","organization_id","organizations"),
+            Triple("commodities","current_version_id","commodity_versions"),
+            Triple("commodity_versions","commodity_id","commodities"),
+            Triple("device_installations","user_id","users"),
+            Triple("evidence","organization_id","organizations"),
+            Triple("evidence","campaign_id","inventory_campaigns"),
+            Triple("evidence","stocktaking_record_id","stocktaking_records"),
+            Triple("evidence","issue_id","issues"),
+            Triple("evidence","stocktaking_revision_id","stocktaking_revisions"),
+            Triple("geometry_profile_versions","geometry_profile_id","geometry_profiles"),
+            Triple("geometry_profile_versions","geometry_family_id","geometry_families"),
+            Triple("geometry_profiles","organization_id","organizations"),
+            Triple("geometry_profiles","geometry_family_id","geometry_families"),
+            Triple("geometry_profiles","current_version_id","geometry_profile_versions"),
+            Triple("inventory_campaigns","organization_id","organizations"),
+            Triple("inventory_campaigns","campaign_snapshot_id","campaign_snapshots"),
+            Triple("issue_resolutions","issue_id","issues"),
+            Triple("issue_status_events","issue_id","issues"),
+            Triple("issues","organization_id","organizations"),
+            Triple("issues","campaign_id","inventory_campaigns"),
+            Triple("issues","stocktaking_record_id","stocktaking_records"),
+            Triple("locations","organization_id","organizations"),
+            Triple("measurements","stocktaking_revision_id","stocktaking_revisions"),
+            Triple("measurements","geometry_profile_version_id","geometry_profile_versions"),
+            Triple("organization_memberships","organization_id","organizations"),
+            Triple("organization_memberships","user_id","users"),
+            Triple("stocktaking_records","organization_id","organizations"),
+            Triple("stocktaking_records","campaign_id","inventory_campaigns"),
+            Triple("stocktaking_records","storage_space_id","storage_spaces"),
+            Triple("stocktaking_records","current_revision_id","stocktaking_revisions"),
+            Triple("stocktaking_revisions","stocktaking_record_id","stocktaking_records"),
+            Triple("stocktaking_revisions","based_on_revision_id","stocktaking_revisions"),
+            Triple("stocktaking_revisions","commodity_version_id","commodity_versions"),
+            Triple("stocktaking_revisions","client_id","clients"),
+            Triple("stocktaking_revisions","calculation_result_id","calculation_results"),
+            Triple("storage_spaces","organization_id","organizations"),
+            Triple("storage_spaces","storage_unit_id","storage_units"),
+            Triple("storage_spaces","geometry_profile_id","geometry_profiles"),
+            Triple("storage_units","organization_id","organizations"),
+            Triple("storage_units","location_id","locations")
+        )
+
         // Closed SQL inventory. Request values are bound parameters, never SQL fragments.
         private val selections = linkedMapOf(
+            "device_installations" to "t.device_installation_id=c.device_id and t.user_id=c.user_id and t.revoked_at is null",
             "organizations" to "t.organization_id=c.organization_id",
             "inventory_campaigns" to "t.campaign_id=c.campaign_id and t.organization_id=c.organization_id",
             "campaign_scopes" to "t.campaign_id=c.campaign_id",

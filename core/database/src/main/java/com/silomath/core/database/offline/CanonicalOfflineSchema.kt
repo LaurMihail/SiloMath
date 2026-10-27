@@ -56,9 +56,9 @@ object CanonicalOfflineSchema {
         )),
         CanonicalTable("campaign_snapshot_commodity_items", "snapshot_commodity_item_id", listOf(
             CanonicalColumn("snapshot_commodity_item_id", CanonicalColumnKind.UUID, true),
-            CanonicalColumn("campaign_snapshot_id", CanonicalColumnKind.UUID, false),
-            CanonicalColumn("commodity_id", CanonicalColumnKind.UUID, false),
-            CanonicalColumn("commodity_version_id", CanonicalColumnKind.UUID, false)
+            CanonicalColumn("campaign_snapshot_id", CanonicalColumnKind.UUID, true),
+            CanonicalColumn("commodity_id", CanonicalColumnKind.UUID, true),
+            CanonicalColumn("commodity_version_id", CanonicalColumnKind.UUID, true)
         )),
         CanonicalTable("campaign_snapshot_scope_items", "snapshot_scope_item_id", listOf(
             CanonicalColumn("snapshot_scope_item_id", CanonicalColumnKind.UUID, true),

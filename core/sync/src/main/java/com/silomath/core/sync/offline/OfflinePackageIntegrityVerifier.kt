@@ -42,7 +42,7 @@ class OfflinePackageIntegrityVerifier(private val staging: PackageStagingStore) 
         }
         require(size==expected && hex(digest.digest())==manifest.integrityHash) { "Package hash/length mismatch" }
         val root=Json.parseToJsonElement(output.toString(Charsets.UTF_8.name())).jsonObject
-        require(root.getValue("formatVersion").jsonPrimitive.int==1 && metadata.getValue("formatVersion").jsonPrimitive.int==1)
+        require(root.getValue("formatVersion").jsonPrimitive.int==2 && metadata.getValue("formatVersion").jsonPrimitive.int==2)
         for ((key,value) in mapOf("manifestId" to record.manifestId,"organizationId" to record.organizationId,
             "campaignId" to record.campaignId,"deviceInstallationId" to record.deviceInstallationId,
             "authorizedUserId" to record.authorizedUserId,"packageVersion" to record.packageVersion,"generatedAt" to manifest.generatedAt)) {
@@ -73,7 +73,7 @@ class OfflinePackageIntegrityVerifier(private val staging: PackageStagingStore) 
 
     companion object {
         val requiredTables=setOf(
-            "organizations","inventory_campaigns","campaign_scopes","campaign_team_assignments",
+            "device_installations","organizations","inventory_campaigns","campaign_scopes","campaign_team_assignments",
             "campaign_snapshots","campaign_snapshot_scope_items","campaign_snapshot_team_items","campaign_snapshot_commodity_items",
             "locations","storage_units","storage_spaces","geometry_profiles","geometry_profile_versions","geometry_families",
             "commodities","commodity_versions","organization_memberships","users","clients","stocktaking_records",

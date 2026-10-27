@@ -8,13 +8,12 @@ import java.nio.file.StandardOpenOption
 import java.security.MessageDigest
 import java.util.UUID
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.*
 
 /** Versioned transport artifact, not an alternative authoritative business store. */
 @Serializable
 data class OfflinePackageEnvelope(
-    val formatVersion: Int = 1,
+    val formatVersion: Int = 2,
     val manifestId: String,
     val organizationId: String,
     val campaignId: String,
@@ -28,7 +27,6 @@ data class OfflinePackageEnvelope(
 data class MaterializedOfflinePackage(val manifest: OfflineManifestResponse, val bytes: ByteArray)
 
 internal object OfflinePackageEncoder {
-    private val json = Json { encodeDefaults = true }
     fun encode(envelope: OfflinePackageEnvelope): MaterializedOfflinePackage {
         require(envelope.tables.keys == requiredTables) { "Incomplete package table inventory" }
         require(envelope.tables.getValue("inventory_campaigns").size == 1)
@@ -36,8 +34,26 @@ internal object OfflinePackageEncoder {
         require(envelope.tables.getValue("campaign_snapshot_scope_items").isNotEmpty())
         require(envelope.tables.getValue("campaign_snapshot_commodity_items").isNotEmpty())
         require(envelope.tables.getValue("campaign_snapshot_team_items").isNotEmpty())
+        envelope.tables.forEach { (table,rows) -> rows.forEach { element ->
+            val row=element.jsonObject
+            require(OfflinePackageFieldContract.required.getValue(table).all { row[it]!=null && row[it]!=JsonNull }) {
+                "Incomplete frozen V6 row: $table"
+            }
+        }}
         validateCoverage(envelope)
-        val bytes = json.encodeToString(envelope).toByteArray(Charsets.UTF_8)
+        // JsonElement.toString preserves parsed decimal literals. Generic Number serialization
+        // can normalize via Double and invalidate both precision and collection hashes.
+        val bytes = buildJsonObject {
+            put("formatVersion",envelope.formatVersion)
+            put("manifestId",envelope.manifestId)
+            put("organizationId",envelope.organizationId)
+            put("campaignId",envelope.campaignId)
+            put("deviceInstallationId",envelope.deviceInstallationId)
+            put("authorizedUserId",envelope.authorizedUserId)
+            put("packageVersion",envelope.packageVersion)
+            put("generatedAt",envelope.generatedAt)
+            put("tables",JsonObject(envelope.tables))
+        }.toString().toByteArray(Charsets.UTF_8)
         val inventory = buildJsonObject {
             envelope.tables.toSortedMap().forEach { (name, rows) ->
                 put(name, buildJsonObject {
@@ -103,7 +119,7 @@ internal object OfflinePackageEncoder {
     }
 
     val requiredTables = setOf(
-        "organizations", "inventory_campaigns", "campaign_scopes", "campaign_team_assignments",
+        "device_installations", "organizations", "inventory_campaigns", "campaign_scopes", "campaign_team_assignments",
         "campaign_snapshots", "campaign_snapshot_scope_items", "campaign_snapshot_team_items",
         "campaign_snapshot_commodity_items", "locations", "storage_units", "storage_spaces",
         "geometry_profiles", "geometry_profile_versions", "geometry_families", "commodities",

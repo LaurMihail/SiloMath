@@ -23,7 +23,7 @@ class OfflinePackageIntegrityTest {
             put(name,if(name=="campaign_snapshots") buildJsonArray { add(snapshot) } else JsonArray(emptyList()))
         }}
         val root=edit(buildJsonObject {
-            put("formatVersion",1);put("manifestId","manifest");put("organizationId","org");put("campaignId","campaign")
+            put("formatVersion",2);put("manifestId","manifest");put("organizationId","org");put("campaignId","campaign")
             put("deviceInstallationId","device");put("authorizedUserId","user");put("packageVersion","version")
             put("generatedAt","2026-10-27T00:00:00Z");put("tables",tables)
         })
@@ -32,7 +32,7 @@ class OfflinePackageIntegrityTest {
             put("count",if(countsWrong) 9 else rows.jsonArray.size);put("sha256",hash(rows.toString().toByteArray()))
         }) }}
         val metadata=buildJsonObject {
-            put("formatVersion",1);put("authorizedUserId","user");put("byteSize",bytes.size)
+            put("formatVersion",2);put("authorizedUserId","user");put("byteSize",bytes.size)
             put("snapshot_schema_version",if(pinnedWrong) "other" else "snapshot-v1");put("calculation_engine_version","engine-v1")
             put("calculation_schema_versions",buildJsonArray { add("LEVEL_BASED_V1") })
         }

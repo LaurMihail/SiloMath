@@ -40,12 +40,13 @@ class OfflinePackageDownloadWorker @AssistedInject constructor(
                 val record=OfflinePackageDownloadRunner(remote,database.offlinePackageDownloadDao(),staging)
                     .run(session.token!!,user,org,campaign,device)
                 try {
-                    OfflinePackageIntegrityVerifier(staging).verify(record)
+                    val verified=OfflinePackageIntegrityVerifier(staging).verify(record)
+                    OfflineImportPlanner.prepare(verified)
                     database.offlinePackageDownloadDao().update(record.copy(verifiedAt=System.currentTimeMillis(),updatedAt=System.currentTimeMillis()))
                 } catch(cancelled: CancellationException) {
                     throw cancelled
                 } catch(_: Exception) {
-                    database.offlinePackageDownloadDao().update(record.copy(state="DOWNLOAD_ERROR",errorCode="PACKAGE_INTEGRITY_FAILED",updatedAt=System.currentTimeMillis()))
+                    database.offlinePackageDownloadDao().update(record.copy(state="DOWNLOAD_ERROR",errorCode="PACKAGE_INTEGRITY_OR_STAGING_FAILED",updatedAt=System.currentTimeMillis()))
                     return@withContext Result.failure()
                 }
                 return@withContext Result.success()

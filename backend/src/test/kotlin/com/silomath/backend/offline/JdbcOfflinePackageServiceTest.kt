@@ -8,6 +8,7 @@ import java.math.BigDecimal
 import java.util.UUID
 import kotlinx.coroutines.runBlocking
 import kotlinx.serialization.json.*
+import kotlinx.serialization.encodeToString
 import org.junit.Before
 import org.junit.Assume.assumeTrue
 import org.junit.Rule
@@ -42,6 +43,16 @@ class JdbcOfflinePackageServiceTest {
         assertEquals(org,tables.getValue("organizations").jsonArray.single().jsonObject.getValue("organization_id").jsonPrimitive.content)
         assertEquals("LEVEL_BASED_V1",manifest.verificationMetadata!!.getValue("calculation_schema_versions").jsonArray.single().jsonPrimitive.content)
         assertFalse(body.containsKey("offlineReady"))
+        assertEquals("10.000000",tables.getValue("geometry_profile_versions").jsonArray.single().jsonObject.getValue("height_m").jsonPrimitive.content)
+        assertEquals(manifest.contentManifest.getValue("campaign_snapshot_scope_items").jsonObject.getValue("sha256").jsonPrimitive.content,
+            OfflinePackageEncoder.sha256(tables.getValue("campaign_snapshot_scope_items").toString().toByteArray(Charsets.UTF_8)))
+        System.getenv("SILOMATH_OFFLINE_TEST_FIXTURE_OUT")?.let { path ->
+            val json=Json { encodeDefaults=true }
+            java.nio.file.Files.writeString(java.nio.file.Path.of(path),buildJsonObject {
+                put("manifest",json.encodeToJsonElement(manifest))
+                put("package",downloaded.artifact.bytes.toString(Charsets.UTF_8))
+            }.toString())
+        }
         assertEquals(OfflinePackageResult.NotFound,service().download(user,org,campaign,device,"wrong-version",manifest.manifestId))
     }
 
@@ -85,24 +96,31 @@ class JdbcOfflinePackageServiceTest {
 
     private fun fixture() = connection().use { c ->
         val location=id();val unit=id();val space=id();val family=id();val profile=id();val version=id()
-        val snapshot=id();val commodity=id();val commodityVersion=id()
+        val snapshot=id();val commodity=id();val commodityVersion=id();val membership=id()
         insert(c,"users",mapOf("user_id" to user,"lifecycle_status" to "ACTIVE"))
         insert(c,"organizations",mapOf("organization_id" to org,"lifecycle_status" to "ACTIVE"))
-        insert(c,"organization_memberships",mapOf("membership_id" to id(),"organization_id" to org,"user_id" to user,"role" to "ADMIN","lifecycle_status" to "ACTIVE"))
+        insert(c,"organization_memberships",mapOf("membership_id" to membership,"organization_id" to org,"user_id" to user,"role" to "ADMIN","lifecycle_status" to "ACTIVE"))
         insert(c,"inventory_campaigns",mapOf("campaign_id" to campaign,"organization_id" to org,"code" to "INV-2026-0001","campaign_year" to 2026,"sequence" to 1,"inventory_type" to "CONTROL","status" to "ACTIVE"))
-        insert(c,"campaign_snapshots",mapOf("campaign_snapshot_id" to snapshot,"campaign_id" to campaign,"organization_id" to org,"inventory_type" to "CONTROL","calculation_engine_version" to "engine-v1","snapshot_schema_version" to "snapshot-v1","calculation_schema_versions" to "[\"LEVEL_BASED_V1\"]"))
+        insert(c,"campaign_snapshots",mapOf("campaign_snapshot_id" to snapshot,"campaign_id" to campaign,"organization_id" to org,"inventory_type" to "CONTROL","calculation_engine_version" to "engine-v1","snapshot_schema_version" to "snapshot-v1","calculation_schema_versions" to "[\"LEVEL_BASED_V1\"]","organization_name" to "Test Organization","organization_code" to "TEST"))
         insert(c,"campaign_scopes",mapOf("campaign_id" to campaign,"storage_space_id" to space))
-        insert(c,"campaign_snapshot_scope_items",mapOf("campaign_snapshot_id" to snapshot,"storage_space_id" to space,"location_id" to location,"storage_unit_id" to unit,"geometry_family_id" to family,"geometry_profile_id" to profile,"geometry_profile_version_id" to version))
+        insert(c,"campaign_snapshot_scope_items",mapOf("campaign_snapshot_id" to snapshot,"storage_space_id" to space,"location_id" to location,"storage_unit_id" to unit,"geometry_family_id" to family,"geometry_profile_id" to profile,"geometry_profile_version_id" to version,
+            "location_code" to "LOC","location_name" to "Location","storage_unit_code" to "UNIT","storage_unit_name" to "Unit","storage_space_code" to "SPACE",
+            "geometry_family_code" to "CYL_FLAT_V1","geometry_family_name" to "Cylinder","geometry_profile_code" to "PROFILE","geometry_profile_name" to "Profile",
+            "geometry_formula_version" to "formula-v1","geometry_dimensions" to "{\"diameter_m\":2.000000,\"height_m\":10.000000}",
+            "measurement_reference_height_m" to 10,"maximum_fill_height_m" to 10,"max_capacity_m3" to BigDecimal("31.415927")))
         insert(c,"locations",mapOf("location_id" to location,"organization_id" to org,"latitude_deg" to BigDecimal("45.123456"),"longitude_deg" to BigDecimal("26.123456")))
         insert(c,"storage_units",mapOf("storage_unit_id" to unit,"organization_id" to org,"location_id" to location))
         insert(c,"storage_spaces",mapOf("storage_space_id" to space,"organization_id" to org,"storage_unit_id" to unit,"geometry_profile_id" to profile))
-        insert(c,"geometry_families",mapOf("geometry_family_id" to family))
+        insert(c,"geometry_families",mapOf("geometry_family_id" to family,"family_code" to "CYL_FLAT_V1","formula_version" to "formula-v1"))
         insert(c,"geometry_profiles",mapOf("geometry_profile_id" to profile,"organization_id" to org,"geometry_family_id" to family,"current_version_id" to version))
-        insert(c,"geometry_profile_versions",mapOf("geometry_profile_version_id" to version,"geometry_profile_id" to profile,"geometry_family_id" to family))
+        insert(c,"geometry_profile_versions",mapOf("geometry_profile_version_id" to version,"geometry_profile_id" to profile,"geometry_family_id" to family,"diameter_m" to 2,"height_m" to 10,"measurement_reference_height_m" to 10,"maximum_fill_height_m" to 10,"max_capacity_m3" to BigDecimal("31.415927"),"formula_version" to "formula-v1"))
         insert(c,"commodities",mapOf("commodity_id" to commodity,"current_version_id" to commodityVersion))
         insert(c,"commodity_versions",mapOf("commodity_version_id" to commodityVersion,"commodity_id" to commodity))
-        insert(c,"campaign_snapshot_team_items",mapOf("campaign_snapshot_id" to snapshot,"user_id" to user))
+        insert(c,"campaign_snapshot_team_items",mapOf("campaign_snapshot_id" to snapshot,"user_id" to user,"organization_membership_id" to membership,"role_at_assignment" to "ADMIN","user_full_name" to "Test User","user_email" to "user@example.test"))
         insert(c,"campaign_snapshot_commodity_items",mapOf("campaign_snapshot_id" to snapshot,"commodity_id" to commodity,"commodity_version_id" to commodityVersion))
+        c.prepareStatement("update silomath.inventory_campaigns set campaign_snapshot_id=?::uuid where campaign_id=?::uuid").use {
+            it.setString(1,snapshot);it.setString(2,campaign);it.executeUpdate()
+        }
     }
 
     /** Test-only defaults for required columns; production never fabricates records. */
@@ -124,7 +142,7 @@ class JdbcOfflinePackageServiceTest {
                     "date" -> "2026-10-27"
                     "bool" -> false
                     "jsonb" -> "{}"
-                    else -> "test"
+                    else -> if(name=="lifecycle_status") "ACTIVE" else "test"
                 }
                 statement.setString(i+1,value.toString())
             }
