@@ -6,7 +6,7 @@ Version: V6 Final Documentation — Architecture 1.0
 
 Status: APPROVED / FROZEN V6
 
-Baseline revision: 2026-10-27 - CR-CALC-VERSION-CONTRACT-001 approved calculation-version clarification
+Baseline revision: 2026-10-27 - CR-COUNTRY-CATALOG-CONTRACT-001 approved Country catalogue clarification
 
 Product: SiloMath
 

@@ -1,0 +1,30 @@
+{
+  "changeRequestId": "CR-COUNTRY-CATALOG-CONTRACT-001",
+  "decisionId": "FD-74",
+  "status": "APPROVED",
+  "approvedBy": "Product Owner (explicit user approval in this conversation)",
+  "decisionDate": "2026-10-27",
+  "catalog": "ISO 3166-1",
+  "catalogCoverage": "COMPLETE",
+  "canonicalEncoding": "ISO 3166-1 alpha-2",
+  "canonicalCase": "UPPERCASE",
+  "appliesTo": [
+    "Organization.country",
+    "Location.country"
+  ],
+  "presentationLabel": "Human-readable country name; not the canonical persisted/API value",
+  "freeTextNewValuesAllowed": false,
+  "newValuesMustBelongToCatalog": true,
+  "newValueValidation": "FAIL_CLOSED",
+  "optionsAvailableLocallyOrCached": true,
+  "historicalNonconformingValues": "PRESERVE_UNCHANGED; SEPARATE_AUDIT_BEFORE_ANY_MIGRATION",
+  "automaticHistoricalNormalizationAllowed": false,
+  "examples": {
+    "Romania": "RO",
+    "Germany": "DE",
+    "United States": "US"
+  },
+  "optionalNullSemantics": "UNCHANGED",
+  "catalogVersionIdentifier": "NOT ASSIGNED BY THIS CLARIFICATION",
+  "implementationStatus": "NOT CERTIFIED BY DOCUMENTATION APPROVAL"
+}

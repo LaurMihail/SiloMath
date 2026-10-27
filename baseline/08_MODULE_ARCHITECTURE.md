@@ -3,7 +3,7 @@
 **Document ID:** 08_MODULE_ARCHITECTURE  
 **Version:** V6 Final Documentation — Module Architecture 1.0  
 **Status:** APPROVED / FROZEN V6
-**Baseline revision:** 2026-10-27 - CR-CALC-VERSION-CONTRACT-001 approved calculation-version clarification
+**Baseline revision:** 2026-10-27 - CR-COUNTRY-CATALOG-CONTRACT-001 approved Country catalogue clarification
 **Product:** SiloMath  
 **Normative role:** Canonical implementation contract for Gradle module boundaries, ownership, allowed dependencies, composition, dependency injection and incremental migration.
 

@@ -1,4 +1,4 @@
-﻿$ErrorActionPreference = "Stop"
+$ErrorActionPreference = "Stop"
 
 $registryPath = Join-Path `
     $PSScriptRoot `
@@ -130,7 +130,7 @@ Test-ExactRange `
     -Name "Final decision" `
     -Pattern '^FD-\d{2}$' `
     -Start 1 `
-    -End 73 `
+    -End 74 `
     -Formatter {
         param($n)
         "FD-{0:D2}" -f $n
@@ -356,7 +356,7 @@ Test-ExactRange `
     -Name "Test-strategy decision" `
     -Pattern '^TA-D\d{3}$' `
     -Start 1 `
-    -End 232 `
+    -End 233 `
     -Formatter {
         param($n)
         "TA-D{0:D3}" -f $n

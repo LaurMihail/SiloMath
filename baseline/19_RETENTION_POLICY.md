@@ -1,7 +1,7 @@
 # SiloMath V6 - 19_RETENTION_POLICY
 
 **Status:** APPROVED / FROZEN V6
-**Baseline revision:** 2026-10-27 - CR-CALC-VERSION-CONTRACT-001 approved calculation-version clarification
+**Baseline revision:** 2026-10-27 - CR-COUNTRY-CATALOG-CONTRACT-001 approved Country catalogue clarification
 
 ## 1. Purpose and authority
 
@@ -511,3 +511,7 @@ This document is the canonical APPROVED / FROZEN SiloMath V6 Retention Policy af
 CR-CALC-VERSION-CONTRACT-001 / FD-73: `engineVersion="2.0"`; integer `inputSchemaVersion=1`, `normalizationVersion=1`, `formulaVersion=1` for F01-F10; `surfaceModelVersion=LEVEL_BASED_V1`; `aggregationMethod=MEAN_ULLAGE`; integer `aggregationRuleVersion=1`; combined semantic identifier `MEAN_ULLAGE_V1`. Formula codes are the unchanged F01-F10 identifiers in Doc13 sections6/22.1. Domain/API version numbers are integers except engineVersion, which is the exact string "2.0". Resolve only actual implemented handlers for the full pinned tuple; unsupported versions return GEOM_VERSION_UNSUPPORTED without fallback. Preserve historical metadata verbatim; no automatic reassignment to this initial approved tuple. This clarification changes no mathematics and is not evidence of completed integration or release gates.
 
 Retain actual pinned identifiers and reproduction capability for retained history. Do not manufacture old metadata or relabel unknown history as engine2.0.
+
+## Approved Country contract cross-reference
+
+CR-COUNTRY-CATALOG-CONTRACT-001 / FD-74: Non-conforming historical Country values remain preserved exactly as stored. The complete ISO 3166-1/uppercase alpha-2 rule governs canonical new values; it does not authorize rewriting historical literals, inferring codes from country names, rebuilding snapshots or shortening retention. Audit the existing non-conforming population separately before proposing or executing any migration. Human-readable labels remain presentation only.

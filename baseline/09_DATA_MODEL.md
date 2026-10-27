@@ -3,7 +3,7 @@
 **Document ID:** 09_DATA_MODEL  
 **Version:** V6 Final Documentation — Data Model 1.0  
 **Status:** APPROVED / FROZEN V6
-**Baseline revision:** 2026-10-27 - CR-CALC-VERSION-CONTRACT-001 approved calculation-version clarification
+**Baseline revision:** 2026-10-27 - CR-COUNTRY-CATALOG-CONTRACT-001 approved Country catalogue clarification
 **Product:** SiloMath  
 **Normative role:** Canonical logical/conceptual data model for V6. It defines entities, semantic attributes, relationships, cardinalities, ownership, mutability, versioning, historical integrity and cross-aggregate invariants. Physical SQL/Room types, exact table/column names, indexes and foreign-key actions are delegated to Document 10.
 
@@ -115,7 +115,7 @@ This document is derived from the frozen V6 contract in Documents 01–08. It do
 | code | Text <=50 | Yes | Controlled | Business identifier. | trim+uppercase; case-insensitive unique; stable after historical references. |
 | address | Text <=250 | No | Yes | Postal/street address. |  |
 | city | Text <=100 | No | Yes | City. |  |
-| country | Country code/value | No | Yes | Country selector value. |  |
+| country | ISO 3166-1 alpha-2 code | No | Yes | Canonical Country code; human-readable name is presentation only. | New values are uppercase catalogue members; fail-closed. Existing non-conforming values remain unchanged pending separate audit before migration (FD-74). |
 | lifecycleStatus | MasterStatus | Yes | Yes | ACTIVE/INACTIVE. | Default ACTIVE; historical refs preserved. |
 | createdAt | UTC instant | Yes | No | Creation. | Provisioning context for new tenant. |
 | createdBy | Actor ref | Yes | No | Provisioning actor. |  |
@@ -159,7 +159,7 @@ This document is derived from the frozen V6 contract in Documents 01–08. It do
 | code | Text <=50 | Yes | Controlled | Business code. | trim+uppercase; unique in Organization; stable after historical refs. |
 | address | Text <=250 | No | Yes | Address. |  |
 | city | Text <=100 | No | Yes | City. |  |
-| country | Country value | No | Yes | Country. |  |
+| country | ISO 3166-1 alpha-2 code | No | Yes | Canonical Country code; human-readable name is presentation only. | New values are uppercase catalogue members; fail-closed. Existing non-conforming values remain unchanged pending separate audit before migration (FD-74). |
 | notes | Text <=500 | No | Yes | Master-data notes. |  |
 | latitude | Decimal degrees | No | Yes | Authoritative facility latitude for map presentation. | Must be paired with longitude; -90..90; no user/device tracking semantics. |
 | longitude | Decimal degrees | No | Yes | Authoritative facility longitude for map presentation. | Must be paired with latitude; -180..180; no user/device tracking semantics. |
@@ -1180,3 +1180,9 @@ This document is the canonical APPROVED / FROZEN V6 logical data model after the
 CR-CALC-VERSION-CONTRACT-001 / FD-73: `engineVersion="2.0"`; integer `inputSchemaVersion=1`, `normalizationVersion=1`, `formulaVersion=1` for F01-F10; `surfaceModelVersion=LEVEL_BASED_V1`; `aggregationMethod=MEAN_ULLAGE`; integer `aggregationRuleVersion=1`; combined semantic identifier `MEAN_ULLAGE_V1`. Formula codes are the unchanged F01-F10 identifiers in Doc13 sections6/22.1. Domain/API version numbers are integers except engineVersion, which is the exact string "2.0". Resolve only actual implemented handlers for the full pinned tuple; unsupported versions return GEOM_VERSION_UNSUPPORTED without fallback. Preserve historical metadata verbatim; no automatic reassignment to this initial approved tuple. This clarification changes no mathematics and is not evidence of completed integration or release gates.
 
 CalculationResult and frozen calculation context preserve this tuple, formulaCode, fingerprint and exact frozen inputs. The approved integers are logical types; provenance is never synthesized.
+
+## Approved Country contract — CR-COUNTRY-CATALOG-CONTRACT-001 / FD-74
+
+The canonical Country catalogue is the complete ISO 3166-1 list. The canonical persisted and API value is an uppercase ISO 3166-1 alpha-2 code: Romania=`RO`, Germany=`DE`, United States=`US`. The human-readable country name is a presentation label only. Country selectors do not permit free text for new values; new values require catalogue membership and fail-closed validation. Complete selector options are available locally/cached for local-first/offline-first operation. Existing optional/null semantics remain unchanged.
+
+Already persisted non-conforming Country values are preserved unchanged and require a separate audit before any migration. No implicit normalization, country-name-to-code conversion, truncation or historical/snapshot rewriting is authorized. This clarification does not assign a catalogue version identifier or authorize any data/schema migration.

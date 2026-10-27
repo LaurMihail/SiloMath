@@ -1,7 +1,7 @@
 # SiloMath V6 - 18_TEST_STRATEGY_ACCEPTANCE
 
 **Status:** APPROVED / FROZEN V6
-**Baseline revision:** 2026-10-27 - CR-CALC-VERSION-CONTRACT-001 approved calculation-version clarification
+**Baseline revision:** 2026-10-27 - CR-COUNTRY-CATALOG-CONTRACT-001 approved Country catalogue clarification
 
 ## 1. Purpose and authority
 
@@ -594,6 +594,7 @@ The suite catalog defines mandatory verification domains without inventing place
 | **TA-D230** | Implementation closure | A missing Product/Baseline approval is never a valid reason to defer an ordinary non-semantic implementation decision already permitted by Documents 01–21; IADR records material technical choices. |
 | **TA-D231** | Identity API provenance | `UserMembershipResponse` mapping proves User and Membership metadata/entityVersion remain distinct; canonical User persistence never fabricates User metadata from Membership metadata. |
 | **TA-D232** | Environment provisioning | Development/Staging/Production base URLs/provider endpoints are supplied through controlled environment configuration, are absent as hard-coded Product semantics, and preserve the frozen `/api/v1`/security contract without Product approval. |
+| **TA-D233** | Country catalogue contract | FD-74 / BR-MD-014 verifies complete ISO 3166-1 options locally/cached, uppercase alpha-2 persisted/API values, human-readable labels, no free-text new values, fail-closed catalogue validation and preservation/audit-before-migration of non-conforming historical values. |
 
 ## 26. Cross-document handoff
 - Doc19 RETENTION_POLICY must define retention/purge of test evidence, CI artifacts, UAT records, operational telemetry and other retained verification material without weakening frozen business/audit retention.
@@ -609,3 +610,7 @@ This document is the canonical APPROVED / FROZEN SiloMath V6 Test Strategy & Acc
 CR-CALC-VERSION-CONTRACT-001 / FD-73: `engineVersion="2.0"`; integer `inputSchemaVersion=1`, `normalizationVersion=1`, `formulaVersion=1` for F01-F10; `surfaceModelVersion=LEVEL_BASED_V1`; `aggregationMethod=MEAN_ULLAGE`; integer `aggregationRuleVersion=1`; combined semantic identifier `MEAN_ULLAGE_V1`. Formula codes are the unchanged F01-F10 identifiers in Doc13 sections6/22.1. Domain/API version numbers are integers except engineVersion, which is the exact string "2.0". Resolve only actual implemented handlers for the full pinned tuple; unsupported versions return GEOM_VERSION_UNSUPPORTED without fallback. Preserve historical metadata verbatim; no automatic reassignment to this initial approved tuple. This clarification changes no mathematics and is not evidence of completed integration or release gates.
 
 Verify exact tuple/types and all ten executable handlers, fingerprint canonicalization and sensitivity, stale-result rejection, unsupported-version fail-closed behavior, retained-history reproduction and client/server parity. GATE-M5 remains open until CAM-008 and every audited terminal branch/integration check are green.
+
+## Approved Country contract cross-reference
+
+CR-COUNTRY-CATALOG-CONTRACT-001 / FD-74: Runtime verification must prove complete ISO 3166-1 catalogue support; uppercase alpha-2 API/storage values with RO/DE/US examples; human-readable labels separated from values; no free-text new-value selector; fail-closed rejection of non-catalog/noncanonical new Country values; complete local/cached options without live-network dependency; and no implicit changes to historical non-conforming values before separate audit/migration. Documentation consistency checks alone do not certify these runtime gates.

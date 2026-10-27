@@ -3,7 +3,7 @@
 **Document ID:** 03_BUSINESS_RULES  
 **Version:** V6 Final Documentation — Business Rules 1.0  
 **Status:** APPROVED / FROZEN V6
-**Baseline revision:** 2026-10-27 - CR-CALC-VERSION-CONTRACT-001 approved calculation-version clarification
+**Baseline revision:** 2026-10-27 - CR-COUNTRY-CATALOG-CONTRACT-001 approved Country catalogue clarification
 **Product:** SiloMath  
 **Normative role:** Canonical registry of enforceable V6 business rules. Rules in this document are implementation-independent and apply across UI, domain, persistence, API, synchronization, reporting, security, and tests as relevant.
 
@@ -49,6 +49,7 @@ Where a rule references an approved decision, the decision identifier provides t
 | **BR-MD-011** | Location coordinate authority | Facility coordinates are Admin-managed Organization-scoped Master Data. Setting/moving/clearing the map position is an audited/versioned Location mutation and Standard remains read-only. | FD-67 | Master Data; Authorization |
 | **BR-MD-012** | No user-location tracking | Facility map presentation does not authorize device GPS acquisition, background location, user tracking, route guidance, or turn-by-turn navigation. Android location permission is not required for the approved V6 map capability. | FD-67, FD-68 | Privacy; UI |
 | **BR-MD-013** | List/map equivalence and offline fallback | LOC-01 List and Map represent the same authorized Location query/filter result. Business data and hierarchy remain authoritative and usable offline even when map basemap content is unavailable. | FD-68 | UI; Offline |
+| **BR-MD-014** | Canonical Country | Organization.country and Location.country use the complete ISO 3166-1 catalogue and uppercase alpha-2 persisted/API values. Human-readable names are labels only; new values are selected, never free text, and fail-closed against locally/cached available catalogue options. Non-conforming historical values remain unchanged pending separate audit before migration. | FD-74 | Master Data; UI; API; Offline; History |
 | **BR-CAM-001** | Campaign statuses | Campaign status is exactly Active or Completed. Review is a workflow process, not a status. | D18, FD-01 | Campaigns |
 | **BR-CAM-002** | No Draft | Campaign creation uses Save & Launch and does not create a Draft state. | D03, FD-28 | Campaigns |
 | **BR-CAM-003** | Campaign Code | Campaign Code is system-generated, read-only, formatted `INV-YYYY-NNNN`, and generated atomically by the server. It is unique within Organization and calendar year. | D01, D02, D03, FD-44 | Campaigns; API |
@@ -227,3 +228,9 @@ If a future approved product change modifies a business rule, the affected decis
 ---
 
 **End of Document — 03_BUSINESS_RULES**
+
+## Approved Country contract — CR-COUNTRY-CATALOG-CONTRACT-001 / FD-74
+
+The canonical Country catalogue is the complete ISO 3166-1 list. The canonical persisted and API value is an uppercase ISO 3166-1 alpha-2 code: Romania=`RO`, Germany=`DE`, United States=`US`. The human-readable country name is a presentation label only. Country selectors do not permit free text for new values; new values require catalogue membership and fail-closed validation. Complete selector options are available locally/cached for local-first/offline-first operation. Existing optional/null semantics remain unchanged.
+
+Already persisted non-conforming Country values are preserved unchanged and require a separate audit before any migration. No implicit normalization, country-name-to-code conversion, truncation or historical/snapshot rewriting is authorized. This clarification does not assign a catalogue version identifier or authorize any data/schema migration.

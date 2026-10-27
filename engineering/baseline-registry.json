@@ -4,9 +4,9 @@
   "status": "APPROVED_FROZEN",
   "documentCount": 21,
   "refreezeDate": "2026-10-27",
-  "refreezeType": "CR-CALC-VERSION-CONTRACT-001 approved calculation-version clarification",
-  "manifest": "governance_evidence/SiloMath_V6_FROZEN_MANIFEST_2026-10-27.json",
-  "validationEvidence": "governance_evidence/SiloMath_V6_Refreeze_Validation_2026-10-27.json",
+  "refreezeType": "CR-COUNTRY-CATALOG-CONTRACT-001 approved Country catalogue clarification",
+  "manifest": "governance_evidence/SiloMath_V6_FROZEN_MANIFEST_2026-10-27_COUNTRY.json",
+  "validationEvidence": "governance_evidence/SiloMath_V6_Refreeze_Validation_2026-10-27_COUNTRY.json",
   "governance": {
     "overallProductAuthority": "01_PRODUCT_BASELINE",
     "decisionAuthority": "02_DECISION_REGISTER",
@@ -24,9 +24,9 @@
       "file": "baseline/01_PRODUCT_BASELINE.md",
       "authority": "overall_product_contract",
       "status": "APPROVED_FROZEN",
-      "sha256": "3b008c5db0135240fd2a7ef4cbec28af6df9df1a8cf472e9e71c985714cb864e",
-      "bytes": 33751,
-      "lines": 863
+      "sha256": "73a1f8ea84174c3a1bf0fb989af264c174b54bd315cf1fa49a1ab33cc8d82e4e",
+      "bytes": 34703,
+      "lines": 869
     },
     {
       "id": "02",
@@ -34,9 +34,9 @@
       "file": "baseline/02_DECISION_REGISTER.md",
       "authority": "approved_frozen_decisions",
       "status": "APPROVED_FROZEN",
-      "sha256": "4d71db3f527e37f04ad0d2231f3f3938a2b1b91c1bab54d9621bac0947bde1a1",
-      "bytes": 34273,
-      "lines": 236
+      "sha256": "fc227e55d9129f9203054cb24711c285f88a4b43d6818b6232f6c0020acbf1ae",
+      "bytes": 35736,
+      "lines": 243
     },
     {
       "id": "03",
@@ -44,9 +44,9 @@
       "file": "baseline/03_BUSINESS_RULES.md",
       "authority": "business_rules",
       "status": "APPROVED_FROZEN",
-      "sha256": "f3d72f667fd134bde50fa3435fd777df4d29efcfb0ed917513c0fe66149571a4",
-      "bytes": 31257,
-      "lines": 229
+      "sha256": "de9d249af8db44f563a837917aeeda006d0cc90488d92242c681898152b77769",
+      "bytes": 32662,
+      "lines": 236
     },
     {
       "id": "04",
@@ -54,8 +54,8 @@
       "file": "baseline/04_USER_ROLES_PERMISSIONS.md",
       "authority": "roles_permissions_authorization",
       "status": "APPROVED_FROZEN",
-      "sha256": "662ffe7d44d231f06ab9f5ab3d166cf4c7f5de75a8e586e6a69e2f846de0527f",
-      "bytes": 18274,
+      "sha256": "c038214b7150b83b9d72f232994db941a804a414c2033de3c97106d09fbdcb1f",
+      "bytes": 18275,
       "lines": 245
     },
     {
@@ -64,8 +64,8 @@
       "file": "baseline/05_WORKFLOWS_STATE_MACHINES.md",
       "authority": "workflows_state_machines",
       "status": "APPROVED_FROZEN",
-      "sha256": "9e5d0fda995775c6c7e95437e5692c3f927ebb97860cd1d6e6014d4c83e18ea1",
-      "bytes": 27183,
+      "sha256": "997bef30792dd4d70d4ecb082892009ad9a824e3d926a933945f0af628d7cb33",
+      "bytes": 27184,
       "lines": 317
     },
     {
@@ -74,9 +74,9 @@
       "file": "baseline/06_UI_SCREEN_SPECIFICATION_AND_NAVIGATION.md",
       "authority": "ui_functionality_navigation",
       "status": "APPROVED_FROZEN",
-      "sha256": "ea8a6968a9041830da449054d244683896d8e33e710d6fb316519d798af014ba",
-      "bytes": 143347,
-      "lines": 1713
+      "sha256": "e832c79a9a2cbe2bdb3c53d5c515a4404dfa894ce79b1c7806cc5df495c0ff5a",
+      "bytes": 144661,
+      "lines": 1719
     },
     {
       "id": "07",
@@ -84,8 +84,8 @@
       "file": "baseline/07_ARCHITECTURE.md",
       "authority": "system_architecture",
       "status": "APPROVED_FROZEN",
-      "sha256": "e20944f9643a2d7069e690acd932a86678bac340883d6177111abe061c1ee47b",
-      "bytes": 55924,
+      "sha256": "324e5710645b3c7276eb037ff92d6c66fdf94f47cdff1d5195f55b8b62ff2d15",
+      "bytes": 55925,
       "lines": 859
     },
     {
@@ -94,8 +94,8 @@
       "file": "baseline/08_MODULE_ARCHITECTURE.md",
       "authority": "gradle_module_architecture",
       "status": "APPROVED_FROZEN",
-      "sha256": "f063ee4f6525550217df3863e9e5d5bfb4451354e97de9aed540fe24e5ee8b3f",
-      "bytes": 40992,
+      "sha256": "9a8d54edb8b915ccff3e067d463a64df20fd0d68b9d06fe36fa5662a50380c46",
+      "bytes": 40993,
       "lines": 658
     },
     {
@@ -104,9 +104,9 @@
       "file": "baseline/09_DATA_MODEL.md",
       "authority": "logical_data_model",
       "status": "APPROVED_FROZEN",
-      "sha256": "cda015c5bca936caad9d66061bd727499fb75f076f23e08f216388bffc90105e",
-      "bytes": 92086,
-      "lines": 1182
+      "sha256": "1d5f4bae9ef06183f675b05c1165da8b451f6f98a23e4bc82508bbb4f4effc4c",
+      "bytes": 93458,
+      "lines": 1188
     },
     {
       "id": "10",
@@ -114,9 +114,9 @@
       "file": "baseline/10_DATABASE_SCHEMA.md",
       "authority": "physical_database_schema",
       "status": "APPROVED_FROZEN",
-      "sha256": "feb02dd2eef6a2d8d8a9238bce90b68581c94243104dabbbf45bb9f558fa6646",
-      "bytes": 41728,
-      "lines": 359
+      "sha256": "e8852564930b0634be0147b24667a47cf52e0af294bae3ed5f7f2c27d714625a",
+      "bytes": 42320,
+      "lines": 363
     },
     {
       "id": "11",
@@ -124,9 +124,9 @@
       "file": "baseline/11_API_SPECIFICATION.md",
       "authority": "backend_api_contract",
       "status": "APPROVED_FROZEN",
-      "sha256": "b8050ef6c445c658185a1cfbd4cc46bd0821836a660c3891434ca39c19e61718",
-      "bytes": 55803,
-      "lines": 535
+      "sha256": "aa6519bfaab2ea0550150ffe58b3b3766c87b717583f17b0f62f98d1ba58d171",
+      "bytes": 56526,
+      "lines": 539
     },
     {
       "id": "12",
@@ -134,9 +134,9 @@
       "file": "baseline/12_OFFLINE_SYNC_SPECIFICATION.md",
       "authority": "offline_sync",
       "status": "APPROVED_FROZEN",
-      "sha256": "bfb78d8a62f5a3ebc95d114b70fcf636407d54c92f8bb43af97bee8a88f7448e",
-      "bytes": 50785,
-      "lines": 660
+      "sha256": "2d4e5ee70f698ea28144ab9018932bd168320d8d198d45b733b8caa0f33a5d1f",
+      "bytes": 51400,
+      "lines": 664
     },
     {
       "id": "13",
@@ -144,8 +144,8 @@
       "file": "baseline/13_CALCULATION_ENGINE_SPECIFICATION.md",
       "authority": "calculation_engine",
       "status": "APPROVED_FROZEN",
-      "sha256": "15b19c189402a275d43cf89512bde1dd64913af8414d53345d805faf142fc6a9",
-      "bytes": 34069,
+      "sha256": "bc70d0335bf8ee0866d11f10b1ce56032b4ee0ba4f539b28bf500622aac226f7",
+      "bytes": 34070,
       "lines": 544
     },
     {
@@ -154,8 +154,8 @@
       "file": "baseline/14_COMMODITY_SPECIFICATION.md",
       "authority": "commodity_catalog",
       "status": "APPROVED_FROZEN",
-      "sha256": "fe2d9ae4172b0ce8d8afc3f48aa6a8ffc7a2db41caffaffad56c21bb119587cb",
-      "bytes": 28685,
+      "sha256": "a000ca4f16b8e2dd8048aa63923ea0ccd6a566c481eb69cfb70bc4cdc1e1db57",
+      "bytes": 28686,
       "lines": 409
     },
     {
@@ -164,8 +164,8 @@
       "file": "baseline/15_EVIDENCE_STORAGE_SPECIFICATION.md",
       "authority": "evidence_storage",
       "status": "APPROVED_FROZEN",
-      "sha256": "bf78b4facf34aa740cb53b26d628890fb1437275fb04d1416171d7d764263387",
-      "bytes": 29581,
+      "sha256": "c11b5f8450aed2c5a2dfad4e1609978031a82070e1bfeeda56769e37d093a6cd",
+      "bytes": 29582,
       "lines": 430
     },
     {
@@ -174,9 +174,9 @@
       "file": "baseline/16_REPORTING_SPECIFICATION.md",
       "authority": "reporting_history_dossier",
       "status": "APPROVED_FROZEN",
-      "sha256": "71c2b1313ebe4738fb4ac6aa3a3f3e5b437f0cf1e9a63a48091370d7806e117d",
-      "bytes": 43114,
-      "lines": 525
+      "sha256": "7bdf2b4bfd41f2bab8d9457034f8807e90f711b308828c08b0f0b1769983adca",
+      "bytes": 43654,
+      "lines": 529
     },
     {
       "id": "17",
@@ -184,8 +184,8 @@
       "file": "baseline/17_SECURITY_AUDIT_PRIVACY.md",
       "authority": "security_audit_privacy",
       "status": "APPROVED_FROZEN",
-      "sha256": "f8555c90dc0417b63fdf8e50c09432194da10f742da36ffe8a7642e8550089a5",
-      "bytes": 58469,
+      "sha256": "6d4678d2dd7f4e5dcf45d42cf11aa03a2f1874b10ab4f07dbd05d2ff25471061",
+      "bytes": 58470,
       "lines": 548
     },
     {
@@ -194,9 +194,9 @@
       "file": "baseline/18_TEST_STRATEGY_ACCEPTANCE.md",
       "authority": "test_strategy_acceptance",
       "status": "APPROVED_FROZEN",
-      "sha256": "ac0ccfde2282dd035d47494faf97ded156ac48df9cbccde1f660b4b6b791662a",
-      "bytes": 64034,
-      "lines": 611
+      "sha256": "4e3db42c03feb4ccea075a90767a263bd5a0835cb516c00d753f2018c2407086",
+      "bytes": 64950,
+      "lines": 616
     },
     {
       "id": "19",
@@ -204,9 +204,9 @@
       "file": "baseline/19_RETENTION_POLICY.md",
       "authority": "retention_policy",
       "status": "APPROVED_FROZEN",
-      "sha256": "f47ed74edead191da239ba4985a175e54930365890f9f4660808d29100afd4f4",
-      "bytes": 59400,
-      "lines": 513
+      "sha256": "4b7d872fa842a9ea82f763fadeeea689d4d15c88b372e1d4ea5c88332845729c",
+      "bytes": 59927,
+      "lines": 517
     },
     {
       "id": "20",
@@ -214,9 +214,9 @@
       "file": "baseline/20_PRODUCTION_OPERATIONS.md",
       "authority": "production_operations",
       "status": "APPROVED_FROZEN",
-      "sha256": "d594b2a82a3291b28acbaa756fe2bd17666bb6dd049201158d73757b1df77fea",
-      "bytes": 83423,
-      "lines": 736
+      "sha256": "8c96f14064e24cec21c5e1ada4c1a60653261db73b54088ca07ac6a65ffc94e6",
+      "bytes": 84060,
+      "lines": 740
     },
     {
       "id": "21",
@@ -224,9 +224,13 @@
       "file": "baseline/21_UI_DESIGN_SYSTEM_FINAL.md",
       "authority": "ui_visual_design",
       "status": "APPROVED_FROZEN",
-      "sha256": "74abc55d9347d29968eeba4ee616fb23dd23657ff804a072bd7e36c2e93cf69b",
-      "bytes": 26638,
+      "sha256": "6fb9cef07b664ac592e8af38c98a8c2f7d4e0d58c78ccb053fcc41403e9ed167",
+      "bytes": 26639,
       "lines": 567
     }
-  ]
+  ],
+  "contractValidationEvidence": {
+    "CR-CALC-VERSION-CONTRACT-001": "governance_evidence/SiloMath_V6_Calculation_Validation_2026-10-27_COUNTRY.json",
+    "CR-COUNTRY-CATALOG-CONTRACT-001": "governance_evidence/SiloMath_V6_Refreeze_Validation_2026-10-27_COUNTRY.json"
+  }
 }

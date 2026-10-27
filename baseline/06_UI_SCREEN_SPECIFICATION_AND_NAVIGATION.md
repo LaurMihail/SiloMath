@@ -3,7 +3,7 @@
 **Document ID:** `06_UI_SCREEN_SPECIFICATION_AND_NAVIGATION`  
 **Version:** V6 Final Documentation — UI Specification 2.0  
 **Status:** APPROVED / FROZEN V6
-**Baseline revision:** 2026-10-27 - CR-CALC-VERSION-CONTRACT-001 approved calculation-version clarification
+**Baseline revision:** 2026-10-27 - CR-COUNTRY-CATALOG-CONTRACT-001 approved Country catalogue clarification
 **Product:** SiloMath  
 **Normative role:** Canonical UI inventory, per-component behavior, access, validation, offline behavior, adaptive behavior, and Navigation Graph for V6.
 
@@ -310,7 +310,7 @@ MOR-01 routes to authorized non-bottom-navigation destinations.
 | ORG02-02 | Organization Code | Text field | String(50) | Yes | Create/edit subject to history rule | — | Uppercase normalized | Trim + uppercase; unique; case-insensitive; stable once historically referenced | Always | Organization.code | Authorized Admin/provisioning | Server uniqueness confirmed on sync |
 | ORG02-03 | Address | Text field | String(250) | No | Yes | — | — | Max 250 | Always | Organization.address | Authorized Admin | Local-first |
 | ORG02-04 | City | Text field | String(100) | No | Yes | — | — | Max 100 | Always | Organization.city | Authorized Admin | Local-first |
-| ORG02-05 | Country | Selector | Country code | No | Yes | — | Supported country list | Valid supported value | Always | Organization.country | Authorized Admin | Cached selector |
+| ORG02-05 | Country | Selector (no free text) | ISO 3166-1 alpha-2 code | No | Yes | — | Complete ISO 3166-1 catalogue | Uppercase canonical code; catalogue membership; fail-closed new-value validation (FD-74) | Always | Organization.country; human-readable labels from local/cached catalogue | Authorized Admin | Complete options available locally/cached |
 | ORG02-06 | Status | Selector | Enum | Yes | Yes | Active | Active / Inactive | Canonical lifecycle | Existing organization; creation defaults Active | Organization.lifecycleStatus | Authorized Admin | Local-first + sync |
 | ORG02-07 | Save | Primary action | Action | — | Yes | — | — | All required/uniqueness rules | Always | Organization use case | Authorized Admin/provisioning | Local-first where allowed |
 
@@ -1413,7 +1413,7 @@ MOR-01 routes to authorized non-bottom-navigation destinations.
 | P1SH01-02 | Location Code | Text field | String(50) | Yes | Create/edit subject to history rule | — | Uppercase normalized | Unique in Organization; trim+uppercase; stable if historically referenced | Always | Location.code | Admin | Local-first + server uniqueness |
 | P1SH01-03 | Address | Text field | String(250) | No | Yes | — | — | Max 250 | Always | Location.address | Admin | Local-first |
 | P1SH01-04 | City | Text field | String(100) | No | Yes | — | — | Max 100 | Always | Location.city | Admin | Local-first |
-| P1SH01-05 | Country | Selector | Country code | No | Yes | — | Supported values | Valid supported value | Always | Location.country | Admin | Cached options |
+| P1SH01-05 | Country | Selector (no free text) | ISO 3166-1 alpha-2 code | No | Yes | — | Complete ISO 3166-1 catalogue | Uppercase canonical code; catalogue membership; fail-closed new-value validation (FD-74) | Always | Location.country; human-readable labels from local/cached catalogue | Admin | Complete options available locally/cached |
 | P1SH01-06 | Notes | Multiline field | String(500) | No | Yes | — | — | Max 500 | Always | Location.notes | Admin | Local-first |
 | P1SH01-07 | Status | Selector | Enum | Yes | Yes | Active | Active / Inactive | Inactivation historical/campaign guards | Always | Location.lifecycleStatus | Admin | Local-first |
 | P1SH01-08 | Map Position | Map pin + coordinate editor | CoordinatePair? | No | Yes | None | Latitude/Longitude pair or None | Pair invariant; latitude -90..90; longitude -180..180 | Always | Location.latitude/location.longitude | Admin | Local-first; basemap optional |
@@ -1711,3 +1711,9 @@ A requirement for a new major screen, sheet, persistent status, role, business a
 ---
 
 **End of Document — 06_UI_SCREEN_SPECIFICATION_AND_NAVIGATION**
+
+## Approved Country contract — CR-COUNTRY-CATALOG-CONTRACT-001 / FD-74
+
+The canonical Country catalogue is the complete ISO 3166-1 list. The canonical persisted and API value is an uppercase ISO 3166-1 alpha-2 code: Romania=`RO`, Germany=`DE`, United States=`US`. The human-readable country name is a presentation label only. Country selectors do not permit free text for new values; new values require catalogue membership and fail-closed validation. Complete selector options are available locally/cached for local-first/offline-first operation. Existing optional/null semantics remain unchanged.
+
+Already persisted non-conforming Country values are preserved unchanged and require a separate audit before any migration. No implicit normalization, country-name-to-code conversion, truncation or historical/snapshot rewriting is authorized. This clarification does not assign a catalogue version identifier or authorize any data/schema migration.

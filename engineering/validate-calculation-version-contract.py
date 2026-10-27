@@ -37,7 +37,7 @@ def main():
         data = path.read_bytes()
         text = data.decode("utf-8")
         check(path.name + ":frozen", "APPROVED / FROZEN" in text)
-        check(path.name + ":revision", f"Baseline revision: {registry['refreezeDate']} - {CR}" in text.replace("*", ""))
+        check(path.name + ":revision", f"Baseline revision: {registry['refreezeDate']} - {registry['refreezeType']}" in text.replace("*", ""))
         check(path.name + ":utf8_no_bom_lf", not data.startswith(b"\xef\xbb\xbf") and b"\r" not in data)
         check(path.name + ":registry_hash", hashlib.sha256(data).hexdigest() == entry["sha256"])
         check(path.name + ":manifest_hash", hashlib.sha256(data).hexdigest() == entries[path.name]["sha256"])
@@ -56,7 +56,7 @@ def main():
     failed = [v["name"] for v in checks if not v["passed"]]
     report = {"validator": "engineering/validate-calculation-version-contract.py", "baselineId": "SILOMATH_V6", "approvedChange": CR, "generatedAtUtc": datetime.now(timezone.utc).isoformat(), "passed": len(checks)-len(failed), "failed": len(failed), "errors": failed, "checks": checks}
     if args.write_evidence:
-        (ROOT / registry["validationEvidence"]).write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
+        (ROOT / registry.get("contractValidationEvidence", {}).get(CR, registry["validationEvidence"])).write_bytes((json.dumps(report, indent=2) + "\n").encode("utf-8"))
     print(f"CALCULATION VERSION BASELINE VALIDATION: {'FAIL' if failed else 'PASS'} ({report['passed']} checks; {report['failed']} failures)")
     for name in failed:
         print(" - " + name)
