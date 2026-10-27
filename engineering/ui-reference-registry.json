@@ -1,0 +1,16 @@
+{
+  "authority": "Doc06 semantics + Doc21 visual tokens; Stitch is floor, not pixel-lock",
+  "approval": "Product Owner clarification in current conversation, 2026-10-27",
+  "stitch": {
+    "projectUrl": "https://stitch.google.com/projects/944090356426037338",
+    "projectId": "944090356426037338",
+    "screenId": "380c1446ed4948f4b93e5e2447c6023f",
+    "title": "LOC-01 Locations",
+    "localArtifact": "NOT CONFIRMED",
+    "comparisonPerformed": false
+  },
+  "gateOwnership": {
+    "IMP-UI-007": "Canonical Doc21 design-system implementation; no local Stitch artifact required to close this task per explicit clarification.",
+    "IMP-UI-009": "Compare representative artifact to Stitch floor and document Doc06/Doc21-aligned visual QA; no semantic/pixel authority transferred to Stitch."
+  }
+}
