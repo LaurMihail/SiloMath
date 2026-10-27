@@ -1,7 +1,7 @@
 # SiloMath V6 - 18_TEST_STRATEGY_ACCEPTANCE
 
 **Status:** APPROVED / FROZEN V6
-**Baseline revision:** 2026-10-20 — CR-DB-CAMPAIGN-SNAPSHOT-COMMODITY-001 baseline-change refreeze
+**Baseline revision:** 2026-10-27 - CR-CALC-VERSION-CONTRACT-001 approved calculation-version clarification
 
 ## 1. Purpose and authority
 
@@ -603,3 +603,9 @@ The suite catalog defines mandatory verification domains without inventing place
 ## 27. Freeze statement
 
 This document is the canonical APPROVED / FROZEN SiloMath V6 Test Strategy & Acceptance contract after the 2026-10-20 CR-DB-CAMPAIGN-SNAPSHOT-COMMODITY-001 baseline-change refreeze, defined by TA-D01-TA-D232, including layered risk-based testing, critical-rule traceability, mandatory Calculation/Sync/Security regression, adaptive/accessibility verification, defect severity, UAT, exact release gates and the policy of no arbitrary global code-coverage percentage as a release gate.
+
+## Approved calculation-version cross-reference
+
+CR-CALC-VERSION-CONTRACT-001 / FD-73: `engineVersion="2.0"`; integer `inputSchemaVersion=1`, `normalizationVersion=1`, `formulaVersion=1` for F01-F10; `surfaceModelVersion=LEVEL_BASED_V1`; `aggregationMethod=MEAN_ULLAGE`; integer `aggregationRuleVersion=1`; combined semantic identifier `MEAN_ULLAGE_V1`. Formula codes are the unchanged F01-F10 identifiers in Doc13 sections6/22.1. Domain/API version numbers are integers except engineVersion, which is the exact string "2.0". Resolve only actual implemented handlers for the full pinned tuple; unsupported versions return GEOM_VERSION_UNSUPPORTED without fallback. Preserve historical metadata verbatim; no automatic reassignment to this initial approved tuple. This clarification changes no mathematics and is not evidence of completed integration or release gates.
+
+Verify exact tuple/types and all ten executable handlers, fingerprint canonicalization and sensitivity, stale-result rejection, unsupported-version fail-closed behavior, retained-history reproduction and client/server parity. GATE-M5 remains open until CAM-008 and every audited terminal branch/integration check are green.

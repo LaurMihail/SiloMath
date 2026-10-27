@@ -58,7 +58,7 @@ $patterns = @(
 
     # Core and final decisions.
     '(?<![A-Z0-9-])D(?:0[1-9]|[12][0-9]|3[0-6])\b',
-    '\bFD-(?:0[1-9]|[1-6][0-9]|7[0-2])\b',
+    '\bFD-(?:0[1-9]|[1-6][0-9]|7[0-3])\b',
 
     # Business rules.
     '\bBR-[A-Z0-9]+-\d{3}\b',
@@ -334,7 +334,7 @@ $registry = [ordered]@{
     normalization = [ordered]@{
 
         coreDecisionRange = "D01-D36"
-        finalDecisionRange = "FD-01-FD-72"
+        finalDecisionRange = "FD-01-FD-73"
 
         architectureDecisionRange = "ADR-001-ADR-023"
         architectureRequirementRange = "AR-NFR-01-AR-NFR-12"

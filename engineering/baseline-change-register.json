@@ -35,6 +35,32 @@
       "approvedDelta": "Approve explicit immutable CampaignSnapshot commodity compatibility child collection persisted as campaign_snapshot_commodity_items with snapshot_commodity_item_id, campaign_snapshot_id, commodity_id, and commodity_version_id. No additional product behavior is approved.",
       "rvmImpact": "Update CampaignSnapshot and Commodity historical-integrity verification coverage to reference the canonical commodity compatibility child mapping.",
       "testImpact": "Add migration and persistence verification for campaign_snapshot_commodity_items, canonical column types, historical immutability, and offline/package mapping where applicable."
+    },
+    {
+      "id": "CR-CALC-VERSION-CONTRACT-001",
+      "title": "Approve canonical Calculation Version Contract and aggregation metadata clarification",
+      "status": "APPROVED",
+      "changesFrozenBaseline": true,
+      "file": "engineering/baseline-change/CR-CALC-VERSION-CONTRACT-001.md",
+      "decisionDate": "2026-10-27",
+      "approvedBy": "Product Owner (explicit user approval)",
+      "baselineRefs": [
+        "01_PRODUCT_BASELINE",
+        "02_DECISION_REGISTER",
+        "07_ARCHITECTURE",
+        "09_DATA_MODEL",
+        "10_DATABASE_SCHEMA",
+        "11_API_SPECIFICATION",
+        "12_OFFLINE_SYNC_SPECIFICATION",
+        "13_CALCULATION_ENGINE_SPECIFICATION",
+        "16_REPORTING_SPECIFICATION",
+        "18_TEST_STRATEGY_ACCEPTANCE",
+        "19_RETENTION_POLICY",
+        "20_PRODUCTION_OPERATIONS"
+      ],
+      "approvedDelta": "`engineVersion=\"2.0\"`; integer `inputSchemaVersion=1`, `normalizationVersion=1`, `formulaVersion=1` for F01-F10; `surfaceModelVersion=LEVEL_BASED_V1`; `aggregationMethod=MEAN_ULLAGE`; integer `aggregationRuleVersion=1`; combined semantic identifier `MEAN_ULLAGE_V1`. Preserve formulaCode values, correct Doc13 section20, and change no mathematical semantics.",
+      "rvmImpact": "Add FD-73 and executable calculation version/fingerprint/history contract coverage; retain incomplete integration and gate status.",
+      "testImpact": "Exact typed tuple, real F01-F10 dispatch, fingerprint/stale detection, unsupported tuple rejection, historical reproduction, baseline consistency and client/server parity."
     }
   ]
 }

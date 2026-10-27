@@ -1,7 +1,7 @@
 # SiloMath V6 — 13_CALCULATION_ENGINE_SPECIFICATION
 
 **Status:** APPROVED / FROZEN V6
-**Baseline revision:** 2026-10-20 — CR-DB-CAMPAIGN-SNAPSHOT-COMMODITY-001 baseline-change refreeze
+**Baseline revision:** 2026-10-27 - CR-CALC-VERSION-CONTRACT-001 approved calculation-version clarification
 
 ## 1. Purpose and authority
 
@@ -263,7 +263,7 @@ For a non-empty numerical result, persistence/snapshotting must preserve enough 
 - Geometry Family identifier; formulaCode and formulaVersion
 - inputSchemaVersion; engineVersion; normalizationVersion
 - surfaceModelVersion=`LEVEL_BASED_V1`
-- aggregationMethod=`MEAN_ULLAGE_V1` and aggregationRuleVersion
+- aggregationMethod=`MEAN_ULLAGE` and aggregationRuleVersion=`1`; combined semantic identifier `MEAN_ULLAGE_V1`
 - geometry origin, measurementReferenceHeightM and maximumFillHeightM
 - all family parameters used, in canonical units
 - ordered normalized readings and their sequence numbers
@@ -309,6 +309,38 @@ Any calculation-relevant change invalidates the prior fingerprint/result. Commod
 | `surfaceModelVersion` | surface interpretation changes | ordinary input value changes |
 
 Historical results identify the exact versions used. New versions never silently reinterpret old results.
+
+### 22.1 Approved Calculation Version Contract
+
+CR-CALC-VERSION-CONTRACT-001 / FD-73 is APPROVED. The canonical tuple is:
+
+| Field | Canonical type | Approved value |
+|---|---|---|
+| engineVersion | String | "2.0" |
+| inputSchemaVersion | Integer | 1 |
+| normalizationVersion | Integer | 1 |
+| formulaVersion | Integer | 1 for F01-F10 |
+| surfaceModelVersion | Identifier | LEVEL_BASED_V1 |
+| aggregationMethod | Enum | MEAN_ULLAGE |
+| aggregationRuleVersion | Integer | 1 |
+| combined semantic identifier | Identifier | MEAN_ULLAGE_V1 |
+
+| Family | Frozen formulaCode (unchanged) | formulaVersion |
+|---|---|---|
+| F01 | CYL_TRUNC_CONE_V1 | 1 |
+| F02 | CYL_FLAT_V1 | 1 |
+| F03 | SQUARE_FLAT_V1 | 1 |
+| F04 | RECT_FLAT_V1 | 1 |
+| F05 | SQUARE_PYRAMID_HOPPER_V1 | 1 |
+| F06 | RECT_PYRAMID_HOPPER_V1 | 1 |
+| F07 | REG_HEX_FLAT_V1 | 1 |
+| F08 | STAR_VERIFIED_AREA_V1 | 1 |
+| F09 | POCKET_VERIFIED_AREA_V1 | 1 |
+| F10 | PERIMETER_VERIFIED_AREA_V1 | 1 |
+
+The combined identifier is not the aggregationMethod field value. Production resolution binds the complete approved tuple and formulaCode to actual implemented handlers. Unknown tuples produce GEOM_VERSION_UNSUPPORTED; there is no latest-handler fallback or alias from historical placeholder strings. Keep pinned inputs and actual historical identifiers; no existing snapshot/result is silently relabeled. Integer wire/domain metadata may have a documented lossless decimal-text storage representation where an existing physical version column is TEXT; this does not authorize SQL schema mutation or historical conversion.
+
+This approval clarifies identifiers and representation only: formulas, units, datum, aggregation arithmetic, precision, persistence rounding and verification tolerance are unchanged. Approval does not complete CAM-008, CALC tasks or GATE-M5.
 
 ## 23. Offline calculation and server verification
 
@@ -506,3 +538,7 @@ Using CE-G01 current Product Volume `3321.138601 m³` and Actual Bulk Density `7
 ## 31. Freeze statement
 
 This document is **APPROVED / FROZEN V6** and freezes the SiloMath V6 Calculation Engine contract. Any later semantic change to F01–F10 parameter meaning, formulas, datum semantics, aggregation, surface model, numerical precision, quantity semantics, fingerprint composition or version/reproduction behavior requires an explicit approved V6 Baseline Change and corresponding cross-document consistency update. Non-semantic implementation choices that preserve this contract require no Product/Baseline approval; architecturally material choices may be recorded through the implementation ADR process.
+
+## Approved calculation-version cross-reference
+
+CR-CALC-VERSION-CONTRACT-001 / FD-73: `engineVersion="2.0"`; integer `inputSchemaVersion=1`, `normalizationVersion=1`, `formulaVersion=1` for F01-F10; `surfaceModelVersion=LEVEL_BASED_V1`; `aggregationMethod=MEAN_ULLAGE`; integer `aggregationRuleVersion=1`; combined semantic identifier `MEAN_ULLAGE_V1`. Formula codes are the unchanged F01-F10 identifiers in Doc13 sections6/22.1. Domain/API version numbers are integers except engineVersion, which is the exact string "2.0". Resolve only actual implemented handlers for the full pinned tuple; unsupported versions return GEOM_VERSION_UNSUPPORTED without fallback. Preserve historical metadata verbatim; no automatic reassignment to this initial approved tuple. This clarification changes no mathematics and is not evidence of completed integration or release gates.

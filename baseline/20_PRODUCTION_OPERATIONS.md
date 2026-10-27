@@ -1,7 +1,7 @@
 # SiloMath V6 - 20_PRODUCTION_OPERATIONS
 
 **Status:** APPROVED / FROZEN V6
-**Baseline revision:** 2026-10-20 — CR-DB-CAMPAIGN-SNAPSHOT-COMMODITY-001 baseline-change refreeze
+**Baseline revision:** 2026-10-27 - CR-CALC-VERSION-CONTRACT-001 approved calculation-version clarification
 
 ## 1. Purpose and authority
 
@@ -728,3 +728,9 @@ This document is the normative V6 production-operations contract. It consolidate
 ## 37. Freeze statement
 
 This document is **APPROVED / FROZEN V6** and freezes the SiloMath V6 Production Operations contract defined by PO-D01-PO-D293, including environments, CI/CD and artifact provenance, release promotion, database migration and rollback, health/observability/alerting, sync/Evidence/report/database monitoring, backup/PITR and disaster recovery, RPO/RTO verification, incident and security operations, secret rotation, vulnerability management, capacity, Android release/performance/platform compatibility, Location-map operational resilience/privacy, maintenance/change control, privileged access, Doc19 operational jobs, mandatory runbooks, the exact Production smoke checklist and final operational acceptance gates. Non-semantic implementation choices that preserve Docs 01–21 require no Product/Baseline approval; architecturally material choices may use IADR, and any semantic/product change requires an approved Baseline Change.
+
+## Approved calculation-version cross-reference
+
+CR-CALC-VERSION-CONTRACT-001 / FD-73: `engineVersion="2.0"`; integer `inputSchemaVersion=1`, `normalizationVersion=1`, `formulaVersion=1` for F01-F10; `surfaceModelVersion=LEVEL_BASED_V1`; `aggregationMethod=MEAN_ULLAGE`; integer `aggregationRuleVersion=1`; combined semantic identifier `MEAN_ULLAGE_V1`. Formula codes are the unchanged F01-F10 identifiers in Doc13 sections6/22.1. Domain/API version numbers are integers except engineVersion, which is the exact string "2.0". Resolve only actual implemented handlers for the full pinned tuple; unsupported versions return GEOM_VERSION_UNSUPPORTED without fallback. Preserve historical metadata verbatim; no automatic reassignment to this initial approved tuple. This clarification changes no mathematics and is not evidence of completed integration or release gates.
+
+Release evidence must identify supported full tuples, concrete handlers, golden vectors and parity results. Software artifact version and numerical engineVersion are distinct; approval alone does not satisfy deployment/release gates.

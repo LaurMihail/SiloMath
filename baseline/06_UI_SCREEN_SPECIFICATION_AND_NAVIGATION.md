@@ -3,7 +3,7 @@
 **Document ID:** `06_UI_SCREEN_SPECIFICATION_AND_NAVIGATION`  
 **Version:** V6 Final Documentation — UI Specification 2.0  
 **Status:** APPROVED / FROZEN V6
-**Baseline revision:** 2026-10-20 — CR-DB-CAMPAIGN-SNAPSHOT-COMMODITY-001 baseline-change refreeze
+**Baseline revision:** 2026-10-27 - CR-CALC-VERSION-CONTRACT-001 approved calculation-version clarification
 **Product:** SiloMath  
 **Normative role:** Canonical UI inventory, per-component behavior, access, validation, offline behavior, adaptive behavior, and Navigation Graph for V6.
 

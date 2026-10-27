@@ -3,7 +3,7 @@
 **Document ID:** 09_DATA_MODEL  
 **Version:** V6 Final Documentation — Data Model 1.0  
 **Status:** APPROVED / FROZEN V6
-**Baseline revision:** 2026-10-20 — CR-DB-CAMPAIGN-SNAPSHOT-COMMODITY-001 baseline-change refreeze
+**Baseline revision:** 2026-10-27 - CR-CALC-VERSION-CONTRACT-001 approved calculation-version clarification
 **Product:** SiloMath  
 **Normative role:** Canonical logical/conceptual data model for V6. It defines entities, semantic attributes, relationships, cardinalities, ownership, mutability, versioning, historical integrity and cross-aggregate invariants. Physical SQL/Room types, exact table/column names, indexes and foreign-key actions are delegated to Document 10.
 
@@ -1174,3 +1174,9 @@ All decisions below are **APPROVED / FROZEN V6** and are normative for this docu
 ## 29. Freeze statement
 
 This document is the canonical APPROVED / FROZEN V6 logical data model after the 2026-10-20 CR-DB-CAMPAIGN-SNAPSHOT-COMMODITY-001 baseline-change refreeze. All semantic data-model decisions required to proceed to the physical schema are closed by Documents 01–08 and DM-D01–DM-D64. Document 10 may select physical persistence structures, SQL/Room names, concrete scalar storage types, indexes and FK mechanics only where those choices preserve every entity meaning, value contract, cardinality, uniqueness rule, lifecycle, ownership rule, revision boundary, tenant boundary, snapshot rule and historical-integrity invariant defined here. It may not invent or change business semantics. Adding/removing an authoritative entity or changing these semantics requires an approved V6 change.
+
+## Approved calculation-version cross-reference
+
+CR-CALC-VERSION-CONTRACT-001 / FD-73: `engineVersion="2.0"`; integer `inputSchemaVersion=1`, `normalizationVersion=1`, `formulaVersion=1` for F01-F10; `surfaceModelVersion=LEVEL_BASED_V1`; `aggregationMethod=MEAN_ULLAGE`; integer `aggregationRuleVersion=1`; combined semantic identifier `MEAN_ULLAGE_V1`. Formula codes are the unchanged F01-F10 identifiers in Doc13 sections6/22.1. Domain/API version numbers are integers except engineVersion, which is the exact string "2.0". Resolve only actual implemented handlers for the full pinned tuple; unsupported versions return GEOM_VERSION_UNSUPPORTED without fallback. Preserve historical metadata verbatim; no automatic reassignment to this initial approved tuple. This clarification changes no mathematics and is not evidence of completed integration or release gates.
+
+CalculationResult and frozen calculation context preserve this tuple, formulaCode, fingerprint and exact frozen inputs. The approved integers are logical types; provenance is never synthesized.

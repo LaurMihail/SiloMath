@@ -61,3 +61,7 @@ The pure Kotlin calculation-engine currently has no source implementation. Canon
 To respect the user's instruction to follow audited dependencies, CALC-001 cannot be started as though CAM-008 were green. The prerequisite must be completed with its own audited predecessors, or an explicit execution-dependency decoupling must authorize implementing the standalone pure Kotlin Doc13 engine against frozen input contracts before CAM-008 completion, without falsely closing CAM-008 or GATE-M5. This is an ordering/dependency question, not a request for a frozen semantic change. No canonical builder, version name or compatibility capability has been fabricated.
 
 No calculation source code or gate status has been changed. No CALC test has been represented as run. OFF-006 closure verification executed in this turn: 23 tests PASS and Development compilation PASS; git diff --check PASS. No push, Supabase execution/mutation, baseline edit, or package activation. Existing IDE changes are untouched. This blocked dependency assessment remains uncommitted.
+
+## Approved version-contract resolution
+
+CR-CALC-VERSION-CONTRACT-001 is now APPROVED by explicit user instruction. The former missing-identifier/aggregation wording boundary is resolved by controlled baseline update, FD-73 and a real exact-tuple Production registry. See CR-CALC-VERSION-CONTRACT-001.md for current verification and remaining integration boundaries. This supersedes earlier unapproved-version blocker statements, not the historical findings or CAM-008/GATE-M5 integration requirements.

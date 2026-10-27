@@ -2,7 +2,7 @@
 
 **Version:** V6 Final Documentation — Offline & Sync Specification 1.0  
 **Status:** APPROVED / FROZEN V6
-**Baseline revision:** 2026-10-20 — CR-DB-CAMPAIGN-SNAPSHOT-COMMODITY-001 baseline-change refreeze
+**Baseline revision:** 2026-10-27 - CR-CALC-VERSION-CONTRACT-001 approved calculation-version clarification
 **Normative role:** Canonical offline-first, synchronization, conflict, package, retry and recovery contract for SiloMath V6.
 
 ## 1. Purpose, authority and scope
@@ -652,3 +652,9 @@ This document is the canonical APPROVED / FROZEN SiloMath V6 Offline & Sync cont
 
 ---
 **End of Document — 12_OFFLINE_SYNC_SPECIFICATION**
+
+## Approved calculation-version cross-reference
+
+CR-CALC-VERSION-CONTRACT-001 / FD-73: `engineVersion="2.0"`; integer `inputSchemaVersion=1`, `normalizationVersion=1`, `formulaVersion=1` for F01-F10; `surfaceModelVersion=LEVEL_BASED_V1`; `aggregationMethod=MEAN_ULLAGE`; integer `aggregationRuleVersion=1`; combined semantic identifier `MEAN_ULLAGE_V1`. Formula codes are the unchanged F01-F10 identifiers in Doc13 sections6/22.1. Domain/API version numbers are integers except engineVersion, which is the exact string "2.0". Resolve only actual implemented handlers for the full pinned tuple; unsupported versions return GEOM_VERSION_UNSUPPORTED without fallback. Preserve historical metadata verbatim; no automatic reassignment to this initial approved tuple. This clarification changes no mathematics and is not evidence of completed integration or release gates.
+
+Package compatibility checks the actual executing registry against pinned metadata. Matching manifest text alone is insufficient and the approval itself does not set READY/OFFLINE_READY.

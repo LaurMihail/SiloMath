@@ -59,3 +59,7 @@ This is an internal non-semantic numerical implementation choice, not a Baseline
 2. Concrete approved Production values/mapping for engineVersion, formulaVersion per family, inputSchemaVersion and normalizationVersion are not established in the inspected official documents/current approved contracts. AggregationRuleVersion=1 and surfaceModelVersion=LEVEL_BASED_V1 ARE documented; they are not invented or treated as missing. Versioned family codes do not automatically define all these separate version fields.
 
 Required: clarify the contradictory aggregationMethod field wording through the official authority process, and provide/approve the concrete implementation release/handler version contract with provenance. No version name is proposed as if approved. The metadata/fingerprint/version-certified registry boundary is stopped. No fake compatibility, synthetic CampaignSnapshot in Production or substitution for legacy history. No push, Supabase mutation, baseline file edit, READY activation or AUTH-010 bypass.
+
+## Approved version-contract resolution
+
+CR-CALC-VERSION-CONTRACT-001 is now APPROVED by explicit user instruction. The former missing-identifier/aggregation wording boundary is resolved by controlled baseline update, FD-73 and a real exact-tuple Production registry. See CR-CALC-VERSION-CONTRACT-001.md for current verification and remaining integration boundaries. This supersedes earlier unapproved-version blocker statements, not the historical findings or CAM-008/GATE-M5 integration requirements.

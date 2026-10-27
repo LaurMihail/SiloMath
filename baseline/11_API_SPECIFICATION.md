@@ -2,7 +2,7 @@
 
 **Version:** V6 Final Documentation — API Specification 1.0 Candidate  
 **Status:** APPROVED / FROZEN V6
-**Baseline revision:** 2026-10-20 — CR-DB-CAMPAIGN-SNAPSHOT-COMMODITY-001 baseline-change refreeze
+**Baseline revision:** 2026-10-27 - CR-CALC-VERSION-CONTRACT-001 approved calculation-version clarification
 **Normative role:** Canonical external/backend REST contract for Android ↔ server communication.
 
 ## 1. Purpose, authority and scope
@@ -335,7 +335,7 @@ Ownership is mandatory for non-empty; Client is mandatory only for THIRD_PARTY a
 
 ### 17.3 CalculationResult
 
-API transmits the frozen Calculation Engine metadata: `surfaceModelVersion=LEVEL_BASED_V1`, aggregation method/version, effective ullage/fill height, product volume, actual bulk density, physical quantity, geometry family/profile version, engine/formula version, input fingerprint, rounding policy and calculated actor/source/time. Official persisted outputs use NUMERIC(20,6)-equivalent scale-6 semantics with ROUND_HALF_UP only at the governed persistence/presentation boundary; intermediate arithmetic is not rounded. Aggregation is MEAN_ULLAGE_V1.
+API transmits the frozen Calculation Engine metadata: `surfaceModelVersion=LEVEL_BASED_V1`, aggregation method/version, effective ullage/fill height, product volume, actual bulk density, physical quantity, geometry family/profile version, engine/formula version, input fingerprint, rounding policy and calculated actor/source/time. Official persisted outputs use NUMERIC(20,6)-equivalent scale-6 semantics with ROUND_HALF_UP only at the governed persistence/presentation boundary; intermediate arithmetic is not rounded. Aggregation fields are `aggregationMethod=MEAN_ULLAGE` and integer `aggregationRuleVersion=1`; the combined semantic identifier is `MEAN_ULLAGE_V1`.
 
 ### 17.4 Validate
 
@@ -528,3 +528,8 @@ This document is the canonical APPROVED / FROZEN SiloMath V6 API contract after 
 
 ---
 **End of Document — 11_API_SPECIFICATION**
+## Approved calculation-version cross-reference
+
+CR-CALC-VERSION-CONTRACT-001 / FD-73: `engineVersion="2.0"`; integer `inputSchemaVersion=1`, `normalizationVersion=1`, `formulaVersion=1` for F01-F10; `surfaceModelVersion=LEVEL_BASED_V1`; `aggregationMethod=MEAN_ULLAGE`; integer `aggregationRuleVersion=1`; combined semantic identifier `MEAN_ULLAGE_V1`. Formula codes are the unchanged F01-F10 identifiers in Doc13 sections6/22.1. Domain/API version numbers are integers except engineVersion, which is the exact string "2.0". Resolve only actual implemented handlers for the full pinned tuple; unsupported versions return GEOM_VERSION_UNSUPPORTED without fallback. Preserve historical metadata verbatim; no automatic reassignment to this initial approved tuple. This clarification changes no mathematics and is not evidence of completed integration or release gates.
+
+Transmit engineVersion as JSON string "2.0" and inputSchemaVersion, normalizationVersion, formulaVersion and aggregationRuleVersion as JSON integers. Combined identifier and aggregationMethod remain distinct fields/concepts.

@@ -58,12 +58,12 @@ data class UllageReading(val sequenceNumber: Int, val geometryProfileVersionId: 
 data class ActualBulkDensity(val value: BigDecimal, val unit: String)
 
 /** No defaults or invented release identifiers. Construction is NOT a compatibility certificate. */
-data class PinnedCalculationVersions(val formulaVersion: String, val inputSchemaVersion: String,
-    val engineVersion: String, val normalizationVersion: String, val surfaceModelVersion: String,
+data class PinnedCalculationVersions(val formulaVersion: Int, val inputSchemaVersion: Int,
+    val engineVersion: String, val normalizationVersion: Int, val surfaceModelVersion: String,
     val aggregationMethod: String, val aggregationRuleVersion: Int)
 data class CanonicalCalculationInput(val frozenContextId: UUID, val geometryFamilyId: UUID,
     val profile: FrozenNumericalProfile, val readings: List<UllageReading>,
-    val density: ActualBulkDensity?, val versions: PinnedCalculationVersions)
+    val density: ActualBulkDensity?, val versions: PinnedCalculationVersions, val formulaCode: String)
 
 /** Numerical kernels do not issue version-certified CalculationResults or workflow validation. */
 data class NumericalResult(val effectiveUllageM: ExactValue, val effectiveFillHeightM: ExactValue,

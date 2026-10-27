@@ -1,4 +1,4 @@
-﻿{
+{
   "baselineId": "SILOMATH_V6",
   "status": "CONTROLLED_MAPPING_SOURCE",
   "referenceConvention": "RVM-REF-001",
@@ -217,6 +217,102 @@
       "result": "Not Run",
       "evidence": null,
       "buildVersion": null
+    },
+    {
+      "requirementDecisionId": "FD-73",
+      "componentModule": ":calculation-engine",
+      "testIds": [
+        "calculation-engine/src/test/kotlin/com/silomath/calculation/ProductionVersionContractTest.kt#exactTypedTupleMatchesApprovedBaselineArtifact",
+        "calculation-engine/src/test/kotlin/com/silomath/calculation/ProductionVersionContractTest.kt#approvedTupleDispatchesEveryFamilyToActualGoldenHandler",
+        "calculation-engine/src/test/kotlin/com/silomath/calculation/ProductionVersionContractTest.kt#everyUnregisteredTupleFieldAndMismatchedFormulaFailsClosed"
+      ],
+      "testLevel": "Unit",
+      "automation": "Automated",
+      "environment": "Local/CI",
+      "result": "Pass",
+      "evidence": "engineering/task-evidence/CR-CALC-VERSION-CONTRACT-001.md",
+      "buildVersion": "calculation-engine-source-sha256:662d01411d1757df3bcab60297c3e24a97fb62707b0dfb3480e3d0b0722826c3"
+    },
+    {
+      "requirementDecisionId": "CE-D39",
+      "componentModule": ":calculation-engine",
+      "testIds": [
+        "calculation-engine/src/test/kotlin/com/silomath/calculation/ProductionVersionContractTest.kt#fingerprintMatchesIndependentCanonicalUtf8Reference",
+        "calculation-engine/src/test/kotlin/com/silomath/calculation/ProductionVersionContractTest.kt#equivalentDecimalScalesAndLocaleDoNotChangeFingerprint"
+      ],
+      "testLevel": "Unit",
+      "automation": "Automated",
+      "environment": "Local/CI",
+      "result": "Not Run",
+      "evidence": "engineering/task-evidence/CR-CALC-VERSION-CONTRACT-001.md",
+      "buildVersion": "calculation-engine-source-sha256:662d01411d1757df3bcab60297c3e24a97fb62707b0dfb3480e3d0b0722826c3"
+    },
+    {
+      "requirementDecisionId": "CE-D40",
+      "componentModule": ":calculation-engine",
+      "testIds": [
+        "calculation-engine/src/test/kotlin/com/silomath/calculation/ProductionVersionContractTest.kt#everyCalculationAffectingInputChangesFingerprintAndStalesResult"
+      ],
+      "testLevel": "Unit",
+      "automation": "Automated",
+      "environment": "Local/CI",
+      "result": "Not Run",
+      "evidence": "engineering/task-evidence/CR-CALC-VERSION-CONTRACT-001.md",
+      "buildVersion": "calculation-engine-source-sha256:662d01411d1757df3bcab60297c3e24a97fb62707b0dfb3480e3d0b0722826c3"
+    },
+    {
+      "requirementDecisionId": "CE-D41",
+      "componentModule": ":calculation-engine",
+      "testIds": [
+        "calculation-engine/src/test/kotlin/com/silomath/calculation/ProductionVersionContractTest.kt#exactTypedTupleMatchesApprovedBaselineArtifact",
+        "calculation-engine/src/test/kotlin/com/silomath/calculation/ProductionVersionContractTest.kt#everyUnregisteredTupleFieldAndMismatchedFormulaFailsClosed"
+      ],
+      "testLevel": "Unit",
+      "automation": "Automated",
+      "environment": "Local/CI",
+      "result": "Not Run",
+      "evidence": "engineering/task-evidence/CR-CALC-VERSION-CONTRACT-001.md",
+      "buildVersion": "calculation-engine-source-sha256:662d01411d1757df3bcab60297c3e24a97fb62707b0dfb3480e3d0b0722826c3"
+    },
+    {
+      "requirementDecisionId": "CE-D42",
+      "componentModule": ":calculation-engine",
+      "testIds": [
+        "calculation-engine/src/test/kotlin/com/silomath/calculation/ProductionVersionContractTest.kt#historicalReproductionUsesFrozenInputsAndNeverFallsBack",
+        "calculation-engine/src/test/kotlin/com/silomath/calculation/ProductionVersionContractTest.kt#capturedHistoryCannotBeChangedThroughCallerListOrRegistryKeySet"
+      ],
+      "testLevel": "Unit",
+      "automation": "Automated",
+      "environment": "Local/CI",
+      "result": "Not Run",
+      "evidence": "engineering/task-evidence/CR-CALC-VERSION-CONTRACT-001.md",
+      "buildVersion": "calculation-engine-source-sha256:662d01411d1757df3bcab60297c3e24a97fb62707b0dfb3480e3d0b0722826c3"
+    },
+    {
+      "requirementDecisionId": "CALC-AC15",
+      "componentModule": ":calculation-engine",
+      "testIds": [
+        "calculation-engine/src/test/kotlin/com/silomath/calculation/ProductionVersionContractTest.kt#everyCalculationAffectingInputChangesFingerprintAndStalesResult"
+      ],
+      "testLevel": "Unit",
+      "automation": "Automated",
+      "environment": "Local/CI",
+      "result": "Not Run",
+      "evidence": "engineering/task-evidence/CR-CALC-VERSION-CONTRACT-001.md",
+      "buildVersion": "calculation-engine-source-sha256:662d01411d1757df3bcab60297c3e24a97fb62707b0dfb3480e3d0b0722826c3"
+    },
+    {
+      "requirementDecisionId": "CALC-AC16",
+      "componentModule": ":calculation-engine",
+      "testIds": [
+        "calculation-engine/src/test/kotlin/com/silomath/calculation/ProductionVersionContractTest.kt#historicalReproductionUsesFrozenInputsAndNeverFallsBack"
+      ],
+      "testLevel": "Unit",
+      "automation": "Automated",
+      "environment": "Local/CI",
+      "result": "Not Run",
+      "evidence": "engineering/task-evidence/CR-CALC-VERSION-CONTRACT-001.md",
+      "buildVersion": "calculation-engine-source-sha256:662d01411d1757df3bcab60297c3e24a97fb62707b0dfb3480e3d0b0722826c3"
     }
   ]
 }

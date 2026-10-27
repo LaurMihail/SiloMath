@@ -1,0 +1,663 @@
+{
+  "validator": "engineering/validate-calculation-version-contract.py",
+  "baselineId": "SILOMATH_V6",
+  "approvedChange": "CR-CALC-VERSION-CONTRACT-001",
+  "generatedAtUtc": "2026-10-27T18:32:25.796862+00:00",
+  "passed": 163,
+  "failed": 0,
+  "errors": [],
+  "checks": [
+    {
+      "name": "approval",
+      "passed": true
+    },
+    {
+      "name": "typed_tuple:engineVersion",
+      "passed": true
+    },
+    {
+      "name": "typed_tuple:formulaVersion",
+      "passed": true
+    },
+    {
+      "name": "typed_tuple:inputSchemaVersion",
+      "passed": true
+    },
+    {
+      "name": "typed_tuple:normalizationVersion",
+      "passed": true
+    },
+    {
+      "name": "typed_tuple:surfaceModelVersion",
+      "passed": true
+    },
+    {
+      "name": "typed_tuple:aggregationMethod",
+      "passed": true
+    },
+    {
+      "name": "typed_tuple:aggregationRuleVersion",
+      "passed": true
+    },
+    {
+      "name": "typed_tuple:combinedSemanticIdentifier",
+      "passed": true
+    },
+    {
+      "name": "unchanged_formula_codes",
+      "passed": true
+    },
+    {
+      "name": "exact_21_documents",
+      "passed": true
+    },
+    {
+      "name": "01_PRODUCT_BASELINE.md:frozen",
+      "passed": true
+    },
+    {
+      "name": "01_PRODUCT_BASELINE.md:revision",
+      "passed": true
+    },
+    {
+      "name": "01_PRODUCT_BASELINE.md:utf8_no_bom_lf",
+      "passed": true
+    },
+    {
+      "name": "01_PRODUCT_BASELINE.md:registry_hash",
+      "passed": true
+    },
+    {
+      "name": "01_PRODUCT_BASELINE.md:manifest_hash",
+      "passed": true
+    },
+    {
+      "name": "01_PRODUCT_BASELINE.md:aggregation_field",
+      "passed": true
+    },
+    {
+      "name": "01_PRODUCT_BASELINE.md:material_reference",
+      "passed": true
+    },
+    {
+      "name": "02_DECISION_REGISTER.md:frozen",
+      "passed": true
+    },
+    {
+      "name": "02_DECISION_REGISTER.md:revision",
+      "passed": true
+    },
+    {
+      "name": "02_DECISION_REGISTER.md:utf8_no_bom_lf",
+      "passed": true
+    },
+    {
+      "name": "02_DECISION_REGISTER.md:registry_hash",
+      "passed": true
+    },
+    {
+      "name": "02_DECISION_REGISTER.md:manifest_hash",
+      "passed": true
+    },
+    {
+      "name": "02_DECISION_REGISTER.md:aggregation_field",
+      "passed": true
+    },
+    {
+      "name": "02_DECISION_REGISTER.md:material_reference",
+      "passed": true
+    },
+    {
+      "name": "03_BUSINESS_RULES.md:frozen",
+      "passed": true
+    },
+    {
+      "name": "03_BUSINESS_RULES.md:revision",
+      "passed": true
+    },
+    {
+      "name": "03_BUSINESS_RULES.md:utf8_no_bom_lf",
+      "passed": true
+    },
+    {
+      "name": "03_BUSINESS_RULES.md:registry_hash",
+      "passed": true
+    },
+    {
+      "name": "03_BUSINESS_RULES.md:manifest_hash",
+      "passed": true
+    },
+    {
+      "name": "03_BUSINESS_RULES.md:aggregation_field",
+      "passed": true
+    },
+    {
+      "name": "04_USER_ROLES_PERMISSIONS.md:frozen",
+      "passed": true
+    },
+    {
+      "name": "04_USER_ROLES_PERMISSIONS.md:revision",
+      "passed": true
+    },
+    {
+      "name": "04_USER_ROLES_PERMISSIONS.md:utf8_no_bom_lf",
+      "passed": true
+    },
+    {
+      "name": "04_USER_ROLES_PERMISSIONS.md:registry_hash",
+      "passed": true
+    },
+    {
+      "name": "04_USER_ROLES_PERMISSIONS.md:manifest_hash",
+      "passed": true
+    },
+    {
+      "name": "04_USER_ROLES_PERMISSIONS.md:aggregation_field",
+      "passed": true
+    },
+    {
+      "name": "05_WORKFLOWS_STATE_MACHINES.md:frozen",
+      "passed": true
+    },
+    {
+      "name": "05_WORKFLOWS_STATE_MACHINES.md:revision",
+      "passed": true
+    },
+    {
+      "name": "05_WORKFLOWS_STATE_MACHINES.md:utf8_no_bom_lf",
+      "passed": true
+    },
+    {
+      "name": "05_WORKFLOWS_STATE_MACHINES.md:registry_hash",
+      "passed": true
+    },
+    {
+      "name": "05_WORKFLOWS_STATE_MACHINES.md:manifest_hash",
+      "passed": true
+    },
+    {
+      "name": "05_WORKFLOWS_STATE_MACHINES.md:aggregation_field",
+      "passed": true
+    },
+    {
+      "name": "06_UI_SCREEN_SPECIFICATION_AND_NAVIGATION.md:frozen",
+      "passed": true
+    },
+    {
+      "name": "06_UI_SCREEN_SPECIFICATION_AND_NAVIGATION.md:revision",
+      "passed": true
+    },
+    {
+      "name": "06_UI_SCREEN_SPECIFICATION_AND_NAVIGATION.md:utf8_no_bom_lf",
+      "passed": true
+    },
+    {
+      "name": "06_UI_SCREEN_SPECIFICATION_AND_NAVIGATION.md:registry_hash",
+      "passed": true
+    },
+    {
+      "name": "06_UI_SCREEN_SPECIFICATION_AND_NAVIGATION.md:manifest_hash",
+      "passed": true
+    },
+    {
+      "name": "06_UI_SCREEN_SPECIFICATION_AND_NAVIGATION.md:aggregation_field",
+      "passed": true
+    },
+    {
+      "name": "07_ARCHITECTURE.md:frozen",
+      "passed": true
+    },
+    {
+      "name": "07_ARCHITECTURE.md:revision",
+      "passed": true
+    },
+    {
+      "name": "07_ARCHITECTURE.md:utf8_no_bom_lf",
+      "passed": true
+    },
+    {
+      "name": "07_ARCHITECTURE.md:registry_hash",
+      "passed": true
+    },
+    {
+      "name": "07_ARCHITECTURE.md:manifest_hash",
+      "passed": true
+    },
+    {
+      "name": "07_ARCHITECTURE.md:aggregation_field",
+      "passed": true
+    },
+    {
+      "name": "07_ARCHITECTURE.md:material_reference",
+      "passed": true
+    },
+    {
+      "name": "08_MODULE_ARCHITECTURE.md:frozen",
+      "passed": true
+    },
+    {
+      "name": "08_MODULE_ARCHITECTURE.md:revision",
+      "passed": true
+    },
+    {
+      "name": "08_MODULE_ARCHITECTURE.md:utf8_no_bom_lf",
+      "passed": true
+    },
+    {
+      "name": "08_MODULE_ARCHITECTURE.md:registry_hash",
+      "passed": true
+    },
+    {
+      "name": "08_MODULE_ARCHITECTURE.md:manifest_hash",
+      "passed": true
+    },
+    {
+      "name": "08_MODULE_ARCHITECTURE.md:aggregation_field",
+      "passed": true
+    },
+    {
+      "name": "09_DATA_MODEL.md:frozen",
+      "passed": true
+    },
+    {
+      "name": "09_DATA_MODEL.md:revision",
+      "passed": true
+    },
+    {
+      "name": "09_DATA_MODEL.md:utf8_no_bom_lf",
+      "passed": true
+    },
+    {
+      "name": "09_DATA_MODEL.md:registry_hash",
+      "passed": true
+    },
+    {
+      "name": "09_DATA_MODEL.md:manifest_hash",
+      "passed": true
+    },
+    {
+      "name": "09_DATA_MODEL.md:aggregation_field",
+      "passed": true
+    },
+    {
+      "name": "09_DATA_MODEL.md:material_reference",
+      "passed": true
+    },
+    {
+      "name": "10_DATABASE_SCHEMA.md:frozen",
+      "passed": true
+    },
+    {
+      "name": "10_DATABASE_SCHEMA.md:revision",
+      "passed": true
+    },
+    {
+      "name": "10_DATABASE_SCHEMA.md:utf8_no_bom_lf",
+      "passed": true
+    },
+    {
+      "name": "10_DATABASE_SCHEMA.md:registry_hash",
+      "passed": true
+    },
+    {
+      "name": "10_DATABASE_SCHEMA.md:manifest_hash",
+      "passed": true
+    },
+    {
+      "name": "10_DATABASE_SCHEMA.md:aggregation_field",
+      "passed": true
+    },
+    {
+      "name": "10_DATABASE_SCHEMA.md:material_reference",
+      "passed": true
+    },
+    {
+      "name": "11_API_SPECIFICATION.md:frozen",
+      "passed": true
+    },
+    {
+      "name": "11_API_SPECIFICATION.md:revision",
+      "passed": true
+    },
+    {
+      "name": "11_API_SPECIFICATION.md:utf8_no_bom_lf",
+      "passed": true
+    },
+    {
+      "name": "11_API_SPECIFICATION.md:registry_hash",
+      "passed": true
+    },
+    {
+      "name": "11_API_SPECIFICATION.md:manifest_hash",
+      "passed": true
+    },
+    {
+      "name": "11_API_SPECIFICATION.md:aggregation_field",
+      "passed": true
+    },
+    {
+      "name": "11_API_SPECIFICATION.md:material_reference",
+      "passed": true
+    },
+    {
+      "name": "12_OFFLINE_SYNC_SPECIFICATION.md:frozen",
+      "passed": true
+    },
+    {
+      "name": "12_OFFLINE_SYNC_SPECIFICATION.md:revision",
+      "passed": true
+    },
+    {
+      "name": "12_OFFLINE_SYNC_SPECIFICATION.md:utf8_no_bom_lf",
+      "passed": true
+    },
+    {
+      "name": "12_OFFLINE_SYNC_SPECIFICATION.md:registry_hash",
+      "passed": true
+    },
+    {
+      "name": "12_OFFLINE_SYNC_SPECIFICATION.md:manifest_hash",
+      "passed": true
+    },
+    {
+      "name": "12_OFFLINE_SYNC_SPECIFICATION.md:aggregation_field",
+      "passed": true
+    },
+    {
+      "name": "12_OFFLINE_SYNC_SPECIFICATION.md:material_reference",
+      "passed": true
+    },
+    {
+      "name": "13_CALCULATION_ENGINE_SPECIFICATION.md:frozen",
+      "passed": true
+    },
+    {
+      "name": "13_CALCULATION_ENGINE_SPECIFICATION.md:revision",
+      "passed": true
+    },
+    {
+      "name": "13_CALCULATION_ENGINE_SPECIFICATION.md:utf8_no_bom_lf",
+      "passed": true
+    },
+    {
+      "name": "13_CALCULATION_ENGINE_SPECIFICATION.md:registry_hash",
+      "passed": true
+    },
+    {
+      "name": "13_CALCULATION_ENGINE_SPECIFICATION.md:manifest_hash",
+      "passed": true
+    },
+    {
+      "name": "13_CALCULATION_ENGINE_SPECIFICATION.md:aggregation_field",
+      "passed": true
+    },
+    {
+      "name": "13_CALCULATION_ENGINE_SPECIFICATION.md:material_reference",
+      "passed": true
+    },
+    {
+      "name": "14_COMMODITY_SPECIFICATION.md:frozen",
+      "passed": true
+    },
+    {
+      "name": "14_COMMODITY_SPECIFICATION.md:revision",
+      "passed": true
+    },
+    {
+      "name": "14_COMMODITY_SPECIFICATION.md:utf8_no_bom_lf",
+      "passed": true
+    },
+    {
+      "name": "14_COMMODITY_SPECIFICATION.md:registry_hash",
+      "passed": true
+    },
+    {
+      "name": "14_COMMODITY_SPECIFICATION.md:manifest_hash",
+      "passed": true
+    },
+    {
+      "name": "14_COMMODITY_SPECIFICATION.md:aggregation_field",
+      "passed": true
+    },
+    {
+      "name": "15_EVIDENCE_STORAGE_SPECIFICATION.md:frozen",
+      "passed": true
+    },
+    {
+      "name": "15_EVIDENCE_STORAGE_SPECIFICATION.md:revision",
+      "passed": true
+    },
+    {
+      "name": "15_EVIDENCE_STORAGE_SPECIFICATION.md:utf8_no_bom_lf",
+      "passed": true
+    },
+    {
+      "name": "15_EVIDENCE_STORAGE_SPECIFICATION.md:registry_hash",
+      "passed": true
+    },
+    {
+      "name": "15_EVIDENCE_STORAGE_SPECIFICATION.md:manifest_hash",
+      "passed": true
+    },
+    {
+      "name": "15_EVIDENCE_STORAGE_SPECIFICATION.md:aggregation_field",
+      "passed": true
+    },
+    {
+      "name": "16_REPORTING_SPECIFICATION.md:frozen",
+      "passed": true
+    },
+    {
+      "name": "16_REPORTING_SPECIFICATION.md:revision",
+      "passed": true
+    },
+    {
+      "name": "16_REPORTING_SPECIFICATION.md:utf8_no_bom_lf",
+      "passed": true
+    },
+    {
+      "name": "16_REPORTING_SPECIFICATION.md:registry_hash",
+      "passed": true
+    },
+    {
+      "name": "16_REPORTING_SPECIFICATION.md:manifest_hash",
+      "passed": true
+    },
+    {
+      "name": "16_REPORTING_SPECIFICATION.md:aggregation_field",
+      "passed": true
+    },
+    {
+      "name": "16_REPORTING_SPECIFICATION.md:material_reference",
+      "passed": true
+    },
+    {
+      "name": "17_SECURITY_AUDIT_PRIVACY.md:frozen",
+      "passed": true
+    },
+    {
+      "name": "17_SECURITY_AUDIT_PRIVACY.md:revision",
+      "passed": true
+    },
+    {
+      "name": "17_SECURITY_AUDIT_PRIVACY.md:utf8_no_bom_lf",
+      "passed": true
+    },
+    {
+      "name": "17_SECURITY_AUDIT_PRIVACY.md:registry_hash",
+      "passed": true
+    },
+    {
+      "name": "17_SECURITY_AUDIT_PRIVACY.md:manifest_hash",
+      "passed": true
+    },
+    {
+      "name": "17_SECURITY_AUDIT_PRIVACY.md:aggregation_field",
+      "passed": true
+    },
+    {
+      "name": "18_TEST_STRATEGY_ACCEPTANCE.md:frozen",
+      "passed": true
+    },
+    {
+      "name": "18_TEST_STRATEGY_ACCEPTANCE.md:revision",
+      "passed": true
+    },
+    {
+      "name": "18_TEST_STRATEGY_ACCEPTANCE.md:utf8_no_bom_lf",
+      "passed": true
+    },
+    {
+      "name": "18_TEST_STRATEGY_ACCEPTANCE.md:registry_hash",
+      "passed": true
+    },
+    {
+      "name": "18_TEST_STRATEGY_ACCEPTANCE.md:manifest_hash",
+      "passed": true
+    },
+    {
+      "name": "18_TEST_STRATEGY_ACCEPTANCE.md:aggregation_field",
+      "passed": true
+    },
+    {
+      "name": "18_TEST_STRATEGY_ACCEPTANCE.md:material_reference",
+      "passed": true
+    },
+    {
+      "name": "19_RETENTION_POLICY.md:frozen",
+      "passed": true
+    },
+    {
+      "name": "19_RETENTION_POLICY.md:revision",
+      "passed": true
+    },
+    {
+      "name": "19_RETENTION_POLICY.md:utf8_no_bom_lf",
+      "passed": true
+    },
+    {
+      "name": "19_RETENTION_POLICY.md:registry_hash",
+      "passed": true
+    },
+    {
+      "name": "19_RETENTION_POLICY.md:manifest_hash",
+      "passed": true
+    },
+    {
+      "name": "19_RETENTION_POLICY.md:aggregation_field",
+      "passed": true
+    },
+    {
+      "name": "19_RETENTION_POLICY.md:material_reference",
+      "passed": true
+    },
+    {
+      "name": "20_PRODUCTION_OPERATIONS.md:frozen",
+      "passed": true
+    },
+    {
+      "name": "20_PRODUCTION_OPERATIONS.md:revision",
+      "passed": true
+    },
+    {
+      "name": "20_PRODUCTION_OPERATIONS.md:utf8_no_bom_lf",
+      "passed": true
+    },
+    {
+      "name": "20_PRODUCTION_OPERATIONS.md:registry_hash",
+      "passed": true
+    },
+    {
+      "name": "20_PRODUCTION_OPERATIONS.md:manifest_hash",
+      "passed": true
+    },
+    {
+      "name": "20_PRODUCTION_OPERATIONS.md:aggregation_field",
+      "passed": true
+    },
+    {
+      "name": "20_PRODUCTION_OPERATIONS.md:material_reference",
+      "passed": true
+    },
+    {
+      "name": "21_UI_DESIGN_SYSTEM_FINAL.md:frozen",
+      "passed": true
+    },
+    {
+      "name": "21_UI_DESIGN_SYSTEM_FINAL.md:revision",
+      "passed": true
+    },
+    {
+      "name": "21_UI_DESIGN_SYSTEM_FINAL.md:utf8_no_bom_lf",
+      "passed": true
+    },
+    {
+      "name": "21_UI_DESIGN_SYSTEM_FINAL.md:registry_hash",
+      "passed": true
+    },
+    {
+      "name": "21_UI_DESIGN_SYSTEM_FINAL.md:manifest_hash",
+      "passed": true
+    },
+    {
+      "name": "21_UI_DESIGN_SYSTEM_FINAL.md:aggregation_field",
+      "passed": true
+    },
+    {
+      "name": "doc13_section20",
+      "passed": true
+    },
+    {
+      "name": "formula_mapping:CYL_TRUNC_CONE_V1",
+      "passed": true
+    },
+    {
+      "name": "formula_mapping:CYL_FLAT_V1",
+      "passed": true
+    },
+    {
+      "name": "formula_mapping:SQUARE_FLAT_V1",
+      "passed": true
+    },
+    {
+      "name": "formula_mapping:RECT_FLAT_V1",
+      "passed": true
+    },
+    {
+      "name": "formula_mapping:SQUARE_PYRAMID_HOPPER_V1",
+      "passed": true
+    },
+    {
+      "name": "formula_mapping:RECT_PYRAMID_HOPPER_V1",
+      "passed": true
+    },
+    {
+      "name": "formula_mapping:REG_HEX_FLAT_V1",
+      "passed": true
+    },
+    {
+      "name": "formula_mapping:STAR_VERIFIED_AREA_V1",
+      "passed": true
+    },
+    {
+      "name": "formula_mapping:POCKET_VERIFIED_AREA_V1",
+      "passed": true
+    },
+    {
+      "name": "formula_mapping:PERIMETER_VERIFIED_AREA_V1",
+      "passed": true
+    },
+    {
+      "name": "unchanged_mathematical_semantics_and_golden_vectors",
+      "passed": true
+    },
+    {
+      "name": "decision_registered",
+      "passed": true
+    },
+    {
+      "name": "approved_change_registered",
+      "passed": true
+    }
+  ]
+}

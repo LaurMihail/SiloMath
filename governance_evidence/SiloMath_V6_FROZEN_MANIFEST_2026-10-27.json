@@ -1,0 +1,141 @@
+{
+  "baselineId": "SILOMATH_V6",
+  "status": "APPROVED_FROZEN",
+  "refreezeDate": "2026-10-27",
+  "approvedChange": "CR-CALC-VERSION-CONTRACT-001",
+  "officialDocumentCount": 21,
+  "files": [
+    {
+      "file": "01_PRODUCT_BASELINE.md",
+      "sha256": "3b008c5db0135240fd2a7ef4cbec28af6df9df1a8cf472e9e71c985714cb864e",
+      "bytes": 33751,
+      "lines": 863
+    },
+    {
+      "file": "02_DECISION_REGISTER.md",
+      "sha256": "4d71db3f527e37f04ad0d2231f3f3938a2b1b91c1bab54d9621bac0947bde1a1",
+      "bytes": 34273,
+      "lines": 236
+    },
+    {
+      "file": "03_BUSINESS_RULES.md",
+      "sha256": "f3d72f667fd134bde50fa3435fd777df4d29efcfb0ed917513c0fe66149571a4",
+      "bytes": 31257,
+      "lines": 229
+    },
+    {
+      "file": "04_USER_ROLES_PERMISSIONS.md",
+      "sha256": "662ffe7d44d231f06ab9f5ab3d166cf4c7f5de75a8e586e6a69e2f846de0527f",
+      "bytes": 18274,
+      "lines": 245
+    },
+    {
+      "file": "05_WORKFLOWS_STATE_MACHINES.md",
+      "sha256": "9e5d0fda995775c6c7e95437e5692c3f927ebb97860cd1d6e6014d4c83e18ea1",
+      "bytes": 27183,
+      "lines": 317
+    },
+    {
+      "file": "06_UI_SCREEN_SPECIFICATION_AND_NAVIGATION.md",
+      "sha256": "ea8a6968a9041830da449054d244683896d8e33e710d6fb316519d798af014ba",
+      "bytes": 143347,
+      "lines": 1713
+    },
+    {
+      "file": "07_ARCHITECTURE.md",
+      "sha256": "e20944f9643a2d7069e690acd932a86678bac340883d6177111abe061c1ee47b",
+      "bytes": 55924,
+      "lines": 859
+    },
+    {
+      "file": "08_MODULE_ARCHITECTURE.md",
+      "sha256": "f063ee4f6525550217df3863e9e5d5bfb4451354e97de9aed540fe24e5ee8b3f",
+      "bytes": 40992,
+      "lines": 658
+    },
+    {
+      "file": "09_DATA_MODEL.md",
+      "sha256": "cda015c5bca936caad9d66061bd727499fb75f076f23e08f216388bffc90105e",
+      "bytes": 92086,
+      "lines": 1182
+    },
+    {
+      "file": "10_DATABASE_SCHEMA.md",
+      "sha256": "feb02dd2eef6a2d8d8a9238bce90b68581c94243104dabbbf45bb9f558fa6646",
+      "bytes": 41728,
+      "lines": 359
+    },
+    {
+      "file": "11_API_SPECIFICATION.md",
+      "sha256": "b8050ef6c445c658185a1cfbd4cc46bd0821836a660c3891434ca39c19e61718",
+      "bytes": 55803,
+      "lines": 535
+    },
+    {
+      "file": "12_OFFLINE_SYNC_SPECIFICATION.md",
+      "sha256": "bfb78d8a62f5a3ebc95d114b70fcf636407d54c92f8bb43af97bee8a88f7448e",
+      "bytes": 50785,
+      "lines": 660
+    },
+    {
+      "file": "13_CALCULATION_ENGINE_SPECIFICATION.md",
+      "sha256": "15b19c189402a275d43cf89512bde1dd64913af8414d53345d805faf142fc6a9",
+      "bytes": 34069,
+      "lines": 544
+    },
+    {
+      "file": "14_COMMODITY_SPECIFICATION.md",
+      "sha256": "fe2d9ae4172b0ce8d8afc3f48aa6a8ffc7a2db41caffaffad56c21bb119587cb",
+      "bytes": 28685,
+      "lines": 409
+    },
+    {
+      "file": "15_EVIDENCE_STORAGE_SPECIFICATION.md",
+      "sha256": "bf78b4facf34aa740cb53b26d628890fb1437275fb04d1416171d7d764263387",
+      "bytes": 29581,
+      "lines": 430
+    },
+    {
+      "file": "16_REPORTING_SPECIFICATION.md",
+      "sha256": "71c2b1313ebe4738fb4ac6aa3a3f3e5b437f0cf1e9a63a48091370d7806e117d",
+      "bytes": 43114,
+      "lines": 525
+    },
+    {
+      "file": "17_SECURITY_AUDIT_PRIVACY.md",
+      "sha256": "f8555c90dc0417b63fdf8e50c09432194da10f742da36ffe8a7642e8550089a5",
+      "bytes": 58469,
+      "lines": 548
+    },
+    {
+      "file": "18_TEST_STRATEGY_ACCEPTANCE.md",
+      "sha256": "ac0ccfde2282dd035d47494faf97ded156ac48df9cbccde1f660b4b6b791662a",
+      "bytes": 64034,
+      "lines": 611
+    },
+    {
+      "file": "19_RETENTION_POLICY.md",
+      "sha256": "f47ed74edead191da239ba4985a175e54930365890f9f4660808d29100afd4f4",
+      "bytes": 59400,
+      "lines": 513
+    },
+    {
+      "file": "20_PRODUCTION_OPERATIONS.md",
+      "sha256": "d594b2a82a3291b28acbaa756fe2bd17666bb6dd049201158d73757b1df77fea",
+      "bytes": 83423,
+      "lines": 736
+    },
+    {
+      "file": "21_UI_DESIGN_SYSTEM_FINAL.md",
+      "sha256": "74abc55d9347d29968eeba4ee616fb23dd23657ff804a072bd7e36c2e93cf69b",
+      "bytes": 26638,
+      "lines": 567
+    }
+  ],
+  "mathematicalSemanticsSha256": "1dd2c2d4671d208487541a1c07d8cfae72cd0c81c21d0bf21ce779428925f53c",
+  "sourceMathBaselineCommit": "e9cd629da2ef8b7455e40af17e03c519cdf1801d",
+  "validation": {
+    "validator": "engineering/validate-calculation-version-contract.py",
+    "validationFile": "SiloMath_V6_Refreeze_Validation_2026-10-27.json"
+  }
+}
