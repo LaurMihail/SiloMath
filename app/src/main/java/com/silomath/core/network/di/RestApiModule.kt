@@ -60,6 +60,13 @@ object RestApiModule {
     @Singleton
     fun provideOfflinePackageRemoteSource(source: RestOfflinePackageRemoteSource): OfflinePackageRemoteSource = source
 
+    @Provides @Singleton
+    fun provideStorageUnitSource(source:com.silomath.core.data.network.source.RestStorageUnitRemoteSource):com.silomath.core.data.network.source.StorageUnitRemoteSource = source
+
+    @Provides @Singleton
+    fun provideStorageUnitApi(factory: RetrofitFactory, environment: ApiEnvironmentConfig): com.silomath.core.data.network.api.StorageUnitApi =
+        factory.create(environment).create(com.silomath.core.data.network.api.StorageUnitApi::class.java)
+
     @Provides
     @Singleton
     fun provideLocationApi(

@@ -79,6 +79,7 @@ data class StorageUnit(
 ) {
     init {
         require(name.isNotBlank()) { "StorageUnit name must not be blank" }
+        require(name == name.trim()) { "StorageUnit name must be trimmed" }
         require(name.length <= 150) { "StorageUnit name must be <= 150 characters" }
         require(code.isNotBlank()) { "StorageUnit code must not be blank" }
         require(code == code.trim().uppercase(Locale.ROOT)) { "StorageUnit code must be trimmed uppercase" }

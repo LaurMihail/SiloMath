@@ -49,5 +49,6 @@ application {
 }
 
 tasks.test {
+    systemProperty("silomath.md003.jdbc", providers.gradleProperty("md003JdbcUrl").orElse("").get())
     systemProperty("silomath.repoRoot", rootProject.projectDir.parentFile.absolutePath)
 }

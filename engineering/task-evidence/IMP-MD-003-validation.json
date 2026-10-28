@@ -1,0 +1,130 @@
+{
+  "task": "IMP-MD-003",
+  "status": "GREEN / DONE",
+  "date": "2026-10-28",
+  "predecessors": {
+    "IMP-MD-001": "DONE",
+    "IMP-MD-002": "d74ccc77bb464e075842f1801cb6430b51f21593"
+  },
+  "tests": [
+    {
+      "file": "core/domain/build/test-results/testDebugUnitTest/TEST-com.silomath.core.domain.model.StorageUnitContractTest.xml",
+      "tests": 5,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "sha256": "7d3b876f25b27b2455e9e3aa91813c42098d490bbb76182f0baed7a2ae209f80"
+    },
+    {
+      "file": "core/domain/build/test-results/testDebugUnitTest/TEST-com.silomath.core.domain.model.MasterDataModelsTest.xml",
+      "tests": 7,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "sha256": "27a237bdf678cf5d11a4ffc655fb3dc806c9c0fc6e9d52b9fdeb80fafbebaec9"
+    },
+    {
+      "file": "app/build/test-results/testProductionDebugUnitTest/TEST-com.silomath.core.data.repository.StorageUnitTransportTest.xml",
+      "tests": 4,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "sha256": "541e49b87b9593f7b34fff275244599e592323a2c731e675d681c09ecbd96d98"
+    },
+    {
+      "file": "backend/build/test-results/test/TEST-com.silomath.backend.storageunit.StorageUnitContractsTest.xml",
+      "tests": 5,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "sha256": "c5d45220a7bc3299ea8f93e939c1130d742736a7e49f2718d42aa49bfa937dc4"
+    },
+    {
+      "file": "backend/build/test-results/test/TEST-com.silomath.backend.storageunit.StorageUnitPostgresTest.xml",
+      "tests": 7,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "sha256": "3ee3fae704e6ecd8c01acbdf5b40f5656830cc39a7db72a68dfdd7f82713b097"
+    },
+    {
+      "file": "app/build/outputs/androidTest-results/connected/debug/flavors/production/TEST-Pixel_8(AVD) - 17.xml",
+      "tests": 13,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "sha256": "844fa2986246613f38f0a2d216a10c211b186e985c133f60d051900e1d7b8654"
+    }
+  ],
+  "totalTests": 41,
+  "postgres": {
+    "version": 18,
+    "host": "isolated loopback only",
+    "migrationCount": 67,
+    "finalReplayDatabase": "silomath_md003_finalgate",
+    "assertions": [
+      "002_v6_assertions.sql",
+      "003_v6_tenant_isolation_assertions.sql",
+      "004_v6_primary_foreign_key_assertions.sql",
+      "012_md003_canonical_integrity_assertions.sql"
+    ],
+    "legacyCampaignOrganizationReconciled": false,
+    "legacyCampaignForeignKeyIntentionallyNotValid": true
+  },
+  "commitScope": [
+    "app/src/androidTest/java/com/silomath/core/data/repository/StorageUnitRepositoryTest.kt",
+    "app/src/main/java/com/silomath/core/data/repository/OfflineStorageUnitRepository.kt",
+    "app/src/main/java/com/silomath/core/network/di/RestApiModule.kt",
+    "app/src/test/java/com/silomath/core/data/repository/StorageUnitTransportTest.kt",
+    "backend/build.gradle.kts",
+    "backend/src/main/kotlin/com/silomath/backend/Application.kt",
+    "backend/src/main/kotlin/com/silomath/backend/routes/StorageUnitRoutes.kt",
+    "backend/src/main/kotlin/com/silomath/backend/storageunit/JdbcStorageUnitService.kt",
+    "backend/src/main/kotlin/com/silomath/backend/storageunit/StorageUnitContracts.kt",
+    "backend/src/test/kotlin/com/silomath/backend/storageunit/StorageUnitContractsTest.kt",
+    "backend/src/test/kotlin/com/silomath/backend/storageunit/StorageUnitPostgresTest.kt",
+    "core/database/src/main/java/com/silomath/core/database/SiloMathDatabase.kt",
+    "core/database/src/main/java/com/silomath/core/database/dao/StorageUnitCanonicalDao.kt",
+    "core/domain/src/main/java/com/silomath/core/domain/model/MasterDataModels.kt",
+    "core/domain/src/main/java/com/silomath/core/domain/repository/StorageUnitRepository.kt",
+    "core/domain/src/test/java/com/silomath/core/domain/model/StorageUnitContractTest.kt",
+    "core/model/src/main/java/com/silomath/core/model/storage/StorageUnitTransfer.kt",
+    "core/network/src/main/java/com/silomath/core/data/network/api/StorageUnitApi.kt",
+    "core/network/src/main/java/com/silomath/core/data/network/dto/StorageUnitDtos.kt",
+    "core/network/src/main/java/com/silomath/core/data/network/source/StorageUnitRemoteSource.kt",
+    "engineering/task-evidence/IMP-MD-003-validation.json",
+    "engineering/task-evidence/IMP-MD-003.md",
+    "engineering/test-storage-unit-postgres.ps1",
+    "supabase/migrations/20261028081616_v6_storage_unit_contract_guards.sql",
+    "supabase/tests/migration/000_standalone_postgres_infrastructure.sql",
+    "supabase/tests/migration/011_md003_historical_reference_fixture.sql",
+    "supabase/tests/migration/012_md003_canonical_integrity_assertions.sql"
+  ],
+  "sourceSha256": {
+    "app/src/androidTest/java/com/silomath/core/data/repository/StorageUnitRepositoryTest.kt": "88f8711696fb11c7b6ba3a00ce9e854647ba0281333e6986180547095a172789",
+    "app/src/main/java/com/silomath/core/data/repository/OfflineStorageUnitRepository.kt": "43d97fa6e1bb5817f7b01e257030dbdfdf572f7357d17444a49a2ce1a4b24c94",
+    "app/src/main/java/com/silomath/core/network/di/RestApiModule.kt": "fe6d382a48b93e5bfc92655920db11fabf86c52adc8b7020ebf793f1f7796c33",
+    "app/src/test/java/com/silomath/core/data/repository/StorageUnitTransportTest.kt": "ab129f787db26b9aef5e2650d42c5e65b6bdf8b9d2849b7cb9ede2ca4a2b8aec",
+    "backend/build.gradle.kts": "97f099225a0b33fe6eb10f8c8f33812be5a6e1a1de6003394dbefee7ee6228ef",
+    "backend/src/main/kotlin/com/silomath/backend/Application.kt": "0134fc5d02bd57f8417062bea38588d8f200108fbc590ddde48d7d21c684d022",
+    "backend/src/main/kotlin/com/silomath/backend/routes/StorageUnitRoutes.kt": "9341d0514c8dc68c51d89bf585d85c1cd2ab3de6f33c5998f4d9ebd3e135191f",
+    "backend/src/main/kotlin/com/silomath/backend/storageunit/JdbcStorageUnitService.kt": "aaeb795c8eb8340e931e3f57a50a7732a75a6b414a575af0eae57029889b381b",
+    "backend/src/main/kotlin/com/silomath/backend/storageunit/StorageUnitContracts.kt": "76383bbce5ad6592eea503d0c63541a265fd3f288b2246e46e15c41acb249847",
+    "backend/src/test/kotlin/com/silomath/backend/storageunit/StorageUnitContractsTest.kt": "7858503ec1f87cd5dd39512bca1e81226a2d65057ae172c11619d02493bf682e",
+    "backend/src/test/kotlin/com/silomath/backend/storageunit/StorageUnitPostgresTest.kt": "5ca1ba868d3effc72009dfb58d8be04de56d9a66ab6840317d91094f63967b16",
+    "core/database/src/main/java/com/silomath/core/database/SiloMathDatabase.kt": "1c912130724ab3168f99eb6434ee937b30183ded27f0426cd94f2b2f3e537007",
+    "core/database/src/main/java/com/silomath/core/database/dao/StorageUnitCanonicalDao.kt": "4905964cd70272a785e8d8a824741946ce25b6618605a2ebf1d1e5c34b1180a1",
+    "core/domain/src/main/java/com/silomath/core/domain/model/MasterDataModels.kt": "39611a6eef9fb4085a21ef0bac4540e7f64a07b599d906a7b08147cde58234aa",
+    "core/domain/src/main/java/com/silomath/core/domain/repository/StorageUnitRepository.kt": "b4240c16a2b757f645bb12062377335923aa337d062f0b075bacf0998080f4ac",
+    "core/domain/src/test/java/com/silomath/core/domain/model/StorageUnitContractTest.kt": "a0150ee4410a96528bddb6e7f1c8140a87d8e54612fe3c38359dcca7dc494db2",
+    "core/model/src/main/java/com/silomath/core/model/storage/StorageUnitTransfer.kt": "16a9bcb033eef7b294b1c466bc22eb4464e4bc04fe841783abfc01e1b40cd70e",
+    "core/network/src/main/java/com/silomath/core/data/network/api/StorageUnitApi.kt": "3898419e5b96577a5e70c45af865b1d5fc21f7659ba344cd6c24f50027fa0fe2",
+    "core/network/src/main/java/com/silomath/core/data/network/dto/StorageUnitDtos.kt": "ae7640b121f640a08857bc0a1936d4eaa7b7bc54b93975bf312e9e98d889cf22",
+    "core/network/src/main/java/com/silomath/core/data/network/source/StorageUnitRemoteSource.kt": "0e65f4fee49a4b7920a976ec296841d5ee216c010f4cff354bf544564e792273",
+    "engineering/test-storage-unit-postgres.ps1": "cbe5934a6f7e17080af405f3727c9aa29467d2b16df6b4bc02624ee211d5af65",
+    "supabase/migrations/20261028081616_v6_storage_unit_contract_guards.sql": "ea534e60ae9cdeaf2172ed62bfc148a36735ffc15f03de547d0e8efff0b56d70",
+    "supabase/tests/migration/000_standalone_postgres_infrastructure.sql": "4f437eb0d68e8221185005852002189ee264f5fcc7ba90af35ca4c901b067a31",
+    "supabase/tests/migration/011_md003_historical_reference_fixture.sql": "9a6c90affdc34b7970f7ce4aa735c63294e4120a0b4734205b2bf69416128502",
+    "supabase/tests/migration/012_md003_canonical_integrity_assertions.sql": "2b9cee16ea00dd6e11ea8e64369b31d219a1f348fcbc65f05c16c98dc87aaf55"
+  }
+}

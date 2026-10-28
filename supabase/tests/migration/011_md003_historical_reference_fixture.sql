@@ -1,0 +1,32 @@
+-- Controlled, NON-AUTHORITATIVE historical reference fixture for IMP-MD-003 only.
+-- Load in EXPAND before FK hardening, then verify canonical Storage Unit integrity after hardening.
+-- Does not certify geometry/calculation/CAM-008 or an authentic deployed snapshot schema.
+-- MD003_TEST_ONLY_* values are fixture labels, NOT approved Production version identifiers.
+-- Production snapshotSchemaVersion remains UNRESOLVED.
+begin;
+insert into silomath.users(user_id,full_name,email,email_normalized,lifecycle_status,created_at,created_by,updated_at,updated_by,entity_version)
+values('90000000-0000-0000-0000-000000000002','History fixture','md003-history@example.invalid','md003-history@example.invalid','ACTIVE',now(),'90000000-0000-0000-0000-000000000002',now(),'90000000-0000-0000-0000-000000000002',1);
+insert into silomath.organizations(organization_id,name,code,lifecycle_status,created_at,created_by,updated_at,updated_by,entity_version)
+values('90000000-0000-0000-0000-000000000001','MD003 history fixture','MD003-HISTORY','ACTIVE',now(),'90000000-0000-0000-0000-000000000002',now(),'90000000-0000-0000-0000-000000000002',1);
+insert into silomath.organization_memberships(membership_id,organization_id,user_id,role,lifecycle_status,created_at,created_by,updated_at,updated_by,entity_version)
+values('90000000-0000-0000-0000-00000000000b','90000000-0000-0000-0000-000000000001','90000000-0000-0000-0000-000000000002','ADMIN','ACTIVE',now(),'90000000-0000-0000-0000-000000000002',now(),'90000000-0000-0000-0000-000000000002',1);
+insert into silomath.locations(location_id,organization_id,name,code,lifecycle_status,created_at,created_by,updated_at,updated_by,entity_version)
+values('90000000-0000-0000-0000-000000000003','90000000-0000-0000-0000-000000000001','History Location','HLOC','ACTIVE',now(),'90000000-0000-0000-0000-000000000002',now(),'90000000-0000-0000-0000-000000000002',1);
+insert into silomath.storage_units(storage_unit_id,organization_id,location_id,name,code,lifecycle_status,created_at,created_by,updated_at,updated_by,entity_version)
+values('90000000-0000-0000-0000-000000000004','90000000-0000-0000-0000-000000000001','90000000-0000-0000-0000-000000000003','Historical Unit','REF','ACTIVE',now(),'90000000-0000-0000-0000-000000000002',now(),'90000000-0000-0000-0000-000000000002',1);
+insert into silomath.geometry_families(geometry_family_id,family_code,name,formula_version,parameter_contract)
+values('90000000-0000-0000-0000-000000000006','F02','MD003 reference fixture only','1','MD003_TEST_ONLY_NOT_EXECUTABLE_REGISTRY');
+insert into silomath.geometry_profiles(geometry_profile_id,organization_id,name,code,geometry_family_id,lifecycle_status,current_version_id,created_at,created_by,updated_at,updated_by,entity_version)
+values('90000000-0000-0000-0000-000000000007','90000000-0000-0000-0000-000000000001','Reference profile','REFGP','90000000-0000-0000-0000-000000000006','ACTIVE','90000000-0000-0000-0000-000000000008',now(),'90000000-0000-0000-0000-000000000002',now(),'90000000-0000-0000-0000-000000000002',1);
+insert into silomath.geometry_profile_versions(geometry_profile_version_id,geometry_profile_id,version_number,geometry_family_id,diameter_m,height_m,measurement_reference_height_m,maximum_fill_height_m,geometry_origin,max_capacity_m3,formula_version,schema_version,created_at,created_by)
+values('90000000-0000-0000-0000-000000000008','90000000-0000-0000-0000-000000000007',1,'90000000-0000-0000-0000-000000000006',2,3,3,3,'MD003_TEST_ONLY_DATUM',9.424778,'1','MD003_TEST_ONLY_GEOMETRY_SCHEMA',now(),'90000000-0000-0000-0000-000000000002');
+insert into silomath.storage_spaces(storage_space_id,organization_id,storage_unit_id,code,geometry_profile_id,lifecycle_status,created_at,created_by,updated_at,updated_by,entity_version)
+values('90000000-0000-0000-0000-000000000005','90000000-0000-0000-0000-000000000001','90000000-0000-0000-0000-000000000004','SPACE','90000000-0000-0000-0000-000000000007','ACTIVE',now(),'90000000-0000-0000-0000-000000000002',now(),'90000000-0000-0000-0000-000000000002',1);
+insert into silomath.inventory_campaigns(campaign_id,organization_id,code,campaign_year,sequence,name,inventory_type,start_date,planned_end_date,status,launched_at,launched_by,created_at,created_by,updated_at,updated_by,entity_version)
+values('90000000-0000-0000-0000-000000000009','90000000-0000-0000-0000-000000000001','INV-2026-9999',2026,9999,'Reference fixture','CONTROL','2026-01-01','2026-01-02','ACTIVE',now(),'90000000-0000-0000-0000-000000000002',now(),'90000000-0000-0000-0000-000000000002',now(),'90000000-0000-0000-0000-000000000002',1);
+insert into silomath.campaign_snapshots(campaign_snapshot_id,campaign_id,organization_id,campaign_code,campaign_name,inventory_type,start_date,planned_end_date,schema_version,calculation_engine_version,created_at,created_by,organization_name,organization_code,snapshot_schema_version,calculation_schema_versions)
+values('90000000-0000-0000-0000-00000000000a','90000000-0000-0000-0000-000000000009','90000000-0000-0000-0000-000000000001','INV-2026-9999','Reference fixture','CONTROL','2026-01-01','2026-01-02','MD003_TEST_ONLY_SNAPSHOT_SCHEMA','2.0',now(),'90000000-0000-0000-0000-000000000002','MD003 history fixture','MD003-HISTORY','MD003_TEST_ONLY_SNAPSHOT_SCHEMA','{"inputSchemaVersion":1}');
+update silomath.inventory_campaigns set campaign_snapshot_id='90000000-0000-0000-0000-00000000000a' where campaign_id='90000000-0000-0000-0000-000000000009';
+insert into silomath.campaign_snapshot_scope_items(snapshot_scope_item_id,campaign_snapshot_id,storage_space_id,geometry_profile_id,geometry_profile_version_id,location_id,location_code,location_name,storage_unit_id,storage_unit_code,storage_unit_name,storage_space_code,geometry_family_id,geometry_family_code,geometry_family_name,geometry_profile_code,geometry_profile_name,geometry_formula_version,geometry_dimensions,measurement_reference_height_m,maximum_fill_height_m,max_capacity_m3)
+values('90000000-0000-0000-0000-00000000000c','90000000-0000-0000-0000-00000000000a','90000000-0000-0000-0000-000000000005','90000000-0000-0000-0000-000000000007','90000000-0000-0000-0000-000000000008','90000000-0000-0000-0000-000000000003','HLOC','History Location','90000000-0000-0000-0000-000000000004','REF','Historical Unit','SPACE','90000000-0000-0000-0000-000000000006','F02','MD003 reference fixture only','REFGP','Reference profile','1','{"diameterM":2,"heightM":3}',3,3,9.424778);
+commit;
