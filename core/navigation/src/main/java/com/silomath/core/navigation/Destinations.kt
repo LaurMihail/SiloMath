@@ -33,6 +33,9 @@ sealed interface OrganizationDestination : Destination { val organizationId: Org
 @Serializable data class LocationEditor(override val organizationId: OrganizationId,
     val locationId: LocationId? = null) : OrganizationDestination
 
+@Serializable data class StorageUnitEditor(override val organizationId: OrganizationId,
+    val locationId: LocationId, val storageUnitId: StorageUnitId? = null) : OrganizationDestination
+
 @Serializable data class StocktakingLocation(override val organizationId: OrganizationId,
     val campaignId: CampaignId, val locationId: LocationId) : OrganizationDestination
 @Serializable data class StocktakingUnit(override val organizationId: OrganizationId,
@@ -44,7 +47,7 @@ sealed interface OrganizationDestination : Destination { val organizationId: Org
 
 fun OrganizationDestination.shellSection(): ShellSection = when(this) {
     is ShellDestination -> section
-    is LocationUnits, is StorageUnitDetails, is StorageSpaceDetails, is LocationEditor -> ShellSection.Locations
+    is LocationUnits, is StorageUnitDetails, is StorageSpaceDetails, is LocationEditor, is StorageUnitEditor -> ShellSection.Locations
     is StocktakingLocation, is StocktakingUnit, is StocktakingSpace -> ShellSection.Stocktaking
 }
 
@@ -52,6 +55,7 @@ fun OrganizationDestination.shellSection(): ShellSection = when(this) {
 fun OrganizationDestination.parent(): OrganizationDestination? = when(this) {
     is ShellDestination -> null
     is LocationUnits, is LocationEditor -> ShellDestination(organizationId,ShellSection.Locations)
+    is StorageUnitEditor -> storageUnitId?.let{StorageUnitDetails(organizationId,locationId,it)} ?: LocationUnits(organizationId,locationId)
     is StorageUnitDetails -> LocationUnits(organizationId,locationId)
     is StorageSpaceDetails -> StorageUnitDetails(organizationId,locationId,storageUnitId)
     is StocktakingLocation -> ShellDestination(organizationId,ShellSection.Stocktaking)

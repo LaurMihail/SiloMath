@@ -109,4 +109,15 @@ class NavigationContractTest {
             {scope.copy(activeOrganizationId=other,authorizedOrganizations=setOf(org,other))},
             DestinationAuthorizer {true},true))
     }
+    @Test fun storageUnitEditorKeyRequiresAdminAndPreservesCanonicalBackContext()=runTest {
+        val editor=StorageUnitEditor(org,location,unit)
+        assertEquals(editor,DestinationCodec.decode(DestinationCodec.encode(editor)))
+        assertFalse(scopeAllows(editor,scope));assertTrue(scopeAllows(editor,scope.copy(adminOrganizations=setOf(org))))
+        assertEquals(StorageUnitDetails(org,location,unit),editor.parent())
+        assertEquals(LocationUnits(org,location),StorageUnitEditor(org,location).parent())
+        val stacks=state();val admin=scope.copy(adminOrganizations=setOf(org));val allow=DestinationAuthorizer{true}
+        assertTrue(stacks.open(LocationUnits(org,location),{admin},allow))
+        assertTrue(stacks.open(editor,{admin},allow));stacks.back();assertEquals(LocationUnits(org,location),stacks.current)
+    }
+
 }

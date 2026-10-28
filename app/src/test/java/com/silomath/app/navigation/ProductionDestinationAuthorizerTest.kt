@@ -24,7 +24,8 @@ class ProductionDestinationAuthorizerTest {
     private val locations=mockk<LocationRepository>().also {
         every {it.observeLocations(org)} returns flowOf(emptyList())
     }
-    private val authorizer=ProductionDestinationAuthorizer(auth,locations)
+    private val units=mockk<com.silomath.core.domain.repository.StorageUnitRepository>()
+    private val authorizer=ProductionDestinationAuthorizer(auth,locations,units)
     @Test fun shellRequiresCurrentAuthorizedOrganization()=runTest {
         assertTrue(authorizer.isAuthorized(ShellDestination(org,ShellSection.Locations)))
         assertFalse(authorizer.isAuthorized(ShellDestination(other,ShellSection.Locations)))
@@ -69,4 +70,23 @@ class ProductionDestinationAuthorizerTest {
         assertFalse(authorizer.isAuthorized(LocationEditor(org)))
         assertFalse(authorizer.isAuthorized(LocationEditor(org,LocationId("00000000-0000-0000-0000-000000000004"))))
     }
+    @Test fun storageUnitDetailsAndEditorRequireMatchingParentAndCurrentRole()=runTest {
+        val parent=LocationId("00000000-0000-0000-0000-000000000004")
+        val id=StorageUnitId("00000000-0000-0000-0000-000000000005")
+        val location=mockk<com.silomath.core.domain.model.Location>()
+        every{location.locationId} returns parent;every{location.organizationId} returns org
+        every{locations.observeLocations(org)} returns flowOf(listOf(location))
+        val unit=mockk<com.silomath.core.domain.model.StorageUnit>()
+        every{unit.storageUnitId} returns id;every{unit.locationId} returns parent
+        every{units.observeStorageUnits(parent)} returns flowOf(listOf(unit))
+        assertTrue(authorizer.isAuthorized(StorageUnitDetails(org,parent,id)))
+        assertTrue(authorizer.isAuthorized(StorageUnitEditor(org,parent,id)))
+        state.value=state.value.copy(authorizedOrganizations=state.value.authorizedOrganizations.map{it.copy(role="STANDARD")})
+        assertTrue(authorizer.isAuthorized(StorageUnitDetails(org,parent,id)))
+        assertFalse(authorizer.isAuthorized(StorageUnitEditor(org,parent)))
+        assertFalse(authorizer.isAuthorized(StorageUnitEditor(org,parent,id)))
+        every{unit.locationId} returns LocationId("00000000-0000-0000-0000-000000000006")
+        assertFalse(authorizer.isAuthorized(StorageUnitDetails(org,parent,id)))
+    }
+
 }

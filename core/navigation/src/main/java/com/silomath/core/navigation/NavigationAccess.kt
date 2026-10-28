@@ -17,7 +17,7 @@ fun scopeAllows(target: Destination, scope: NavigationScope): Boolean = when(tar
     is OrganizationDestination -> scope.userId != null &&
         target.organizationId == scope.activeOrganizationId &&
         target.organizationId in scope.authorizedOrganizations &&
-        (target !is LocationEditor || target.organizationId in scope.adminOrganizations)
+        (target !is LocationEditor && target !is StorageUnitEditor || target.organizationId in scope.adminOrganizations)
 }
 
 /** Domain owners must re-read authoritative context, hierarchy, role, campaign access

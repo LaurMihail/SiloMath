@@ -10,7 +10,8 @@ import javax.inject.Inject
  * their domain authorizer is enabled only together with the real destination renderer.
  * A serialized key or an Intent never grants entity/campaign/state access. */
 class ProductionDestinationAuthorizer @Inject constructor(
-    private val auth: AuthRepository, private val locations: LocationRepository
+    private val auth: AuthRepository, private val locations: LocationRepository,
+    private val units: com.silomath.core.domain.repository.StorageUnitRepository
 ) : DestinationAuthorizer {
     override suspend fun isAuthorized(target: OrganizationDestination): Boolean {
         val session = auth.sessionState.first()
@@ -23,6 +24,15 @@ class ProductionDestinationAuthorizer @Inject constructor(
                 val found=target.locationId==null || locations.observeLocations(target.organizationId).first().any {
                     it.organizationId==target.organizationId && it.locationId==target.locationId
                 }
+                found && auth.sessionState.first()==session
+            }
+            is StorageUnitDetails, is StorageUnitEditor -> {
+                if(session.authorizedOrganizations.none{it.organizationId==target.organizationId.value && it.role in setOf("ADMIN","STANDARD")})return false
+                if(target is StorageUnitEditor && session.authorizedOrganizations.none{it.organizationId==target.organizationId.value && it.role=="ADMIN"})return false
+                val parent=when(target){is StorageUnitDetails->target.locationId;is StorageUnitEditor->target.locationId;else->error("Invalid target")}
+                val id=when(target){is StorageUnitDetails->target.storageUnitId;is StorageUnitEditor->target.storageUnitId;else->null}
+                val found=locations.observeLocations(target.organizationId).first().any{it.organizationId==target.organizationId && it.locationId==parent} &&
+                    (id==null || units.observeStorageUnits(parent).first().any{it.storageUnitId==id && it.locationId==parent})
                 found && auth.sessionState.first()==session
             }
             is LocationUnits -> {

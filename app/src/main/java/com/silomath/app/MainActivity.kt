@@ -30,6 +30,8 @@ import com.silomath.feature.dashboard.DashboardScreen
 import com.silomath.feature.masterdata.organization.SelectOrganizationScreen
 import com.silomath.feature.masterdata.location.LocationEditorRoute
 import com.silomath.feature.masterdata.location.LocationsRoute
+import com.silomath.feature.masterdata.storageunit.StorageUnitDetailsRoute
+import com.silomath.feature.masterdata.storageunit.StorageUnitEditorRoute
 import com.silomath.feature.masterdata.location.LocationUnitsRoute
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -166,6 +168,10 @@ private fun OperationalShell(organizationId: OrganizationId, currentScope: Navig
                             else -> Box(Modifier.fillMaxSize()) // existing unimplemented feature boundary
                         }
                         is LocationEditor -> LocationEditorRoute(target.organizationId,target.locationId,onDismiss={state.back()})
+                        is StorageUnitEditor -> StorageUnitEditorRoute(target.organizationId,target.locationId,target.storageUnitId,onDismiss={state.back()})
+                        is StorageUnitDetails -> StorageUnitDetailsRoute(target.organizationId,target.locationId,target.storageUnitId,navigate={next->
+                            state.open(next,{currentScopeProvider()},authorizer)
+                        })
                         is LocationUnits -> LocationUnitsRoute(target.organizationId,target.locationId,navigate = {next ->
                             state.open(next,{currentScopeProvider()},authorizer)
                         })

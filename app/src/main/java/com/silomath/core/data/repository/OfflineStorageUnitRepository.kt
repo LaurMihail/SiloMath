@@ -41,6 +41,15 @@ class OfflineStorageUnitRepository @Inject constructor(private val database:Silo
             dao.observe(org,locationId.value).map{rows -> rows.map{it.domain(org,locationId.value)}}
     }
 
+    override suspend fun hasHistoricalReferences(locationId:LocationId,storageUnitId:StorageUnitId):Result<Boolean> = guarded {
+        val session=auth.sessionState.first();val org=scope(session)
+        database.withTransaction {
+            unchanged(session)
+            val row=checkNotNull(dao.get(storageUnitId.value))
+            check(row.organizationId==org && row.locationId==locationId.value)
+            dao.historicallyReferenced(storageUnitId.value)
+        }
+    }
     override suspend fun refreshStorageUnits(locationId:LocationId):Result<Unit> = guarded {
         val session=auth.sessionState.first();val org=scope(session)
         // Only complete authenticated V6 responses establish parent provenance; never legacy inference.
