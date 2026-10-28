@@ -1,0 +1,12 @@
+.git
+.github
+.idea
+.gradle
+.kotlin
+**/build
+local.properties
+*.log
+*.tmp
+.env
+.env.*
+**/.DS_Store
