@@ -107,6 +107,7 @@ import com.silomath.core.database.migration.MasterDataCanonicalBackfill20To21
 @TypeConverters(SiloMathConverters::class)
 abstract class SiloMathDatabase : RoomDatabase() {
 
+    abstract fun canonicalStorageSpaceReadDao(): CanonicalStorageSpaceReadDao
     abstract fun storageUnitCanonicalDao(): StorageUnitCanonicalDao
     abstract fun canonicalOfflineDao(): CanonicalOfflineDao
     abstract fun userDao(): UserDao

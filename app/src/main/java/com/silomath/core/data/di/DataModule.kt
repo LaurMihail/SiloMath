@@ -31,6 +31,10 @@ abstract class DataModule {
 
     @Binds
     @Singleton
+    abstract fun bindStorageSpaceReader(impl: CanonicalStorageSpaceReader): StorageSpaceReader
+
+    @Binds
+    @Singleton
     abstract fun bindStorageSpaceRepository(impl: OfflineStorageSpaceRepository): StorageSpaceRepository
 
     @Binds

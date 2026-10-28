@@ -1,0 +1,19 @@
+# MD-004 — extracted canonical Storage Space read prerequisite
+
+Status: GREEN. Date: 2026-10-28. Commit: separate atomic commit containing this evidence. Classification: explicitly approved DEPENDENCY / EXECUTION-ORDER CORRECTION, not Baseline Change; not MD-005 completion or partial-completion declaration.
+
+Authority: V6 Docs01/02, Doc03 hierarchy/authorization, Doc04 Master Data permissions, Doc06 STU02-05, Doc09 section4.6 StorageSpace UUID/immutable Unit parent/metadata/lifecycle, Docs07/08 domain repository and Room boundaries, Doc10 canonical schema/forward-safe migration, Doc17 Organization isolation, accepted IADR-0002. Existing typed v6 tables remain in the same encrypted Production Room database; no schema/version change, legacy contraction or implicit promotion.
+
+Implemented: read-only StorageSpaceReader.observe(OrganizationId,LocationId,StorageUnitId) returning Flow<Result<List<StorageSpace>>>. This is a technical read result, not a new business status. Success(emptyList()) requires an existing authorized canonical parent. Unavailable/forged/missing context or invalid canonical data returns failure, never false empty. CanonicalStorageSpaceReadDao transactionally joins Organization/Location/Unit and relates only v6_storage_spaces by canonical UUID. Mapping validates tenant/parent, UUID identities/actors, lifecycle, version and preserves approved fields/null/epoch-ms timestamps. Output ordering Code then UUID is deterministic technical presentation, not an invented product sorting rule. Both Admin and Standard may read; revoked/changed session scopes cancel the prior observation. Concrete reader remains infrastructure in app, domain exposes no DAO/Room; composition root binds it separately without changing the old StorageSpaceRepository write implementation.
+
+No Storage Space mutation/create/update, outbox, SyncOperation, REST/PostgreSQL, UI/P1-SH-03/STS-02, Geometry mutation or capacity calculation. No business data fabricated. No MD-005 Done/Partial status update.
+
+Exact executed final command:
+
+`.\gradlew.bat :core:domain:testDebugUnitTest --tests '*MasterDataModelsTest' :app:connectedProductionDebugAndroidTest '-Pandroid.testInstrumentationRunnerArguments.class=com.silomath.core.data.repository.CanonicalStorageSpaceReaderTest' :app:compileProductionDebugKotlin`
+
+BUILD SUCCESSFUL: 7 existing domain MasterData tests + 4 real Room/DAO/repository tests on Pixel_8 API37 emulator, zero failures/errors/skips. Covers canonical Unit without numeric mirror -> canonical children, UUID/profile/metadata/null/lifecycle mapping and ordering; wrong Organization/Location/Unit and missing parent -> failure; existing canonical parent with no canonical children -> real empty; complete-looking legacy-only child not promoted and retained unchanged; Room foreign_key_check; reactive canonical insertion and membership revocation. Fixture Geometry rows are controlled test-only referential prerequisites, not a geometry implementation/version approval or historical schema certification. Explicit in-memory test database; Production SQLCipher factory unchanged.
+
+Initial reactive fixture timeout was diagnosed: raw SQLite insertion outside Room transaction did not schedule invalidation. One targeted correction wrapped the insertion in Room.withTransaction; rerun passed. No test removed/weakened and no dependency change.
+
+`engineering/validate-module-dependencies.ps1`: PASS19/19 modules,65 edges,0 violations. `git diff --check` and cached diff-check: PASS. Scope is the 3 new domain/DAO/concrete reader files, database DAO accessor, DataModule binding, 1 Room test, this evidence, retained MD-004 blocker history/update, and reconciliation overlay. Existing .idea changes excluded. No original XLSX/graph/baseline edits; no live Supabase, push, reset or deletion.
