@@ -45,8 +45,16 @@ revoke execute on function public.prevent_launch_snapshot_id_mutation() from pub
 revoke execute on function public.prevent_third_party_client_org_mismatch_on_client_update() from public, anon, authenticated;
 revoke execute on function public.prevent_third_party_org_mismatch_on_campaign_update() from public, anon, authenticated;
 
--- Event-trigger implementation is internal infrastructure, not an RPC.
-revoke execute on function public.rls_auto_enable() from public, anon, authenticated;
+-- Production currently contains an rls_auto_enable event-trigger helper that is not
+-- reconstructed by the repository migration chain. Harden it only when present;
+-- do not make the repository depend on remote-only drift.
+do $$
+begin
+    if to_regprocedure('public.rls_auto_enable()') is not null then
+        execute 'revoke execute on function public.rls_auto_enable() from public, anon, authenticated';
+    end if;
+end;
+$$;
 
 -- Fail closed if the intended hardening did not take effect.
 do $$
@@ -104,8 +112,7 @@ begin
         'public.prevent_campaign_org_mismatch_on_unit_update',
         'public.prevent_launch_snapshot_id_mutation',
         'public.prevent_third_party_client_org_mismatch_on_client_update',
-        'public.prevent_third_party_org_mismatch_on_campaign_update',
-        'public.rls_auto_enable'
+        'public.prevent_third_party_org_mismatch_on_campaign_update'
     ]
     loop
         v_oid := to_regprocedure(v_name || '()');
@@ -119,13 +126,13 @@ begin
         end if;
     end loop;
 
-    if not exists (
-        select 1
-          from pg_event_trigger
-         where evtname = 'enforce_rls'
-            or evtfoid = 'public.rls_auto_enable()'::regprocedure
-    ) then
-        raise exception 'RLS auto-enable event trigger wiring is missing';
+    v_oid := to_regprocedure('public.rls_auto_enable()');
+    if v_oid is not null
+       and (
+           has_function_privilege('anon', v_oid, 'EXECUTE')
+           or has_function_privilege('authenticated', v_oid, 'EXECUTE')
+       ) then
+        raise exception 'Exposed role still has EXECUTE on optional remote event-trigger helper: public.rls_auto_enable';
     end if;
 end;
 $$;
