@@ -87,6 +87,25 @@
       "approvedDelta": "Complete ISO 3166-1 catalogue; uppercase alpha-2 persisted/API values; human-readable presentation labels; no free-text new values; fail-closed membership validation; local/cached options; unchanged historical non-conforming values pending separate audit before any migration.",
       "rvmImpact": "Register FD-74, BR-MD-014 and TA-D233; runtime verification remains pending, not inferred from documentation approval.",
       "testImpact": "Selector/API/storage membership, canonical encoding, label separation, offline availability and explicit historical preservation; baseline/registry/hash/refreeze consistency."
+    },
+    {
+      "id": "CR-API-STORAGE-SPACE-BATCH-001",
+      "title": "Approve atomic all-or-nothing Storage Space batch-create contract",
+      "status": "APPROVED",
+      "changesFrozenBaseline": true,
+      "file": "engineering/baseline-change/CR-API-STORAGE-SPACE-BATCH-001.md",
+      "decisionDate": "2026-10-28",
+      "approvedBy": "Product Owner (explicit approval recorded in IMP-MD-005 evidence)",
+      "baselineRefs": [
+        "01_PRODUCT_BASELINE",
+        "02_DECISION_REGISTER",
+        "11_API_SPECIFICATION",
+        "12_OFFLINE_SYNC_SPECIFICATION",
+        "18_TEST_STRATEGY_ACCEPTANCE"
+      ],
+      "approvedDelta": "One storage-spaces:batch-create request is one logical mutation intent and is atomic all-or-nothing. Validate the complete batch before commit; any mandatory failure rolls back every row and every business, audit, journal, idempotency and outbox effect. Exact-key/same-payload replay is safe; same-key/different-payload reuse conflicts. Partial success is prohibited.",
+      "rvmImpact": "Register FD-75 and TA-D234 and map only the executed IMP-MD-005 atomic batch/idempotency/rollback verification.",
+      "testImpact": "Complete success and rollback, no partial effects, exact replay, idempotency mismatch conflict and transaction fault rollback."
     }
   ]
 }

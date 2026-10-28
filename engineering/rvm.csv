@@ -1,4 +1,4 @@
-"requirementDecisionId","sourceDocumentVersion","componentModule","testIds","testLevel","automation","environment","result","evidence","buildVersion","mappingStatus"
+﻿"requirementDecisionId","sourceDocumentVersion","componentModule","testIds","testLevel","automation","environment","result","evidence","buildVersion","mappingStatus"
 "ADR-001","07_ARCHITECTURE",,,,,,"Not Run",,,"UNMAPPED"
 "ADR-002","07_ARCHITECTURE",,,,,,"Not Run",,,"UNMAPPED"
 "ADR-003","07_ARCHITECTURE",,,,,,"Not Run",,,"UNMAPPED"
@@ -698,6 +698,7 @@
 "FD-72","02_DECISION_REGISTER",,,,,,"Not Run",,,"UNMAPPED"
 "FD-73","01_PRODUCT_BASELINE; 02_DECISION_REGISTER; 07_ARCHITECTURE; 09_DATA_MODEL; 10_DATABASE_SCHEMA; 11_API_SPECIFICATION; 12_OFFLINE_SYNC_SPECIFICATION; 13_CALCULATION_ENGINE_SPECIFICATION; 16_REPORTING_SPECIFICATION; 18_TEST_STRATEGY_ACCEPTANCE; 19_RETENTION_POLICY; 20_PRODUCTION_OPERATIONS",":calculation-engine","calculation-engine/src/test/kotlin/com/silomath/calculation/ProductionVersionContractTest.kt#approvedTupleDispatchesEveryFamilyToActualGoldenHandler; calculation-engine/src/test/kotlin/com/silomath/calculation/ProductionVersionContractTest.kt#everyUnregisteredTupleFieldAndMismatchedFormulaFailsClosed; calculation-engine/src/test/kotlin/com/silomath/calculation/ProductionVersionContractTest.kt#exactTypedTupleMatchesApprovedBaselineArtifact","Unit","Automated","Local/CI","Pass","engineering/task-evidence/CR-CALC-VERSION-CONTRACT-001.md","calculation-engine-source-sha256:d2562d5d39116a9e701bd0cf66233cb29be71b93a264bd9a4a957ff02e85d94c","VERIFIED"
 "FD-74","01_PRODUCT_BASELINE; 02_DECISION_REGISTER; 03_BUSINESS_RULES; 06_UI_SCREEN_SPECIFICATION_AND_NAVIGATION; 09_DATA_MODEL; 10_DATABASE_SCHEMA; 11_API_SPECIFICATION; 12_OFFLINE_SYNC_SPECIFICATION; 16_REPORTING_SPECIFICATION; 18_TEST_STRATEGY_ACCEPTANCE; 19_RETENTION_POLICY; 20_PRODUCTION_OPERATIONS",,,,,,"Not Run",,,"UNMAPPED"
+"FD-75","02_DECISION_REGISTER; 11_API_SPECIFICATION; 12_OFFLINE_SYNC_SPECIFICATION; 18_TEST_STRATEGY_ACCEPTANCE","backend","backend/src/test/kotlin/com/silomath/backend/storagespace/StorageSpacePostgresTest.kt#auditFailureRollsBackBusinessAndIdempotencyRecord; backend/src/test/kotlin/com/silomath/backend/storagespace/StorageSpacePostgresTest.kt#batchCreateIsAtomicAndIdempotent","Integration","Automated","Disposable PostgreSQL/CI","Pass","engineering/task-evidence/IMP-MD-005.md","git:d9aaaff6a9d1ebe1c2782a91cefa8cbe342e8630","VERIFIED"
 "IC-01","07_ARCHITECTURE; 11_API_SPECIFICATION",,,,,,"Not Run",,,"UNMAPPED"
 "IC-03","11_API_SPECIFICATION",,,,,,"Not Run",,,"UNMAPPED"
 "IC-11","11_API_SPECIFICATION; 12_OFFLINE_SYNC_SPECIFICATION",,,,,,"Not Run",,,"UNMAPPED"
@@ -1842,3 +1843,4 @@
 "TA-D231","18_TEST_STRATEGY_ACCEPTANCE",,,,,,"Not Run",,,"UNMAPPED"
 "TA-D232","18_TEST_STRATEGY_ACCEPTANCE",,,,,,"Not Run",,,"UNMAPPED"
 "TA-D233","18_TEST_STRATEGY_ACCEPTANCE",,,,,,"Not Run",,,"UNMAPPED"
+"TA-D234","18_TEST_STRATEGY_ACCEPTANCE","backend","backend/src/test/kotlin/com/silomath/backend/storagespace/StorageSpacePostgresTest.kt#auditFailureRollsBackBusinessAndIdempotencyRecord; backend/src/test/kotlin/com/silomath/backend/storagespace/StorageSpacePostgresTest.kt#batchCreateIsAtomicAndIdempotent","Integration","Automated","Disposable PostgreSQL/CI","Pass","engineering/task-evidence/IMP-MD-005.md","git:d9aaaff6a9d1ebe1c2782a91cefa8cbe342e8630","VERIFIED"

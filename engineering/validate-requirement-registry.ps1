@@ -130,7 +130,7 @@ Test-ExactRange `
     -Name "Final decision" `
     -Pattern '^FD-\d{2}$' `
     -Start 1 `
-    -End 74 `
+    -End 75 `
     -Formatter {
         param($n)
         "FD-{0:D2}" -f $n
@@ -356,7 +356,7 @@ Test-ExactRange `
     -Name "Test-strategy decision" `
     -Pattern '^TA-D\d{3}$' `
     -Start 1 `
-    -End 233 `
+    -End 234 `
     -Formatter {
         param($n)
         "TA-D{0:D3}" -f $n

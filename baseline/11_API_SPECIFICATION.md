@@ -1,8 +1,8 @@
 # SiloMath V6 — 11_API_SPECIFICATION
 
-**Version:** V6 Final Documentation — API Specification 1.0 Candidate  
+**Version:** V6 Final Documentation — API Specification 1.0
 **Status:** APPROVED / FROZEN V6
-**Baseline revision:** 2026-10-27 - CR-COUNTRY-CATALOG-CONTRACT-001 approved Country catalogue clarification
+**Baseline revision:** 2026-10-28 - CR-API-STORAGE-SPACE-BATCH-001 approved atomic Storage Space batch-create clarification
 **Normative role:** Canonical external/backend REST contract for Android ↔ server communication.
 
 ## 1. Purpose, authority and scope
@@ -192,7 +192,7 @@ Android maps `code` to typed outcomes. Business behavior must never parse free-t
 | PATCH | /api/v1/organizations/{organizationId}/storage-units/{storageUnitId} | Bearer | Admin | StorageUnitPatchRequest | StorageUnitResponse | Optimistic concurrency. |
 | GET | /api/v1/organizations/{organizationId}/storage-units/{storageUnitId}/storage-spaces | Bearer | Authorized membership | CursorQuery + search/status | Page<StorageSpaceResponse> | Large-list cursor pagination. |
 | POST | /api/v1/organizations/{organizationId}/storage-units/{storageUnitId}/storage-spaces | Bearer | Admin | StorageSpaceCreateRequest | StorageSpaceResponse | Single create. |
-| POST | /api/v1/organizations/{organizationId}/storage-units/{storageUnitId}/storage-spaces:batch-create | Bearer | Admin | StorageSpaceBatchCreateRequest | StorageSpaceBatchCreateResponse | Add-only range C01–C08 style; transaction semantics explicit. |
+| POST | /api/v1/organizations/{organizationId}/storage-units/{storageUnitId}/storage-spaces:batch-create | Bearer | Admin | StorageSpaceBatchCreateRequest | StorageSpaceBatchCreateResponse | One logical mutation intent; atomic all-or-nothing; complete pre-commit validation; no partial success or effects; idempotent exact replay. |
 | GET | /api/v1/organizations/{organizationId}/storage-spaces/{storageSpaceId} | Bearer | Authorized membership | — | StorageSpaceResponse | Includes current geometry profile/version summary and calculated capacity. |
 | PATCH | /api/v1/organizations/{organizationId}/storage-spaces/{storageSpaceId} | Bearer | Admin | StorageSpacePatchRequest | StorageSpaceResponse | Cannot rewrite launched snapshot history. |
 | GET | /api/v1/organizations/{organizationId}/clients | Bearer | Authorized membership | CursorQuery + search/status | Page<ClientResponse> | Tenant-scoped. |
@@ -537,3 +537,7 @@ Transmit engineVersion as JSON string "2.0" and inputSchemaVersion, normalizatio
 ## Approved Country contract cross-reference
 
 CR-COUNTRY-CATALOG-CONTRACT-001 / FD-74: Organization.country and Location.country retain their existing API field names and optionality. A supplied new Country value must be an uppercase ISO 3166-1 alpha-2 member of the complete catalogue; reject non-catalog/noncanonical new values through the existing validation-error contract. Human-readable names are UI labels and are not accepted as canonical Country codes. Client and server use the same catalogue semantics; selectors have complete local/cached options. Do not implicitly normalize already persisted non-conforming values; audit separately before any migration. No new endpoint is introduced by this clarification.
+
+## Approved Storage Space batch-create contract
+
+CR-API-STORAGE-SPACE-BATCH-001 / FD-75: the existing `/api/v1` Storage Space batch-create endpoint represents one logical mutation intent and is atomic all-or-nothing. The server validates every item and all authorization, Organization-scope, parent/hierarchy, uniqueness and mandatory invariants before commit. Any failure returns the applicable typed error and rolls back every Storage Space row plus every audit, journal and idempotency effect from the request. Partial-success responses and partial commits are prohibited. Successful execution commits the complete batch in one transaction. Exact replay with the same idempotency key and canonical payload returns the existing logical result without duplicate effects; reuse of the key with a different payload is an idempotency conflict. Existing optimistic-concurrency and authorization rules remain unchanged.

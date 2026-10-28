@@ -1,7 +1,7 @@
 # SiloMath V6 - 17_SECURITY_AUDIT_PRIVACY
 
 **Status:** APPROVED / FROZEN V6
-**Baseline revision:** 2026-10-27 - CR-COUNTRY-CATALOG-CONTRACT-001 approved Country catalogue clarification
+**Baseline revision:** 2026-10-28 - CR-API-STORAGE-SPACE-BATCH-001 approved atomic Storage Space batch-create clarification
 
 ## 1. Purpose and normative scope
 

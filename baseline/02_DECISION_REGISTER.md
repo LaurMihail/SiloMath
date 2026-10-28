@@ -5,7 +5,7 @@
 **Document ID:** 02_DECISION_REGISTER  
 **Version:** V6 Final Documentation — Decision Register 1.1  
 **Status:** APPROVED / FROZEN V6
-**Baseline revision:** 2026-10-27 - CR-COUNTRY-CATALOG-CONTRACT-001 approved Country catalogue clarification
+**Baseline revision:** 2026-10-28 - CR-API-STORAGE-SPACE-BATCH-001 approved atomic Storage Space batch-create clarification
 **Product:** SiloMath  
 **Normative role:** Canonical register of approved V6 decisions
 
@@ -143,6 +143,7 @@ All decisions listed below have status APPROVED / FROZEN.
 | FD-72 | CampaignSnapshot Commodity compatibility physical mapping | CampaignSnapshot `commodityCompatibilitySnapshot` is persisted as an explicit immutable N-valued child collection through canonical physical table `campaign_snapshot_commodity_items`, containing `snapshot_commodity_item_id`, `campaign_snapshot_id`, `commodity_id` and `commodity_version_id`. It represents launch-time Commodity compatibility context and must not be replaced by opaque JSON or inferred later from mutable current Commodity state. | Campaign Snapshot / Data / Database |
 | FD-73 | Approved Calculation Version Contract | `engineVersion="2.0"`; integer `inputSchemaVersion=1`, `normalizationVersion=1`, `formulaVersion=1` for F01-F10; `surfaceModelVersion=LEVEL_BASED_V1`; `aggregationMethod=MEAN_ULLAGE`; integer `aggregationRuleVersion=1`; combined semantic identifier `MEAN_ULLAGE_V1`. Correct Doc13 section20 aggregationMethod wording; preserve all existing formulaCode values and mathematical semantics. Approved through CR-CALC-VERSION-CONTRACT-001. | Calculation / API / Offline / History |
 | FD-74 | Canonical Country catalogue and encoding | Complete ISO 3166-1 catalogue; canonical persisted/API values are uppercase ISO 3166-1 alpha-2 codes (RO/DE/US); country names are presentation labels only. No free-text new Country values; fail-closed catalogue membership validation; complete options local/cached. Preserve non-conforming historical values unchanged and audit separately before any migration. Approved through CR-COUNTRY-CATALOG-CONTRACT-001. | Master Data / UI / API / Offline / History |
+| FD-75 | Atomic Storage Space batch-create | One `storage-spaces:batch-create` request is one logical mutation intent and is atomic all-or-nothing. The complete batch is validated before commit. Any validation, uniqueness, hierarchy, authorization, Organization-scope or mandatory-invariant failure commits zero Storage Space rows and zero partial business, audit, journal, idempotency or outbox effects. Exact-key/same-payload replay is safe; same-key/different-payload reuse is an idempotency conflict. Partial success is prohibited. Approved through CR-API-STORAGE-SPACE-BATCH-001. | Master Data / API / Database / Offline Sync |
 
 ## 5. Consolidated Decision Effects
 
@@ -241,3 +242,7 @@ CR-CALC-VERSION-CONTRACT-001 / FD-73: `engineVersion="2.0"`; integer `inputSchem
 The canonical Country catalogue is the complete ISO 3166-1 list. The canonical persisted and API value is an uppercase ISO 3166-1 alpha-2 code: Romania=`RO`, Germany=`DE`, United States=`US`. The human-readable country name is a presentation label only. Country selectors do not permit free text for new values; new values require catalogue membership and fail-closed validation. Complete selector options are available locally/cached for local-first/offline-first operation. Existing optional/null semantics remain unchanged.
 
 Already persisted non-conforming Country values are preserved unchanged and require a separate audit before any migration. No implicit normalization, country-name-to-code conversion, truncation or historical/snapshot rewriting is authorized. This clarification does not assign a catalogue version identifier or authorize any data/schema migration.
+
+## Approved Storage Space batch-create contract — CR-API-STORAGE-SPACE-BATCH-001 / FD-75
+
+One `storage-spaces:batch-create` request is one logical mutation intent and is atomic all-or-nothing. Validate the complete batch before commit. A failure of validation, uniqueness, hierarchy, authorization, Organization scope or another mandatory invariant fails the complete batch and commits no Storage Space row or partial business, audit, journal, idempotency or outbox effect. A successful request commits the complete batch atomically. Exact replay with the same idempotency key and canonical payload is safe and produces no duplicate effect; reuse of the key with a different payload is an idempotency conflict. Partial success is not part of the V6 contract.

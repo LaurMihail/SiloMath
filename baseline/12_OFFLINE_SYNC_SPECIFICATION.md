@@ -2,7 +2,7 @@
 
 **Version:** V6 Final Documentation — Offline & Sync Specification 1.0  
 **Status:** APPROVED / FROZEN V6
-**Baseline revision:** 2026-10-27 - CR-COUNTRY-CATALOG-CONTRACT-001 approved Country catalogue clarification
+**Baseline revision:** 2026-10-28 - CR-API-STORAGE-SPACE-BATCH-001 approved atomic Storage Space batch-create clarification
 **Normative role:** Canonical offline-first, synchronization, conflict, package, retry and recovery contract for SiloMath V6.
 
 ## 1. Purpose, authority and scope
@@ -19,6 +19,7 @@ This document defines how SiloMath continues authorized Campaign stocktaking wit
 - Every supported offline-capable business mutation and its SyncOperation commit atomically in one Room transaction before the UI reports success.
 - Offline-created mutable identities use stable UUIDs before enqueue.
 - Every logical mutation has one durable SyncOperation and one stable idempotencyKey. V6 does not coalesce logical mutations.
+- A supported Storage Space batch-create is one logical mutation intent. Its complete local business change and durable outbox/SyncOperation effects commit in one Room transaction; any item/effect failure leaves no partial rows or partial outbox. Exact-key/same-payload replay is safe, while same-key/different-payload reuse conflicts. Partial success is prohibited.
 - Optimistic concurrency uses baseEntityVersion/entityVersion. Retry does not invent a new base version.
 - Same-entity operations preserve FIFO; explicit SyncOperationDependency controls cross-entity prerequisites.
 - Validated critical data, immutable versions, CampaignSnapshot and FinalInventorySnapshot are never silently overwritten.
@@ -662,3 +663,7 @@ Package compatibility checks the actual executing registry against pinned metada
 ## Approved Country contract cross-reference
 
 CR-COUNTRY-CATALOG-CONTRACT-001 / FD-74: Complete ISO 3166-1 selector options are available locally/cached; entering a new Country value must not depend on a live network-only lookup or use free text as fallback. Persist/transmit uppercase alpha-2 codes, not display names, and validate membership fail-closed. Preserve non-conforming historical values unchanged pending separate audit before any migration. This clarification does not change campaign package inventory, atomic activation or OFFLINE_READY gates and does not make map tiles a business-data authority.
+
+## Approved Storage Space batch-create cross-reference
+
+CR-API-STORAGE-SPACE-BATCH-001 / FD-75: one Storage Space batch-create request is one logical mutation intent. Where supported locally, the complete business batch and its durable outbox/SyncOperation representation share one Room transaction. A failed batch persists neither partial business rows nor partial outbox effects. Replay preserves the stable idempotency identity; exact-key/same-payload replay is safe and key/payload mismatch is an explicit conflict. Server ACK/retry handling must not convert the operation into per-item partial success.

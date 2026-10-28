@@ -1,7 +1,7 @@
 # SiloMath V6 - 18_TEST_STRATEGY_ACCEPTANCE
 
 **Status:** APPROVED / FROZEN V6
-**Baseline revision:** 2026-10-27 - CR-COUNTRY-CATALOG-CONTRACT-001 approved Country catalogue clarification
+**Baseline revision:** 2026-10-28 - CR-API-STORAGE-SPACE-BATCH-001 approved atomic Storage Space batch-create clarification
 
 ## 1. Purpose and authority
 
@@ -595,6 +595,7 @@ The suite catalog defines mandatory verification domains without inventing place
 | **TA-D231** | Identity API provenance | `UserMembershipResponse` mapping proves User and Membership metadata/entityVersion remain distinct; canonical User persistence never fabricates User metadata from Membership metadata. |
 | **TA-D232** | Environment provisioning | Development/Staging/Production base URLs/provider endpoints are supplied through controlled environment configuration, are absent as hard-coded Product semantics, and preserve the frozen `/api/v1`/security contract without Product approval. |
 | **TA-D233** | Country catalogue contract | FD-74 / BR-MD-014 verifies complete ISO 3166-1 options locally/cached, uppercase alpha-2 persisted/API values, human-readable labels, no free-text new values, fail-closed catalogue validation and preservation/audit-before-migration of non-conforming historical values. |
+| **TA-D234** | Storage Space batch atomicity | FD-75 verifies complete-batch pre-commit validation, full success or full rollback, zero partial business/audit/journal/idempotency/outbox effects, safe exact-key replay, same-key/different-payload conflict, authorization/scope/parent failures and injected transaction-effect failure. Partial success is prohibited. |
 
 ## 26. Cross-document handoff
 - Doc19 RETENTION_POLICY must define retention/purge of test evidence, CI artifacts, UAT records, operational telemetry and other retained verification material without weakening frozen business/audit retention.
@@ -603,7 +604,7 @@ The suite catalog defines mandatory verification domains without inventing place
 
 ## 27. Freeze statement
 
-This document is the canonical APPROVED / FROZEN SiloMath V6 Test Strategy & Acceptance contract after the 2026-10-20 CR-DB-CAMPAIGN-SNAPSHOT-COMMODITY-001 baseline-change refreeze, defined by TA-D01-TA-D232, including layered risk-based testing, critical-rule traceability, mandatory Calculation/Sync/Security regression, adaptive/accessibility verification, defect severity, UAT, exact release gates and the policy of no arbitrary global code-coverage percentage as a release gate.
+This document is the canonical APPROVED / FROZEN SiloMath V6 Test Strategy & Acceptance contract after the 2026-10-20 CR-DB-CAMPAIGN-SNAPSHOT-COMMODITY-001 baseline-change refreeze, defined by TA-D01-TA-D234, including layered risk-based testing, critical-rule traceability, mandatory Calculation/Sync/Security regression, adaptive/accessibility verification, defect severity, UAT, exact release gates and the policy of no arbitrary global code-coverage percentage as a release gate.
 
 ## Approved calculation-version cross-reference
 
@@ -614,3 +615,7 @@ Verify exact tuple/types and all ten executable handlers, fingerprint canonicali
 ## Approved Country contract cross-reference
 
 CR-COUNTRY-CATALOG-CONTRACT-001 / FD-74: Runtime verification must prove complete ISO 3166-1 catalogue support; uppercase alpha-2 API/storage values with RO/DE/US examples; human-readable labels separated from values; no free-text new-value selector; fail-closed rejection of non-catalog/noncanonical new Country values; complete local/cached options without live-network dependency; and no implicit changes to historical non-conforming values before separate audit/migration. Documentation consistency checks alone do not certify these runtime gates.
+
+## Approved Storage Space batch-create verification
+
+CR-API-STORAGE-SPACE-BATCH-001 / FD-75 / TA-D234: verify one logical request commits all items and effects or none. Tests must cover complete validation before commit; duplicate/invalid/wrong-parent/wrong-Organization/unauthorized elements; zero partial Storage Space, audit, journal, idempotency and outbox effects; exact-key/same-payload replay without duplicates; same-key/different-payload conflict; and injected transaction failure rollback. Per-item partial success is not an accepted result.

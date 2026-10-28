@@ -1,0 +1,23 @@
+{
+  "id": "CR-API-STORAGE-SPACE-BATCH-001",
+  "title": "Atomic all-or-nothing Storage Space batch-create contract",
+  "status": "APPROVED",
+  "baselineId": "SILOMATH_V6",
+  "changesFrozenBaseline": true,
+  "decisionId": "FD-75",
+  "acceptanceId": "TA-D234",
+  "decisionDate": "2026-10-28",
+  "approvedBy": "Product Owner (explicit approval recorded in IMP-MD-005 evidence)",
+  "approvalEvidence": "engineering/task-evidence/IMP-MD-005.md",
+  "materialBaselineRefs": [
+    "02_DECISION_REGISTER",
+    "11_API_SPECIFICATION",
+    "12_OFFLINE_SYNC_SPECIFICATION",
+    "18_TEST_STRATEGY_ACCEPTANCE"
+  ],
+  "approvedDelta": "One storage-spaces:batch-create request is one logical mutation intent and is atomic all-or-nothing. Validate the complete batch before commit; any mandatory failure rolls back all Storage Space rows and all business, audit, journal, idempotency and outbox effects. Exact-key/same-payload replay is safe; same-key/different-payload reuse conflicts. Partial success is prohibited.",
+  "apiCompatibility": "Backward-compatible clarification within the existing /api/v1 endpoint; no route, DTO or schema migration.",
+  "rvmImpact": "Register FD-75 and TA-D234 and map only the executed IMP-MD-005 atomic batch/idempotency/rollback tests.",
+  "testImpact": "Complete success, complete rollback for any invalid element or injected effect failure, no partial effects, exact replay and idempotency mismatch conflict.",
+  "otherV6BehaviorChanges": false
+}

@@ -6,7 +6,7 @@ Version: V6 Final Documentation — Architecture 1.0
 
 Status: APPROVED / FROZEN V6
 
-Baseline revision: 2026-10-27 - CR-COUNTRY-CATALOG-CONTRACT-001 approved Country catalogue clarification
+Baseline revision: 2026-10-28 - CR-API-STORAGE-SPACE-BATCH-001 approved atomic Storage Space batch-create clarification
 
 Product: SiloMath
 

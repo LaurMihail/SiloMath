@@ -1,0 +1,135 @@
+{
+  "baselineId": "SILOMATH_V6",
+  "status": "APPROVED_FROZEN",
+  "refreezeDate": "2026-10-28",
+  "approvedChange": "CR-API-STORAGE-SPACE-BATCH-001",
+  "officialDocumentCount": 21,
+  "files": [
+    {
+      "file": "01_PRODUCT_BASELINE.md",
+      "sha256": "89f35968a2e6eef342e9ca57727f7cf600f13c34fd34f6ce49084c941e68732f",
+      "bytes": 34718,
+      "lines": 869
+    },
+    {
+      "file": "02_DECISION_REGISTER.md",
+      "sha256": "5d0b5966b8ca21507db26d09fe21f79d4f70b1618f7d9e2c4ba432444b80e8f7",
+      "bytes": 37147,
+      "lines": 248
+    },
+    {
+      "file": "03_BUSINESS_RULES.md",
+      "sha256": "0d4ed945800b78dfeeccdf8e7542314ad01a2c71c97686293a66ca2731588fb7",
+      "bytes": 32677,
+      "lines": 236
+    },
+    {
+      "file": "04_USER_ROLES_PERMISSIONS.md",
+      "sha256": "beae05e83d4725ee139def395fad6df858680f163c68647dfc2696e21a2ec74f",
+      "bytes": 18290,
+      "lines": 245
+    },
+    {
+      "file": "05_WORKFLOWS_STATE_MACHINES.md",
+      "sha256": "903a57e4c6ecd68ea07647e6fff960d7829530d2987b357af062f97e768c0e25",
+      "bytes": 27199,
+      "lines": 317
+    },
+    {
+      "file": "06_UI_SCREEN_SPECIFICATION_AND_NAVIGATION.md",
+      "sha256": "1df24718b0c633b631e4a9a89835b9b6ce6fbc90ebef719e4e5fb29b562d799b",
+      "bytes": 144676,
+      "lines": 1719
+    },
+    {
+      "file": "07_ARCHITECTURE.md",
+      "sha256": "911cc1a9f1a1c009b702e83723e541f547f54245c680c6b598ddc226f07782a9",
+      "bytes": 55940,
+      "lines": 859
+    },
+    {
+      "file": "08_MODULE_ARCHITECTURE.md",
+      "sha256": "f5062b791067db4c794816e82f87db9ab683a97f2006d67521038f4ad0fee5a4",
+      "bytes": 41008,
+      "lines": 658
+    },
+    {
+      "file": "09_DATA_MODEL.md",
+      "sha256": "3dbb47ae1ee4b313143464d9e046738e23718b91b439a90edf5eaab4128fd760",
+      "bytes": 93473,
+      "lines": 1188
+    },
+    {
+      "file": "10_DATABASE_SCHEMA.md",
+      "sha256": "b9b3a29ddc2f2be6744d44f61b392b8f03450d423c4d3949e0b48f51b49b9864",
+      "bytes": 42335,
+      "lines": 363
+    },
+    {
+      "file": "11_API_SPECIFICATION.md",
+      "sha256": "f595b8be7ab031990ae7d449642b9fd11cc5223d8d9cbba16b79715e46fedc24",
+      "bytes": 57522,
+      "lines": 543
+    },
+    {
+      "file": "12_OFFLINE_SYNC_SPECIFICATION.md",
+      "sha256": "856a594c31f2fbe3e2c3a10eacf9b02f385b95ec0d25b43091c894b6a36b9d11",
+      "bytes": 52391,
+      "lines": 669
+    },
+    {
+      "file": "13_CALCULATION_ENGINE_SPECIFICATION.md",
+      "sha256": "bc58fea6798e579263eb8b16b61a6efd03d50ea5fb8197c66d3dbaefe6c8677a",
+      "bytes": 34085,
+      "lines": 544
+    },
+    {
+      "file": "14_COMMODITY_SPECIFICATION.md",
+      "sha256": "00f8ba05755ad8b5f87a10c446353c6cbc83d6e73a6632001da4a1206aa30f5f",
+      "bytes": 28701,
+      "lines": 409
+    },
+    {
+      "file": "15_EVIDENCE_STORAGE_SPECIFICATION.md",
+      "sha256": "32c29dbdc88e653e97496fcb8a3fea5d13d1248ee1b2425d0707081e2a925296",
+      "bytes": 29597,
+      "lines": 430
+    },
+    {
+      "file": "16_REPORTING_SPECIFICATION.md",
+      "sha256": "c336c638d06483570c20685bc13bc1aee601ad963c01967710eab1936b2a8251",
+      "bytes": 43669,
+      "lines": 529
+    },
+    {
+      "file": "17_SECURITY_AUDIT_PRIVACY.md",
+      "sha256": "680db79737259d66e5b111156228400847677b0da4ba6eb27da85394bd3875ad",
+      "bytes": 58485,
+      "lines": 548
+    },
+    {
+      "file": "18_TEST_STRATEGY_ACCEPTANCE.md",
+      "sha256": "400e415e7320be0a1cbef4c45b88567b925179bfb7c0cc968fdda907dfd81312",
+      "bytes": 65884,
+      "lines": 621
+    },
+    {
+      "file": "19_RETENTION_POLICY.md",
+      "sha256": "4cd5d041da020f87caa8382bfbefd49739a29a13f6c1d4be692daac444412f02",
+      "bytes": 59942,
+      "lines": 517
+    },
+    {
+      "file": "20_PRODUCTION_OPERATIONS.md",
+      "sha256": "4323277da9e895020d7268708905918163bb5374133c61ddabc4f26a98e7652c",
+      "bytes": 84075,
+      "lines": 740
+    },
+    {
+      "file": "21_UI_DESIGN_SYSTEM_FINAL.md",
+      "sha256": "4aa4f249207100a7ddf9d026c57462094036d06895f5b7dfeb5235a9bb9cab29",
+      "bytes": 26654,
+      "lines": 567
+    }
+  ]
+}

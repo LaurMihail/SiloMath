@@ -313,6 +313,34 @@
       "result": "Not Run",
       "evidence": "engineering/task-evidence/CR-CALC-VERSION-CONTRACT-001.md",
       "buildVersion": "calculation-engine-source-sha256:d2562d5d39116a9e701bd0cf66233cb29be71b93a264bd9a4a957ff02e85d94c"
+    },
+    {
+      "requirementDecisionId": "FD-75",
+      "componentModule": "backend",
+      "testIds": [
+        "backend/src/test/kotlin/com/silomath/backend/storagespace/StorageSpacePostgresTest.kt#batchCreateIsAtomicAndIdempotent",
+        "backend/src/test/kotlin/com/silomath/backend/storagespace/StorageSpacePostgresTest.kt#auditFailureRollsBackBusinessAndIdempotencyRecord"
+      ],
+      "testLevel": "Integration",
+      "automation": "Automated",
+      "environment": "Disposable PostgreSQL/CI",
+      "result": "Pass",
+      "evidence": "engineering/task-evidence/IMP-MD-005.md",
+      "buildVersion": "git:d9aaaff6a9d1ebe1c2782a91cefa8cbe342e8630"
+    },
+    {
+      "requirementDecisionId": "TA-D234",
+      "componentModule": "backend",
+      "testIds": [
+        "backend/src/test/kotlin/com/silomath/backend/storagespace/StorageSpacePostgresTest.kt#batchCreateIsAtomicAndIdempotent",
+        "backend/src/test/kotlin/com/silomath/backend/storagespace/StorageSpacePostgresTest.kt#auditFailureRollsBackBusinessAndIdempotencyRecord"
+      ],
+      "testLevel": "Integration",
+      "automation": "Automated",
+      "environment": "Disposable PostgreSQL/CI",
+      "result": "Pass",
+      "evidence": "engineering/task-evidence/IMP-MD-005.md",
+      "buildVersion": "git:d9aaaff6a9d1ebe1c2782a91cefa8cbe342e8630"
     }
   ]
 }
