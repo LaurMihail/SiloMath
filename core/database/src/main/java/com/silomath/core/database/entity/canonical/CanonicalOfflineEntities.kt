@@ -617,6 +617,7 @@ data class V6StocktakingRevisionsRow(
         Index(value = ["storage_space_id", "organization_id"], unique = true),
         Index(value = ["organization_id"], unique = false),
         Index(value = ["storage_unit_id", "organization_id"], unique = false),
+  Index(value = ["storage_unit_id", "code"], unique = true),
         Index(value = ["geometry_profile_id", "organization_id"], unique = false)
     ])
 data class V6StorageSpacesRow(

@@ -13,7 +13,7 @@ import java.sql.SQLException
 import kotlinx.coroutines.*
 import kotlinx.serialization.json.*
 
-fun Application.configureStorageUnitRouting(verifier:AccessTokenVerifier,organizations:OrganizationAuthorizationResolver,service:StorageUnitService?) {
+fun Application.configureStorageUnitRouting(verifier:AccessTokenVerifier,organizations:OrganizationAuthorizationResolver,service:StorageUnitService?,spaces:com.silomath.backend.storagespace.StorageSpaceService?=null) {
     routing {
         route("/api/v1/organizations/{organizationId}/locations/{locationId}/storage-units", io.ktor.http.HttpMethod.Get) {
             withActiveBearerAuthentication(verifier) { withOrganizationAuthorization(organizations) { requireAdminOrStandard {
@@ -73,40 +73,62 @@ fun Application.configureStorageUnitRouting(verifier:AccessTokenVerifier,organiz
             val results=operations.map { item ->
                 val op=item.jsonObject;val operationId=canonicalUuid(op.requiredUnitString("syncOperationId"),"syncOperationId")
                 try {
-                    if(op.requiredUnitString("entityType")!="STORAGE_UNIT")throw StorageUnitFailure(ApiErrorCode.SERVICE_UNAVAILABLE,HttpStatusCode.ServiceUnavailable)
+                    val type=op.requiredUnitString("entityType")
                     val org=canonicalUuid(op.requiredUnitString("organizationId"),"organizationId")
                     val member=organizations.authorize(call.requireAuthenticatedSubject().userId,org)
                     if(member !is OrganizationAuthorizationResult.Authorized || member.membership.role!=OrganizationRole.ADMIN)
                         throw StorageUnitFailure(ApiErrorCode.AUTH_FORBIDDEN,HttpStatusCode.Forbidden)
-                    if(op["campaignId"]?.let{it!=JsonNull}==true)invalid("campaignId") // This master-data owner has no Campaign mutation.
+                    if(op["campaignId"]?.let{it!=JsonNull}==true)invalid("campaignId")
                     val entity=canonicalUuid(op.requiredUnitString("entityId"),"entityId")
                     val payload=op["payload"] as? JsonObject ?: invalid("payload")
-                    val kind=op.requiredUnitString("operationType")
-                    if(kind !in setOf("CREATE","PATCH"))invalid("operationType")
+                    val kind=op.requiredUnitString("operationType");if(kind !in setOf("CREATE","PATCH"))invalid("operationType")
                     val base=op.optionalUnitVersion("baseEntityVersion")
-                    val location=if(kind=="CREATE")canonicalUuid(payload.requiredUnitString("locationId"),"locationId") else null
-                    val fields=if(kind=="CREATE")JsonObject(payload-"locationId") else payload
                     val dependencies=(op["dependencyIds"] as? JsonArray)?.map{canonicalUuid(it.jsonPrimitive.content,"dependencyIds")} ?: emptyList()
-                    val result=withContext(Dispatchers.IO){s.mutate(org,location,entity,call.requireAuthenticatedSubject().userId,
-                        call.correlationId(),op.requiredUnitString("idempotencyKey"),operationId,base,fields,
-                        op.requiredUnitString("eventAtUtc"),device,dependencies)}
-                    buildJsonObject {put("syncOperationId",operationId);put("outcome","ACKNOWLEDGED");put("entityVersion",result.entityVersion);put("error",JsonNull);put("conflict",JsonNull)}
+                    val version=when(type) {
+                        "STORAGE_UNIT" -> {
+                            val parent=if(kind=="CREATE")canonicalUuid(payload.requiredUnitString("locationId"),"locationId") else null
+                            val fields=if(kind=="CREATE")JsonObject(payload-"locationId") else payload
+                            withContext(Dispatchers.IO){s.mutate(org,parent,entity,call.requireAuthenticatedSubject().userId,call.correlationId(),
+                                op.requiredUnitString("idempotencyKey"),operationId,base,fields,op.requiredUnitString("eventAtUtc"),device,dependencies)}.entityVersion
+                        }
+                        "STORAGE_SPACE" -> {
+                            val owner=spaces ?: throw com.silomath.backend.storagespace.StorageSpaceFailure(ApiErrorCode.SERVICE_UNAVAILABLE,HttpStatusCode.ServiceUnavailable)
+                            val parent=if(kind=="CREATE")canonicalUuid(payload.requiredUnitString("storageUnitId"),"storageUnitId") else null
+                            val fields=if(kind=="CREATE")JsonObject(payload-"storageUnitId") else payload
+                            withContext(Dispatchers.IO){owner.mutate(org,parent,entity,call.requireAuthenticatedSubject().userId,call.correlationId(),
+                                op.requiredUnitString("idempotencyKey"),operationId,base,fields,op.requiredUnitString("eventAtUtc"),device,dependencies)}.entityVersion
+                        }
+                        else -> throw StorageUnitFailure(ApiErrorCode.VALIDATION_FAILED,HttpStatusCode.UnprocessableEntity)
+                    }
+                    buildJsonObject {put("syncOperationId",operationId);put("outcome","ACKNOWLEDGED");put("entityVersion",version);put("error",JsonNull);put("conflict",JsonNull)}
                 } catch(cancel:CancellationException){throw cancel}
-                catch(e:StorageUnitFailure){
-                    val conflict=e.code==ApiErrorCode.ENTITY_VERSION_CONFLICT
-                    val retry=e.code in setOf(ApiErrorCode.SERVICE_UNAVAILABLE,ApiErrorCode.SYNC_DEPENDENCY_PENDING)
-                    val current=if(conflict)withContext(Dispatchers.IO){s.get(op.requiredUnitString("organizationId"),op.requiredUnitString("entityId"))} else null
+                catch(e:StorageUnitFailure){unitSyncFailure(operationId,e,s,op,call)}
+                catch(e:com.silomath.backend.storagespace.StorageSpaceFailure){
+                    val conflict=e.code==ApiErrorCode.ENTITY_VERSION_CONFLICT;val retry=e.code in setOf(ApiErrorCode.SERVICE_UNAVAILABLE,ApiErrorCode.SYNC_DEPENDENCY_PENDING)
+                    val current=if(conflict)withContext(Dispatchers.IO){spaces?.get(op.requiredUnitString("organizationId"),op.requiredUnitString("entityId"))} else null
                     buildJsonObject {
                         put("syncOperationId",operationId);put("outcome",if(conflict)"CONFLICT" else if(retry)"RETRYABLE_ERROR" else "PERMANENT_ERROR")
                         put("entityVersion",current?.entityVersion ?: e.version)
-                        put("error",buildJsonObject{put("code",e.code.name);put("message","Storage Unit operation was not accepted.");put("retryable",retry);put("correlationId",call.correlationId());put("fieldErrors",JsonArray(emptyList()))})
-                        put("conflict",current?.let{Json.encodeToJsonElement(StorageUnitResponse.serializer(),it)} ?: JsonNull)
+                        put("error",buildJsonObject{put("code",e.code.name);put("message","Storage Space operation was not accepted.");put("retryable",retry);put("correlationId",call.correlationId());put("fieldErrors",JsonArray(emptyList()))})
+                        put("conflict",current?.let{Json.encodeToJsonElement(com.silomath.backend.storagespace.StorageSpaceResponse.serializer(),it)} ?: JsonNull)
                     }
                 }
             }
             call.respond(buildJsonObject{put("results",JsonArray(results));put("serverTimeUtc",Instant.now().toString());put("correlationId",call.correlationId())})
         }}
         } }
+    }
+}
+
+private suspend fun unitSyncFailure(operationId:String,e:StorageUnitFailure,s:StorageUnitService,op:JsonObject,call:ApplicationCall):JsonObject {
+    val conflict=e.code==ApiErrorCode.ENTITY_VERSION_CONFLICT
+    val retry=e.code in setOf(ApiErrorCode.SERVICE_UNAVAILABLE,ApiErrorCode.SYNC_DEPENDENCY_PENDING)
+    val current=if(conflict)withContext(Dispatchers.IO){s.get(op.requiredUnitString("organizationId"),op.requiredUnitString("entityId"))} else null
+    return buildJsonObject {
+        put("syncOperationId",operationId);put("outcome",if(conflict)"CONFLICT" else if(retry)"RETRYABLE_ERROR" else "PERMANENT_ERROR")
+        put("entityVersion",current?.entityVersion ?: e.version)
+        put("error",buildJsonObject{put("code",e.code.name);put("message","Storage Unit operation was not accepted.");put("retryable",retry);put("correlationId",call.correlationId());put("fieldErrors",JsonArray(emptyList()))})
+        put("conflict",current?.let{Json.encodeToJsonElement(StorageUnitResponse.serializer(),it)} ?: JsonNull)
     }
 }
 

@@ -67,6 +67,13 @@ object RestApiModule {
     fun provideStorageUnitApi(factory: RetrofitFactory, environment: ApiEnvironmentConfig): com.silomath.core.data.network.api.StorageUnitApi =
         factory.create(environment).create(com.silomath.core.data.network.api.StorageUnitApi::class.java)
 
+    @Provides @Singleton
+    fun provideStorageSpaceSource(source:com.silomath.core.data.network.source.RestStorageSpaceRemoteSource):com.silomath.core.data.network.source.StorageSpaceRemoteSource = source
+
+    @Provides @Singleton
+    fun provideStorageSpaceApi(factory: RetrofitFactory, environment: ApiEnvironmentConfig): com.silomath.core.data.network.api.StorageSpaceApi =
+        factory.create(environment).create(com.silomath.core.data.network.api.StorageSpaceApi::class.java)
+
     @Provides
     @Singleton
     fun provideLocationApi(
