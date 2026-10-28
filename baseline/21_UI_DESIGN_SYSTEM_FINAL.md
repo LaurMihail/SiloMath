@@ -3,7 +3,7 @@
 **Document ID:** 21  
 **Version:** V6 UI Design System 1.0  
 **Status:** APPROVED / FROZEN V6
-**Baseline revision:** 2026-10-20 — CR-DB-CAMPAIGN-SNAPSHOT-COMMODITY-001 baseline-change refreeze
+**Baseline revision:** 2026-10-28 - CR-API-STORAGE-SPACE-BATCH-001 approved atomic Storage Space batch-create clarification
 **Product:** SiloMath  
 **Platform:** Android native  
 **UI toolkit:** Jetpack Compose  

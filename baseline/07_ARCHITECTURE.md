@@ -6,7 +6,7 @@ Version: V6 Final Documentation — Architecture 1.0
 
 Status: APPROVED / FROZEN V6
 
-Baseline revision: 2026-10-20 — CR-DB-CAMPAIGN-SNAPSHOT-COMMODITY-001 baseline-change refreeze
+Baseline revision: 2026-10-28 - CR-API-STORAGE-SPACE-BATCH-001 approved atomic Storage Space batch-create clarification
 
 Product: SiloMath
 
@@ -851,3 +851,9 @@ This sequence is architectural guidance, not permission to bypass the frozen scr
 - Every tenant business operation is organization-scoped.
 - Every major UI component uses the same domain/data architecture; no screen-specific bypass.
 - Undefined future product behavior is not invented in code. Ordinary non-semantic implementation choices inside Documents 01–21 proceed without Product/Baseline approval and are recorded through IADR only when architecturally material.
+
+## Approved calculation-version cross-reference
+
+CR-CALC-VERSION-CONTRACT-001 / FD-73: `engineVersion="2.0"`; integer `inputSchemaVersion=1`, `normalizationVersion=1`, `formulaVersion=1` for F01-F10; `surfaceModelVersion=LEVEL_BASED_V1`; `aggregationMethod=MEAN_ULLAGE`; integer `aggregationRuleVersion=1`; combined semantic identifier `MEAN_ULLAGE_V1`. Formula codes are the unchanged F01-F10 identifiers in Doc13 sections6/22.1. Domain/API version numbers are integers except engineVersion, which is the exact string "2.0". Resolve only actual implemented handlers for the full pinned tuple; unsupported versions return GEOM_VERSION_UNSUPPORTED without fallback. Preserve historical metadata verbatim; no automatic reassignment to this initial approved tuple. This clarification changes no mathematics and is not evidence of completed integration or release gates.
+
+The pure Kotlin numerical module is independent of UI, Room and transport; a compiled handler registry binds this tuple to executable semantics, not an allowed-string list.

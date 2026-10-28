@@ -1,4 +1,4 @@
-﻿$ErrorActionPreference = "Stop"
+$ErrorActionPreference = "Stop"
 
 $registryPath = Join-Path `
     $PSScriptRoot `
@@ -130,7 +130,7 @@ Test-ExactRange `
     -Name "Final decision" `
     -Pattern '^FD-\d{2}$' `
     -Start 1 `
-    -End 72 `
+    -End 75 `
     -Formatter {
         param($n)
         "FD-{0:D2}" -f $n
@@ -356,7 +356,7 @@ Test-ExactRange `
     -Name "Test-strategy decision" `
     -Pattern '^TA-D\d{3}$' `
     -Start 1 `
-    -End 232 `
+    -End 234 `
     -Formatter {
         param($n)
         "TA-D{0:D3}" -f $n
@@ -538,7 +538,6 @@ $coveredDocumentIds = @(
 )
 
 $expectedDocumentsWithoutNamespace = @(
-    "01",
     "21"
 )
 
@@ -559,16 +558,16 @@ if (
 ) {
 
     $errors += (
-        "Unexpected document coverage. Expected only 01 and 21 " +
+        "Unexpected document coverage. Expected only 21 " +
         "without dedicated source IDs; actual: " +
         ($actualDocumentsWithoutNamespace -join ", ")
     )
 }
 
-if ($coveredDocumentIds.Count -ne 19) {
+if ($coveredDocumentIds.Count -ne 20) {
 
     $errors += (
-        "Expected exactly 19/21 documents with source IDs; actual: " +
+        "Expected exactly 20/21 documents with source IDs; actual: " +
         "$($coveredDocumentIds.Count)/21."
     )
 }
@@ -673,7 +672,7 @@ Write-Host "Baseline documents          : 21/21"
 Write-Host "Registry rows               : $($registry.requirements.Count)"
 Write-Host "Unique source IDs           : $($uniqueIds.Count)"
 Write-Host "Documents with source IDs   : $($coveredDocumentIds.Count)/21"
-Write-Host "Documents without namespace : 01, 21"
+Write-Host "Documents without namespace : 21"
 Write-Host ""
 Write-Host "ADR-001..ADR-023            : PASS"
 Write-Host "AR-NFR-01..AR-NFR-12        : PASS"

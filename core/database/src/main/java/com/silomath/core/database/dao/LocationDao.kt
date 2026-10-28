@@ -18,6 +18,20 @@ interface LocationDao {
     @Query("SELECT * FROM locations WHERE remoteId = :remoteId LIMIT 1")
     suspend fun getLocationByRemoteId(remoteId: String): LocationEntity?
 
+    // Positive references only. Never reinterpret/import legacy payloads or rewrite snapshots.
+    @Query("""
+        SELECT EXISTS(SELECT 1 FROM v6_campaign_snapshot_scope_items WHERE location_id = :locationId)
+            OR EXISTS(SELECT 1 FROM campaign_scope cs
+                JOIN storage_spaces sp ON sp.id=cs.storage_space_id
+                JOIN storage_units su ON su.id=sp.storage_unit_id
+                JOIN locations l ON l.id=su.location_id WHERE l.location_id=:locationId)
+            OR EXISTS(SELECT 1 FROM stocktaking_records st
+                JOIN storage_spaces sp ON sp.id=st.storage_space_id
+                JOIN storage_units su ON su.id=sp.storage_unit_id
+                JOIN locations l ON l.id=su.location_id WHERE l.location_id=:locationId)
+    """)
+    suspend fun hasHistoricalReferences(locationId: String): Boolean
+
     @Insert(onConflict = OnConflictStrategy.ABORT)
     suspend fun insertLocation(location: LocationEntity): Long
 

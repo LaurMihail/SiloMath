@@ -12,7 +12,10 @@ hilt = "2.60.1"
 hiltExt = "1.4.0"
 ksp = "2.3.6"
 room = "2.8.4"
+sqlcipher = "4.19.1"
 navigationCompose = "2.10.0"
+navigation3 = "1.0.1"
+maplibre = "13.7.1"
 workManager = "2.11.2"
 retrofit = "3.0.0"
 okhttp = "5.5.0"
@@ -25,6 +28,9 @@ supabase = "3.2.0"
 ktor = "3.2.1"
 
 [libraries]
+maplibre-android = { group = "org.maplibre.gl", name = "android-sdk-opengl", version.ref = "maplibre" }
+okhttp-core = { group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okhttp" }
+sqlcipher-android = { group = "net.zetetic", name = "sqlcipher-android", version.ref = "sqlcipher" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
@@ -55,6 +61,10 @@ room-compiler = { group = "androidx.room", name = "room-compiler", version.ref =
 roomTesting = { group = "androidx.room", name = "room-testing", version.ref = "room" }
 
 # Navigation
+androidx-navigation3-runtime = { group = "androidx.navigation3", name = "navigation3-runtime", version.ref = "navigation3" }
+androidx-navigation3-ui = { group = "androidx.navigation3", name = "navigation3-ui", version.ref = "navigation3" }
+androidx-lifecycle-runtime-compose = { group = "androidx.lifecycle", name = "lifecycle-runtime-compose", version.ref = "lifecycleRuntimeKtx" }
+androidx-lifecycle-viewmodel-navigation3 = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-navigation3", version.ref = "lifecycleRuntimeKtx" }
 androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigationCompose" }
 
 # WorkManager

@@ -11,8 +11,39 @@ import io.ktor.server.routing.routing
 import io.ktor.server.testing.testApplication
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.jsonObject
+import kotlinx.serialization.json.jsonPrimitive
 
 class AuthMiddlewareTest {
+
+    @Test
+    fun `unavailable verifier returns retryable 503 without executing protected handler`() =
+        testApplication {
+            var handlerCalls = 0
+            application {
+                routing {
+                    withActiveBearerAuthentication(
+                        verifier = AccessTokenVerifier {
+                            AccessTokenVerificationResult.ServiceUnavailable
+                        }
+                    ) {
+                        get("/protected") {
+                            handlerCalls += 1
+                            call.respondText("protected")
+                        }
+                    }
+                }
+            }
+            val response = client.get("/protected") {
+                header(HttpHeaders.Authorization, "Bearer valid-token")
+            }
+            val body = Json.parseToJsonElement(response.bodyAsText()).jsonObject
+            assertEquals(HttpStatusCode.ServiceUnavailable, response.status)
+            assertEquals("SERVICE_UNAVAILABLE", body.getValue("code").jsonPrimitive.content)
+            assertEquals("true", body.getValue("retryable").jsonPrimitive.content)
+            assertEquals(0, handlerCalls)
+        }
 
     @Test
     fun `missing bearer credential returns 401 without invoking verifier`() =

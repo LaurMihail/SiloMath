@@ -3,7 +3,7 @@
 **Document ID:** 01_PRODUCT_BASELINE  
 **Version:** V6 Final Documentation — Baseline 1.0  
 **Status:** APPROVED / FROZEN V6
-**Baseline revision:** 2026-10-20 — CR-DB-CAMPAIGN-SNAPSHOT-COMMODITY-001 baseline-change refreeze
+**Baseline revision:** 2026-10-28 - CR-API-STORAGE-SPACE-BATCH-001 approved atomic Storage Space batch-create clarification
 **Product:** SiloMath  
 **Platform:** Native Android  
 **UI language:** English  
@@ -857,3 +857,13 @@ Detailed specifications may add implementation detail within their assigned doma
 ---
 
 **End of Document — 01_PRODUCT_BASELINE**
+
+## Approved calculation-version cross-reference
+
+CR-CALC-VERSION-CONTRACT-001 / FD-73: `engineVersion="2.0"`; integer `inputSchemaVersion=1`, `normalizationVersion=1`, `formulaVersion=1` for F01-F10; `surfaceModelVersion=LEVEL_BASED_V1`; `aggregationMethod=MEAN_ULLAGE`; integer `aggregationRuleVersion=1`; combined semantic identifier `MEAN_ULLAGE_V1`. Formula codes are the unchanged F01-F10 identifiers in Doc13 sections6/22.1. Domain/API version numbers are integers except engineVersion, which is the exact string "2.0". Resolve only actual implemented handlers for the full pinned tuple; unsupported versions return GEOM_VERSION_UNSUPPORTED without fallback. Preserve historical metadata verbatim; no automatic reassignment to this initial approved tuple. This clarification changes no mathematics and is not evidence of completed integration or release gates.
+
+## Approved Country contract — CR-COUNTRY-CATALOG-CONTRACT-001 / FD-74
+
+The canonical Country catalogue is the complete ISO 3166-1 list. The canonical persisted and API value is an uppercase ISO 3166-1 alpha-2 code: Romania=`RO`, Germany=`DE`, United States=`US`. The human-readable country name is a presentation label only. Country selectors do not permit free text for new values; new values require catalogue membership and fail-closed validation. Complete selector options are available locally/cached for local-first/offline-first operation. Existing optional/null semantics remain unchanged.
+
+Already persisted non-conforming Country values are preserved unchanged and require a separate audit before any migration. No implicit normalization, country-name-to-code conversion, truncation or historical/snapshot rewriting is authorized. This clarification does not assign a catalogue version identifier or authorize any data/schema migration.

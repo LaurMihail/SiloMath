@@ -45,11 +45,11 @@ class SiloMathDbTest {
 
     private suspend fun createBaseFixture() {
         organizationDao.insertOrganization(OrganizationEntity(id = 1, name = "Org"))
-        locationDao.insertLocation(LocationEntity(id = 1, organizationId = 1, name = "Loc"))
-        storageDao.insertStorageUnit(StorageUnitEntity(id = 1, locationId = 1, name = "Unit"))
+        locationDao.insertLocation(LocationEntity(id = 1, organizationId = 1, name = "Loc", code = "LOC01"))
+        storageDao.insertStorageUnit(StorageUnitEntity(id = 1, locationId = 1, name = "Unit", code = "UNIT01"))
         geometryDao.insertFamily(GeometryFamilyEntity(id = 1, name = "Cylinder"))
-        geometryDao.insertProfile(GeometryProfileEntity(id = 1, name = "Standard Silo", geometryFamilyId = 1))
-        geometryDao.insertVersion(GeometryVersionEntity(id = 1, geometryProfileId = 1, versionNumber = 1, dimensionsJson = "{}"))
+        geometryDao.insertProfile(GeometryProfileEntity(id = 1, name = "Standard Silo", geometryFamilyId = 1, profileCode = "TEST_PROFILE"))
+        geometryDao.insertVersion(GeometryVersionEntity(id = 1, geometryProfileId = 1, versionNumber = 1, fixedParameters = "{}", requiredDimensionsSchema = "{}", measurementSchema = "{}", supportedUnits = "[]", calculationMethod = "TEST_ONLY", validationConstraints = "{}"))
         campaignDao.insertCampaign(CampaignEntity(id = 1, organizationId = 1, name = "Camp", status = "Active"))
     }
 

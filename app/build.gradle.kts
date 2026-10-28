@@ -196,6 +196,12 @@ android {
         }
     }
 
+    productFlavors.all {
+        listOf("MAP_RASTER_TILE_TEMPLATE", "MAP_ATTRIBUTION_TEXT", "MAP_ATTRIBUTION_URL").forEach { key ->
+            buildConfigField("String", key, buildConfigString(environmentProperty(name, key)))
+        }
+    }
+
     buildTypes {
         release {
             isMinifyEnabled = false
@@ -274,7 +280,8 @@ dependencies {
     implementation(libs.room.ktx)
     ksp(libs.room.compiler)
 
-    implementation(libs.androidx.navigation.compose)
+    implementation(libs.androidx.navigation3.ui)
+    implementation(libs.androidx.lifecycle.runtime.compose)
 
     implementation(libs.androidx.work.runtime.ktx)
 

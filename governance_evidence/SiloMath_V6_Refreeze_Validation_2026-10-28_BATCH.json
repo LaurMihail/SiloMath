@@ -1,0 +1,68 @@
+{
+  "validator": "documentation reconciliation controlled validation",
+  "baselineId": "SILOMATH_V6",
+  "approvedChange": "CR-API-STORAGE-SPACE-BATCH-001",
+  "decisionId": "FD-75",
+  "acceptanceId": "TA-D234",
+  "generatedAtUtc": "2026-10-28",
+  "scope": "DOCUMENT/REGISTRY/HASH/TRACEABILITY CONSISTENCY; implementation runtime results are referenced from committed IMP-MD-005 evidence and were not rerun by this refreeze",
+  "passed": 12,
+  "failed": 0,
+  "errors": [],
+  "checks": [
+    {
+      "name": "official_documents_present_21_of_21",
+      "passed": true
+    },
+    {
+      "name": "shared_refreeze_marker_2026_10_28",
+      "passed": true
+    },
+    {
+      "name": "manifest_sha256_bytes_lines_match_generated_baseline",
+      "passed": true
+    },
+    {
+      "name": "approved_cr_registered",
+      "passed": true
+    },
+    {
+      "name": "fd_75_registered_without_renumbering",
+      "passed": true
+    },
+    {
+      "name": "ta_d234_registered",
+      "passed": true
+    },
+    {
+      "name": "api_v1_preserved",
+      "passed": true
+    },
+    {
+      "name": "atomic_all_or_nothing_and_no_partial_success_explicit",
+      "passed": true
+    },
+    {
+      "name": "idempotency_replay_and_payload_mismatch_explicit",
+      "passed": true
+    },
+    {
+      "name": "requirement_registry_regenerated_for_fd75_tad234",
+      "passed": true
+    },
+    {
+      "name": "rvm_maps_only_committed_md005_verification",
+      "passed": true
+    },
+    {
+      "name": "historical_manifests_crs_iadrs_preserved",
+      "passed": true
+    }
+  ],
+  "runtimeEvidence": {
+    "source": "engineering/task-evidence/IMP-MD-005.md",
+    "implementationCommit": "d9aaaff6a9d1ebe1c2782a91cefa8cbe342e8630",
+    "storageSpacePostgresTests": "6/6 PASS at committed checkpoint",
+    "note": "No runtime test result is inferred from documentation validation."
+  }
+}

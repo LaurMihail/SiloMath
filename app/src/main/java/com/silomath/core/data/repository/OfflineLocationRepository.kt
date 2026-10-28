@@ -1,23 +1,33 @@
 package com.silomath.core.data.repository
 
+import com.silomath.core.database.AtomicMutationRunner
 import com.silomath.core.database.dao.LocationDao
 import com.silomath.core.database.dao.OrganizationDao
 import com.silomath.core.database.entity.LocationEntity
+import com.silomath.core.database.entity.SyncOperationEntity
 import com.silomath.core.domain.model.Location
 import com.silomath.core.domain.model.MasterStatus
 import com.silomath.core.domain.repository.LocationRepository
 import com.silomath.core.model.LocationId
 import com.silomath.core.model.OrganizationId
+import com.silomath.core.model.SyncOperationState
+import java.math.BigDecimal
 import java.time.Instant
+import java.util.UUID
+import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.emitAll
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
-import javax.inject.Inject
+import kotlinx.serialization.json.JsonNull
+import kotlinx.serialization.json.JsonPrimitive
+import kotlinx.serialization.json.buildJsonObject
+import kotlinx.serialization.json.put
 
 class OfflineLocationRepository @Inject constructor(
     private val locationDao: LocationDao,
-    private val organizationDao: OrganizationDao
+    private val organizationDao: OrganizationDao,
+    private val atomicMutationRunner: AtomicMutationRunner
 ) : LocationRepository {
 
     override fun observeLocations(
@@ -46,16 +56,24 @@ class OfflineLocationRepository @Inject constructor(
         )
     }
 
+    override suspend fun hasHistoricalReferences(organizationId: OrganizationId, locationId: LocationId): Result<Boolean> = runCatching {
+        val row=checkNotNull(locationDao.getLocationByLocationId(locationId.value))
+        require(row.canonicalOrganizationId==organizationId.value)
+        locationDao.hasHistoricalReferences(locationId.value)
+    }
+
     override suspend fun saveLocation(
         location: Location
-    ): Result<Unit> = runCatching {
+    ): Result<Unit> {
         val organization =
             organizationDao.getOrganizationByOrganizationId(
                 location.organizationId.value
             )
-                ?: error(
-                    "Canonical Organization not found for Location: " +
-                        location.organizationId.value
+                ?: return Result.failure(
+                    IllegalStateException(
+                        "Canonical Organization not found for Location: " +
+                            location.organizationId.value
+                    )
                 )
 
         val existing =
@@ -63,33 +81,156 @@ class OfflineLocationRepository @Inject constructor(
                 location.locationId.value
             )
 
-        val entity = LocationEntity(
+        if (
+            existing?.entityVersion != null &&
+            existing.entityVersion != location.entityVersion
+        ) {
+            return Result.failure(
+                IllegalStateException(
+                    "Location entityVersion is stale for local mutation."
+                )
+            )
+        }
+
+        val entity =
+            location.toEntity(
+                localOrganizationId = organization.id,
+                existing = existing
+            )
+
+        val operationId =
+            UUID.randomUUID()
+                .toString()
+                .lowercase()
+
+        val idempotencyKey =
+            UUID.randomUUID()
+                .toString()
+                .lowercase()
+
+        val syncOperation =
+            SyncOperationEntity(
+                syncOperationId = operationId,
+                idempotencyKey = idempotencyKey,
+                organizationId =
+                    location.organizationId.value,
+                entityType = ENTITY_TYPE_LOCATION,
+                entityId = location.locationId.value,
+                operationType =
+                    if (existing == null) {
+                        OPERATION_CREATE
+                    } else {
+                        OPERATION_PATCH
+                    },
+                baseEntityVersion =
+                    existing?.entityVersion,
+                eventAt =
+                    location.updatedAt.toEpochMilli(),
+                payloadJson =
+                    location.toMutationPayloadJson(),
+                state = SyncOperationState.PENDING
+            )
+
+        return atomicMutationRunner
+            .executeAtomicMutation(
+                syncOperation = syncOperation
+            ) {
+                val current=locationDao.getLocationByLocationId(location.locationId.value)
+                require(current==null || current.canonicalOrganizationId==location.organizationId.value)
+                require(current?.entityVersion==existing?.entityVersion) { "Location changed while saving" }
+                require(locationDao.getLocationsByOrganizationSync(organization.id).none {
+                    it.locationId!=location.locationId.value && it.code.equals(location.code,ignoreCase=true)
+                }) { "Location Code must be unique in Organization" }
+                if(current==null || current.country!=location.country) {
+                    require(com.silomath.core.domain.model.CountryCatalog.isAllowedNewValue(location.country)) { "Country must be a catalogue value" }
+                }
+                if(current!=null && current.code!=location.code) {
+                    require(!locationDao.hasHistoricalReferences(location.locationId.value)) { "Historically referenced Location Code is stable" }
+                }
+                if (existing == null) {
+                    locationDao.insertLocation(entity)
+                } else {
+                    locationDao.updateLocation(entity)
+                }
+                Unit
+            }
+    }
+
+    private fun Location.toEntity(
+        localOrganizationId: Long,
+        existing: LocationEntity?
+    ): LocationEntity =
+        LocationEntity(
             id = existing?.id ?: 0L,
-            organizationId = organization.id,
+            organizationId = localOrganizationId,
             remoteId = existing?.remoteId,
-            code = location.code,
-            name = location.name,
-            lifecycleStatus = location.lifecycleStatus.name,
+            code = code,
+            name = name,
+            lifecycleStatus = lifecycleStatus.name,
             remoteRevision = existing?.remoteRevision,
-            locationId = location.locationId.value,
-            canonicalOrganizationId = location.organizationId.value,
-            address = location.address,
-            city = location.city,
-            country = location.country,
-            notes = location.notes,
-            createdAt = location.createdAt.toEpochMilli(),
-            createdBy = location.createdBy,
-            updatedAt = location.updatedAt.toEpochMilli(),
-            updatedBy = location.updatedBy,
-            entityVersion = location.entityVersion
+            locationId = locationId.value,
+            canonicalOrganizationId =
+                organizationId.value,
+            address = address,
+            city = city,
+            country = country,
+            notes = notes,
+            latitudeDeg =
+                latitude?.canonicalCoordinate(),
+            longitudeDeg =
+                longitude?.canonicalCoordinate(),
+            createdAt = createdAt.toEpochMilli(),
+            createdBy = createdBy,
+            updatedAt = updatedAt.toEpochMilli(),
+            updatedBy = updatedBy,
+            entityVersion = entityVersion
         )
 
-        if (existing == null) {
-            locationDao.insertLocation(entity)
-        } else {
-            locationDao.updateLocation(entity)
-        }
+    private fun Location.toMutationPayloadJson(): String =
+        buildJsonObject {
+            put("name", JsonPrimitive(name))
+            put("code", JsonPrimitive(code))
+            putNullable("address", address)
+            putNullable("city", city)
+            putNullable("country", country)
+            putNullable("notes", notes)
+            put(
+                "lifecycleStatus",
+                JsonPrimitive(lifecycleStatus.name)
+            )
+            putCoordinate("latitude", latitude)
+            putCoordinate("longitude", longitude)
+        }.toString()
+
+    private fun kotlinx.serialization.json.JsonObjectBuilder.putNullable(
+        key: String,
+        value: String?
+    ) {
+        put(
+            key,
+            value?.let(::JsonPrimitive)
+                ?: JsonNull
+        )
     }
+
+    private fun kotlinx.serialization.json.JsonObjectBuilder.putCoordinate(
+        key: String,
+        value: BigDecimal?
+    ) {
+        put(
+            key,
+            value
+                ?.canonicalCoordinate()
+                ?.let(::JsonPrimitive)
+                ?: JsonNull
+        )
+    }
+
+    private fun BigDecimal.canonicalCoordinate(): BigDecimal =
+        setScale(
+            COORDINATE_SCALE,
+            java.math.RoundingMode.HALF_UP
+        )
 
     private fun LocationEntity.toCanonicalLocationOrNull(
         expectedOrganizationId: OrganizationId
@@ -129,8 +270,17 @@ class OfflineLocationRepository @Inject constructor(
                 createdBy = canonicalCreatedBy,
                 updatedAt = Instant.ofEpochMilli(canonicalUpdatedAt),
                 updatedBy = canonicalUpdatedBy,
-                entityVersion = canonicalEntityVersion
+                entityVersion = canonicalEntityVersion,
+                latitude = latitudeDeg,
+                longitude = longitudeDeg
             )
         }.getOrNull()
+    }
+
+    private companion object {
+        const val ENTITY_TYPE_LOCATION = "LOCATION"
+        const val OPERATION_CREATE = "CREATE"
+        const val OPERATION_PATCH = "PATCH"
+        const val COORDINATE_SCALE = 6
     }
 }

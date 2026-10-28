@@ -3,7 +3,7 @@
 **Physical persistence contract — PostgreSQL + Room**
 
 **Status:** APPROVED / FROZEN V6
-**Baseline revision:** 2026-10-20 — CR-DB-CAMPAIGN-SNAPSHOT-COMMODITY-001 baseline-change refreeze
+**Baseline revision:** 2026-10-28 - CR-API-STORAGE-SPACE-BATCH-001 approved atomic Storage Space batch-create clarification
 
 ## 1. Purpose and authority
 
@@ -352,3 +352,12 @@ This document is the canonical APPROVED / FROZEN SiloMath V6 physical database s
 
 ---
 **End of Document — 10_DATABASE_SCHEMA**
+## Approved calculation-version cross-reference
+
+CR-CALC-VERSION-CONTRACT-001 / FD-73: `engineVersion="2.0"`; integer `inputSchemaVersion=1`, `normalizationVersion=1`, `formulaVersion=1` for F01-F10; `surfaceModelVersion=LEVEL_BASED_V1`; `aggregationMethod=MEAN_ULLAGE`; integer `aggregationRuleVersion=1`; combined semantic identifier `MEAN_ULLAGE_V1`. Formula codes are the unchanged F01-F10 identifiers in Doc13 sections6/22.1. Domain/API version numbers are integers except engineVersion, which is the exact string "2.0". Resolve only actual implemented handlers for the full pinned tuple; unsupported versions return GEOM_VERSION_UNSUPPORTED without fallback. Preserve historical metadata verbatim; no automatic reassignment to this initial approved tuple. This clarification changes no mathematics and is not evidence of completed integration or release gates.
+
+This approval does not alter SQL or Room schemas. Existing TEXT version columns may retain lossless decimal-text representations of integer metadata; adapters validate exact values explicitly. Never interpret legacy labels such as schema-v1 as integer1.
+
+## Approved Country contract cross-reference
+
+CR-COUNTRY-CATALOG-CONTRACT-001 / FD-74: Canonical Country values for new Organization/Location writes are uppercase ISO 3166-1 alpha-2 members of the complete catalogue; labels are not persisted as the canonical value. Enforce new-value membership fail-closed without silently rewriting existing non-conforming values. Existing physical storage must preserve those values pending separate audit before any migration. The clarification alone does not authorize narrowing existing columns, DDL execution, backfill or a Room schema-version bump.

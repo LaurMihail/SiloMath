@@ -30,7 +30,7 @@ data class SyncOperationEntity(
     val operationType: String,
 
     @ColumnInfo(name = "base_entity_version")
-    val baseEntityVersion: Long = 1,
+    val baseEntityVersion: Long? = null,
 
     @ColumnInfo(name = "event_at")
     val eventAt: Long = System.currentTimeMillis(),

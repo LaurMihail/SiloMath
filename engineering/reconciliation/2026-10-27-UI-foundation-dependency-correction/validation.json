@@ -1,0 +1,23 @@
+{
+  "sourceSha256": "2256d70ba81325d11de64bde4054392fa9bc7c0d3010a6656b38dcb632f0bb72",
+  "sourceEdgesSha256": "2f3a7992bb9cf83e218ed200f5cc59578c4cdc5cc787dd6da030a0baf81a51f2",
+  "nodes": 321,
+  "originalEdges": 607,
+  "addedEdges": [
+    [
+      "IMP-UI-007",
+      "IMP-MD-002"
+    ],
+    [
+      "IMP-UI-008",
+      "IMP-MD-002"
+    ]
+  ],
+  "effectiveEdges": 609,
+  "acyclic": true,
+  "allSourceEdgesPreserved": true,
+  "originalWorkbookUnchanged": true,
+  "classification": "DEPENDENCY_CORRECTION",
+  "executionOrderException": false,
+  "note": "This validates the approved architectural correction only. AUTH/READY functional cycle remains unresolved; no extra semantic edges or gate closures."
+}

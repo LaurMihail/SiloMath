@@ -2,7 +2,7 @@
     "baselineId":  "SILOMATH_V6",
     "status":  "APPROVED_FROZEN",
     "generatedFrom":  "21 frozen baseline documents",
-    "generatedAtUtc":  "2026-10-20T19:21:25.7834928Z",
+    "generatedAtUtc":  "2026-10-28T16:49:25.3971740Z",
     "taxonomy":  {
                      "sourceIdPolicy":  "Requirement registry contains normative Requirement, Decision, Acceptance Criterion and Release Gate IDs.",
                      "verificationIdPolicy":  "Golden vectors, boundary vectors and explicit test-matrix IDs are verification/Test IDs and are excluded from source requirement rows.",
@@ -18,7 +18,7 @@
                  },
     "normalization":  {
                           "coreDecisionRange":  "D01-D36",
-                          "finalDecisionRange":  "FD-01-FD-72",
+                          "finalDecisionRange":  "FD-01-FD-75",
                           "architectureDecisionRange":  "ADR-001-ADR-023",
                           "architectureRequirementRange":  "AR-NFR-01-AR-NFR-12",
                           "architectureAcceptanceRange":  "AR-AC-01-AR-AC-27",
@@ -33,8 +33,8 @@
                           "fcIcRule":  "FC-* and IC-* are registered only when the concrete ID appears explicitly; missing members are not synthesized.",
                           "approvedByProjectOwner":  true
                       },
-    "registryRowCount":  2175,
-    "uniqueRequirementCount":  1839,
+    "registryRowCount":  2207,
+    "uniqueRequirementCount":  1845,
     "requirements":  [
                          {
                              "requirementId":  "ADR-001",
@@ -1762,6 +1762,18 @@
                              "requirementId":  "BR-MD-013",
                              "sourceDocumentId":  "03",
                              "sourceDocument":  "BUSINESS_RULES",
+                             "baselineStatus":  "APPROVED_FROZEN"
+                         },
+                         {
+                             "requirementId":  "BR-MD-014",
+                             "sourceDocumentId":  "03",
+                             "sourceDocument":  "BUSINESS_RULES",
+                             "baselineStatus":  "APPROVED_FROZEN"
+                         },
+                         {
+                             "requirementId":  "BR-MD-014",
+                             "sourceDocumentId":  "18",
+                             "sourceDocument":  "TEST_STRATEGY_ACCEPTANCE",
                              "baselineStatus":  "APPROVED_FROZEN"
                          },
                          {
@@ -6184,6 +6196,174 @@
                              "requirementId":  "FD-72",
                              "sourceDocumentId":  "02",
                              "sourceDocument":  "DECISION_REGISTER",
+                             "baselineStatus":  "APPROVED_FROZEN"
+                         },
+                         {
+                             "requirementId":  "FD-73",
+                             "sourceDocumentId":  "01",
+                             "sourceDocument":  "PRODUCT_BASELINE",
+                             "baselineStatus":  "APPROVED_FROZEN"
+                         },
+                         {
+                             "requirementId":  "FD-73",
+                             "sourceDocumentId":  "02",
+                             "sourceDocument":  "DECISION_REGISTER",
+                             "baselineStatus":  "APPROVED_FROZEN"
+                         },
+                         {
+                             "requirementId":  "FD-73",
+                             "sourceDocumentId":  "07",
+                             "sourceDocument":  "ARCHITECTURE",
+                             "baselineStatus":  "APPROVED_FROZEN"
+                         },
+                         {
+                             "requirementId":  "FD-73",
+                             "sourceDocumentId":  "09",
+                             "sourceDocument":  "DATA_MODEL",
+                             "baselineStatus":  "APPROVED_FROZEN"
+                         },
+                         {
+                             "requirementId":  "FD-73",
+                             "sourceDocumentId":  "10",
+                             "sourceDocument":  "DATABASE_SCHEMA",
+                             "baselineStatus":  "APPROVED_FROZEN"
+                         },
+                         {
+                             "requirementId":  "FD-73",
+                             "sourceDocumentId":  "11",
+                             "sourceDocument":  "API_SPECIFICATION",
+                             "baselineStatus":  "APPROVED_FROZEN"
+                         },
+                         {
+                             "requirementId":  "FD-73",
+                             "sourceDocumentId":  "12",
+                             "sourceDocument":  "OFFLINE_SYNC_SPECIFICATION",
+                             "baselineStatus":  "APPROVED_FROZEN"
+                         },
+                         {
+                             "requirementId":  "FD-73",
+                             "sourceDocumentId":  "13",
+                             "sourceDocument":  "CALCULATION_ENGINE_SPECIFICATION",
+                             "baselineStatus":  "APPROVED_FROZEN"
+                         },
+                         {
+                             "requirementId":  "FD-73",
+                             "sourceDocumentId":  "16",
+                             "sourceDocument":  "REPORTING_SPECIFICATION",
+                             "baselineStatus":  "APPROVED_FROZEN"
+                         },
+                         {
+                             "requirementId":  "FD-73",
+                             "sourceDocumentId":  "18",
+                             "sourceDocument":  "TEST_STRATEGY_ACCEPTANCE",
+                             "baselineStatus":  "APPROVED_FROZEN"
+                         },
+                         {
+                             "requirementId":  "FD-73",
+                             "sourceDocumentId":  "19",
+                             "sourceDocument":  "RETENTION_POLICY",
+                             "baselineStatus":  "APPROVED_FROZEN"
+                         },
+                         {
+                             "requirementId":  "FD-73",
+                             "sourceDocumentId":  "20",
+                             "sourceDocument":  "PRODUCTION_OPERATIONS",
+                             "baselineStatus":  "APPROVED_FROZEN"
+                         },
+                         {
+                             "requirementId":  "FD-74",
+                             "sourceDocumentId":  "01",
+                             "sourceDocument":  "PRODUCT_BASELINE",
+                             "baselineStatus":  "APPROVED_FROZEN"
+                         },
+                         {
+                             "requirementId":  "FD-74",
+                             "sourceDocumentId":  "02",
+                             "sourceDocument":  "DECISION_REGISTER",
+                             "baselineStatus":  "APPROVED_FROZEN"
+                         },
+                         {
+                             "requirementId":  "FD-74",
+                             "sourceDocumentId":  "03",
+                             "sourceDocument":  "BUSINESS_RULES",
+                             "baselineStatus":  "APPROVED_FROZEN"
+                         },
+                         {
+                             "requirementId":  "FD-74",
+                             "sourceDocumentId":  "06",
+                             "sourceDocument":  "UI_SCREEN_SPECIFICATION_AND_NAVIGATION",
+                             "baselineStatus":  "APPROVED_FROZEN"
+                         },
+                         {
+                             "requirementId":  "FD-74",
+                             "sourceDocumentId":  "09",
+                             "sourceDocument":  "DATA_MODEL",
+                             "baselineStatus":  "APPROVED_FROZEN"
+                         },
+                         {
+                             "requirementId":  "FD-74",
+                             "sourceDocumentId":  "10",
+                             "sourceDocument":  "DATABASE_SCHEMA",
+                             "baselineStatus":  "APPROVED_FROZEN"
+                         },
+                         {
+                             "requirementId":  "FD-74",
+                             "sourceDocumentId":  "11",
+                             "sourceDocument":  "API_SPECIFICATION",
+                             "baselineStatus":  "APPROVED_FROZEN"
+                         },
+                         {
+                             "requirementId":  "FD-74",
+                             "sourceDocumentId":  "12",
+                             "sourceDocument":  "OFFLINE_SYNC_SPECIFICATION",
+                             "baselineStatus":  "APPROVED_FROZEN"
+                         },
+                         {
+                             "requirementId":  "FD-74",
+                             "sourceDocumentId":  "16",
+                             "sourceDocument":  "REPORTING_SPECIFICATION",
+                             "baselineStatus":  "APPROVED_FROZEN"
+                         },
+                         {
+                             "requirementId":  "FD-74",
+                             "sourceDocumentId":  "18",
+                             "sourceDocument":  "TEST_STRATEGY_ACCEPTANCE",
+                             "baselineStatus":  "APPROVED_FROZEN"
+                         },
+                         {
+                             "requirementId":  "FD-74",
+                             "sourceDocumentId":  "19",
+                             "sourceDocument":  "RETENTION_POLICY",
+                             "baselineStatus":  "APPROVED_FROZEN"
+                         },
+                         {
+                             "requirementId":  "FD-74",
+                             "sourceDocumentId":  "20",
+                             "sourceDocument":  "PRODUCTION_OPERATIONS",
+                             "baselineStatus":  "APPROVED_FROZEN"
+                         },
+                         {
+                             "requirementId":  "FD-75",
+                             "sourceDocumentId":  "02",
+                             "sourceDocument":  "DECISION_REGISTER",
+                             "baselineStatus":  "APPROVED_FROZEN"
+                         },
+                         {
+                             "requirementId":  "FD-75",
+                             "sourceDocumentId":  "11",
+                             "sourceDocument":  "API_SPECIFICATION",
+                             "baselineStatus":  "APPROVED_FROZEN"
+                         },
+                         {
+                             "requirementId":  "FD-75",
+                             "sourceDocumentId":  "12",
+                             "sourceDocument":  "OFFLINE_SYNC_SPECIFICATION",
+                             "baselineStatus":  "APPROVED_FROZEN"
+                         },
+                         {
+                             "requirementId":  "FD-75",
+                             "sourceDocumentId":  "18",
+                             "sourceDocument":  "TEST_STRATEGY_ACCEPTANCE",
                              "baselineStatus":  "APPROVED_FROZEN"
                          },
                          {
@@ -13082,6 +13262,18 @@
                          },
                          {
                              "requirementId":  "TA-D232",
+                             "sourceDocumentId":  "18",
+                             "sourceDocument":  "TEST_STRATEGY_ACCEPTANCE",
+                             "baselineStatus":  "APPROVED_FROZEN"
+                         },
+                         {
+                             "requirementId":  "TA-D233",
+                             "sourceDocumentId":  "18",
+                             "sourceDocument":  "TEST_STRATEGY_ACCEPTANCE",
+                             "baselineStatus":  "APPROVED_FROZEN"
+                         },
+                         {
+                             "requirementId":  "TA-D234",
                              "sourceDocumentId":  "18",
                              "sourceDocument":  "TEST_STRATEGY_ACCEPTANCE",
                              "baselineStatus":  "APPROVED_FROZEN"

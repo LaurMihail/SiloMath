@@ -1,0 +1,30 @@
+{
+  "task": "IMP-MD-002",
+  "status": "DONE",
+  "verification": "GREEN",
+  "implementedScope": [
+    "LOC-01",
+    "P1-SH-01",
+    "canonical LOC-02 local read target binding"
+  ],
+  "remainingScopeWithinTask": [],
+  "blockingPrerequisite": null,
+  "predecessors": {
+    "IMP-MD-001": "accepted checkpoint 91227af",
+    "IMP-UI-007": "4afe034f877819edcb0762d868d44033d4a80de9",
+    "IMP-UI-008": "d8c129594c8b795535fa160a7afa7f29b267b01d"
+  },
+  "baselineCommit": "ccfa3a0d58c4564963cfa6bf4c9c8ef9a922872b",
+  "evidence": [
+    "engineering/task-evidence/IMP-MD-002.md",
+    "engineering/task-evidence/IMP-MD-002-validation.json"
+  ],
+  "commit": "CONTAINING_COMMIT",
+  "auditedGraphChanged": false,
+  "executionOrderException": false,
+  "unchangedBoundaries": [
+    "AUTH-010/READY/GATE-M3 cycle",
+    "snapshotSchemaVersion UNRESOLVED"
+  ],
+  "originalWorkbookModified": false
+}

@@ -10,4 +10,15 @@ java {
 
 dependencies {
     implementation(libs.kotlinx.serialization.json)
+    testImplementation(libs.junit)
+}
+
+kotlin {
+    compilerOptions {
+        jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17)
+    }
+}
+
+tasks.test {
+    systemProperty("silomath.repoRoot", project.projectDir.parentFile.absolutePath)
 }

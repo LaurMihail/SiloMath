@@ -1,0 +1,193 @@
+{
+  "baselineId": "SILOMATH_V6",
+  "status": "APPROVED_FROZEN",
+  "refreezeDate": "2026-10-27",
+  "approvedChange": "CR-COUNTRY-CATALOG-CONTRACT-001",
+  "officialDocumentCount": 21,
+  "files": [
+    {
+      "file": "01_PRODUCT_BASELINE.md",
+      "sha256": "73a1f8ea84174c3a1bf0fb989af264c174b54bd315cf1fa49a1ab33cc8d82e4e",
+      "bytes": 34703,
+      "lines": 869
+    },
+    {
+      "file": "02_DECISION_REGISTER.md",
+      "sha256": "fc227e55d9129f9203054cb24711c285f88a4b43d6818b6232f6c0020acbf1ae",
+      "bytes": 35736,
+      "lines": 243
+    },
+    {
+      "file": "03_BUSINESS_RULES.md",
+      "sha256": "de9d249af8db44f563a837917aeeda006d0cc90488d92242c681898152b77769",
+      "bytes": 32662,
+      "lines": 236
+    },
+    {
+      "file": "04_USER_ROLES_PERMISSIONS.md",
+      "sha256": "c038214b7150b83b9d72f232994db941a804a414c2033de3c97106d09fbdcb1f",
+      "bytes": 18275,
+      "lines": 245
+    },
+    {
+      "file": "05_WORKFLOWS_STATE_MACHINES.md",
+      "sha256": "997bef30792dd4d70d4ecb082892009ad9a824e3d926a933945f0af628d7cb33",
+      "bytes": 27184,
+      "lines": 317
+    },
+    {
+      "file": "06_UI_SCREEN_SPECIFICATION_AND_NAVIGATION.md",
+      "sha256": "e832c79a9a2cbe2bdb3c53d5c515a4404dfa894ce79b1c7806cc5df495c0ff5a",
+      "bytes": 144661,
+      "lines": 1719
+    },
+    {
+      "file": "07_ARCHITECTURE.md",
+      "sha256": "324e5710645b3c7276eb037ff92d6c66fdf94f47cdff1d5195f55b8b62ff2d15",
+      "bytes": 55925,
+      "lines": 859
+    },
+    {
+      "file": "08_MODULE_ARCHITECTURE.md",
+      "sha256": "9a8d54edb8b915ccff3e067d463a64df20fd0d68b9d06fe36fa5662a50380c46",
+      "bytes": 40993,
+      "lines": 658
+    },
+    {
+      "file": "09_DATA_MODEL.md",
+      "sha256": "1d5f4bae9ef06183f675b05c1165da8b451f6f98a23e4bc82508bbb4f4effc4c",
+      "bytes": 93458,
+      "lines": 1188
+    },
+    {
+      "file": "10_DATABASE_SCHEMA.md",
+      "sha256": "e8852564930b0634be0147b24667a47cf52e0af294bae3ed5f7f2c27d714625a",
+      "bytes": 42320,
+      "lines": 363
+    },
+    {
+      "file": "11_API_SPECIFICATION.md",
+      "sha256": "aa6519bfaab2ea0550150ffe58b3b3766c87b717583f17b0f62f98d1ba58d171",
+      "bytes": 56526,
+      "lines": 539
+    },
+    {
+      "file": "12_OFFLINE_SYNC_SPECIFICATION.md",
+      "sha256": "2d4e5ee70f698ea28144ab9018932bd168320d8d198d45b733b8caa0f33a5d1f",
+      "bytes": 51400,
+      "lines": 664
+    },
+    {
+      "file": "13_CALCULATION_ENGINE_SPECIFICATION.md",
+      "sha256": "bc70d0335bf8ee0866d11f10b1ce56032b4ee0ba4f539b28bf500622aac226f7",
+      "bytes": 34070,
+      "lines": 544
+    },
+    {
+      "file": "14_COMMODITY_SPECIFICATION.md",
+      "sha256": "a000ca4f16b8e2dd8048aa63923ea0ccd6a566c481eb69cfb70bc4cdc1e1db57",
+      "bytes": 28686,
+      "lines": 409
+    },
+    {
+      "file": "15_EVIDENCE_STORAGE_SPECIFICATION.md",
+      "sha256": "c11b5f8450aed2c5a2dfad4e1609978031a82070e1bfeeda56769e37d093a6cd",
+      "bytes": 29582,
+      "lines": 430
+    },
+    {
+      "file": "16_REPORTING_SPECIFICATION.md",
+      "sha256": "7bdf2b4bfd41f2bab8d9457034f8807e90f711b308828c08b0f0b1769983adca",
+      "bytes": 43654,
+      "lines": 529
+    },
+    {
+      "file": "17_SECURITY_AUDIT_PRIVACY.md",
+      "sha256": "6d4678d2dd7f4e5dcf45d42cf11aa03a2f1874b10ab4f07dbd05d2ff25471061",
+      "bytes": 58470,
+      "lines": 548
+    },
+    {
+      "file": "18_TEST_STRATEGY_ACCEPTANCE.md",
+      "sha256": "4e3db42c03feb4ccea075a90767a263bd5a0835cb516c00d753f2018c2407086",
+      "bytes": 64950,
+      "lines": 616
+    },
+    {
+      "file": "19_RETENTION_POLICY.md",
+      "sha256": "4b7d872fa842a9ea82f763fadeeea689d4d15c88b372e1d4ea5c88332845729c",
+      "bytes": 59927,
+      "lines": 517
+    },
+    {
+      "file": "20_PRODUCTION_OPERATIONS.md",
+      "sha256": "8c96f14064e24cec21c5e1ada4c1a60653261db73b54088ca07ac6a65ffc94e6",
+      "bytes": 84060,
+      "lines": 740
+    },
+    {
+      "file": "21_UI_DESIGN_SYSTEM_FINAL.md",
+      "sha256": "6fb9cef07b664ac592e8af38c98a8c2f7d4e0d58c78ccb053fcc41403e9ed167",
+      "bytes": 26639,
+      "lines": 567
+    }
+  ],
+  "mathematicalSemanticsSha256": "1dd2c2d4671d208487541a1c07d8cfae72cd0c81c21d0bf21ce779428925f53c",
+  "sourceMathBaselineCommit": "e9cd629da2ef8b7455e40af17e03c519cdf1801d",
+  "validation": {
+    "validator": "engineering/validate-country-contract.py",
+    "validationFile": "SiloMath_V6_Refreeze_Validation_2026-10-27_COUNTRY.json"
+  },
+  "approvedChanges": [
+    "CR-DB-CAMPAIGN-SNAPSHOT-COMMODITY-001",
+    "CR-CALC-VERSION-CONTRACT-001",
+    "CR-COUNTRY-CATALOG-CONTRACT-001"
+  ],
+  "previousManifest": "governance_evidence/SiloMath_V6_FROZEN_MANIFEST_2026-10-27.json",
+  "previousManifestSha256": "ad038b1384048b1d5344de614437389b50c64a54ceda5df0ccda3293e033f85c",
+  "countryContract": {
+    "changeRequestId": "CR-COUNTRY-CATALOG-CONTRACT-001",
+    "decisionId": "FD-74",
+    "status": "APPROVED",
+    "approvedBy": "Product Owner (explicit user approval in this conversation)",
+    "decisionDate": "2026-10-27",
+    "catalog": "ISO 3166-1",
+    "catalogCoverage": "COMPLETE",
+    "canonicalEncoding": "ISO 3166-1 alpha-2",
+    "canonicalCase": "UPPERCASE",
+    "appliesTo": [
+      "Organization.country",
+      "Location.country"
+    ],
+    "presentationLabel": "Human-readable country name; not the canonical persisted/API value",
+    "freeTextNewValuesAllowed": false,
+    "newValuesMustBelongToCatalog": true,
+    "newValueValidation": "FAIL_CLOSED",
+    "optionsAvailableLocallyOrCached": true,
+    "historicalNonconformingValues": "PRESERVE_UNCHANGED; SEPARATE_AUDIT_BEFORE_ANY_MIGRATION",
+    "automaticHistoricalNormalizationAllowed": false,
+    "examples": {
+      "Romania": "RO",
+      "Germany": "DE",
+      "United States": "US"
+    },
+    "optionalNullSemantics": "UNCHANGED",
+    "catalogVersionIdentifier": "NOT ASSIGNED BY THIS CLARIFICATION",
+    "implementationStatus": "NOT CERTIFIED BY DOCUMENTATION APPROVAL"
+  },
+  "materialCountryDocuments": [
+    "01",
+    "02",
+    "03",
+    "06",
+    "09",
+    "10",
+    "11",
+    "12",
+    "16",
+    "18",
+    "19",
+    "20"
+  ],
+  "previousRevisionText": "2026-10-27 - CR-CALC-VERSION-CONTRACT-001 approved calculation-version clarification"
+}

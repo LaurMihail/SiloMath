@@ -6,8 +6,8 @@
                           "engineering/requirement-id-registry.json",
                           "engineering/rvm-mappings.json"
                       ],
-    "generatedAtUtc":  "2026-10-20T19:21:26.4931108Z",
-    "requirementCount":  1839,
+    "generatedAtUtc":  "2026-10-28T16:50:20.5466636Z",
+    "requirementCount":  1845,
     "referenceConvention":  {
                                 "id":  "RVM-REF-001",
                                 "automatedTestReference":  "\u003crelative-file-path\u003e#\u003ctest-function-name\u003e",
@@ -42,10 +42,10 @@
                                             ]
                },
     "summary":  {
-                    "total":  1839,
-                    "mapped":  15,
-                    "verified":  0,
-                    "unmapped":  1824
+                    "total":  1845,
+                    "mapped":  21,
+                    "verified":  3,
+                    "unmapped":  1821
                 },
     "requirements":  [
                          {
@@ -2181,6 +2181,19 @@
                              "mappingStatus":  "UNMAPPED"
                          },
                          {
+                             "requirementDecisionId":  "BR-MD-014",
+                             "sourceDocumentVersion":  "03_BUSINESS_RULES; 18_TEST_STRATEGY_ACCEPTANCE",
+                             "componentModule":  null,
+                             "testIds":  null,
+                             "testLevel":  null,
+                             "automation":  null,
+                             "environment":  null,
+                             "result":  "Not Run",
+                             "evidence":  null,
+                             "buildVersion":  null,
+                             "mappingStatus":  "UNMAPPED"
+                         },
+                         {
                              "requirementDecisionId":  "BR-NOT-001",
                              "sourceDocumentVersion":  "03_BUSINESS_RULES; 04_USER_ROLES_PERMISSIONS; 06_UI_SCREEN_SPECIFICATION_AND_NAVIGATION",
                              "componentModule":  null,
@@ -3132,28 +3145,28 @@
                          {
                              "requirementDecisionId":  "CALC-AC15",
                              "sourceDocumentVersion":  "13_CALCULATION_ENGINE_SPECIFICATION",
-                             "componentModule":  null,
-                             "testIds":  null,
-                             "testLevel":  null,
-                             "automation":  null,
-                             "environment":  null,
+                             "componentModule":  ":calculation-engine",
+                             "testIds":  "calculation-engine/src/test/kotlin/com/silomath/calculation/ProductionVersionContractTest.kt#everyCalculationAffectingInputChangesFingerprintAndStalesResult",
+                             "testLevel":  "Unit",
+                             "automation":  "Automated",
+                             "environment":  "Local/CI",
                              "result":  "Not Run",
-                             "evidence":  null,
-                             "buildVersion":  null,
-                             "mappingStatus":  "UNMAPPED"
+                             "evidence":  "engineering/task-evidence/CR-CALC-VERSION-CONTRACT-001.md",
+                             "buildVersion":  "calculation-engine-source-sha256:d2562d5d39116a9e701bd0cf66233cb29be71b93a264bd9a4a957ff02e85d94c",
+                             "mappingStatus":  "MAPPED"
                          },
                          {
                              "requirementDecisionId":  "CALC-AC16",
                              "sourceDocumentVersion":  "13_CALCULATION_ENGINE_SPECIFICATION",
-                             "componentModule":  null,
-                             "testIds":  null,
-                             "testLevel":  null,
-                             "automation":  null,
-                             "environment":  null,
+                             "componentModule":  ":calculation-engine",
+                             "testIds":  "calculation-engine/src/test/kotlin/com/silomath/calculation/ProductionVersionContractTest.kt#historicalReproductionUsesFrozenInputsAndNeverFallsBack",
+                             "testLevel":  "Unit",
+                             "automation":  "Automated",
+                             "environment":  "Local/CI",
                              "result":  "Not Run",
-                             "evidence":  null,
-                             "buildVersion":  null,
-                             "mappingStatus":  "UNMAPPED"
+                             "evidence":  "engineering/task-evidence/CR-CALC-VERSION-CONTRACT-001.md",
+                             "buildVersion":  "calculation-engine-source-sha256:d2562d5d39116a9e701bd0cf66233cb29be71b93a264bd9a4a957ff02e85d94c",
+                             "mappingStatus":  "MAPPED"
                          },
                          {
                              "requirementDecisionId":  "CALC-AC17",
@@ -3704,54 +3717,54 @@
                          {
                              "requirementDecisionId":  "CE-D39",
                              "sourceDocumentVersion":  "13_CALCULATION_ENGINE_SPECIFICATION",
-                             "componentModule":  null,
-                             "testIds":  null,
-                             "testLevel":  null,
-                             "automation":  null,
-                             "environment":  null,
+                             "componentModule":  ":calculation-engine",
+                             "testIds":  "calculation-engine/src/test/kotlin/com/silomath/calculation/ProductionVersionContractTest.kt#equivalentDecimalScalesAndLocaleDoNotChangeFingerprint; calculation-engine/src/test/kotlin/com/silomath/calculation/ProductionVersionContractTest.kt#fingerprintMatchesIndependentCanonicalUtf8Reference",
+                             "testLevel":  "Unit",
+                             "automation":  "Automated",
+                             "environment":  "Local/CI",
                              "result":  "Not Run",
-                             "evidence":  null,
-                             "buildVersion":  null,
-                             "mappingStatus":  "UNMAPPED"
+                             "evidence":  "engineering/task-evidence/CR-CALC-VERSION-CONTRACT-001.md",
+                             "buildVersion":  "calculation-engine-source-sha256:d2562d5d39116a9e701bd0cf66233cb29be71b93a264bd9a4a957ff02e85d94c",
+                             "mappingStatus":  "MAPPED"
                          },
                          {
                              "requirementDecisionId":  "CE-D40",
                              "sourceDocumentVersion":  "13_CALCULATION_ENGINE_SPECIFICATION",
-                             "componentModule":  null,
-                             "testIds":  null,
-                             "testLevel":  null,
-                             "automation":  null,
-                             "environment":  null,
+                             "componentModule":  ":calculation-engine",
+                             "testIds":  "calculation-engine/src/test/kotlin/com/silomath/calculation/ProductionVersionContractTest.kt#everyCalculationAffectingInputChangesFingerprintAndStalesResult",
+                             "testLevel":  "Unit",
+                             "automation":  "Automated",
+                             "environment":  "Local/CI",
                              "result":  "Not Run",
-                             "evidence":  null,
-                             "buildVersion":  null,
-                             "mappingStatus":  "UNMAPPED"
+                             "evidence":  "engineering/task-evidence/CR-CALC-VERSION-CONTRACT-001.md",
+                             "buildVersion":  "calculation-engine-source-sha256:d2562d5d39116a9e701bd0cf66233cb29be71b93a264bd9a4a957ff02e85d94c",
+                             "mappingStatus":  "MAPPED"
                          },
                          {
                              "requirementDecisionId":  "CE-D41",
                              "sourceDocumentVersion":  "13_CALCULATION_ENGINE_SPECIFICATION",
-                             "componentModule":  null,
-                             "testIds":  null,
-                             "testLevel":  null,
-                             "automation":  null,
-                             "environment":  null,
+                             "componentModule":  ":calculation-engine",
+                             "testIds":  "calculation-engine/src/test/kotlin/com/silomath/calculation/ProductionVersionContractTest.kt#everyUnregisteredTupleFieldAndMismatchedFormulaFailsClosed; calculation-engine/src/test/kotlin/com/silomath/calculation/ProductionVersionContractTest.kt#exactTypedTupleMatchesApprovedBaselineArtifact",
+                             "testLevel":  "Unit",
+                             "automation":  "Automated",
+                             "environment":  "Local/CI",
                              "result":  "Not Run",
-                             "evidence":  null,
-                             "buildVersion":  null,
-                             "mappingStatus":  "UNMAPPED"
+                             "evidence":  "engineering/task-evidence/CR-CALC-VERSION-CONTRACT-001.md",
+                             "buildVersion":  "calculation-engine-source-sha256:d2562d5d39116a9e701bd0cf66233cb29be71b93a264bd9a4a957ff02e85d94c",
+                             "mappingStatus":  "MAPPED"
                          },
                          {
                              "requirementDecisionId":  "CE-D42",
                              "sourceDocumentVersion":  "13_CALCULATION_ENGINE_SPECIFICATION",
-                             "componentModule":  null,
-                             "testIds":  null,
-                             "testLevel":  null,
-                             "automation":  null,
-                             "environment":  null,
+                             "componentModule":  ":calculation-engine",
+                             "testIds":  "calculation-engine/src/test/kotlin/com/silomath/calculation/ProductionVersionContractTest.kt#capturedHistoryCannotBeChangedThroughCallerListOrRegistryKeySet; calculation-engine/src/test/kotlin/com/silomath/calculation/ProductionVersionContractTest.kt#historicalReproductionUsesFrozenInputsAndNeverFallsBack",
+                             "testLevel":  "Unit",
+                             "automation":  "Automated",
+                             "environment":  "Local/CI",
                              "result":  "Not Run",
-                             "evidence":  null,
-                             "buildVersion":  null,
-                             "mappingStatus":  "UNMAPPED"
+                             "evidence":  "engineering/task-evidence/CR-CALC-VERSION-CONTRACT-001.md",
+                             "buildVersion":  "calculation-engine-source-sha256:d2562d5d39116a9e701bd0cf66233cb29be71b93a264bd9a4a957ff02e85d94c",
+                             "mappingStatus":  "MAPPED"
                          },
                          {
                              "requirementDecisionId":  "CO-D01",
@@ -9095,6 +9108,45 @@
                              "evidence":  null,
                              "buildVersion":  null,
                              "mappingStatus":  "UNMAPPED"
+                         },
+                         {
+                             "requirementDecisionId":  "FD-73",
+                             "sourceDocumentVersion":  "01_PRODUCT_BASELINE; 02_DECISION_REGISTER; 07_ARCHITECTURE; 09_DATA_MODEL; 10_DATABASE_SCHEMA; 11_API_SPECIFICATION; 12_OFFLINE_SYNC_SPECIFICATION; 13_CALCULATION_ENGINE_SPECIFICATION; 16_REPORTING_SPECIFICATION; 18_TEST_STRATEGY_ACCEPTANCE; 19_RETENTION_POLICY; 20_PRODUCTION_OPERATIONS",
+                             "componentModule":  ":calculation-engine",
+                             "testIds":  "calculation-engine/src/test/kotlin/com/silomath/calculation/ProductionVersionContractTest.kt#approvedTupleDispatchesEveryFamilyToActualGoldenHandler; calculation-engine/src/test/kotlin/com/silomath/calculation/ProductionVersionContractTest.kt#everyUnregisteredTupleFieldAndMismatchedFormulaFailsClosed; calculation-engine/src/test/kotlin/com/silomath/calculation/ProductionVersionContractTest.kt#exactTypedTupleMatchesApprovedBaselineArtifact",
+                             "testLevel":  "Unit",
+                             "automation":  "Automated",
+                             "environment":  "Local/CI",
+                             "result":  "Pass",
+                             "evidence":  "engineering/task-evidence/CR-CALC-VERSION-CONTRACT-001.md",
+                             "buildVersion":  "calculation-engine-source-sha256:d2562d5d39116a9e701bd0cf66233cb29be71b93a264bd9a4a957ff02e85d94c",
+                             "mappingStatus":  "VERIFIED"
+                         },
+                         {
+                             "requirementDecisionId":  "FD-74",
+                             "sourceDocumentVersion":  "01_PRODUCT_BASELINE; 02_DECISION_REGISTER; 03_BUSINESS_RULES; 06_UI_SCREEN_SPECIFICATION_AND_NAVIGATION; 09_DATA_MODEL; 10_DATABASE_SCHEMA; 11_API_SPECIFICATION; 12_OFFLINE_SYNC_SPECIFICATION; 16_REPORTING_SPECIFICATION; 18_TEST_STRATEGY_ACCEPTANCE; 19_RETENTION_POLICY; 20_PRODUCTION_OPERATIONS",
+                             "componentModule":  null,
+                             "testIds":  null,
+                             "testLevel":  null,
+                             "automation":  null,
+                             "environment":  null,
+                             "result":  "Not Run",
+                             "evidence":  null,
+                             "buildVersion":  null,
+                             "mappingStatus":  "UNMAPPED"
+                         },
+                         {
+                             "requirementDecisionId":  "FD-75",
+                             "sourceDocumentVersion":  "02_DECISION_REGISTER; 11_API_SPECIFICATION; 12_OFFLINE_SYNC_SPECIFICATION; 18_TEST_STRATEGY_ACCEPTANCE",
+                             "componentModule":  "backend",
+                             "testIds":  "backend/src/test/kotlin/com/silomath/backend/storagespace/StorageSpacePostgresTest.kt#auditFailureRollsBackBusinessAndIdempotencyRecord; backend/src/test/kotlin/com/silomath/backend/storagespace/StorageSpacePostgresTest.kt#batchCreateIsAtomicAndIdempotent",
+                             "testLevel":  "Integration",
+                             "automation":  "Automated",
+                             "environment":  "Disposable PostgreSQL/CI",
+                             "result":  "Pass",
+                             "evidence":  "engineering/task-evidence/IMP-MD-005.md",
+                             "buildVersion":  "git:d9aaaff6a9d1ebe1c2782a91cefa8cbe342e8630",
+                             "mappingStatus":  "VERIFIED"
                          },
                          {
                              "requirementDecisionId":  "IC-01",
@@ -23954,6 +24006,32 @@
                              "evidence":  null,
                              "buildVersion":  null,
                              "mappingStatus":  "UNMAPPED"
+                         },
+                         {
+                             "requirementDecisionId":  "TA-D233",
+                             "sourceDocumentVersion":  "18_TEST_STRATEGY_ACCEPTANCE",
+                             "componentModule":  null,
+                             "testIds":  null,
+                             "testLevel":  null,
+                             "automation":  null,
+                             "environment":  null,
+                             "result":  "Not Run",
+                             "evidence":  null,
+                             "buildVersion":  null,
+                             "mappingStatus":  "UNMAPPED"
+                         },
+                         {
+                             "requirementDecisionId":  "TA-D234",
+                             "sourceDocumentVersion":  "18_TEST_STRATEGY_ACCEPTANCE",
+                             "componentModule":  "backend",
+                             "testIds":  "backend/src/test/kotlin/com/silomath/backend/storagespace/StorageSpacePostgresTest.kt#auditFailureRollsBackBusinessAndIdempotencyRecord; backend/src/test/kotlin/com/silomath/backend/storagespace/StorageSpacePostgresTest.kt#batchCreateIsAtomicAndIdempotent",
+                             "testLevel":  "Integration",
+                             "automation":  "Automated",
+                             "environment":  "Disposable PostgreSQL/CI",
+                             "result":  "Pass",
+                             "evidence":  "engineering/task-evidence/IMP-MD-005.md",
+                             "buildVersion":  "git:d9aaaff6a9d1ebe1c2782a91cefa8cbe342e8630",
+                             "mappingStatus":  "VERIFIED"
                          }
                      ]
 }

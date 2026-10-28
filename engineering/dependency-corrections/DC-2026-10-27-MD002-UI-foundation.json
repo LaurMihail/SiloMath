@@ -1,0 +1,44 @@
+{
+  "id": "DC-2026-10-27-MD002-UI-foundation",
+  "classification": "DEPENDENCY_CORRECTION / MISSING_ARCHITECTURAL_PREREQUISITE",
+  "approval": "Explicit Product Owner approval in current conversation, 2026-10-27",
+  "sourceWorkbookSha256": "2256d70ba81325d11de64bde4054392fa9bc7c0d3010a6656b38dcb632f0bb72",
+  "sourceReconciliation": "2026-10-27-cb9bb9e-v1; original snapshot and all321 audited nodes/607 edges retained",
+  "originalDependencies": {
+    "IMP-MD-002": [
+      "IMP-MD-001"
+    ],
+    "IMP-UI-007": [
+      "GATE-M1"
+    ],
+    "IMP-UI-008": [
+      "GATE-M1"
+    ]
+  },
+  "addDependencies": {
+    "IMP-MD-002": [
+      "IMP-UI-007",
+      "IMP-UI-008"
+    ]
+  },
+  "effectiveDependencies": {
+    "IMP-MD-002": [
+      "IMP-MD-001",
+      "IMP-UI-007",
+      "IMP-UI-008"
+    ]
+  },
+  "executionSequence": [
+    "IMP-UI-007",
+    "IMP-UI-008",
+    "IMP-MD-002"
+  ],
+  "gateM1Evidence": "Audited DONE; PR7 merge5d2f75f is ancestor of current HEAD. No preimplementation used to satisfy gate.",
+  "isExecutionOrderException": false,
+  "changesFrozenSemantics": false,
+  "untouchedBoundaries": [
+    "AUTH-010/READY/GATE-M3 cycle",
+    "snapshotSchemaVersion UNRESOLVED"
+  ],
+  "taskCompletion": "No task is marked GREEN by this dependency correction."
+}

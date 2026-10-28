@@ -6,6 +6,7 @@ import com.silomath.core.model.LocationId
 import com.silomath.core.model.OrganizationId
 import com.silomath.core.model.StorageSpaceId
 import com.silomath.core.model.StorageUnitId
+import java.math.BigDecimal
 import java.time.Instant
 import java.util.Locale
 
@@ -23,7 +24,9 @@ data class Location(
     val createdBy: String,
     val updatedAt: Instant,
     val updatedBy: String,
-    val entityVersion: Long
+    val entityVersion: Long,
+    val latitude: BigDecimal? = null,
+    val longitude: BigDecimal? = null
 ) {
     init {
         require(name.isNotBlank()) { "Location name must not be blank" }
@@ -36,6 +39,28 @@ data class Location(
         require(city == null || city.length <= 100) { "Location city must be <= 100 characters" }
         require(notes == null || notes.length <= 500) { "Location notes must be <= 500 characters" }
         require(entityVersion >= 1L) { "Location entityVersion must be >= 1" }
+        require((latitude == null) == (longitude == null)) {
+            "Location latitude and longitude must both be present or both be absent"
+        }
+        require(latitude == null || latitude >= MIN_LATITUDE) {
+            "Location latitude must be >= -90"
+        }
+        require(latitude == null || latitude <= MAX_LATITUDE) {
+            "Location latitude must be <= 90"
+        }
+        require(longitude == null || longitude >= MIN_LONGITUDE) {
+            "Location longitude must be >= -180"
+        }
+        require(longitude == null || longitude <= MAX_LONGITUDE) {
+            "Location longitude must be <= 180"
+        }
+    }
+
+    companion object {
+        private val MIN_LATITUDE = BigDecimal("-90")
+        private val MAX_LATITUDE = BigDecimal("90")
+        private val MIN_LONGITUDE = BigDecimal("-180")
+        private val MAX_LONGITUDE = BigDecimal("180")
     }
 }
 
@@ -54,6 +79,7 @@ data class StorageUnit(
 ) {
     init {
         require(name.isNotBlank()) { "StorageUnit name must not be blank" }
+        require(name == name.trim()) { "StorageUnit name must be trimmed" }
         require(name.length <= 150) { "StorageUnit name must be <= 150 characters" }
         require(code.isNotBlank()) { "StorageUnit code must not be blank" }
         require(code == code.trim().uppercase(Locale.ROOT)) { "StorageUnit code must be trimmed uppercase" }

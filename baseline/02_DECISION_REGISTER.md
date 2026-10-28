@@ -5,7 +5,7 @@
 **Document ID:** 02_DECISION_REGISTER  
 **Version:** V6 Final Documentation — Decision Register 1.1  
 **Status:** APPROVED / FROZEN V6
-**Baseline revision:** 2026-10-20 — CR-DB-CAMPAIGN-SNAPSHOT-COMMODITY-001 baseline-change refreeze
+**Baseline revision:** 2026-10-28 - CR-API-STORAGE-SPACE-BATCH-001 approved atomic Storage Space batch-create clarification
 **Product:** SiloMath  
 **Normative role:** Canonical register of approved V6 decisions
 
@@ -13,7 +13,7 @@
 
 This register records the approved decisions that define SiloMath V6. Every entry is APPROVED / FROZEN unless a specialist V6 specification refines implementation detail without changing the decision's normative meaning.
 
-The register uses two stable traceability namespaces: D01–D36 for core consolidation decisions and FD-01–FD-71 for final freeze decisions approved during the Pre-Documentation Freeze, documentation-structure freeze, and the approved UI Design System authority extension.
+The register uses two stable traceability namespaces: D01–D36 for core consolidation decisions and FD-01–FD-74 for final freeze decisions approved during the Pre-Documentation Freeze, documentation-structure freeze, and the approved UI Design System authority extension.
 
 ## 2. Decision Status Model
 
@@ -65,7 +65,7 @@ All decisions listed below have status APPROVED / FROZEN.
 | D35 | Data retention | Final Snapshot, critical Audit events, official Evidence, Issues/resolution history and Campaign Snapshot are retained for at least 10 years. Synced diagnostic operations may be retained online for 90 days; unresolved failures are not auto-deleted; notifications are retained server-side for 12 months. Device cleanup is guarded by durability/sync conditions. | Retention |
 | D36 | Production operations | Environments are Development, Staging and Production. Migrations are forward-safe; risky changes use Expand→Migrate→Contract. PostgreSQL is backed up at least daily with minimum 30-day retention and PITR where supported. Restore tests are quarterly. Objectives are RPO ≤1 hour and RTO ≤4 hours. Release, monitoring, secret handling and integrity-first failure behavior follow the approved Production Operations contract. | Operations |
 
-## 4. Final Freeze Decision Register — FD-01–FD-71
+## 4. Final Freeze Decision Register — FD-01–FD-74
 
 | ID | Decision | Normative outcome | Primary domain |
 | --- | --- | --- | --- |
@@ -141,6 +141,9 @@ All decisions listed below have status APPROVED / FROZEN.
 | FD-70 | User versus Membership transport provenance | API projections that combine User and OrganizationMembership data preserve the canonical metadata/version of each entity separately. User metadata must never be fabricated from Membership metadata. `UserMembershipResponse` is an explicit composition of `UserResponse` and `MembershipResponse`. | API / Identity / Data |
 | FD-71 | Environment endpoint provisioning | Concrete Development/Staging/Production hostnames/base URLs, certificates and provider endpoints are deployment configuration, not Product Baseline values. They are supplied through controlled environment configuration consistent with the frozen `/api/v1` contract and require no Product/Baseline approval when semantics/security boundaries remain unchanged. | Operations / API / Implementation |
 | FD-72 | CampaignSnapshot Commodity compatibility physical mapping | CampaignSnapshot `commodityCompatibilitySnapshot` is persisted as an explicit immutable N-valued child collection through canonical physical table `campaign_snapshot_commodity_items`, containing `snapshot_commodity_item_id`, `campaign_snapshot_id`, `commodity_id` and `commodity_version_id`. It represents launch-time Commodity compatibility context and must not be replaced by opaque JSON or inferred later from mutable current Commodity state. | Campaign Snapshot / Data / Database |
+| FD-73 | Approved Calculation Version Contract | `engineVersion="2.0"`; integer `inputSchemaVersion=1`, `normalizationVersion=1`, `formulaVersion=1` for F01-F10; `surfaceModelVersion=LEVEL_BASED_V1`; `aggregationMethod=MEAN_ULLAGE`; integer `aggregationRuleVersion=1`; combined semantic identifier `MEAN_ULLAGE_V1`. Correct Doc13 section20 aggregationMethod wording; preserve all existing formulaCode values and mathematical semantics. Approved through CR-CALC-VERSION-CONTRACT-001. | Calculation / API / Offline / History |
+| FD-74 | Canonical Country catalogue and encoding | Complete ISO 3166-1 catalogue; canonical persisted/API values are uppercase ISO 3166-1 alpha-2 codes (RO/DE/US); country names are presentation labels only. No free-text new Country values; fail-closed catalogue membership validation; complete options local/cached. Preserve non-conforming historical values unchanged and audit separately before any migration. Approved through CR-COUNTRY-CATALOG-CONTRACT-001. | Master Data / UI / API / Offline / History |
+| FD-75 | Atomic Storage Space batch-create | One `storage-spaces:batch-create` request is one logical mutation intent and is atomic all-or-nothing. The complete batch is validated before commit. Any validation, uniqueness, hierarchy, authorization, Organization-scope or mandatory-invariant failure commits zero Storage Space rows and zero partial business, audit, journal, idempotency or outbox effects. Exact-key/same-payload replay is safe; same-key/different-payload reuse is an idempotency conflict. Partial success is prohibited. Approved through CR-API-STORAGE-SPACE-BATCH-001. | Master Data / API / Database / Offline Sync |
 
 ## 5. Consolidated Decision Effects
 
@@ -229,3 +232,17 @@ Not every decision requires an artifact in every layer. A layer may be marked no
 If a future product change intentionally changes one of these decisions, it must be handled as an explicit new approved change to the V6 contract rather than as an undocumented implementation deviation.
 
 **End of Document — 02_DECISION_REGISTER**
+
+## Approved calculation-version cross-reference
+
+CR-CALC-VERSION-CONTRACT-001 / FD-73: `engineVersion="2.0"`; integer `inputSchemaVersion=1`, `normalizationVersion=1`, `formulaVersion=1` for F01-F10; `surfaceModelVersion=LEVEL_BASED_V1`; `aggregationMethod=MEAN_ULLAGE`; integer `aggregationRuleVersion=1`; combined semantic identifier `MEAN_ULLAGE_V1`. Formula codes are the unchanged F01-F10 identifiers in Doc13 sections6/22.1. Domain/API version numbers are integers except engineVersion, which is the exact string "2.0". Resolve only actual implemented handlers for the full pinned tuple; unsupported versions return GEOM_VERSION_UNSUPPORTED without fallback. Preserve historical metadata verbatim; no automatic reassignment to this initial approved tuple. This clarification changes no mathematics and is not evidence of completed integration or release gates.
+
+## Approved Country contract — CR-COUNTRY-CATALOG-CONTRACT-001 / FD-74
+
+The canonical Country catalogue is the complete ISO 3166-1 list. The canonical persisted and API value is an uppercase ISO 3166-1 alpha-2 code: Romania=`RO`, Germany=`DE`, United States=`US`. The human-readable country name is a presentation label only. Country selectors do not permit free text for new values; new values require catalogue membership and fail-closed validation. Complete selector options are available locally/cached for local-first/offline-first operation. Existing optional/null semantics remain unchanged.
+
+Already persisted non-conforming Country values are preserved unchanged and require a separate audit before any migration. No implicit normalization, country-name-to-code conversion, truncation or historical/snapshot rewriting is authorized. This clarification does not assign a catalogue version identifier or authorize any data/schema migration.
+
+## Approved Storage Space batch-create contract — CR-API-STORAGE-SPACE-BATCH-001 / FD-75
+
+One `storage-spaces:batch-create` request is one logical mutation intent and is atomic all-or-nothing. Validate the complete batch before commit. A failure of validation, uniqueness, hierarchy, authorization, Organization scope or another mandatory invariant fails the complete batch and commits no Storage Space row or partial business, audit, journal, idempotency or outbox effect. A successful request commits the complete batch atomically. Exact replay with the same idempotency key and canonical payload is safe and produces no duplicate effect; reuse of the key with a different payload is an idempotency conflict. Partial success is not part of the V6 contract.

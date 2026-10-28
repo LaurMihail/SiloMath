@@ -9,6 +9,9 @@ interface LocationRepository {
         organizationId: OrganizationId
     ): Flow<List<Location>>
 
+    /** Local historical-reference guard; failures must not unlock business Code editing. */
+    suspend fun hasHistoricalReferences(organizationId: OrganizationId, locationId: com.silomath.core.model.LocationId): Result<Boolean>
+
     suspend fun saveLocation(
         location: Location
     ): Result<Unit>

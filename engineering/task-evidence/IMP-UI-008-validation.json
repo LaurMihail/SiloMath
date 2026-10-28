@@ -1,0 +1,40 @@
+{
+  "scope": "UI-008 relevant checks after final source edit",
+  "suites": [
+    {
+      "report": "core\\navigation\\build\\test-results\\testDebugUnitTest\\TEST-com.silomath.core.navigation.NavigationContractTest.xml",
+      "tests": 12,
+      "timestamp": "2026-10-27T20:02:44.036Z"
+    },
+    {
+      "report": "app\\build\\test-results\\testProductionDebugUnitTest\\TEST-com.silomath.app.navigation.NavigationScopeAdapterTest.xml",
+      "tests": 3,
+      "timestamp": "2026-10-27T20:03:19.069Z"
+    },
+    {
+      "report": "app\\build\\test-results\\testProductionDebugUnitTest\\TEST-com.silomath.app.navigation.ProductionDestinationAuthorizerTest.xml",
+      "tests": 3,
+      "timestamp": "2026-10-27T20:03:19.141Z"
+    },
+    {
+      "report": "app\\build\\test-results\\testProductionDebugUnitTest\\TEST-com.silomath.feature.authentication.AuthViewModelTest.xml",
+      "tests": 8,
+      "timestamp": "2026-10-27T20:03:22.018Z"
+    },
+    {
+      "report": "core\\navigation\\build\\outputs\\androidTest-results\\connected\\debug\\TEST-Pixel_8(AVD) - 17.xml",
+      "tests": 4,
+      "timestamp": "2026-10-27T20:04:03"
+    },
+    {
+      "report": "core\\designsystem\\build\\outputs\\androidTest-results\\connected\\debug\\TEST-Pixel_8(AVD) - 17.xml",
+      "tests": 6,
+      "timestamp": "2026-10-27T20:03:25"
+    }
+  ],
+  "tests": 36,
+  "failures": 0,
+  "productionCompile": "PASS",
+  "moduleDependencies": "PASS19/19,0violations",
+  "snapshotSchemaVersion": "UNRESOLVED / untouched"
+}

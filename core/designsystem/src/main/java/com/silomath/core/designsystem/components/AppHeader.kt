@@ -1,11 +1,13 @@
 package com.silomath.core.designsystem.components
 
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Sync
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.foundation.layout.WindowInsets
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -13,9 +15,15 @@ fun AppHeader(
     title: String,
     onSyncClick: () -> Unit = {},
     onNotificationsClick: () -> Unit = {},
-    onProfileClick: () -> Unit = {}
+    onProfileClick: () -> Unit = {},
+    windowInsets: WindowInsets = TopAppBarDefaults.windowInsets,
+    onBackClick: (() -> Unit)? = null
 ) {
     CenterAlignedTopAppBar(
+        windowInsets = windowInsets,
+        navigationIcon = { if(onBackClick!=null)IconButton(onClick=onBackClick) {
+            Icon(Icons.AutoMirrored.Filled.ArrowBack,contentDescription="Back")
+        } },
         title = {
             Text(
                 text = title,

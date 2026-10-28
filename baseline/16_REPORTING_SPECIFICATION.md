@@ -1,7 +1,7 @@
 # SiloMath V6 — 16_REPORTING_SPECIFICATION
 
 **Status:** APPROVED / FROZEN V6
-**Baseline revision:** 2026-10-20 — CR-DB-CAMPAIGN-SNAPSHOT-COMMODITY-001 baseline-change refreeze
+**Baseline revision:** 2026-10-28 - CR-API-STORAGE-SPACE-BATCH-001 approved atomic Storage Space batch-create clarification
 
 ## 1. Purpose and authority
 
@@ -517,3 +517,13 @@ Server-side authorization is authoritative. UI visibility is not sufficient auth
 ## 31. Freeze statement
 
 This document is **APPROVED / FROZEN V6** and freezes the SiloMath V6 reporting contract: the exact nine reports, authoritative sources, filters, grouping, totals, PDF/CSV behavior, History comparability, Dossier/Audit authorization boundary, offline completeness, integrity checks, deterministic ordering and performance/projection constraints. Semantic changes require an explicit approved V6 Baseline Change and cross-document consistency update. Non-semantic rendering, pagination and implementation choices that preserve this contract require no Product/Baseline approval.
+
+## Approved calculation-version cross-reference
+
+CR-CALC-VERSION-CONTRACT-001 / FD-73: `engineVersion="2.0"`; integer `inputSchemaVersion=1`, `normalizationVersion=1`, `formulaVersion=1` for F01-F10; `surfaceModelVersion=LEVEL_BASED_V1`; `aggregationMethod=MEAN_ULLAGE`; integer `aggregationRuleVersion=1`; combined semantic identifier `MEAN_ULLAGE_V1`. Formula codes are the unchanged F01-F10 identifiers in Doc13 sections6/22.1. Domain/API version numbers are integers except engineVersion, which is the exact string "2.0". Resolve only actual implemented handlers for the full pinned tuple; unsupported versions return GEOM_VERSION_UNSUPPORTED without fallback. Preserve historical metadata verbatim; no automatic reassignment to this initial approved tuple. This clarification changes no mathematics and is not evidence of completed integration or release gates.
+
+Reports continue reading immutable historical values; never run the current tuple over older data or substitute it for stored historical identifiers.
+
+## Approved Country contract cross-reference
+
+CR-COUNTRY-CATALOG-CONTRACT-001 / FD-74: For canonical new Country values, persisted/API identity is uppercase ISO 3166-1 alpha-2 and the human-readable country name is presentation only. Labels do not replace stored codes or become an alternative historical authority. Non-conforming historical values and immutable snapshots are not normalized/rebuilt under this clarification; separate audit is required before any migration. The existing report set and report semantics remain unchanged.

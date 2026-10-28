@@ -1,8 +1,12 @@
 package com.silomath.core.network.di
 
 import com.silomath.app.BuildConfig
+import com.silomath.core.data.network.api.OfflinePackageApi
+import com.silomath.core.data.network.source.OfflinePackageRemoteSource
+import com.silomath.core.data.network.source.RestOfflinePackageRemoteSource
 import com.silomath.core.data.network.api.AuthApi
 import com.silomath.core.data.network.api.CampaignApi
+import com.silomath.core.data.network.api.LocationApi
 import com.silomath.core.data.network.api.OrganizationApi
 import com.silomath.core.data.network.api.OrganizationMembershipApi
 import com.silomath.core.data.network.client.AuthApiFactory
@@ -45,6 +49,40 @@ object RestApiModule {
         return campaignApiFactory.create(
             environmentConfig
         )
+    }
+
+    @Provides
+    @Singleton
+    fun provideOfflinePackageApi(factory: RetrofitFactory, environment: ApiEnvironmentConfig): OfflinePackageApi =
+        factory.create(environment).create(OfflinePackageApi::class.java)
+
+    @Provides
+    @Singleton
+    fun provideOfflinePackageRemoteSource(source: RestOfflinePackageRemoteSource): OfflinePackageRemoteSource = source
+
+    @Provides @Singleton
+    fun provideStorageUnitSource(source:com.silomath.core.data.network.source.RestStorageUnitRemoteSource):com.silomath.core.data.network.source.StorageUnitRemoteSource = source
+
+    @Provides @Singleton
+    fun provideStorageUnitApi(factory: RetrofitFactory, environment: ApiEnvironmentConfig): com.silomath.core.data.network.api.StorageUnitApi =
+        factory.create(environment).create(com.silomath.core.data.network.api.StorageUnitApi::class.java)
+
+    @Provides @Singleton
+    fun provideStorageSpaceSource(source:com.silomath.core.data.network.source.RestStorageSpaceRemoteSource):com.silomath.core.data.network.source.StorageSpaceRemoteSource = source
+
+    @Provides @Singleton
+    fun provideStorageSpaceApi(factory: RetrofitFactory, environment: ApiEnvironmentConfig): com.silomath.core.data.network.api.StorageSpaceApi =
+        factory.create(environment).create(com.silomath.core.data.network.api.StorageSpaceApi::class.java)
+
+    @Provides
+    @Singleton
+    fun provideLocationApi(
+        retrofitFactory: RetrofitFactory,
+        environmentConfig: ApiEnvironmentConfig
+    ): LocationApi {
+        return retrofitFactory
+            .create(environmentConfig)
+            .create(LocationApi::class.java)
     }
 
     @Provides

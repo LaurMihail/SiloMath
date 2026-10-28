@@ -1,7 +1,7 @@
 # SiloMath V6 — 14_COMMODITY_SPECIFICATION
 
 **Status:** APPROVED / FROZEN V6
-**Baseline revision:** 2026-10-20 — CR-DB-CAMPAIGN-SNAPSHOT-COMMODITY-001 baseline-change refreeze
+**Baseline revision:** 2026-10-28 - CR-API-STORAGE-SPACE-BATCH-001 approved atomic Storage Space batch-create clarification
 
 ## 1. Purpose and authority
 

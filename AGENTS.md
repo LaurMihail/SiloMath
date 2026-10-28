@@ -1,11 +1,19 @@
 # SiloMath Agent Contract
 
 ## Authority
-SiloMath Implementation Baseline v1.0 is the highest product authority.
+SiloMath V6 APPROVED / FROZEN is the current product authority.
 
-If another document, existing implementation, assumption, or generated proposal conflicts with the approved baseline, follow the baseline and report the conflict.
+Documents 01–21 under `baseline/` are the Master Baseline:
 
-Do not reopen frozen product decisions unless explicitly requested.
+1. `01_PRODUCT_BASELINE` is the overall product authority.
+2. `02_DECISION_REGISTER` is the canonical decision authority.
+3. The relevant specialist document governs its domain when interpreted with Documents 01 and 02.
+4. An APPROVED Change Request modifies only its explicit approved delta after controlled application/refreeze.
+5. Implementation ADRs may select open technical details but cannot change frozen product semantics.
+
+If baseline documents conflict, report the contradiction. Do not resolve it through implementation assumption, existing code, historical evidence, README content, task evidence or generated proposals.
+
+An explicit request alone does not silently change frozen behavior. An intentional frozen change requires the Baseline Change / Change Request process, Product Owner approval and controlled application/refreeze. Do not reopen or reinterpret frozen decisions outside that process.
 
 ## Technology
 SiloMath uses:
@@ -15,15 +23,17 @@ SiloMath uses:
 - Clean Architecture
 - MVVM + UDF
 - StateFlow
-- Room / SQLite
+- Room / SQLite with approved SQLCipher production protection
 - Hilt
-- Navigation Compose
+- Jetpack Navigation 3 with type-safe serializable destination keys
 - Coroutines / Flow
 - WorkManager
 - Retrofit + OkHttp
+- Kotlin / Ktor backend
+- PostgreSQL
 - DataStore only for non-operational preferences/session state
 
-Room is the local source of truth for operational inventory data.
+Room is the local operational and read authority for supported local-first/offline-first work. The backend is the authoritative enterprise/server source of truth, and server-owned operations remain server-authoritative. Local-first/offline-first behavior must preserve the package, authorization, transaction, synchronization, conflict and history invariants in Document 12.
 
 ## Execution Rules
 

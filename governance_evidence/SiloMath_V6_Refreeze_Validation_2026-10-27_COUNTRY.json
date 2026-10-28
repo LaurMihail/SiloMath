@@ -1,0 +1,757 @@
+{
+  "validator": "engineering/validate-country-contract.py",
+  "baselineId": "SILOMATH_V6",
+  "approvedChange": "CR-COUNTRY-CATALOG-CONTRACT-001",
+  "decisionId": "FD-74",
+  "generatedAtUtc": "2026-10-27T21:05:24.604726+00:00",
+  "scope": "DOCUMENT/REGISTRY/HASH CONSISTENCY ONLY; runtime implementation not certified",
+  "passed": 186,
+  "failed": 0,
+  "errors": [],
+  "checks": [
+    {
+      "name": "approved_contract:changeRequestId",
+      "passed": true
+    },
+    {
+      "name": "approved_contract:decisionId",
+      "passed": true
+    },
+    {
+      "name": "approved_contract:status",
+      "passed": true
+    },
+    {
+      "name": "approved_contract:catalog",
+      "passed": true
+    },
+    {
+      "name": "approved_contract:catalogCoverage",
+      "passed": true
+    },
+    {
+      "name": "approved_contract:canonicalEncoding",
+      "passed": true
+    },
+    {
+      "name": "approved_contract:canonicalCase",
+      "passed": true
+    },
+    {
+      "name": "approved_contract:freeTextNewValuesAllowed",
+      "passed": true
+    },
+    {
+      "name": "approved_contract:newValuesMustBelongToCatalog",
+      "passed": true
+    },
+    {
+      "name": "approved_contract:newValueValidation",
+      "passed": true
+    },
+    {
+      "name": "approved_contract:optionsAvailableLocallyOrCached",
+      "passed": true
+    },
+    {
+      "name": "approved_contract:automaticHistoricalNormalizationAllowed",
+      "passed": true
+    },
+    {
+      "name": "approved_contract:historicalNonconformingValues",
+      "passed": true
+    },
+    {
+      "name": "approved_contract:implementationStatus",
+      "passed": true
+    },
+    {
+      "name": "shared_organization_and_location_scope",
+      "passed": true
+    },
+    {
+      "name": "approved_examples",
+      "passed": true
+    },
+    {
+      "name": "labels_not_canonical_values",
+      "passed": true
+    },
+    {
+      "name": "no_invented_catalogue_version",
+      "passed": true
+    },
+    {
+      "name": "approved_unique_change_record",
+      "passed": true
+    },
+    {
+      "name": "existing_cr_namespace",
+      "passed": true
+    },
+    {
+      "name": "exact_21_official_documents",
+      "passed": true
+    },
+    {
+      "name": "frozen_registry",
+      "passed": true
+    },
+    {
+      "name": "manifest_country_contract",
+      "passed": true
+    },
+    {
+      "name": "approval_retains_calculation_contract",
+      "passed": true
+    },
+    {
+      "name": "previous_manifest_not_overwritten",
+      "passed": true
+    },
+    {
+      "name": "math_hash_preserved",
+      "passed": true
+    },
+    {
+      "name": "math_source_commit_preserved",
+      "passed": true
+    },
+    {
+      "name": "01_PRODUCT_BASELINE.md:frozen",
+      "passed": true
+    },
+    {
+      "name": "01_PRODUCT_BASELINE.md:current_revision",
+      "passed": true
+    },
+    {
+      "name": "01_PRODUCT_BASELINE.md:utf8_lf_no_bom",
+      "passed": true
+    },
+    {
+      "name": "01_PRODUCT_BASELINE.md:registry_hash",
+      "passed": true
+    },
+    {
+      "name": "01_PRODUCT_BASELINE.md:manifest_hash",
+      "passed": true
+    },
+    {
+      "name": "01_PRODUCT_BASELINE.md:bytes_lines",
+      "passed": true
+    },
+    {
+      "name": "01_PRODUCT_BASELINE.md:country_trace",
+      "passed": true
+    },
+    {
+      "name": "02_DECISION_REGISTER.md:frozen",
+      "passed": true
+    },
+    {
+      "name": "02_DECISION_REGISTER.md:current_revision",
+      "passed": true
+    },
+    {
+      "name": "02_DECISION_REGISTER.md:utf8_lf_no_bom",
+      "passed": true
+    },
+    {
+      "name": "02_DECISION_REGISTER.md:registry_hash",
+      "passed": true
+    },
+    {
+      "name": "02_DECISION_REGISTER.md:manifest_hash",
+      "passed": true
+    },
+    {
+      "name": "02_DECISION_REGISTER.md:bytes_lines",
+      "passed": true
+    },
+    {
+      "name": "02_DECISION_REGISTER.md:country_trace",
+      "passed": true
+    },
+    {
+      "name": "03_BUSINESS_RULES.md:frozen",
+      "passed": true
+    },
+    {
+      "name": "03_BUSINESS_RULES.md:current_revision",
+      "passed": true
+    },
+    {
+      "name": "03_BUSINESS_RULES.md:utf8_lf_no_bom",
+      "passed": true
+    },
+    {
+      "name": "03_BUSINESS_RULES.md:registry_hash",
+      "passed": true
+    },
+    {
+      "name": "03_BUSINESS_RULES.md:manifest_hash",
+      "passed": true
+    },
+    {
+      "name": "03_BUSINESS_RULES.md:bytes_lines",
+      "passed": true
+    },
+    {
+      "name": "03_BUSINESS_RULES.md:country_trace",
+      "passed": true
+    },
+    {
+      "name": "04_USER_ROLES_PERMISSIONS.md:frozen",
+      "passed": true
+    },
+    {
+      "name": "04_USER_ROLES_PERMISSIONS.md:current_revision",
+      "passed": true
+    },
+    {
+      "name": "04_USER_ROLES_PERMISSIONS.md:utf8_lf_no_bom",
+      "passed": true
+    },
+    {
+      "name": "04_USER_ROLES_PERMISSIONS.md:registry_hash",
+      "passed": true
+    },
+    {
+      "name": "04_USER_ROLES_PERMISSIONS.md:manifest_hash",
+      "passed": true
+    },
+    {
+      "name": "04_USER_ROLES_PERMISSIONS.md:bytes_lines",
+      "passed": true
+    },
+    {
+      "name": "04_USER_ROLES_PERMISSIONS.md:metadata_only_delta",
+      "passed": true
+    },
+    {
+      "name": "05_WORKFLOWS_STATE_MACHINES.md:frozen",
+      "passed": true
+    },
+    {
+      "name": "05_WORKFLOWS_STATE_MACHINES.md:current_revision",
+      "passed": true
+    },
+    {
+      "name": "05_WORKFLOWS_STATE_MACHINES.md:utf8_lf_no_bom",
+      "passed": true
+    },
+    {
+      "name": "05_WORKFLOWS_STATE_MACHINES.md:registry_hash",
+      "passed": true
+    },
+    {
+      "name": "05_WORKFLOWS_STATE_MACHINES.md:manifest_hash",
+      "passed": true
+    },
+    {
+      "name": "05_WORKFLOWS_STATE_MACHINES.md:bytes_lines",
+      "passed": true
+    },
+    {
+      "name": "05_WORKFLOWS_STATE_MACHINES.md:metadata_only_delta",
+      "passed": true
+    },
+    {
+      "name": "06_UI_SCREEN_SPECIFICATION_AND_NAVIGATION.md:frozen",
+      "passed": true
+    },
+    {
+      "name": "06_UI_SCREEN_SPECIFICATION_AND_NAVIGATION.md:current_revision",
+      "passed": true
+    },
+    {
+      "name": "06_UI_SCREEN_SPECIFICATION_AND_NAVIGATION.md:utf8_lf_no_bom",
+      "passed": true
+    },
+    {
+      "name": "06_UI_SCREEN_SPECIFICATION_AND_NAVIGATION.md:registry_hash",
+      "passed": true
+    },
+    {
+      "name": "06_UI_SCREEN_SPECIFICATION_AND_NAVIGATION.md:manifest_hash",
+      "passed": true
+    },
+    {
+      "name": "06_UI_SCREEN_SPECIFICATION_AND_NAVIGATION.md:bytes_lines",
+      "passed": true
+    },
+    {
+      "name": "06_UI_SCREEN_SPECIFICATION_AND_NAVIGATION.md:country_trace",
+      "passed": true
+    },
+    {
+      "name": "07_ARCHITECTURE.md:frozen",
+      "passed": true
+    },
+    {
+      "name": "07_ARCHITECTURE.md:current_revision",
+      "passed": true
+    },
+    {
+      "name": "07_ARCHITECTURE.md:utf8_lf_no_bom",
+      "passed": true
+    },
+    {
+      "name": "07_ARCHITECTURE.md:registry_hash",
+      "passed": true
+    },
+    {
+      "name": "07_ARCHITECTURE.md:manifest_hash",
+      "passed": true
+    },
+    {
+      "name": "07_ARCHITECTURE.md:bytes_lines",
+      "passed": true
+    },
+    {
+      "name": "07_ARCHITECTURE.md:metadata_only_delta",
+      "passed": true
+    },
+    {
+      "name": "08_MODULE_ARCHITECTURE.md:frozen",
+      "passed": true
+    },
+    {
+      "name": "08_MODULE_ARCHITECTURE.md:current_revision",
+      "passed": true
+    },
+    {
+      "name": "08_MODULE_ARCHITECTURE.md:utf8_lf_no_bom",
+      "passed": true
+    },
+    {
+      "name": "08_MODULE_ARCHITECTURE.md:registry_hash",
+      "passed": true
+    },
+    {
+      "name": "08_MODULE_ARCHITECTURE.md:manifest_hash",
+      "passed": true
+    },
+    {
+      "name": "08_MODULE_ARCHITECTURE.md:bytes_lines",
+      "passed": true
+    },
+    {
+      "name": "08_MODULE_ARCHITECTURE.md:metadata_only_delta",
+      "passed": true
+    },
+    {
+      "name": "09_DATA_MODEL.md:frozen",
+      "passed": true
+    },
+    {
+      "name": "09_DATA_MODEL.md:current_revision",
+      "passed": true
+    },
+    {
+      "name": "09_DATA_MODEL.md:utf8_lf_no_bom",
+      "passed": true
+    },
+    {
+      "name": "09_DATA_MODEL.md:registry_hash",
+      "passed": true
+    },
+    {
+      "name": "09_DATA_MODEL.md:manifest_hash",
+      "passed": true
+    },
+    {
+      "name": "09_DATA_MODEL.md:bytes_lines",
+      "passed": true
+    },
+    {
+      "name": "09_DATA_MODEL.md:country_trace",
+      "passed": true
+    },
+    {
+      "name": "10_DATABASE_SCHEMA.md:frozen",
+      "passed": true
+    },
+    {
+      "name": "10_DATABASE_SCHEMA.md:current_revision",
+      "passed": true
+    },
+    {
+      "name": "10_DATABASE_SCHEMA.md:utf8_lf_no_bom",
+      "passed": true
+    },
+    {
+      "name": "10_DATABASE_SCHEMA.md:registry_hash",
+      "passed": true
+    },
+    {
+      "name": "10_DATABASE_SCHEMA.md:manifest_hash",
+      "passed": true
+    },
+    {
+      "name": "10_DATABASE_SCHEMA.md:bytes_lines",
+      "passed": true
+    },
+    {
+      "name": "10_DATABASE_SCHEMA.md:country_trace",
+      "passed": true
+    },
+    {
+      "name": "11_API_SPECIFICATION.md:frozen",
+      "passed": true
+    },
+    {
+      "name": "11_API_SPECIFICATION.md:current_revision",
+      "passed": true
+    },
+    {
+      "name": "11_API_SPECIFICATION.md:utf8_lf_no_bom",
+      "passed": true
+    },
+    {
+      "name": "11_API_SPECIFICATION.md:registry_hash",
+      "passed": true
+    },
+    {
+      "name": "11_API_SPECIFICATION.md:manifest_hash",
+      "passed": true
+    },
+    {
+      "name": "11_API_SPECIFICATION.md:bytes_lines",
+      "passed": true
+    },
+    {
+      "name": "11_API_SPECIFICATION.md:country_trace",
+      "passed": true
+    },
+    {
+      "name": "12_OFFLINE_SYNC_SPECIFICATION.md:frozen",
+      "passed": true
+    },
+    {
+      "name": "12_OFFLINE_SYNC_SPECIFICATION.md:current_revision",
+      "passed": true
+    },
+    {
+      "name": "12_OFFLINE_SYNC_SPECIFICATION.md:utf8_lf_no_bom",
+      "passed": true
+    },
+    {
+      "name": "12_OFFLINE_SYNC_SPECIFICATION.md:registry_hash",
+      "passed": true
+    },
+    {
+      "name": "12_OFFLINE_SYNC_SPECIFICATION.md:manifest_hash",
+      "passed": true
+    },
+    {
+      "name": "12_OFFLINE_SYNC_SPECIFICATION.md:bytes_lines",
+      "passed": true
+    },
+    {
+      "name": "12_OFFLINE_SYNC_SPECIFICATION.md:country_trace",
+      "passed": true
+    },
+    {
+      "name": "13_CALCULATION_ENGINE_SPECIFICATION.md:frozen",
+      "passed": true
+    },
+    {
+      "name": "13_CALCULATION_ENGINE_SPECIFICATION.md:current_revision",
+      "passed": true
+    },
+    {
+      "name": "13_CALCULATION_ENGINE_SPECIFICATION.md:utf8_lf_no_bom",
+      "passed": true
+    },
+    {
+      "name": "13_CALCULATION_ENGINE_SPECIFICATION.md:registry_hash",
+      "passed": true
+    },
+    {
+      "name": "13_CALCULATION_ENGINE_SPECIFICATION.md:manifest_hash",
+      "passed": true
+    },
+    {
+      "name": "13_CALCULATION_ENGINE_SPECIFICATION.md:bytes_lines",
+      "passed": true
+    },
+    {
+      "name": "13_CALCULATION_ENGINE_SPECIFICATION.md:metadata_only_delta",
+      "passed": true
+    },
+    {
+      "name": "14_COMMODITY_SPECIFICATION.md:frozen",
+      "passed": true
+    },
+    {
+      "name": "14_COMMODITY_SPECIFICATION.md:current_revision",
+      "passed": true
+    },
+    {
+      "name": "14_COMMODITY_SPECIFICATION.md:utf8_lf_no_bom",
+      "passed": true
+    },
+    {
+      "name": "14_COMMODITY_SPECIFICATION.md:registry_hash",
+      "passed": true
+    },
+    {
+      "name": "14_COMMODITY_SPECIFICATION.md:manifest_hash",
+      "passed": true
+    },
+    {
+      "name": "14_COMMODITY_SPECIFICATION.md:bytes_lines",
+      "passed": true
+    },
+    {
+      "name": "14_COMMODITY_SPECIFICATION.md:metadata_only_delta",
+      "passed": true
+    },
+    {
+      "name": "15_EVIDENCE_STORAGE_SPECIFICATION.md:frozen",
+      "passed": true
+    },
+    {
+      "name": "15_EVIDENCE_STORAGE_SPECIFICATION.md:current_revision",
+      "passed": true
+    },
+    {
+      "name": "15_EVIDENCE_STORAGE_SPECIFICATION.md:utf8_lf_no_bom",
+      "passed": true
+    },
+    {
+      "name": "15_EVIDENCE_STORAGE_SPECIFICATION.md:registry_hash",
+      "passed": true
+    },
+    {
+      "name": "15_EVIDENCE_STORAGE_SPECIFICATION.md:manifest_hash",
+      "passed": true
+    },
+    {
+      "name": "15_EVIDENCE_STORAGE_SPECIFICATION.md:bytes_lines",
+      "passed": true
+    },
+    {
+      "name": "15_EVIDENCE_STORAGE_SPECIFICATION.md:metadata_only_delta",
+      "passed": true
+    },
+    {
+      "name": "16_REPORTING_SPECIFICATION.md:frozen",
+      "passed": true
+    },
+    {
+      "name": "16_REPORTING_SPECIFICATION.md:current_revision",
+      "passed": true
+    },
+    {
+      "name": "16_REPORTING_SPECIFICATION.md:utf8_lf_no_bom",
+      "passed": true
+    },
+    {
+      "name": "16_REPORTING_SPECIFICATION.md:registry_hash",
+      "passed": true
+    },
+    {
+      "name": "16_REPORTING_SPECIFICATION.md:manifest_hash",
+      "passed": true
+    },
+    {
+      "name": "16_REPORTING_SPECIFICATION.md:bytes_lines",
+      "passed": true
+    },
+    {
+      "name": "16_REPORTING_SPECIFICATION.md:country_trace",
+      "passed": true
+    },
+    {
+      "name": "17_SECURITY_AUDIT_PRIVACY.md:frozen",
+      "passed": true
+    },
+    {
+      "name": "17_SECURITY_AUDIT_PRIVACY.md:current_revision",
+      "passed": true
+    },
+    {
+      "name": "17_SECURITY_AUDIT_PRIVACY.md:utf8_lf_no_bom",
+      "passed": true
+    },
+    {
+      "name": "17_SECURITY_AUDIT_PRIVACY.md:registry_hash",
+      "passed": true
+    },
+    {
+      "name": "17_SECURITY_AUDIT_PRIVACY.md:manifest_hash",
+      "passed": true
+    },
+    {
+      "name": "17_SECURITY_AUDIT_PRIVACY.md:bytes_lines",
+      "passed": true
+    },
+    {
+      "name": "17_SECURITY_AUDIT_PRIVACY.md:metadata_only_delta",
+      "passed": true
+    },
+    {
+      "name": "18_TEST_STRATEGY_ACCEPTANCE.md:frozen",
+      "passed": true
+    },
+    {
+      "name": "18_TEST_STRATEGY_ACCEPTANCE.md:current_revision",
+      "passed": true
+    },
+    {
+      "name": "18_TEST_STRATEGY_ACCEPTANCE.md:utf8_lf_no_bom",
+      "passed": true
+    },
+    {
+      "name": "18_TEST_STRATEGY_ACCEPTANCE.md:registry_hash",
+      "passed": true
+    },
+    {
+      "name": "18_TEST_STRATEGY_ACCEPTANCE.md:manifest_hash",
+      "passed": true
+    },
+    {
+      "name": "18_TEST_STRATEGY_ACCEPTANCE.md:bytes_lines",
+      "passed": true
+    },
+    {
+      "name": "18_TEST_STRATEGY_ACCEPTANCE.md:country_trace",
+      "passed": true
+    },
+    {
+      "name": "19_RETENTION_POLICY.md:frozen",
+      "passed": true
+    },
+    {
+      "name": "19_RETENTION_POLICY.md:current_revision",
+      "passed": true
+    },
+    {
+      "name": "19_RETENTION_POLICY.md:utf8_lf_no_bom",
+      "passed": true
+    },
+    {
+      "name": "19_RETENTION_POLICY.md:registry_hash",
+      "passed": true
+    },
+    {
+      "name": "19_RETENTION_POLICY.md:manifest_hash",
+      "passed": true
+    },
+    {
+      "name": "19_RETENTION_POLICY.md:bytes_lines",
+      "passed": true
+    },
+    {
+      "name": "19_RETENTION_POLICY.md:country_trace",
+      "passed": true
+    },
+    {
+      "name": "20_PRODUCTION_OPERATIONS.md:frozen",
+      "passed": true
+    },
+    {
+      "name": "20_PRODUCTION_OPERATIONS.md:current_revision",
+      "passed": true
+    },
+    {
+      "name": "20_PRODUCTION_OPERATIONS.md:utf8_lf_no_bom",
+      "passed": true
+    },
+    {
+      "name": "20_PRODUCTION_OPERATIONS.md:registry_hash",
+      "passed": true
+    },
+    {
+      "name": "20_PRODUCTION_OPERATIONS.md:manifest_hash",
+      "passed": true
+    },
+    {
+      "name": "20_PRODUCTION_OPERATIONS.md:bytes_lines",
+      "passed": true
+    },
+    {
+      "name": "20_PRODUCTION_OPERATIONS.md:country_trace",
+      "passed": true
+    },
+    {
+      "name": "21_UI_DESIGN_SYSTEM_FINAL.md:frozen",
+      "passed": true
+    },
+    {
+      "name": "21_UI_DESIGN_SYSTEM_FINAL.md:current_revision",
+      "passed": true
+    },
+    {
+      "name": "21_UI_DESIGN_SYSTEM_FINAL.md:utf8_lf_no_bom",
+      "passed": true
+    },
+    {
+      "name": "21_UI_DESIGN_SYSTEM_FINAL.md:registry_hash",
+      "passed": true
+    },
+    {
+      "name": "21_UI_DESIGN_SYSTEM_FINAL.md:manifest_hash",
+      "passed": true
+    },
+    {
+      "name": "21_UI_DESIGN_SYSTEM_FINAL.md:bytes_lines",
+      "passed": true
+    },
+    {
+      "name": "21_UI_DESIGN_SYSTEM_FINAL.md:metadata_only_delta",
+      "passed": true
+    },
+    {
+      "name": "fd74_registered",
+      "passed": true
+    },
+    {
+      "name": "fd_range_updated",
+      "passed": true
+    },
+    {
+      "name": "ORG02-05:no_free_text",
+      "passed": true
+    },
+    {
+      "name": "ORG02-05:complete_iso_and_code",
+      "passed": true
+    },
+    {
+      "name": "ORG02-05:local_label_and_fail_closed",
+      "passed": true
+    },
+    {
+      "name": "P1SH01-05:no_free_text",
+      "passed": true
+    },
+    {
+      "name": "P1SH01-05:complete_iso_and_code",
+      "passed": true
+    },
+    {
+      "name": "P1SH01-05:local_label_and_fail_closed",
+      "passed": true
+    },
+    {
+      "name": "both_country_data_fields",
+      "passed": true
+    },
+    {
+      "name": "no_implicit_snapshot_schema_assignment",
+      "passed": true
+    },
+    {
+      "name": "business_rule_registered",
+      "passed": true
+    },
+    {
+      "name": "acceptance_registered",
+      "passed": true
+    }
+  ]
+}

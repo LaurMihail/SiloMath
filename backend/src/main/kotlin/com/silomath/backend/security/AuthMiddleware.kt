@@ -27,6 +27,8 @@ sealed interface AccessTokenVerificationResult {
 
     data object InvalidOrExpired : AccessTokenVerificationResult
 
+    data object ServiceUnavailable : AccessTokenVerificationResult
+
     data object DisabledUser : AccessTokenVerificationResult
 }
 
@@ -92,6 +94,16 @@ fun Route.withActiveBearerAuthentication(
                         status = HttpStatusCode.Unauthorized,
                         code = ApiErrorCode.AUTH_SESSION_EXPIRED,
                         message = "The session is invalid or expired."
+                    )
+                    finish()
+                }
+
+                AccessTokenVerificationResult.ServiceUnavailable -> {
+                    call.respondApiError(
+                        status = HttpStatusCode.ServiceUnavailable,
+                        code = ApiErrorCode.SERVICE_UNAVAILABLE,
+                        message = "Authentication service is unavailable.",
+                        retryable = true
                     )
                     finish()
                 }
