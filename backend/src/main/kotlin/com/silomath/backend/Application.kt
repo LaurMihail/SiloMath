@@ -4,6 +4,8 @@ import com.silomath.backend.api.configureApiSerialization
 import com.silomath.backend.api.configureCorrelationIds
 import com.silomath.backend.auth.AuthRuntimeFactory
 import com.silomath.backend.config.BackendConfig
+import com.silomath.backend.health.BackendReadinessProbe
+import com.silomath.backend.health.JdbcBackendReadinessProbe
 import com.silomath.backend.location.LocationRuntimeFactory
 import com.silomath.backend.routes.configureAuthRouting
 import com.silomath.backend.routes.configureFoundationRouting
@@ -32,14 +34,15 @@ fun main() {
 }
 
 fun Application.module(
-    config: BackendConfig = BackendConfig.fromEnvironment()
+    config: BackendConfig = BackendConfig.fromEnvironment(),
+    readinessProbe: BackendReadinessProbe = JdbcBackendReadinessProbe(config)
 ) {
     @Suppress("UNUSED_VARIABLE")
     val runtimeEnvironment = config.runtimeEnvironment
 
     configureCorrelationIds()
     configureApiSerialization()
-    configureFoundationRouting()
+    configureFoundationRouting(readinessProbe)
     configureAuthRouting(
         AuthRuntimeFactory.create(config)
     )

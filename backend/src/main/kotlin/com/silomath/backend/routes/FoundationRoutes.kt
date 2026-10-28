@@ -1,5 +1,6 @@
 package com.silomath.backend.routes
 
+import com.silomath.backend.health.BackendReadinessProbe
 import io.ktor.http.ContentType
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.application.Application
@@ -13,7 +14,9 @@ object FoundationRoutes {
     const val HEALTH_BASE_PATH = "/health"
 }
 
-fun Application.configureFoundationRouting() {
+fun Application.configureFoundationRouting(
+    readinessProbe: BackendReadinessProbe
+) {
     routing {
         route(FoundationRoutes.HEALTH_BASE_PATH) {
             get("/live") {
@@ -25,10 +28,16 @@ fun Application.configureFoundationRouting() {
             }
 
             get("/ready") {
+                val ready = readinessProbe.isReady()
                 call.respondText(
-                    text = "READY",
+                    text = if (ready) "READY" else "NOT_READY",
                     contentType = ContentType.Text.Plain,
-                    status = HttpStatusCode.OK
+                    status =
+                        if (ready) {
+                            HttpStatusCode.OK
+                        } else {
+                            HttpStatusCode.ServiceUnavailable
+                        }
                 )
             }
         }

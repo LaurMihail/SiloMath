@@ -1,6 +1,7 @@
 package com.silomath.backend
 
 import com.silomath.backend.config.BackendConfig
+import com.silomath.backend.health.BackendReadinessProbe
 import com.silomath.backend.routes.FoundationRoutes
 import io.ktor.client.request.get
 import io.ktor.client.statement.bodyAsText
@@ -45,9 +46,12 @@ class BackendFoundationTest {
     }
 
     @Test
-    fun `readiness endpoint is available`() = testApplication {
+    fun `readiness endpoint is ready only when probe passes`() = testApplication {
         application {
-            module(testConfig)
+            module(
+                config = testConfig,
+                readinessProbe = BackendReadinessProbe { true }
+            )
         }
 
         val response = client.get("/health/ready")
@@ -58,6 +62,27 @@ class BackendFoundationTest {
         )
         assertEquals(
             "READY",
+            response.bodyAsText()
+        )
+    }
+
+    @Test
+    fun `readiness endpoint fails closed when probe fails`() = testApplication {
+        application {
+            module(
+                config = testConfig,
+                readinessProbe = BackendReadinessProbe { false }
+            )
+        }
+
+        val response = client.get("/health/ready")
+
+        assertEquals(
+            HttpStatusCode.ServiceUnavailable,
+            response.status
+        )
+        assertEquals(
+            "NOT_READY",
             response.bodyAsText()
         )
     }
