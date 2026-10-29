@@ -1,9 +1,9 @@
 # SiloMath V6 — Product Baseline
 
 **Document ID:** 01_PRODUCT_BASELINE  
-**Version:** V6 Final Documentation — Baseline 1.0  
+**Version:** V6 Final Documentation — Baseline 1.1  
 **Status:** APPROVED / FROZEN V6
-**Baseline revision:** 2026-10-28 - CR-API-STORAGE-SPACE-BATCH-001 approved atomic Storage Space batch-create clarification
+**Baseline revision:** 2026-10-29 - CR-ARCH-SUPABASE-BACKEND-001 approved Supabase-only canonical core backend platform
 **Product:** SiloMath  
 **Platform:** Native Android  
 **UI language:** English  
@@ -55,10 +55,16 @@ Core technologies are:
 - WorkManager for durable background synchronization;
 - Jetpack Navigation 3 with type-safe, serializable destination keys and a single-activity Compose application;
 - DataStore for appropriate local preferences;
-- PostgreSQL on the server side;
-- object storage for evidence binaries.
+- Supabase as the sole canonical core backend runtime platform;
+- PostgreSQL as the authoritative enterprise datastore;
+- Supabase Auth for canonical identity/authentication;
+- Supabase PostgreSQL functions/RPC and Supabase Edge Functions for server-authoritative business operations;
+- Supabase Storage for remote Evidence object storage;
+- Supabase Realtime only as a non-authoritative refresh/notification accelerator where useful.
 
 The application is offline-first/local-first for supported campaign operations. Compose must not contain business calculations or direct database access. ViewModels coordinate UI state and use cases. Repositories abstract local and remote data sources.
+
+Direct Android access to Supabase services is permitted only where the API/security contract explicitly allows it and RLS/authorization enforce the required Organization, role and campaign scope. Critical mutations remain server-authoritative, atomic and idempotent. A separate application backend or external compute service is not part of the target core SiloMath runtime architecture.
 
 ## 4. Roles and Authorization Model
 
@@ -391,7 +397,7 @@ Maximum photo limits are:
 
 Photos are normalized to JPEG, EXIF orientation is corrected, long edge is limited to 2048 px, target size is at most 1.5 MB, and hard maximum after processing is 3 MB. SHA-256 is mandatory.
 
-Binary evidence is stored in app-private local storage while offline and synchronized to object storage. Room/PostgreSQL store metadata, object references, hashes, relations, and synchronization state rather than large image BLOBs.
+Binary evidence is stored in app-private local storage while offline and synchronized to Supabase Storage as the canonical remote Evidence object store. Room/PostgreSQL store metadata, object references, hashes, relations, and synchronization state rather than large image BLOBs.
 
 After validation, evidence belonging to the validated historical context is immutable/read-only according to the evidence contract.
 
@@ -411,7 +417,7 @@ Close Guards require, among other applicable validations:
 - Open Issues are resolved according to the approved issue-resolution process;
 - server-side authorization and consistency checks pass.
 
-The server atomically revalidates Close Guards.
+The server atomically revalidates Close Guards through an approved Supabase server-authoritative path backed by PostgreSQL transactional semantics.
 
 A successful Close:
 
@@ -534,6 +540,8 @@ Synchronization respects same-entity ordering and operation dependencies. Critic
 
 WorkManager uses controlled retry with exponential backoff for retryable operations.
 
+Supabase Realtime may notify clients that authoritative data changed, but Realtime delivery does not acknowledge durable Sync Operations, resolve conflicts, replace idempotency/entityVersion checks, or become an authoritative synchronization state machine.
+
 ## 20. Notifications, Settings, Sync Status, and Support
 
 SiloMath includes an in-app Notification Center with:
@@ -585,7 +593,7 @@ V6 does not provide:
 - Google SSO;
 - Microsoft SSO.
 
-Authorization is revalidated server-side and is not trusted solely to Android UI visibility.
+Supabase Auth is the canonical authentication/identity platform. Authorization is revalidated server-side and is not trusted solely to Android UI visibility. RLS and server-authoritative functions/Edge Functions enforce the applicable protected-operation boundaries.
 
 ## 22. Canonical UI Inventory
 
@@ -696,6 +704,8 @@ The Calculation Engine is pure Kotlin and must not depend on Compose, Android UI
 
 Migration toward this topology is incremental and must follow an audit of the existing dependency graph. The architecture does not require one Gradle module per screen or entity.
 
+The server-side target topology is Supabase-only for core application runtime: Supabase Auth, PostgreSQL/RLS/functions, Edge Functions where orchestration/HTTP boundary is needed, and Supabase Storage. The existing separate Kotlin/Ktor backend is transitional implementation and is superseded as a target architecture by FD-76.
+
 ## 24.1 Implementation-Closure Rule
 
 The V6 baseline is implementation-ready. Product semantics, business behavior, authorization, state machines, persistence/API semantics, offline/sync behavior, UI inventory, and visual requirements necessary to implement the approved product are closed by Documents 01–21.
@@ -703,17 +713,18 @@ The V6 baseline is implementation-ready. Product semantics, business behavior, a
 During implementation, **no additional Product/Baseline approval is required** for a technical choice that:
 
 - preserves all frozen V6 behavior and invariants;
-- stays inside the frozen 19-module topology and dependency direction;
+- stays inside the frozen 19-module Android topology and dependency direction;
 - uses supported Android/Kotlin/Jetpack APIs consistent with Documents 07/08/18/20;
+- stays inside the FD-76 Supabase-only core backend boundary;
 - does not add a screen, sheet, business state, permission, data field, API semantic, workflow, or user-visible capability not already authorized by Documents 01–21.
 
-Such choices are implementation decisions and may be recorded as an IADR when architecturally material. A Baseline Change is required only for an intentional change to the frozen product contract, not for ordinary dependency/version selection, provider selection, internal algorithms, non-semantic performance tuning, or framework plumbing that satisfies the frozen contract.
+Such choices are implementation decisions and may be recorded as an IADR when architecturally material. A Baseline Change is required for an intentional change to the frozen product contract, including replacing Supabase as the canonical core backend platform or making another service authoritative for core business state.
 
 ## 25. Security and Privacy Baseline
 
-SiloMath applies least-privilege authorization, organization isolation, campaign scope restrictions, and server-side authorization checks.
+SiloMath applies least-privilege authorization, organization isolation, campaign scope restrictions, RLS defense-in-depth for client-accessible data paths, and server-side authorization checks.
 
-Sensitive credentials and secrets must not be stored in Git, embedded in the APK, written to logs, or included in diagnostic packages.
+Sensitive credentials and secrets must not be stored in Git, embedded in the APK, written to logs, or included in diagnostic packages. Supabase service-role or equivalent privileged credentials are server-only. Client applications may contain only credentials explicitly designed for public/client use and must still rely on RLS and server-side authorization.
 
 Evidence collection follows data-minimization principles. Unnecessary EXIF metadata is removed. GPS/device identifiers are not automatically collected merely for evidence.
 
@@ -746,6 +757,8 @@ Production environments are exactly:
 - Staging
 - Production
 
+Each environment has an isolated controlled Supabase backend context covering the relevant Auth, PostgreSQL/RLS/functions, Edge Functions, Storage, secrets/configuration and telemetry. No separate Render/Ktor application-backend deployment is part of the target production topology.
+
 Database migrations must be forward-safe. Risky schema changes use an Expand → Migrate → Contract strategy.
 
 PostgreSQL is backed up automatically at least daily. Point-in-time recovery is used where supported. Backup retention is at least 30 days, with backup before relevant risky migrations/releases.
@@ -763,7 +776,7 @@ The release path is:
 
 Calculation formula changes require golden regression tests.
 
-Production monitoring covers API, authentication, database, synchronization, queues, conflicts, evidence, backups, background jobs, Close operations, and calculation errors.
+Production monitoring covers API/Edge Functions, authentication, database/RLS/functions, synchronization, queues, conflicts, Evidence Storage, backups, background jobs, Close operations, and calculation errors.
 
 When consistency is uncertain, integrity takes priority over availability. The system must block Inventory Close rather than create an inconsistent Final Inventory Snapshot. Offline stocktaking may continue when the authorized working set is complete and valid.
 
@@ -796,6 +809,9 @@ The following invariants are mandatory across UI, domain, persistence, API, sync
 23. Sync conflicts are explicit; critical data does not use silent last-write-wins.
 24. Authorization is enforced server-side in addition to client-side UX restrictions.
 25. System-controlled rules cannot be modified through Settings.
+26. Supabase is the sole canonical backend platform for core SiloMath application runtime.
+27. Critical mutations cannot rely on direct client writes that bypass approved server-authoritative PostgreSQL/Edge Function paths.
+28. External auxiliary services cannot become authoritative for core business state without an approved Baseline Change.
 
 ## 29. Out of Scope for V6
 
@@ -814,7 +830,8 @@ The V6 product does not include:
 - user-configurable synchronization conflict strategy;
 - force-overwrite synchronization;
 - a separate About screen;
-- a separate global Issues module.
+- a separate global Issues module;
+- a separate application backend/external compute service as canonical core SiloMath runtime.
 
 ## 29.1 Android Platform Interaction Baseline
 
@@ -867,3 +884,9 @@ CR-CALC-VERSION-CONTRACT-001 / FD-73: `engineVersion="2.0"`; integer `inputSchem
 The canonical Country catalogue is the complete ISO 3166-1 list. The canonical persisted and API value is an uppercase ISO 3166-1 alpha-2 code: Romania=`RO`, Germany=`DE`, United States=`US`. The human-readable country name is a presentation label only. Country selectors do not permit free text for new values; new values require catalogue membership and fail-closed validation. Complete selector options are available locally/cached for local-first/offline-first operation. Existing optional/null semantics remain unchanged.
 
 Already persisted non-conforming Country values are preserved unchanged and require a separate audit before any migration. No implicit normalization, country-name-to-code conversion, truncation or historical/snapshot rewriting is authorized. This clarification does not assign a catalogue version identifier or authorize any data/schema migration.
+
+## Approved Supabase canonical backend contract — CR-ARCH-SUPABASE-BACKEND-001 / FD-76
+
+Supabase is the sole canonical backend platform for SiloMath application runtime. PostgreSQL remains the authoritative enterprise datastore. Server-authoritative business operations are implemented through Supabase PostgreSQL functions and/or Supabase Edge Functions. Android may access Supabase services directly only where the API/security contract explicitly permits the path and RLS/authorization enforce the required boundaries. Critical mutations remain server-authoritative, atomic and idempotent. The frozen offline-first/local-first model, Calculation Engine contract, historical integrity and `/api/v1` semantics remain unchanged except for the approved platform/topology mapping.
+
+No separate Render/Ktor or equivalent external compute backend is part of the target core runtime architecture. Non-core auxiliary services such as source control/CI, application distribution or explicitly approved observability/integration services may be used, but they may not become authoritative for core SiloMath business state without a future approved Baseline Change.
