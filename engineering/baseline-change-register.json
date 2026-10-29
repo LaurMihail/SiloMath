@@ -106,6 +106,28 @@
       "approvedDelta": "One storage-spaces:batch-create request is one logical mutation intent and is atomic all-or-nothing. Validate the complete batch before commit; any mandatory failure rolls back every row and every business, audit, journal, idempotency and outbox effect. Exact-key/same-payload replay is safe; same-key/different-payload reuse conflicts. Partial success is prohibited.",
       "rvmImpact": "Register FD-75 and TA-D234 and map only the executed IMP-MD-005 atomic batch/idempotency/rollback verification.",
       "testImpact": "Complete success and rollback, no partial effects, exact replay, idempotency mismatch conflict and transaction fault rollback."
+    },
+    {
+      "id": "CR-ARCH-SUPABASE-BACKEND-001",
+      "title": "Adopt Supabase as the sole canonical core backend platform",
+      "status": "APPROVED",
+      "changesFrozenBaseline": true,
+      "file": "engineering/baseline-change/CR-ARCH-SUPABASE-BACKEND-001.md",
+      "decisionDate": "2026-10-29",
+      "approvedBy": "Product Owner (explicit user approval)",
+      "baselineRefs": [
+        "01_PRODUCT_BASELINE",
+        "02_DECISION_REGISTER",
+        "07_ARCHITECTURE",
+        "11_API_SPECIFICATION",
+        "12_OFFLINE_SYNC_SPECIFICATION",
+        "17_SECURITY_AUDIT_PRIVACY",
+        "18_TEST_STRATEGY_ACCEPTANCE",
+        "20_PRODUCTION_OPERATIONS"
+      ],
+      "approvedDelta": "Supabase is the sole canonical backend platform for SiloMath application runtime. PostgreSQL remains the authoritative enterprise datastore. Server-authoritative business operations use Supabase PostgreSQL functions and/or Edge Functions. Android direct access is allowed only where explicitly permitted by API/security contract and RLS. Critical mutations remain server-authoritative, atomic and idempotent. No separate application backend/external compute service is canonical for core business operations; non-core auxiliary services cannot become authoritative for core business state without an approved Baseline Change.",
+      "rvmImpact": "Register FD-76; preserve existing semantic verification and replace provider/topology evidence with Supabase Auth/PostgreSQL/RLS/Edge Functions/Storage evidence. Add proof that critical mutations cannot bypass approved server-authoritative paths and that core business state has no separate external-compute authority.",
+      "testImpact": "Add Supabase Edge Function/API, PostgreSQL RPC/transaction, RLS, Auth/session, offline sync/idempotency/version, Storage integrity/security and environment promotion tests. Ktor/Render/JDBC-specific tests cease to be baseline acceptance evidence after migration closure."
     }
   ]
 }
