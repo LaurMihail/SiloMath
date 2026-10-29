@@ -3,10 +3,10 @@
   "baselineName": "SiloMath V6 Master Baseline",
   "status": "APPROVED_FROZEN",
   "documentCount": 21,
-  "refreezeDate": "2026-10-28",
-  "refreezeType": "CR-API-STORAGE-SPACE-BATCH-001 approved atomic Storage Space batch-create clarification",
-  "manifest": "governance_evidence/SiloMath_V6_FROZEN_MANIFEST_2026-10-28_BATCH.json",
-  "validationEvidence": "governance_evidence/SiloMath_V6_Refreeze_Validation_2026-10-28_BATCH.json",
+  "refreezeDate": "2026-10-29",
+  "refreezeType": "CR-ARCH-SUPABASE-BACKEND-001 approved Supabase-only canonical core backend platform",
+  "manifest": "governance_evidence/SiloMath_V6_FROZEN_MANIFEST_2026-10-29_SUPABASE.json",
+  "validationEvidence": "governance_evidence/SiloMath_V6_Refreeze_Validation_2026-10-29_SUPABASE.json",
   "governance": {
     "overallProductAuthority": "01_PRODUCT_BASELINE",
     "decisionAuthority": "02_DECISION_REGISTER",
@@ -24,8 +24,8 @@
       "file": "baseline/01_PRODUCT_BASELINE.md",
       "authority": "overall_product_contract",
       "status": "APPROVED_FROZEN",
-      "sha256": "89f35968a2e6eef342e9ca57727f7cf600f13c34fd34f6ce49084c941e68732f",
-      "bytes": 34718,
+      "sha256": "c4b8986e032e23c20470761dd7749b2878c76f85aac5a3a5c4616b4773a1cc70",
+      "bytes": 38593,
       "lines": 869
     },
     {
@@ -34,8 +34,8 @@
       "file": "baseline/02_DECISION_REGISTER.md",
       "authority": "approved_frozen_decisions",
       "status": "APPROVED_FROZEN",
-      "sha256": "5d0b5966b8ca21507db26d09fe21f79d4f70b1618f7d9e2c4ba432444b80e8f7",
-      "bytes": 37147,
+      "sha256": "244b35f6a2b31c837fba7130f33b81086a9008cc427c2e38d8f168ba4897acd5",
+      "bytes": 39916,
       "lines": 248
     },
     {
@@ -84,8 +84,8 @@
       "file": "baseline/07_ARCHITECTURE.md",
       "authority": "system_architecture",
       "status": "APPROVED_FROZEN",
-      "sha256": "911cc1a9f1a1c009b702e83723e541f547f54245c680c6b598ddc226f07782a9",
-      "bytes": 55940,
+      "sha256": "7cfb8ee9d17da9c14961b851fc91b3cad23d26256aebc16c39a3c20703b5e9d3",
+      "bytes": 57967,
       "lines": 859
     },
     {
@@ -124,8 +124,8 @@
       "file": "baseline/11_API_SPECIFICATION.md",
       "authority": "backend_api_contract",
       "status": "APPROVED_FROZEN",
-      "sha256": "f595b8be7ab031990ae7d449642b9fd11cc5223d8d9cbba16b79715e46fedc24",
-      "bytes": 57522,
+      "sha256": "476c4bc20f26195bcf72058b7f1e2e15e1c89e4f05535bb8797f463e9bf77926",
+      "bytes": 58850,
       "lines": 543
     },
     {
@@ -134,8 +134,8 @@
       "file": "baseline/12_OFFLINE_SYNC_SPECIFICATION.md",
       "authority": "offline_sync",
       "status": "APPROVED_FROZEN",
-      "sha256": "856a594c31f2fbe3e2c3a10eacf9b02f385b95ec0d25b43091c894b6a36b9d11",
-      "bytes": 52391,
+      "sha256": "154c6d7be798560392661386cd021b14cefaa0a69cd9dafcb6bb394533a4f926",
+      "bytes": 53336,
       "lines": 669
     },
     {
@@ -164,8 +164,8 @@
       "file": "baseline/15_EVIDENCE_STORAGE_SPECIFICATION.md",
       "authority": "evidence_storage",
       "status": "APPROVED_FROZEN",
-      "sha256": "32c29dbdc88e653e97496fcb8a3fea5d13d1248ee1b2425d0707081e2a925296",
-      "bytes": 29597,
+      "sha256": "81a6253b6b2b7de9dbd9bb6da7ba708840caaa186de04aa4c2b8c23d801c1ca2",
+      "bytes": 30427,
       "lines": 430
     },
     {
@@ -184,8 +184,8 @@
       "file": "baseline/17_SECURITY_AUDIT_PRIVACY.md",
       "authority": "security_audit_privacy",
       "status": "APPROVED_FROZEN",
-      "sha256": "680db79737259d66e5b111156228400847677b0da4ba6eb27da85394bd3875ad",
-      "bytes": 58485,
+      "sha256": "bc43d9e6313efd629b1cd1777b9294596d308e757eeaf99d232a41938f936ad7",
+      "bytes": 59522,
       "lines": 548
     },
     {
@@ -194,8 +194,8 @@
       "file": "baseline/18_TEST_STRATEGY_ACCEPTANCE.md",
       "authority": "test_strategy_acceptance",
       "status": "APPROVED_FROZEN",
-      "sha256": "400e415e7320be0a1cbef4c45b88567b925179bfb7c0cc968fdda907dfd81312",
-      "bytes": 65884,
+      "sha256": "d8cb8d0dbbd92388b12851c1a9c1d5988378250c6f4e8c4662a22ea204b6b5df",
+      "bytes": 66908,
       "lines": 621
     },
     {
@@ -214,8 +214,8 @@
       "file": "baseline/20_PRODUCTION_OPERATIONS.md",
       "authority": "production_operations",
       "status": "APPROVED_FROZEN",
-      "sha256": "4323277da9e895020d7268708905918163bb5374133c61ddabc4f26a98e7652c",
-      "bytes": 84075,
+      "sha256": "ff882713bebb28a75be31200f015baa0ac7a1b84d80c5eeea5a6e5e6c09f1a2f",
+      "bytes": 85319,
       "lines": 740
     },
     {
@@ -232,6 +232,7 @@
   "contractValidationEvidence": {
     "CR-CALC-VERSION-CONTRACT-001": "governance_evidence/SiloMath_V6_Calculation_Validation_2026-10-27_COUNTRY.json",
     "CR-COUNTRY-CATALOG-CONTRACT-001": "governance_evidence/SiloMath_V6_Refreeze_Validation_2026-10-27_COUNTRY.json",
-    "CR-API-STORAGE-SPACE-BATCH-001": "governance_evidence/SiloMath_V6_Refreeze_Validation_2026-10-28_BATCH.json"
+    "CR-API-STORAGE-SPACE-BATCH-001": "governance_evidence/SiloMath_V6_Refreeze_Validation_2026-10-28_BATCH.json",
+    "CR-ARCH-SUPABASE-BACKEND-001": "governance_evidence/SiloMath_V6_Refreeze_Validation_2026-10-29_SUPABASE.json"
   }
 }
