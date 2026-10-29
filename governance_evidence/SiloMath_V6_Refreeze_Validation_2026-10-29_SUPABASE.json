@@ -1,0 +1,19 @@
+{
+  "baselineId": "SILOMATH_V6",
+  "refreezeId": "2026-10-29_SUPABASE",
+  "changeRequest": "CR-ARCH-SUPABASE-BACKEND-001",
+  "decision": "FD-76",
+  "checks": {
+    "twentyOneBaselineDocumentsPresent": true,
+    "productBaselineContainsFD76Contract": true,
+    "decisionRegisterContainsFD76": true,
+    "architectureContainsFD76Binding": true,
+    "apiContainsFD76Binding": true,
+    "syncContainsFD76Binding": true,
+    "evidenceContainsFD76Binding": true,
+    "securityContainsFD76Binding": true,
+    "testContainsFD76Binding": true,
+    "operationsContainsFD76Binding": true
+  },
+  "result": "PASS"
+}

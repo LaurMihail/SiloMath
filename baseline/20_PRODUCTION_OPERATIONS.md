@@ -1,7 +1,7 @@
 # SiloMath V6 - 20_PRODUCTION_OPERATIONS
 
 **Status:** APPROVED / FROZEN V6
-**Baseline revision:** 2026-10-28 - CR-API-STORAGE-SPACE-BATCH-001 approved atomic Storage Space batch-create clarification
+**Baseline revision:** 2026-10-29 - CR-ARCH-SUPABASE-BACKEND-001 approved Supabase-only canonical core backend platform
 
 ## 1. Purpose and authority
 
@@ -738,3 +738,11 @@ Release evidence must identify supported full tuples, concrete handlers, golden 
 ## Approved Country contract cross-reference
 
 CR-COUNTRY-CATALOG-CONTRACT-001 / FD-74: Release evidence must cover the complete ISO 3166-1 catalogue locally/cached, canonical uppercase alpha-2 new-write validation and UI-label/value separation. Controlled catalogue packaging/cache mechanics must not create a network-only dependency for supported offline Country selectors. This clarification assigns no new catalogue version identifier, refresh interval, endpoint or service. Existing non-conforming values require a separate audit before migration; no implicit normalization/backfill or external environment mutation is authorized.
+
+## Approved Supabase production topology — CR-ARCH-SUPABASE-BACKEND-001 / FD-76
+
+Development, Staging and Production remain the only canonical environments. Each environment uses an isolated controlled Supabase backend context covering Auth, PostgreSQL schema/RLS/functions, Edge Functions, Storage, secrets/configuration and required telemetry. A separate Render/Ktor or equivalent external application-backend deployment is not part of the target core production topology.
+
+The release sequence remains Build → Automated Tests → Migration Validation → Staging → Production → Smoke Test. Promotion must cover database migrations/functions, RLS/security policy, Edge Functions/API contracts, Storage configuration and Auth configuration as applicable. PostgreSQL backup/PITR, restore tests, RPO/RTO, integrity-first failure behavior, secret handling and incident evidence remain unchanged.
+
+Core business-state availability/readiness is assessed at the Supabase platform boundaries actually used by SiloMath. No production gate may be declared green merely because an auxiliary external service is healthy; conversely, non-core CI/distribution/observability services may be used without becoming authoritative for core business state.

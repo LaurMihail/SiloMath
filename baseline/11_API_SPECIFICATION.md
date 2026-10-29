@@ -2,7 +2,7 @@
 
 **Version:** V6 Final Documentation — API Specification 1.0
 **Status:** APPROVED / FROZEN V6
-**Baseline revision:** 2026-10-28 - CR-API-STORAGE-SPACE-BATCH-001 approved atomic Storage Space batch-create clarification
+**Baseline revision:** 2026-10-29 - CR-ARCH-SUPABASE-BACKEND-001 approved Supabase-only canonical core backend platform
 **Normative role:** Canonical external/backend REST contract for Android ↔ server communication.
 
 ## 1. Purpose, authority and scope
@@ -541,3 +541,11 @@ CR-COUNTRY-CATALOG-CONTRACT-001 / FD-74: Organization.country and Location.count
 ## Approved Storage Space batch-create contract
 
 CR-API-STORAGE-SPACE-BATCH-001 / FD-75: the existing `/api/v1` Storage Space batch-create endpoint represents one logical mutation intent and is atomic all-or-nothing. The server validates every item and all authorization, Organization-scope, parent/hierarchy, uniqueness and mandatory invariants before commit. Any failure returns the applicable typed error and rolls back every Storage Space row plus every audit, journal and idempotency effect from the request. Partial-success responses and partial commits are prohibited. Successful execution commits the complete batch in one transaction. Exact replay with the same idempotency key and canonical payload returns the existing logical result without duplicate effects; reuse of the key with a different payload is an idempotency conflict. Existing optimistic-concurrency and authorization rules remain unchanged.
+
+## Approved Supabase platform binding — CR-ARCH-SUPABASE-BACKEND-001 / FD-76
+
+The frozen HTTP/API semantics in this document remain authoritative. Supabase is the sole canonical core backend runtime platform. `/api/v1` resource and command contracts are hosted through Supabase Edge Functions where an HTTP orchestration boundary is required and may delegate atomic data work to PostgreSQL functions/RPC. PostgreSQL remains authoritative for enterprise business data.
+
+Android may use Supabase Auth, Storage, Realtime or PostgREST/RPC directly only where this API contract and Document 17 explicitly permit that path. Such direct access is never a blanket replacement for `/api/v1`, server-side authorization, idempotency, entityVersion, atomic transaction or standard error semantics. Critical mutations including Campaign Code allocation/Save & Launch, atomic Storage Space batch-create and Inventory Close must execute through approved server-authoritative PostgreSQL/Edge Function paths and cannot be implemented as unguarded client table writes.
+
+Supabase Auth is the canonical identity/session platform. Supabase Storage is the canonical remote Evidence object store. Realtime is non-authoritative and may only signal clients to refresh/reconcile durable state; it does not acknowledge SyncOperations or resolve conflicts.

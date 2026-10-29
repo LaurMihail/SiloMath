@@ -1,7 +1,7 @@
 # SiloMath V6 - 18_TEST_STRATEGY_ACCEPTANCE
 
 **Status:** APPROVED / FROZEN V6
-**Baseline revision:** 2026-10-28 - CR-API-STORAGE-SPACE-BATCH-001 approved atomic Storage Space batch-create clarification
+**Baseline revision:** 2026-10-29 - CR-ARCH-SUPABASE-BACKEND-001 approved Supabase-only canonical core backend platform
 
 ## 1. Purpose and authority
 
@@ -619,3 +619,9 @@ CR-COUNTRY-CATALOG-CONTRACT-001 / FD-74: Runtime verification must prove complet
 ## Approved Storage Space batch-create verification
 
 CR-API-STORAGE-SPACE-BATCH-001 / FD-75 / TA-D234: verify one logical request commits all items and effects or none. Tests must cover complete validation before commit; duplicate/invalid/wrong-parent/wrong-Organization/unauthorized elements; zero partial Storage Space, audit, journal, idempotency and outbox effects; exact-key/same-payload replay without duplicates; same-key/different-payload conflict; and injected transaction failure rollback. Per-item partial success is not an accepted result.
+
+## FD-76 Supabase backend acceptance coverage — CR-ARCH-SUPABASE-BACKEND-001
+
+Refreeze adds architecture acceptance coverage without changing product workflows. Required evidence includes: Supabase Auth/session behavior; RLS tenant/role isolation for every client-accessible path; Edge Function `/api/v1` contract/error/idempotency tests; PostgreSQL function/RPC transaction and authorization tests for critical mutations; Save & Launch/Campaign Code, atomic Storage Space batch-create and Close rollback/atomicity regression; offline SyncOperation retry/entityVersion/conflict regression against Supabase; Supabase Storage Evidence authorization/hash/integrity tests; Realtime non-authority tests; and Development/Staging/Production promotion smoke evidence.
+
+Ktor/Render/JDBC-specific mechanics cease to be baseline acceptance requirements after migration closure. They may remain temporary transition tests until the superseded backend is removed, but cannot substitute for Supabase canonical-runtime acceptance evidence.

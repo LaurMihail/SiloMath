@@ -1,0 +1,116 @@
+{
+  "baselineId": "SILOMATH_V6",
+  "refreezeId": "2026-10-29_SUPABASE",
+  "status": "APPROVED_FROZEN",
+  "changeRequest": "CR-ARCH-SUPABASE-BACKEND-001",
+  "decision": "FD-76",
+  "approvedBy": "Product Owner (explicit user approval)",
+  "approvedDate": "2026-10-29",
+  "documents": [
+    {
+      "path": "baseline/01_PRODUCT_BASELINE.md",
+      "sha256": "c4b8986e032e23c20470761dd7749b2878c76f85aac5a3a5c4616b4773a1cc70",
+      "bytes": 38593
+    },
+    {
+      "path": "baseline/02_DECISION_REGISTER.md",
+      "sha256": "244b35f6a2b31c837fba7130f33b81086a9008cc427c2e38d8f168ba4897acd5",
+      "bytes": 39916
+    },
+    {
+      "path": "baseline/03_BUSINESS_RULES.md",
+      "sha256": "0d4ed945800b78dfeeccdf8e7542314ad01a2c71c97686293a66ca2731588fb7",
+      "bytes": 32677
+    },
+    {
+      "path": "baseline/04_USER_ROLES_PERMISSIONS.md",
+      "sha256": "beae05e83d4725ee139def395fad6df858680f163c68647dfc2696e21a2ec74f",
+      "bytes": 18290
+    },
+    {
+      "path": "baseline/05_WORKFLOWS_STATE_MACHINES.md",
+      "sha256": "903a57e4c6ecd68ea07647e6fff960d7829530d2987b357af062f97e768c0e25",
+      "bytes": 27199
+    },
+    {
+      "path": "baseline/06_UI_SCREEN_SPECIFICATION_AND_NAVIGATION.md",
+      "sha256": "1df24718b0c633b631e4a9a89835b9b6ce6fbc90ebef719e4e5fb29b562d799b",
+      "bytes": 144676
+    },
+    {
+      "path": "baseline/07_ARCHITECTURE.md",
+      "sha256": "7cfb8ee9d17da9c14961b851fc91b3cad23d26256aebc16c39a3c20703b5e9d3",
+      "bytes": 57967
+    },
+    {
+      "path": "baseline/08_MODULE_ARCHITECTURE.md",
+      "sha256": "f5062b791067db4c794816e82f87db9ab683a97f2006d67521038f4ad0fee5a4",
+      "bytes": 41008
+    },
+    {
+      "path": "baseline/09_DATA_MODEL.md",
+      "sha256": "3dbb47ae1ee4b313143464d9e046738e23718b91b439a90edf5eaab4128fd760",
+      "bytes": 93473
+    },
+    {
+      "path": "baseline/10_DATABASE_SCHEMA.md",
+      "sha256": "b9b3a29ddc2f2be6744d44f61b392b8f03450d423c4d3949e0b48f51b49b9864",
+      "bytes": 42335
+    },
+    {
+      "path": "baseline/11_API_SPECIFICATION.md",
+      "sha256": "476c4bc20f26195bcf72058b7f1e2e15e1c89e4f05535bb8797f463e9bf77926",
+      "bytes": 58850
+    },
+    {
+      "path": "baseline/12_OFFLINE_SYNC_SPECIFICATION.md",
+      "sha256": "154c6d7be798560392661386cd021b14cefaa0a69cd9dafcb6bb394533a4f926",
+      "bytes": 53336
+    },
+    {
+      "path": "baseline/13_CALCULATION_ENGINE_SPECIFICATION.md",
+      "sha256": "bc58fea6798e579263eb8b16b61a6efd03d50ea5fb8197c66d3dbaefe6c8677a",
+      "bytes": 34085
+    },
+    {
+      "path": "baseline/14_COMMODITY_SPECIFICATION.md",
+      "sha256": "00f8ba05755ad8b5f87a10c446353c6cbc83d6e73a6632001da4a1206aa30f5f",
+      "bytes": 28701
+    },
+    {
+      "path": "baseline/15_EVIDENCE_STORAGE_SPECIFICATION.md",
+      "sha256": "81a6253b6b2b7de9dbd9bb6da7ba708840caaa186de04aa4c2b8c23d801c1ca2",
+      "bytes": 30427
+    },
+    {
+      "path": "baseline/16_REPORTING_SPECIFICATION.md",
+      "sha256": "c336c638d06483570c20685bc13bc1aee601ad963c01967710eab1936b2a8251",
+      "bytes": 43669
+    },
+    {
+      "path": "baseline/17_SECURITY_AUDIT_PRIVACY.md",
+      "sha256": "bc43d9e6313efd629b1cd1777b9294596d308e757eeaf99d232a41938f936ad7",
+      "bytes": 59522
+    },
+    {
+      "path": "baseline/18_TEST_STRATEGY_ACCEPTANCE.md",
+      "sha256": "d8cb8d0dbbd92388b12851c1a9c1d5988378250c6f4e8c4662a22ea204b6b5df",
+      "bytes": 66908
+    },
+    {
+      "path": "baseline/19_RETENTION_POLICY.md",
+      "sha256": "4cd5d041da020f87caa8382bfbefd49739a29a13f6c1d4be692daac444412f02",
+      "bytes": 59942
+    },
+    {
+      "path": "baseline/20_PRODUCTION_OPERATIONS.md",
+      "sha256": "ff882713bebb28a75be31200f015baa0ac7a1b84d80c5eeea5a6e5e6c09f1a2f",
+      "bytes": 85319
+    },
+    {
+      "path": "baseline/21_UI_DESIGN_SYSTEM_FINAL.md",
+      "sha256": "4aa4f249207100a7ddf9d026c57462094036d06895f5b7dfeb5235a9bb9cab29",
+      "bytes": 26654
+    }
+  ]
+}
