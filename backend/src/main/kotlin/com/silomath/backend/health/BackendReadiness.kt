@@ -3,6 +3,7 @@ package com.silomath.backend.health
 import com.silomath.backend.config.BackendConfig
 import java.sql.Connection
 import java.sql.DriverManager
+import java.sql.SQLException
 import java.util.Properties
 
 fun interface BackendReadinessProbe {
@@ -26,10 +27,21 @@ class JdbcBackendReadinessProbe(
                     }
                 }
             }
-        } catch (_: Exception) {
+        } catch (error: Exception) {
+            System.err.println(
+                "SiloMath backend readiness database check failed: ${diagnostic(error)}"
+            )
             false
         }
     }
+
+    private fun diagnostic(error: Exception): String =
+        when (error) {
+            is SQLException ->
+                "type=${error.javaClass.name} sqlState=${error.sqlState ?: "unknown"} vendorCode=${error.errorCode}"
+            else ->
+                "type=${error.javaClass.name}"
+        }
 
     private fun openConnection(): Connection {
         val databaseUrl = requireNotNull(config.databaseUrl)
