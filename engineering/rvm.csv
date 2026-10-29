@@ -1,4 +1,4 @@
-﻿"requirementDecisionId","sourceDocumentVersion","componentModule","testIds","testLevel","automation","environment","result","evidence","buildVersion","mappingStatus"
+"requirementDecisionId","sourceDocumentVersion","componentModule","testIds","testLevel","automation","environment","result","evidence","buildVersion","mappingStatus"
 "ADR-001","07_ARCHITECTURE",,,,,,"Not Run",,,"UNMAPPED"
 "ADR-002","07_ARCHITECTURE",,,,,,"Not Run",,,"UNMAPPED"
 "ADR-003","07_ARCHITECTURE",,,,,,"Not Run",,,"UNMAPPED"

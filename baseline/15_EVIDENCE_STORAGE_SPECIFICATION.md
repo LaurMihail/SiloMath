@@ -1,7 +1,7 @@
 # SiloMath V6 — 15_EVIDENCE_STORAGE_SPECIFICATION
 
 **Status:** APPROVED / FROZEN V6
-**Baseline revision:** 2026-10-28 - CR-API-STORAGE-SPACE-BATCH-001 approved atomic Storage Space batch-create clarification
+**Baseline revision:** 2026-10-29 - CR-ARCH-SUPABASE-BACKEND-001 approved Supabase-only canonical core backend platform
 
 ## 1. Purpose and authority
 
@@ -428,3 +428,9 @@ Safe operational telemetry may include evidenceId, sync state, byte size, hash p
 ## 35. Freeze statement
 
 This document is **APPROVED / FROZEN V6** and freezes the SiloMath V6 Evidence/Storage contract: PHOTO/NOTE semantics, ownership and revision binding, limits, canonical JPEG processing, SHA-256 integrity, privacy, app-private/object storage, offline durability, transfer state, retry/dependency behavior, immutability, cleanup and minimum historical retention. Any semantic change requires an explicit approved V6 Baseline Change and cross-document consistency update. Provider/library/storage implementation choices that preserve these requirements require no Product/Baseline approval.
+
+## Approved Supabase Storage binding — CR-ARCH-SUPABASE-BACKEND-001 / FD-76
+
+Supabase Storage is the canonical remote object-storage platform for SiloMath Evidence. Existing Evidence rules remain unchanged: app-private local durability while offline, JPEG normalization and size limits, SHA-256 integrity, metadata/reference persistence in relational storage, controlled authorization, immutable validated/final historical context and durable synchronization.
+
+Storage object access must be private and authorized through approved Supabase security/API paths. Privileged service-role credentials are server-only and must never ship in the APK. Android direct Storage access is permitted only where Documents 11 and 17 explicitly define a safe authenticated path and must not allow cross-Organization or unauthorized object access.

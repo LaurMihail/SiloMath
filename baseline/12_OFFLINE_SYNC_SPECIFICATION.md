@@ -2,7 +2,7 @@
 
 **Version:** V6 Final Documentation — Offline & Sync Specification 1.0  
 **Status:** APPROVED / FROZEN V6
-**Baseline revision:** 2026-10-28 - CR-API-STORAGE-SPACE-BATCH-001 approved atomic Storage Space batch-create clarification
+**Baseline revision:** 2026-10-29 - CR-ARCH-SUPABASE-BACKEND-001 approved Supabase-only canonical core backend platform
 **Normative role:** Canonical offline-first, synchronization, conflict, package, retry and recovery contract for SiloMath V6.
 
 ## 1. Purpose, authority and scope
@@ -667,3 +667,9 @@ CR-COUNTRY-CATALOG-CONTRACT-001 / FD-74: Complete ISO 3166-1 selector options ar
 ## Approved Storage Space batch-create cross-reference
 
 CR-API-STORAGE-SPACE-BATCH-001 / FD-75: one Storage Space batch-create request is one logical mutation intent. Where supported locally, the complete business batch and its durable outbox/SyncOperation representation share one Room transaction. A failed batch persists neither partial business rows nor partial outbox effects. Replay preserves the stable idempotency identity; exact-key/same-payload replay is safe and key/payload mismatch is an explicit conflict. Server ACK/retry handling must not convert the operation into per-item partial success.
+
+## Approved Supabase synchronization binding — CR-ARCH-SUPABASE-BACKEND-001 / FD-76
+
+FD-76 changes backend platform topology, not the frozen offline-first/local-first contract. Room/SQLCipher remains the durable Android operational store; supported local business mutation and SyncOperation remain one atomic Room transaction; retries reuse the same idempotency identity; entityVersion/conflict rules and dependency ordering remain authoritative.
+
+The synchronization target is the canonical Supabase backend: approved Edge Function `/api/v1` commands and/or PostgreSQL functions/RPC enforce authorization, idempotency, entityVersion and atomic business effects. Direct table access is permitted only for explicitly approved RLS-protected paths and must never bypass critical command semantics. Supabase Realtime is optional refresh acceleration only and is never a durable queue, acknowledgement mechanism, conflict resolver or source of truth.

@@ -3,9 +3,9 @@
 ## Decision Register
 
 **Document ID:** 02_DECISION_REGISTER  
-**Version:** V6 Final Documentation — Decision Register 1.1  
+**Version:** V6 Final Documentation — Decision Register 1.2  
 **Status:** APPROVED / FROZEN V6
-**Baseline revision:** 2026-10-28 - CR-API-STORAGE-SPACE-BATCH-001 approved atomic Storage Space batch-create clarification
+**Baseline revision:** 2026-10-29 - CR-ARCH-SUPABASE-BACKEND-001 approved Supabase-only canonical core backend platform
 **Product:** SiloMath  
 **Normative role:** Canonical register of approved V6 decisions
 
@@ -13,7 +13,7 @@
 
 This register records the approved decisions that define SiloMath V6. Every entry is APPROVED / FROZEN unless a specialist V6 specification refines implementation detail without changing the decision's normative meaning.
 
-The register uses two stable traceability namespaces: D01–D36 for core consolidation decisions and FD-01–FD-74 for final freeze decisions approved during the Pre-Documentation Freeze, documentation-structure freeze, and the approved UI Design System authority extension.
+The register uses two stable traceability namespaces: D01–D36 for core consolidation decisions and FD-01–FD-76 for final freeze decisions approved during the Pre-Documentation Freeze, documentation-structure freeze, approved UI Design System authority extension, and subsequent explicitly approved Baseline Changes.
 
 ## 2. Decision Status Model
 
@@ -65,7 +65,7 @@ All decisions listed below have status APPROVED / FROZEN.
 | D35 | Data retention | Final Snapshot, critical Audit events, official Evidence, Issues/resolution history and Campaign Snapshot are retained for at least 10 years. Synced diagnostic operations may be retained online for 90 days; unresolved failures are not auto-deleted; notifications are retained server-side for 12 months. Device cleanup is guarded by durability/sync conditions. | Retention |
 | D36 | Production operations | Environments are Development, Staging and Production. Migrations are forward-safe; risky changes use Expand→Migrate→Contract. PostgreSQL is backed up at least daily with minimum 30-day retention and PITR where supported. Restore tests are quarterly. Objectives are RPO ≤1 hour and RTO ≤4 hours. Release, monitoring, secret handling and integrity-first failure behavior follow the approved Production Operations contract. | Operations |
 
-## 4. Final Freeze Decision Register — FD-01–FD-74
+## 4. Final Freeze Decision Register — FD-01–FD-76
 
 | ID | Decision | Normative outcome | Primary domain |
 | --- | --- | --- | --- |
@@ -144,6 +144,7 @@ All decisions listed below have status APPROVED / FROZEN.
 | FD-73 | Approved Calculation Version Contract | `engineVersion="2.0"`; integer `inputSchemaVersion=1`, `normalizationVersion=1`, `formulaVersion=1` for F01-F10; `surfaceModelVersion=LEVEL_BASED_V1`; `aggregationMethod=MEAN_ULLAGE`; integer `aggregationRuleVersion=1`; combined semantic identifier `MEAN_ULLAGE_V1`. Correct Doc13 section20 aggregationMethod wording; preserve all existing formulaCode values and mathematical semantics. Approved through CR-CALC-VERSION-CONTRACT-001. | Calculation / API / Offline / History |
 | FD-74 | Canonical Country catalogue and encoding | Complete ISO 3166-1 catalogue; canonical persisted/API values are uppercase ISO 3166-1 alpha-2 codes (RO/DE/US); country names are presentation labels only. No free-text new Country values; fail-closed catalogue membership validation; complete options local/cached. Preserve non-conforming historical values unchanged and audit separately before any migration. Approved through CR-COUNTRY-CATALOG-CONTRACT-001. | Master Data / UI / API / Offline / History |
 | FD-75 | Atomic Storage Space batch-create | One `storage-spaces:batch-create` request is one logical mutation intent and is atomic all-or-nothing. The complete batch is validated before commit. Any validation, uniqueness, hierarchy, authorization, Organization-scope or mandatory-invariant failure commits zero Storage Space rows and zero partial business, audit, journal, idempotency or outbox effects. Exact-key/same-payload replay is safe; same-key/different-payload reuse is an idempotency conflict. Partial success is prohibited. Approved through CR-API-STORAGE-SPACE-BATCH-001. | Master Data / API / Database / Offline Sync |
+| FD-76 | Supabase canonical backend platform | Supabase is the sole canonical backend platform for SiloMath application runtime. PostgreSQL remains the authoritative enterprise datastore. Server-authoritative operations are implemented using Supabase PostgreSQL functions and/or Supabase Edge Functions. Android direct access to Supabase is permitted only where the API/security contract explicitly allows it and RLS/authorization protect the path. Critical mutations remain server-authoritative, atomic and idempotent. No separate application backend or external compute service is canonical for core SiloMath business operations; non-core auxiliary services may not become authoritative for core business state without a future approved Baseline Change. Approved through CR-ARCH-SUPABASE-BACKEND-001. | Architecture / API / Security / Operations |
 
 ## 5. Consolidated Decision Effects
 
@@ -205,6 +206,10 @@ All decisions listed below have status APPROVED / FROZEN.
 - Gradle modularization is pragmatic rather than screen-by-screen.
 - Feature → Core dependencies are allowed; Core → Feature dependencies are prohibited.
 - Calculation Engine is a separate pure Kotlin module.
+- Supabase is the sole canonical core backend runtime platform; PostgreSQL remains enterprise-authoritative.
+- Supabase Auth, RLS, PostgreSQL functions/RPC, Edge Functions and Storage provide the approved server-side capabilities within their specialist contracts.
+- Direct Android-to-Supabase access exists only on explicitly permitted paths and cannot bypass server-authoritative guards.
+- A separate Ktor/Render or equivalent external compute backend is not part of the target core runtime architecture.
 
 ## 6. Traceability Requirements
 
@@ -246,3 +251,9 @@ Already persisted non-conforming Country values are preserved unchanged and requ
 ## Approved Storage Space batch-create contract — CR-API-STORAGE-SPACE-BATCH-001 / FD-75
 
 One `storage-spaces:batch-create` request is one logical mutation intent and is atomic all-or-nothing. Validate the complete batch before commit. A failure of validation, uniqueness, hierarchy, authorization, Organization scope or another mandatory invariant fails the complete batch and commits no Storage Space row or partial business, audit, journal, idempotency or outbox effect. A successful request commits the complete batch atomically. Exact replay with the same idempotency key and canonical payload is safe and produces no duplicate effect; reuse of the key with a different payload is an idempotency conflict. Partial success is not part of the V6 contract.
+
+## Approved Supabase canonical backend contract — CR-ARCH-SUPABASE-BACKEND-001 / FD-76
+
+Supabase is the sole canonical backend platform for SiloMath application runtime. PostgreSQL is the authoritative enterprise datastore. Server-authoritative business operations are implemented through Supabase PostgreSQL functions and/or Supabase Edge Functions. Android may access Supabase services directly only where Documents 11 and 17 explicitly permit the path and RLS/authorization enforce tenant and role boundaries. Critical mutations remain server-authoritative, atomic and idempotent. The canonical `/api/v1` semantics remain in force where specified and may be hosted by Edge Functions and backed by transactional PostgreSQL functions.
+
+Supabase Auth is the canonical identity platform and Supabase Storage is the canonical remote Evidence object-storage platform. Realtime may accelerate refresh/notification but is not an authoritative state or synchronization mechanism. Android remains offline-first/local-first with durable Room/SQLCipher state and durable outbox/SyncOperation behavior. A separate Render/Ktor or equivalent external compute backend is not part of the target core runtime architecture. Non-core auxiliary services may be used only when they do not become authoritative for core SiloMath business state without a future approved Baseline Change.

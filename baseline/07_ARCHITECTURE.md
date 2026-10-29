@@ -6,7 +6,7 @@ Version: V6 Final Documentation — Architecture 1.0
 
 Status: APPROVED / FROZEN V6
 
-Baseline revision: 2026-10-28 - CR-API-STORAGE-SPACE-BATCH-001 approved atomic Storage Space batch-create clarification
+Baseline revision: 2026-10-29 - CR-ARCH-SUPABASE-BACKEND-001 approved Supabase-only canonical core backend platform
 
 Product: SiloMath
 
@@ -144,7 +144,7 @@ Repository Implementations
 | Serialization | One project-wide typed serializer selected and used consistently. |
 | Build configuration | Gradle Kotlin DSL/version catalog; environment-specific non-secret configuration. |
 
-Library versions are implementation details managed centrally. Dependency/version/provider choices that preserve this architecture do not require Product/Baseline approval. An architectural-role change is recorded through IADR when it does not change frozen behavior; a role change that alters frozen behavior requires Baseline Change.
+Library versions and non-backend dependency choices are implementation details managed centrally. FD-76 freezes Supabase as the canonical core backend platform; replacing that platform or making another service authoritative for core business state requires an approved Baseline Change. Other architectural choices that preserve the frozen contract may be recorded through IADR where material.
 
 ## 7. Application composition and module boundary
 
@@ -857,3 +857,13 @@ This sequence is architectural guidance, not permission to bypass the frozen scr
 CR-CALC-VERSION-CONTRACT-001 / FD-73: `engineVersion="2.0"`; integer `inputSchemaVersion=1`, `normalizationVersion=1`, `formulaVersion=1` for F01-F10; `surfaceModelVersion=LEVEL_BASED_V1`; `aggregationMethod=MEAN_ULLAGE`; integer `aggregationRuleVersion=1`; combined semantic identifier `MEAN_ULLAGE_V1`. Formula codes are the unchanged F01-F10 identifiers in Doc13 sections6/22.1. Domain/API version numbers are integers except engineVersion, which is the exact string "2.0". Resolve only actual implemented handlers for the full pinned tuple; unsupported versions return GEOM_VERSION_UNSUPPORTED without fallback. Preserve historical metadata verbatim; no automatic reassignment to this initial approved tuple. This clarification changes no mathematics and is not evidence of completed integration or release gates.
 
 The pure Kotlin numerical module is independent of UI, Room and transport; a compiled handler registry binds this tuple to executable semantics, not an allowed-string list.
+
+## Approved Supabase canonical backend contract — CR-ARCH-SUPABASE-BACKEND-001 / FD-76
+
+Supabase is the sole canonical backend platform for core SiloMath application runtime. The server-side topology is Supabase Auth for identity, PostgreSQL as the authoritative enterprise datastore, RLS as mandatory defense-in-depth for client-accessible data, PostgreSQL functions/RPC for data-centric transactional commands, Supabase Edge Functions for HTTP/API orchestration where required, and Supabase Storage for remote Evidence binaries. Supabase Realtime may accelerate refresh/notification but is not an authoritative state or synchronization mechanism.
+
+The Android repository boundary remains local-first. Room/SQLCipher remains the durable client operational store and supported offline mutations still commit business state plus SyncOperation atomically before UI success. Direct Android-to-Supabase access is allowed only for paths explicitly permitted by Documents 11 and 17; no direct path may bypass Organization/role/Campaign Team/state guards, idempotency, entityVersion or critical transaction semantics.
+
+The canonical `/api/v1` semantic contract remains authoritative where Document 11 specifies it. Edge Functions may host those HTTP contracts and may delegate atomic data work to PostgreSQL functions. Campaign Code allocation, Save & Launch, Storage Space batch-create, Close and other critical mutations remain server-authoritative, atomic and idempotent.
+
+A separate Ktor/Render or equivalent external compute backend is superseded as a target core-runtime architecture. Provider selection is no longer an unconstrained implementation choice for the core backend: replacing Supabase as the canonical core backend, or making another service authoritative for core business state, requires an approved Baseline Change. Non-core CI, distribution, observability and integration services remain permitted when they are non-authoritative for core business state.

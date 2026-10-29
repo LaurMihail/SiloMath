@@ -1,7 +1,7 @@
 # SiloMath V6 - 17_SECURITY_AUDIT_PRIVACY
 
 **Status:** APPROVED / FROZEN V6
-**Baseline revision:** 2026-10-28 - CR-API-STORAGE-SPACE-BATCH-001 approved atomic Storage Space batch-create clarification
+**Baseline revision:** 2026-10-29 - CR-ARCH-SUPABASE-BACKEND-001 approved Supabase-only canonical core backend platform
 
 ## 1. Purpose and normative scope
 
@@ -546,3 +546,9 @@ It defines trust boundaries, authentication/session controls, transport and loca
 ## 27. Freeze statement
 
 This document is the canonical APPROVED / FROZEN SiloMath V6 security, audit and privacy contract after the 2026-10-20 CR-DB-CAMPAIGN-SNAPSHOT-COMMODITY-001 baseline-change refreeze, defined by SEC-D01-SEC-D149, including authorization boundaries, 15-minute access tokens, 30-day refresh/session maximum, Production Room and local PHOTO encryption, privacy minimization, append-only audit rules, safe telemetry, throttling/reset controls, encrypted infrastructure storage/backups and fail-closed security behavior.
+
+## Approved Supabase security boundary — CR-ARCH-SUPABASE-BACKEND-001 / FD-76
+
+Supabase Auth is the canonical identity platform. PostgreSQL/RLS, PostgreSQL functions and Edge Functions collectively implement the authoritative server-side security boundary. RLS is mandatory defense-in-depth for every client-accessible tenant table/view/storage path; critical protected mutations must additionally enforce the complete Organization membership, role, Campaign Team and entity/workflow-state guards in an approved server-authoritative function/Edge Function path.
+
+Supabase service-role or equivalent privileged credentials are server-only and prohibited from APKs, client configuration, logs and diagnostic packages. Public/client keys designed for Android use do not confer authorization by themselves and remain constrained by authenticated identity, RLS and server-side business authorization. Supabase Storage is private for Evidence under the Evidence contract. Realtime subscriptions do not grant additional read/mutation authority.
