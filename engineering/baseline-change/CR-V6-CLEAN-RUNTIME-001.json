@@ -1,0 +1,21 @@
+﻿{
+  "cr_id": "CR-V6-CLEAN-RUNTIME-001",
+  "title": "Eliminate legacy runtime and backwards-compatibility support",
+  "status": "APPROVED",
+  "baseline": "SILOMATH_V6",
+  "changes_frozen_baseline": true,
+  "owner": "Product Owner",
+  "requested_by": "Product Owner",
+  "created_date": "2026-11-02",
+  "decision_date": "2026-11-02",
+  "approved_by": "Product Owner",
+  "summary": "SiloMath Android supports only the current approved V6 runtime and current local schema. Historical Android/Room compatibility is not required because there are no Production users or Production local datasets requiring preservation.",
+  "approved_delta": [
+    "Remove legacy Android/Room entities, tables, DAOs, repositories and runtime compatibility paths not required by current V6 functionality.",
+    "Remove Long-to-UUID shims, legacy_* compatibility fields and historical Room migration paths.",
+    "Remove tests whose sole purpose is upgrading unsupported historical Android installations.",
+    "Create the current canonical V6 local schema directly for fresh installations.",
+    "Preserve current V6 offline-first, persistence and synchronization behavior.",
+    "Do not remove PostgreSQL/Supabase migration history required by the current canonical backend without separate approval."
+  ]
+}

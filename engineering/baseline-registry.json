@@ -1,0 +1,230 @@
+﻿{
+    "baselineId":  "SILOMATH_V6",
+    "baselineName":  "SiloMath V6 Master Baseline",
+    "status":  "APPROVED_FROZEN",
+    "documentCount":  21,
+    "refreezeDate":  "2026-10-31",
+    "refreezeType":  "CR-V6-CLEAN-RUNTIME-001 approved current-V6-only Android/Room runtime refreeze",
+    "governance":  {
+                       "overallProductAuthority":  "01_PRODUCT_BASELINE",
+                       "decisionAuthority":  "02_DECISION_REGISTER",
+                       "specialistAuthorityRule":  "For domain-specific detail, the relevant specialist document has authority within its assigned domain and is interpreted together with 01_PRODUCT_BASELINE and 02_DECISION_REGISTER.",
+                       "conflictRule":  "Contradictions between baseline documents must be reported explicitly and must not be resolved by implementation assumption.",
+                       "frozenChangeRule":  "Any intentional change to frozen product behavior, rules, structure, state, workflow, screen, architecture or contract requires explicit Change Request / Baseline Change.",
+                       "uiFunctionalAuthority":  "06_UI_SCREEN_SPECIFICATION_AND_NAVIGATION",
+                       "uiVisualAuthority":  "21_UI_DESIGN_SYSTEM_FINAL",
+                       "uiConflictRule":  "Document 06 governs UI functionality/navigation. Document 21 governs visual design. Documents 01-20 prevail over Document 21 for semantic or behavioral conflicts."
+                   },
+    "documents":  [
+                      {
+                          "id":  "01",
+                          "name":  "PRODUCT_BASELINE",
+                          "file":  "baseline/01_PRODUCT_BASELINE.md",
+                          "authority":  "overall_product_contract",
+                          "status":  "APPROVED_FROZEN",
+                          "sha256":  "033d052048a4b767ced2da3f0d1683932c60724374a1e3db0f882234aa517c0a",
+                          "bytes":  40563,
+                          "lines":  926
+                      },
+                      {
+                          "id":  "02",
+                          "name":  "DECISION_REGISTER",
+                          "file":  "baseline/02_DECISION_REGISTER.md",
+                          "authority":  "approved_frozen_decisions",
+                          "status":  "APPROVED_FROZEN",
+                          "sha256":  "89686e6a641653e44c10c8b3fd9a24e064e3628f42c38368ac4fd5a892e4ed20",
+                          "bytes":  41813,
+                          "lines":  285
+                      },
+                      {
+                          "id":  "03",
+                          "name":  "BUSINESS_RULES",
+                          "file":  "baseline/03_BUSINESS_RULES.md",
+                          "authority":  "business_rules",
+                          "status":  "APPROVED_FROZEN",
+                          "sha256":  "1839732e33a9436f5c4c3fbd170c332d469291443a1744f359e60fbfcd25a8f5",
+                          "bytes":  32700,
+                          "lines":  236
+                      },
+                      {
+                          "id":  "04",
+                          "name":  "USER_ROLES_PERMISSIONS",
+                          "file":  "baseline/04_USER_ROLES_PERMISSIONS.md",
+                          "authority":  "roles_permissions_authorization",
+                          "status":  "APPROVED_FROZEN",
+                          "sha256":  "514023002f1b6300b0b9dbf68b523f0563c5ab58866e9947c58b86851c12388f",
+                          "bytes":  18314,
+                          "lines":  245
+                      },
+                      {
+                          "id":  "05",
+                          "name":  "WORKFLOWS_STATE_MACHINES",
+                          "file":  "baseline/05_WORKFLOWS_STATE_MACHINES.md",
+                          "authority":  "workflows_state_machines",
+                          "status":  "APPROVED_FROZEN",
+                          "sha256":  "062ed17e74ce0e41933acff938a98221a3fe1fa0d60cc92974a61f785c58f830",
+                          "bytes":  27223,
+                          "lines":  317
+                      },
+                      {
+                          "id":  "06",
+                          "name":  "UI_SCREEN_SPECIFICATION_AND_NAVIGATION",
+                          "file":  "baseline/06_UI_SCREEN_SPECIFICATION_AND_NAVIGATION.md",
+                          "authority":  "ui_functionality_navigation",
+                          "status":  "APPROVED_FROZEN",
+                          "sha256":  "4d62630171ed9c0994383eb7e0a79ce000723610429cdca7d78e426e95480a7a",
+                          "bytes":  144699,
+                          "lines":  1719
+                      },
+                      {
+                          "id":  "07",
+                          "name":  "ARCHITECTURE",
+                          "file":  "baseline/07_ARCHITECTURE.md",
+                          "authority":  "system_architecture",
+                          "status":  "APPROVED_FROZEN",
+                          "sha256":  "bfa093afffdecba53cd3cea2dafebe43e2fd7ec2b8ca5657b4ab455982cae92c",
+                          "bytes":  58415,
+                          "lines":  869
+                      },
+                      {
+                          "id":  "08",
+                          "name":  "MODULE_ARCHITECTURE",
+                          "file":  "baseline/08_MODULE_ARCHITECTURE.md",
+                          "authority":  "gradle_module_architecture",
+                          "status":  "APPROVED_FROZEN",
+                          "sha256":  "95a793a03a569a6895e1a1c7d0e53f5593ab99bbff5f7e01f575c43f619c20f2",
+                          "bytes":  41031,
+                          "lines":  658
+                      },
+                      {
+                          "id":  "09",
+                          "name":  "DATA_MODEL",
+                          "file":  "baseline/09_DATA_MODEL.md",
+                          "authority":  "logical_data_model",
+                          "status":  "APPROVED_FROZEN",
+                          "sha256":  "ac2f99ffbc41d2dd6019f3ae5f8bd799827c5f635ba456060e276b25958ab4de",
+                          "bytes":  95146,
+                          "lines":  1211
+                      },
+                      {
+                          "id":  "10",
+                          "name":  "DATABASE_SCHEMA",
+                          "file":  "baseline/10_DATABASE_SCHEMA.md",
+                          "authority":  "physical_database_schema",
+                          "status":  "APPROVED_FROZEN",
+                          "sha256":  "2c6624bf91b4b4e9ce268ab82be1e09232c2a64c92da20a11cf312039f6a565d",
+                          "bytes":  44923,
+                          "lines":  396
+                      },
+                      {
+                          "id":  "11",
+                          "name":  "API_SPECIFICATION",
+                          "file":  "baseline/11_API_SPECIFICATION.md",
+                          "authority":  "backend_api_contract",
+                          "status":  "APPROVED_FROZEN",
+                          "sha256":  "aee551cc1a41633da58126c72c7d544be4f83a51d3620765946415fd35b685ab",
+                          "bytes":  58877,
+                          "lines":  551
+                      },
+                      {
+                          "id":  "12",
+                          "name":  "OFFLINE_SYNC_SPECIFICATION",
+                          "file":  "baseline/12_OFFLINE_SYNC_SPECIFICATION.md",
+                          "authority":  "offline_sync",
+                          "status":  "APPROVED_FROZEN",
+                          "sha256":  "53e5e65444a91f01e61d18f94fc6d059ea2da5f4219cd19ff7c393d683aa9979",
+                          "bytes":  53363,
+                          "lines":  675
+                      },
+                      {
+                          "id":  "13",
+                          "name":  "CALCULATION_ENGINE_SPECIFICATION",
+                          "file":  "baseline/13_CALCULATION_ENGINE_SPECIFICATION.md",
+                          "authority":  "calculation_engine",
+                          "status":  "APPROVED_FROZEN",
+                          "sha256":  "3dbe089d1a77545658ff43394cb9675779184cf77d5a007fa51abd5b38686626",
+                          "bytes":  35769,
+                          "lines":  570
+                      },
+                      {
+                          "id":  "14",
+                          "name":  "COMMODITY_SPECIFICATION",
+                          "file":  "baseline/14_COMMODITY_SPECIFICATION.md",
+                          "authority":  "commodity_catalog",
+                          "status":  "APPROVED_FROZEN",
+                          "sha256":  "38192d1bab2ba6b17db34886b54966109ca3e763e4ed79af169f5ea48a057621",
+                          "bytes":  29590,
+                          "lines":  425
+                      },
+                      {
+                          "id":  "15",
+                          "name":  "EVIDENCE_STORAGE_SPECIFICATION",
+                          "file":  "baseline/15_EVIDENCE_STORAGE_SPECIFICATION.md",
+                          "authority":  "evidence_storage",
+                          "status":  "APPROVED_FROZEN",
+                          "sha256":  "a621ec784343563198c98734e4edc0c553e8b2b56f15efe6021c7f6e07cbe854",
+                          "bytes":  30454,
+                          "lines":  436
+                      },
+                      {
+                          "id":  "16",
+                          "name":  "REPORTING_SPECIFICATION",
+                          "file":  "baseline/16_REPORTING_SPECIFICATION.md",
+                          "authority":  "reporting_history_dossier",
+                          "status":  "APPROVED_FROZEN",
+                          "sha256":  "65d0d2e0fb4abdb6b4d5edbe8d62f10fdd0a36ee8fbfcf298308a9201ccb95cb",
+                          "bytes":  43692,
+                          "lines":  529
+                      },
+                      {
+                          "id":  "17",
+                          "name":  "SECURITY_AUDIT_PRIVACY",
+                          "file":  "baseline/17_SECURITY_AUDIT_PRIVACY.md",
+                          "authority":  "security_audit_privacy",
+                          "status":  "APPROVED_FROZEN",
+                          "sha256":  "53cb7fc951e93d1fee9d29e104c912a8d6ce5d6fcab98ed517aac4fe24a93a22",
+                          "bytes":  60381,
+                          "lines":  567
+                      },
+                      {
+                          "id":  "18",
+                          "name":  "TEST_STRATEGY_ACCEPTANCE",
+                          "file":  "baseline/18_TEST_STRATEGY_ACCEPTANCE.md",
+                          "authority":  "test_strategy_acceptance",
+                          "status":  "APPROVED_FROZEN",
+                          "sha256":  "7b8912b9f7260f2b6012cb2b4ae3618aee744cf55e24f50e2e9a8cc2e6ec4577",
+                          "bytes":  68310,
+                          "lines":  643
+                      },
+                      {
+                          "id":  "19",
+                          "name":  "RETENTION_POLICY",
+                          "file":  "baseline/19_RETENTION_POLICY.md",
+                          "authority":  "retention_policy",
+                          "status":  "APPROVED_FROZEN",
+                          "sha256":  "9843893300363148155f867459da79b1bc5ebebc61c2cd41e31282945009c8ea",
+                          "bytes":  59965,
+                          "lines":  517
+                      },
+                      {
+                          "id":  "20",
+                          "name":  "PRODUCTION_OPERATIONS",
+                          "file":  "baseline/20_PRODUCTION_OPERATIONS.md",
+                          "authority":  "production_operations",
+                          "status":  "APPROVED_FROZEN",
+                          "sha256":  "0b0fa68918b0c9a201b0ac0aba6dc2ecff6743333c7a262154f7547ae3c50bec",
+                          "bytes":  86862,
+                          "lines":  762
+                      },
+                      {
+                          "id":  "21",
+                          "name":  "UI_DESIGN_SYSTEM_FINAL",
+                          "file":  "baseline/21_UI_DESIGN_SYSTEM_FINAL.md",
+                          "authority":  "ui_visual_design",
+                          "status":  "APPROVED_FROZEN",
+                          "sha256":  "8d89b0b86e7be81a7d9b2bd4068afd993ba2b58ea28cd1b953ab634211c5b091",
+                          "bytes":  26677,
+                          "lines":  567
+                      }
+                  ]
+}

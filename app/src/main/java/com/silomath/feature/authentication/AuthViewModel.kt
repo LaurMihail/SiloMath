@@ -1,0 +1,182 @@
+package com.silomath.feature.authentication
+
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.silomath.core.domain.repository.AuthRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
+import javax.inject.Inject
+
+data class AuthUiState(
+    val email: String = "",
+    val password: String = "",
+    val isLoading: Boolean = false,
+    val error: String? = null,
+    val isSuccess: Boolean = false,
+    val canContinueOffline: Boolean = false,
+    val isSessionRestoreComplete: Boolean = false,
+    val isRestoredSessionReady: Boolean = false
+)
+
+data class PasswordResetUiState(
+    val isSubmitting: Boolean = false,
+    val isSuccess: Boolean = false,
+    val error: String? = null
+)
+
+@HiltViewModel
+class AuthViewModel @Inject constructor(
+    private val authRepository: AuthRepository
+) : ViewModel() {
+
+    private val _uiState = MutableStateFlow(AuthUiState())
+    val uiState: StateFlow<AuthUiState> = _uiState.asStateFlow()
+
+    private val _passwordResetUiState =
+        MutableStateFlow(PasswordResetUiState())
+    val passwordResetUiState: StateFlow<PasswordResetUiState> =
+        _passwordResetUiState.asStateFlow()
+
+    val sessionState = authRepository.sessionState.stateIn(
+        scope = viewModelScope,
+        started = SharingStarted.WhileSubscribed(5000),
+        initialValue = null
+    )
+
+    init {
+        viewModelScope.launch {
+            authRepository.sessionState.collect { session ->
+                _uiState.value = _uiState.value.copy(
+                    canContinueOffline = session.isOfflineEligible
+                )
+            }
+        }
+
+        viewModelScope.launch {
+            val restoreResult = authRepository.restoreRemoteSession()
+            val restoredSession = authRepository.sessionState.first()
+            _uiState.value = _uiState.value.copy(
+                isSessionRestoreComplete = true,
+                isRestoredSessionReady =
+                    restoreResult.isSuccess && restoredSession.isLoggedIn
+            )
+        }
+    }
+
+    fun onEmailChanged(email: String) {
+        _uiState.value = _uiState.value.copy(email = email, error = null)
+    }
+
+    fun onPasswordChanged(password: String) {
+        _uiState.value = _uiState.value.copy(password = password, error = null)
+    }
+
+    fun signIn() {
+        val email = _uiState.value.email
+        val password = _uiState.value.password
+
+        if (email.isBlank() || password.isBlank()) {
+            _uiState.value = _uiState.value.copy(
+                error = "Please fill in all fields"
+            )
+            return
+        }
+
+        viewModelScope.launch {
+            _uiState.value = _uiState.value.copy(
+                isLoading = true,
+                error = null
+            )
+            val result = authRepository.signIn(email, password)
+            if (result.isSuccess) {
+                _uiState.value = _uiState.value.copy(
+                    isLoading = false,
+                    isSuccess = true,
+                    isRestoredSessionReady = true
+                )
+            } else {
+                _uiState.value = _uiState.value.copy(
+                    isLoading = false,
+                    error = result.exceptionOrNull()?.message
+                        ?: "Sign in failed"
+                )
+            }
+        }
+    }
+
+    fun continueOffline() {
+        viewModelScope.launch {
+            val session = authRepository.sessionState.first()
+            if (session.isOfflineEligible) {
+                _uiState.value = _uiState.value.copy(isSuccess = true)
+            } else {
+                _uiState.value = _uiState.value.copy(
+                    error = "No valid offline session available"
+                )
+            }
+        }
+    }
+
+    fun resetPassword(email: String) {
+        viewModelScope.launch {
+            authRepository.resetPassword(email)
+        }
+    }
+
+    fun updatePassword(
+        recoveryContext: String,
+        newPassword: String
+    ) {
+        if (recoveryContext.isBlank()) {
+            _passwordResetUiState.value =
+                PasswordResetUiState(
+                    error = "Recovery context is missing or invalid."
+                )
+            return
+        }
+
+        if (newPassword.isBlank()) {
+            _passwordResetUiState.value =
+                PasswordResetUiState(
+                    error = "Enter a new password."
+                )
+            return
+        }
+
+        viewModelScope.launch {
+            _passwordResetUiState.value =
+                PasswordResetUiState(isSubmitting = true)
+
+            val result =
+                authRepository.updatePassword(
+                    recoveryContext = recoveryContext,
+                    newPassword = newPassword
+                )
+
+            _passwordResetUiState.value =
+                if (result.isSuccess) {
+                    PasswordResetUiState(isSuccess = true)
+                } else {
+                    PasswordResetUiState(
+                        error =
+                            "The recovery context is invalid or expired, " +
+                                "or the password was rejected."
+                    )
+                }
+        }
+    }
+
+    fun consumePasswordResetSuccess() {
+        _passwordResetUiState.value = PasswordResetUiState()
+        _uiState.value = _uiState.value.copy(
+            isSuccess = false,
+            isRestoredSessionReady = false
+        )
+    }
+}

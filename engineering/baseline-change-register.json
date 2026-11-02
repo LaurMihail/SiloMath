@@ -1,0 +1,197 @@
+﻿{
+    "baselineId":  "SILOMATH_V6",
+    "status":  "ACTIVE",
+    "schemaVersion":  1,
+    "changeRequestNamespace":  {
+                                   "pattern":  "^CR-[A-Z0-9]+(?:-[A-Z0-9]+)*-[0-9]{3}$",
+                                   "example":  "CR-API-ORG-MEM-001"
+                               },
+    "allowedStatuses":  [
+                            "PROPOSED",
+                            "APPROVED",
+                            "REJECTED",
+                            "SUPERSEDED"
+                        ],
+    "authoritativeApprovalStatus":  "APPROVED",
+    "records":  [
+                    {
+                        "id":  "CR-DB-CAMPAIGN-SNAPSHOT-COMMODITY-001",
+                        "title":  "Define canonical physical mapping for CampaignSnapshot commodity compatibility",
+                        "status":  "APPROVED",
+                        "changesFrozenBaseline":  true,
+                        "file":  "engineering/baseline-change/CR-DB-CAMPAIGN-SNAPSHOT-COMMODITY-001.md",
+                        "decisionDate":  "2026-10-20",
+                        "approvedBy":  "Product Owner",
+                        "baselineRefs":  [
+                                             "01_PRODUCT_BASELINE",
+                                             "02_DECISION_REGISTER",
+                                             "09_DATA_MODEL",
+                                             "10_DATABASE_SCHEMA",
+                                             "11_API_SPECIFICATION",
+                                             "12_OFFLINE_SYNC_SPECIFICATION",
+                                             "14_COMMODITY_SPECIFICATION",
+                                             "18_TEST_STRATEGY_ACCEPTANCE"
+                                         ],
+                        "approvedDelta":  "Approve explicit immutable CampaignSnapshot commodity compatibility child collection persisted as campaign_snapshot_commodity_items with snapshot_commodity_item_id, campaign_snapshot_id, commodity_id, and commodity_version_id. No additional product behavior is approved.",
+                        "rvmImpact":  "Update CampaignSnapshot and Commodity historical-integrity verification coverage to reference the canonical commodity compatibility child mapping.",
+                        "testImpact":  "Add migration and persistence verification for campaign_snapshot_commodity_items, canonical column types, historical immutability, and offline/package mapping where applicable."
+                    },
+                    {
+                        "id":  "CR-CALC-VERSION-CONTRACT-001",
+                        "title":  "Approve canonical Calculation Version Contract and aggregation metadata clarification",
+                        "status":  "APPROVED",
+                        "changesFrozenBaseline":  true,
+                        "file":  "engineering/baseline-change/CR-CALC-VERSION-CONTRACT-001.md",
+                        "decisionDate":  "2026-10-27",
+                        "approvedBy":  "Product Owner (explicit user approval)",
+                        "baselineRefs":  [
+                                             "01_PRODUCT_BASELINE",
+                                             "02_DECISION_REGISTER",
+                                             "07_ARCHITECTURE",
+                                             "09_DATA_MODEL",
+                                             "10_DATABASE_SCHEMA",
+                                             "11_API_SPECIFICATION",
+                                             "12_OFFLINE_SYNC_SPECIFICATION",
+                                             "13_CALCULATION_ENGINE_SPECIFICATION",
+                                             "16_REPORTING_SPECIFICATION",
+                                             "18_TEST_STRATEGY_ACCEPTANCE",
+                                             "19_RETENTION_POLICY",
+                                             "20_PRODUCTION_OPERATIONS"
+                                         ],
+                        "approvedDelta":  "`engineVersion=\"2.0\"`; integer `inputSchemaVersion=1`, `normalizationVersion=1`, `formulaVersion=1` for F01-F10; `surfaceModelVersion=LEVEL_BASED_V1`; `aggregationMethod=MEAN_ULLAGE`; integer `aggregationRuleVersion=1`; combined semantic identifier `MEAN_ULLAGE_V1`. Preserve formulaCode values, correct Doc13 section20, and change no mathematical semantics.",
+                        "rvmImpact":  "Add FD-73 and executable calculation version/fingerprint/history contract coverage; retain incomplete integration and gate status.",
+                        "testImpact":  "Exact typed tuple, real F01-F10 dispatch, fingerprint/stale detection, unsupported tuple rejection, historical reproduction, baseline consistency and client/server parity."
+                    },
+                    {
+                        "id":  "CR-COUNTRY-CATALOG-CONTRACT-001",
+                        "title":  "Approve canonical ISO 3166-1 Country catalogue and uppercase alpha-2 contract",
+                        "status":  "APPROVED",
+                        "changesFrozenBaseline":  true,
+                        "file":  "engineering/baseline-change/CR-COUNTRY-CATALOG-CONTRACT-001.md",
+                        "decisionDate":  "2026-10-27",
+                        "approvedBy":  "Product Owner (explicit user approval)",
+                        "baselineRefs":  [
+                                             "01_PRODUCT_BASELINE",
+                                             "02_DECISION_REGISTER",
+                                             "03_BUSINESS_RULES",
+                                             "06_UI_SCREEN_SPECIFICATION_AND_NAVIGATION",
+                                             "09_DATA_MODEL",
+                                             "10_DATABASE_SCHEMA",
+                                             "11_API_SPECIFICATION",
+                                             "12_OFFLINE_SYNC_SPECIFICATION",
+                                             "16_REPORTING_SPECIFICATION",
+                                             "18_TEST_STRATEGY_ACCEPTANCE",
+                                             "19_RETENTION_POLICY",
+                                             "20_PRODUCTION_OPERATIONS"
+                                         ],
+                        "approvedDelta":  "Complete ISO 3166-1 catalogue; uppercase alpha-2 persisted/API values; human-readable presentation labels; no free-text new values; fail-closed membership validation; local/cached options; unchanged historical non-conforming values pending separate audit before any migration.",
+                        "rvmImpact":  "Register FD-74, BR-MD-014 and TA-D233; runtime verification remains pending, not inferred from documentation approval.",
+                        "testImpact":  "Selector/API/storage membership, canonical encoding, label separation, offline availability and explicit historical preservation; baseline/registry/hash/refreeze consistency."
+                    },
+                    {
+                        "id":  "CR-API-STORAGE-SPACE-BATCH-001",
+                        "title":  "Approve atomic all-or-nothing Storage Space batch-create contract",
+                        "status":  "APPROVED",
+                        "changesFrozenBaseline":  true,
+                        "file":  "engineering/baseline-change/CR-API-STORAGE-SPACE-BATCH-001.md",
+                        "decisionDate":  "2026-10-28",
+                        "approvedBy":  "Product Owner (explicit user approval)",
+                        "baselineRefs":  [
+                                             "01_PRODUCT_BASELINE",
+                                             "02_DECISION_REGISTER",
+                                             "11_API_SPECIFICATION",
+                                             "12_OFFLINE_SYNC_SPECIFICATION",
+                                             "18_TEST_STRATEGY_ACCEPTANCE"
+                                         ],
+                        "approvedDelta":  "One storage-spaces:batch-create request is one logical mutation intent and is atomic all-or-nothing. Validate the complete batch before commit; any mandatory failure rolls back every row and every business, audit, journal, idempotency and outbox effect. Exact-key/same-payload replay is safe; same-key/different-payload reuse conflicts. Partial success is prohibited.",
+                        "rvmImpact":  "Register FD-75 and TA-D234 and map only the executed IMP-MD-005 atomic batch/idempotency/rollback verification.",
+                        "testImpact":  "Complete success and rollback, no partial effects, exact replay, idempotency mismatch conflict and transaction fault rollback."
+                    },
+                    {
+                        "id":  "CR-ARCH-SUPABASE-BACKEND-001",
+                        "title":  "Adopt Supabase as the sole canonical core backend platform",
+                        "status":  "APPROVED",
+                        "changesFrozenBaseline":  true,
+                        "file":  "engineering/baseline-change/CR-ARCH-SUPABASE-BACKEND-001.md",
+                        "decisionDate":  "2026-10-29",
+                        "approvedBy":  "Product Owner (explicit user approval)",
+                        "baselineRefs":  [
+                                             "01_PRODUCT_BASELINE",
+                                             "02_DECISION_REGISTER",
+                                             "07_ARCHITECTURE",
+                                             "11_API_SPECIFICATION",
+                                             "12_OFFLINE_SYNC_SPECIFICATION",
+                                             "15_EVIDENCE_STORAGE_SPECIFICATION",
+                                             "17_SECURITY_AUDIT_PRIVACY",
+                                             "18_TEST_STRATEGY_ACCEPTANCE",
+                                             "20_PRODUCTION_OPERATIONS"
+                                         ],
+                        "approvedDelta":  "Supabase is the sole canonical backend platform for SiloMath application runtime. PostgreSQL remains the authoritative enterprise datastore. Server-authoritative business operations use Supabase PostgreSQL functions and/or Edge Functions. Android direct access is allowed only where explicitly permitted by API/security contract and RLS. Critical mutations remain server-authoritative, atomic and idempotent. No separate application backend/external compute service is canonical for core business operations; non-core auxiliary services cannot become authoritative for core business state without an approved Baseline Change.",
+                        "rvmImpact":  "Register FD-76; preserve existing semantic verification and replace provider/topology evidence with Supabase Auth/PostgreSQL/RLS/Edge Functions/Storage evidence. Add proof that critical mutations cannot bypass approved server-authoritative paths and that core business state has no separate external-compute authority.",
+                        "testImpact":  "Add Supabase Edge Function/API, PostgreSQL RPC/transaction, RLS, Auth/session, offline sync/idempotency/version, Storage integrity/security and environment promotion tests. Ktor/Render/JDBC-specific tests cease to be baseline acceptance evidence after migration closure."
+                    },
+                    {
+                        "id":  "CR-GEOMETRY-DISPLAY-NAMES-001",
+                        "title":  "Canonical Geometry Family display names",
+                        "status":  "APPROVED",
+                        "changesFrozenBaseline":  true,
+                        "file":  "engineering/baseline-change/CR-GEOMETRY-DISPLAY-NAMES-001.md",
+                        "decisionDate":  "2026-10-31",
+                        "approvedBy":  "Product Owner (explicit user approval)",
+                        "baselineRefs":  [
+                                             "01_PRODUCT_BASELINE",
+                                             "02_DECISION_REGISTER",
+                                             "09_DATA_MODEL",
+                                             "13_CALCULATION_ENGINE_SPECIFICATION",
+                                             "18_TEST_STRATEGY_ACCEPTANCE"
+                                         ],
+                        "approvedDelta":  "Freeze exactly one canonical English GeometryFamily.displayName for each existing F01-F10 family: F01 Cylindrical Silo with Truncated Cone Hopper; F02 Cylindrical Silo with Flat Bottom; F03 Square Silo with Flat Bottom; F04 Rectangular Silo with Flat Bottom; F05 Square Silo with Pyramidal Hopper; F06 Rectangular Silo with Pyramidal Hopper; F07 Regular Hexagonal Silo with Flat Bottom; F08 Star-Shaped Storage with Verified Area; F09 Pocket Storage with Verified Area; F10 Perimeter-Based Storage with Verified Area. No formulaCode, formulaVersion, parameterContract or numerical semantics change.",
+                        "rvmImpact":  "Add verification that exactly ten canonical Geometry Families exist and each familyCode maps to the approved displayName while calculation dispatch/version semantics remain unchanged.",
+                        "testImpact":  "Add canonical seed assertions for all ten familyCode/displayName mappings, offline/read preservation checks, and regression proving displayName does not participate in numerical dispatch."
+                    },
+                    {
+                        "id":  "CR-MASTER-DATA-PROVENANCE-001",
+                        "title":  "Platform governance provenance actor for global master-data publication",
+                        "status":  "APPROVED",
+                        "changesFrozenBaseline":  true,
+                        "file":  "engineering/baseline-change/CR-MASTER-DATA-PROVENANCE-001.md",
+                        "decisionDate":  "2026-10-31",
+                        "approvedBy":  "Product Owner (explicit user approval)",
+                        "baselineRefs":  [
+                                             "01_PRODUCT_BASELINE",
+                                             "02_DECISION_REGISTER",
+                                             "09_DATA_MODEL",
+                                             "10_DATABASE_SCHEMA",
+                                             "14_COMMODITY_SPECIFICATION",
+                                             "17_SECURITY_AUDIT_PRIVACY",
+                                             "20_PRODUCTION_OPERATIONS"
+                                         ],
+                        "approvedDelta":  "Freeze PLATFORM_GOVERNANCE_ACTOR_ID as 00000000-0000-0000-0000-000000000001 for explicitly platform-governed master-data publication where the persistence contract requires a UUID provenance/creator value and no authenticated-user FK is required. The identity is non-user, non-tenant, non-authenticating and must not grant authorization. The canonical Commodity and CommodityVersion seed is an approved use.",
+                        "rvmImpact":  "Add verification that canonical platform-governed Commodity and CommodityVersion rows use the frozen provenance actor and that the reserved UUID has no user, membership, tenant or authorization effect.",
+                        "testImpact":  "Add seed provenance assertions, schema regression confirming no users FK is required for the approved columns, and security regression ensuring the reserved UUID cannot act as an authorization principal."
+                    },
+                    {
+                        "id":  "CR-V6-CLEAN-RUNTIME-001",
+                        "title":  "Eliminate legacy runtime and backwards-compatibility support",
+                        "status":  "APPROVED",
+                        "changesFrozenBaseline":  true,
+                        "file":  "engineering/baseline-change/CR-V6-CLEAN-RUNTIME-001.md",
+                        "decisionDate":  "2026-11-02",
+                        "approvedBy":  "Product Owner (explicit user approval)",
+                        "baselineRefs":  [
+                                             "01_PRODUCT_BASELINE",
+                                             "02_DECISION_REGISTER",
+                                             "07_ARCHITECTURE",
+                                             "08_MODULE_ARCHITECTURE",
+                                             "09_DATA_MODEL",
+                                             "10_DATABASE_SCHEMA",
+                                             "12_OFFLINE_SYNC_SPECIFICATION",
+                                             "18_TEST_STRATEGY_ACCEPTANCE",
+                                             "20_PRODUCTION_OPERATIONS"
+                                         ],
+                        "approvedDelta":  "SiloMath Android supports only the current approved V6 runtime and current local schema. Historical Android/Room compatibility, legacy local runtime models, Long-to-UUID shims, legacy_* fields and historical Room upgrade paths may be removed. Fresh installation creates the current canonical V6 schema directly. PostgreSQL/Supabase migration history required by the current canonical backend remains preserved.",
+                        "rvmImpact":  "Remove verification whose sole purpose is unsupported historical Android schema upgrade compatibility; retain current V6 functional, offline, persistence and synchronization verification.",
+                        "testImpact":  "Replace historical Room migration regression coverage with current canonical V6 schema creation, persistence, offline and synchronization coverage."
+                    }
+                ]
+}

@@ -1,0 +1,38 @@
+{
+  "id": "CR-ARCH-SUPABASE-BACKEND-001",
+  "title": "Adopt Supabase as the sole canonical core backend platform",
+  "status": "APPROVED",
+  "baselineId": "SILOMATH_V6",
+  "changesFrozenBaseline": true,
+  "decisionDate": "2026-10-29",
+  "approvedBy": "Product Owner (explicit user approval)",
+  "baselineRefs": [
+    "01_PRODUCT_BASELINE",
+    "02_DECISION_REGISTER",
+    "07_ARCHITECTURE",
+    "11_API_SPECIFICATION",
+    "12_OFFLINE_SYNC_SPECIFICATION",
+    "15_EVIDENCE_STORAGE_SPECIFICATION",
+    "17_SECURITY_AUDIT_PRIVACY",
+    "18_TEST_STRATEGY_ACCEPTANCE",
+    "20_PRODUCTION_OPERATIONS"
+  ],
+  "decisionId": "FD-76",
+  "approvedDelta": "Supabase is the sole canonical backend platform for SiloMath application runtime. PostgreSQL remains the authoritative enterprise datastore. Server-authoritative operations are implemented using Supabase PostgreSQL functions and/or Edge Functions. Android direct access is allowed only where explicitly permitted by the API/security contract and RLS. Critical mutations remain server-authoritative, atomic and idempotent. No separate application backend or external compute service is canonical for core business operations; non-core auxiliary services may not become authoritative for core business state without a future approved Baseline Change.",
+  "preservedContracts": [
+    "/api/v1 semantic contract where specified",
+    "server-authoritative authorization",
+    "atomic critical mutations",
+    "idempotency and entity versioning",
+    "offline-first/local-first Android operation",
+    "PostgreSQL enterprise authority",
+    "Development/Staging/Production release discipline"
+  ],
+  "supersededTargetImplementation": [
+    "separate Kotlin/Ktor application backend as canonical runtime",
+    "Render or equivalent external compute as canonical core backend runtime",
+    "JDBC hop from separate application backend to Supabase as required target topology"
+  ],
+  "rvmImpact": "Register FD-76; preserve existing semantic verification and replace provider/topology evidence with Supabase Auth/PostgreSQL/RLS/Edge Functions/Storage evidence. Add proof that critical mutations cannot bypass approved server-authoritative paths and that core business state has no separate external-compute authority.",
+  "testImpact": "Add Supabase Edge Function/API, PostgreSQL RPC/transaction, RLS, Auth/session, offline sync/idempotency/version, Storage integrity/security and environment promotion tests. Ktor/Render/JDBC-specific tests cease to be baseline acceptance evidence after migration closure."
+}

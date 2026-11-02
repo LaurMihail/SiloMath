@@ -1,0 +1,26 @@
+{
+  "changeRequestId": "CR-CALC-VERSION-CONTRACT-001",
+  "status": "APPROVED",
+  "approvedBy": "Product Owner (explicit user approval in this conversation)",
+  "decisionDate": "2026-10-27",
+  "engineVersion": "2.0",
+  "inputSchemaVersion": 1,
+  "normalizationVersion": 1,
+  "formulaVersion": 1,
+  "surfaceModelVersion": "LEVEL_BASED_V1",
+  "aggregationMethod": "MEAN_ULLAGE",
+  "aggregationRuleVersion": 1,
+  "combinedSemanticIdentifier": "MEAN_ULLAGE_V1",
+  "formulaCodes": {
+    "F01": "CYL_TRUNC_CONE_V1",
+    "F02": "CYL_FLAT_V1",
+    "F03": "SQUARE_FLAT_V1",
+    "F04": "RECT_FLAT_V1",
+    "F05": "SQUARE_PYRAMID_HOPPER_V1",
+    "F06": "RECT_PYRAMID_HOPPER_V1",
+    "F07": "REG_HEX_FLAT_V1",
+    "F08": "STAR_VERIFIED_AREA_V1",
+    "F09": "POCKET_VERIFIED_AREA_V1",
+    "F10": "PERIMETER_VERIFIED_AREA_V1"
+  }
+}

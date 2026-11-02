@@ -1,0 +1,6 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <application android:enableOnBackInvokedCallback="true">
+        <activity android:name="com.silomath.core.navigation.NavigationFixtureActivity"
+            android:exported="false" />
+    </application>
+</manifest>

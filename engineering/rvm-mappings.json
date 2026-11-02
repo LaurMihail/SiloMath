@@ -1,0 +1,173 @@
+﻿{
+    "baselineId":  "SILOMATH_V6",
+    "status":  "CONTROLLED_MAPPING_SOURCE",
+    "referenceConvention":  "RVM-REF-001",
+    "mappingPolicy":  {
+                          "testReferenceFormat":  "\u003crelative-file-path\u003e#\u003ctest-function-name\u003e",
+                          "requirementIdsNeedNotBeDuplicatedInTestSource":  true,
+                          "componentModuleRepresentsProductionResponsibility":  true,
+                          "noSemanticAutoMappingFromTestNames":  true,
+                          "noInventedEvidence":  true
+                      },
+    "mappings":  [
+                     {
+                         "requirementDecisionId":  "D04",
+                         "componentModule":  ":core:domain",
+                         "testIds":  [
+                                         "app/src/test/java/com/silomath/core/domain/model/CampaignInventoryTypeTest.kt#exactly three allowed canonical inventory types exist"
+                                     ],
+                         "testLevel":  "Unit",
+                         "automation":  "Automated",
+                         "environment":  "Local/CI",
+                         "result":  "Not Run",
+                         "evidence":  null,
+                         "buildVersion":  null
+                     },
+                     {
+                         "requirementDecisionId":  "FD-73",
+                         "componentModule":  ":calculation-engine",
+                         "testIds":  [
+                                         "calculation-engine/src/test/kotlin/com/silomath/calculation/ProductionVersionContractTest.kt#exactTypedTupleMatchesApprovedBaselineArtifact",
+                                         "calculation-engine/src/test/kotlin/com/silomath/calculation/ProductionVersionContractTest.kt#approvedTupleDispatchesEveryFamilyToActualGoldenHandler",
+                                         "calculation-engine/src/test/kotlin/com/silomath/calculation/ProductionVersionContractTest.kt#everyUnregisteredTupleFieldAndMismatchedFormulaFailsClosed"
+                                     ],
+                         "testLevel":  "Unit",
+                         "automation":  "Automated",
+                         "environment":  "Local/CI",
+                         "result":  "Not Run",
+                         "evidence":  null,
+                         "buildVersion":  null
+                     },
+                     {
+                         "requirementDecisionId":  "CE-D39",
+                         "componentModule":  ":calculation-engine",
+                         "testIds":  [
+                                         "calculation-engine/src/test/kotlin/com/silomath/calculation/ProductionVersionContractTest.kt#fingerprintMatchesIndependentCanonicalUtf8Reference",
+                                         "calculation-engine/src/test/kotlin/com/silomath/calculation/ProductionVersionContractTest.kt#equivalentDecimalScalesAndLocaleDoNotChangeFingerprint"
+                                     ],
+                         "testLevel":  "Unit",
+                         "automation":  "Automated",
+                         "environment":  "Local/CI",
+                         "result":  "Not Run",
+                         "evidence":  null,
+                         "buildVersion":  null
+                     },
+                     {
+                         "requirementDecisionId":  "CE-D40",
+                         "componentModule":  ":calculation-engine",
+                         "testIds":  [
+                                         "calculation-engine/src/test/kotlin/com/silomath/calculation/ProductionVersionContractTest.kt#everyCalculationAffectingInputChangesFingerprintAndStalesResult"
+                                     ],
+                         "testLevel":  "Unit",
+                         "automation":  "Automated",
+                         "environment":  "Local/CI",
+                         "result":  "Not Run",
+                         "evidence":  null,
+                         "buildVersion":  null
+                     },
+                     {
+                         "requirementDecisionId":  "CE-D41",
+                         "componentModule":  ":calculation-engine",
+                         "testIds":  [
+                                         "calculation-engine/src/test/kotlin/com/silomath/calculation/ProductionVersionContractTest.kt#exactTypedTupleMatchesApprovedBaselineArtifact",
+                                         "calculation-engine/src/test/kotlin/com/silomath/calculation/ProductionVersionContractTest.kt#everyUnregisteredTupleFieldAndMismatchedFormulaFailsClosed"
+                                     ],
+                         "testLevel":  "Unit",
+                         "automation":  "Automated",
+                         "environment":  "Local/CI",
+                         "result":  "Not Run",
+                         "evidence":  null,
+                         "buildVersion":  null
+                     },
+                     {
+                         "requirementDecisionId":  "CE-D42",
+                         "componentModule":  ":calculation-engine",
+                         "testIds":  [
+                                         "calculation-engine/src/test/kotlin/com/silomath/calculation/ProductionVersionContractTest.kt#historicalReproductionUsesFrozenInputsAndNeverFallsBack",
+                                         "calculation-engine/src/test/kotlin/com/silomath/calculation/ProductionVersionContractTest.kt#capturedHistoryCannotBeChangedThroughCallerListOrRegistryKeySet"
+                                     ],
+                         "testLevel":  "Unit",
+                         "automation":  "Automated",
+                         "environment":  "Local/CI",
+                         "result":  "Not Run",
+                         "evidence":  null,
+                         "buildVersion":  null
+                     },
+                     {
+                         "requirementDecisionId":  "CALC-AC15",
+                         "componentModule":  ":calculation-engine",
+                         "testIds":  [
+                                         "calculation-engine/src/test/kotlin/com/silomath/calculation/ProductionVersionContractTest.kt#everyCalculationAffectingInputChangesFingerprintAndStalesResult"
+                                     ],
+                         "testLevel":  "Unit",
+                         "automation":  "Automated",
+                         "environment":  "Local/CI",
+                         "result":  "Not Run",
+                         "evidence":  null,
+                         "buildVersion":  null
+                     },
+                     {
+                         "requirementDecisionId":  "CALC-AC16",
+                         "componentModule":  ":calculation-engine",
+                         "testIds":  [
+                                         "calculation-engine/src/test/kotlin/com/silomath/calculation/ProductionVersionContractTest.kt#historicalReproductionUsesFrozenInputsAndNeverFallsBack"
+                                     ],
+                         "testLevel":  "Unit",
+                         "automation":  "Automated",
+                         "environment":  "Local/CI",
+                         "result":  "Not Run",
+                         "evidence":  null,
+                         "buildVersion":  null
+                     },
+                     {
+                         "requirementDecisionId":  "FD-75",
+                         "componentModule":  "supabase/migrations; supabase/tests/migration",
+                         "testIds":  [
+                                         "supabase/tests/migration/016_fd76_legacy_convergence_assertions.sql#storage-space-batch-current-partial-coverage"
+                                     ],
+                         "testLevel":  "Integration",
+                         "automation":  "Automated",
+                         "environment":  "Local/CI",
+                         "result":  "Not Run",
+                         "evidence":  null,
+                         "buildVersion":  null
+                     },
+                     {
+                         "requirementDecisionId":  "FD-76",
+                         "componentModule":  "supabase/functions/_shared; supabase/migrations; supabase/tests/migration",
+                         "testIds":  [
+                                         "supabase/functions/_shared/foundation.test.ts#authentication rejects a missing bearer",
+                                         "supabase/functions/_shared/foundation.test.ts#authentication uses only the verified JWT subject",
+                                         "supabase/functions/_shared/foundation.test.ts#tenant context uses server membership and ignores client authority",
+                                         "supabase/functions/_shared/foundation.test.ts#correlation ID propagates supplied value and generates fallback",
+                                         "supabase/functions/_shared/foundation.test.ts#internal failures are sanitized",
+                                         "supabase/functions/_shared/foundation.test.ts#privileged secrets are neither returned nor accepted by safe logging",
+                                         "supabase/functions/_shared/foundation.test.ts#idempotency exact replay returns durable authoritative result",
+                                         "supabase/functions/_shared/foundation.test.ts#idempotency same key with different fingerprint conflicts",
+                                         "supabase/functions/_shared/foundation.test.ts#idempotency production boundary requires one atomic transaction callback",
+                                         "supabase/tests/migration/013_fd76_03a_authorization_foundation_assertions.sql#FD76-03A structural authorization assertions",
+                                         "supabase/tests/migration/014_fd76_03b1_user_identity_reconciliation_assertions.sql#FD76-03B1 user identity reconciliation assertions",
+                                         "supabase/tests/migration/015_fd76_03c_authorization_behavior_assertions.sql#FD76-03C authorization behavioral assertions"
+                                     ],
+                         "testLevel":  "Security",
+                         "automation":  "Automated",
+                         "environment":  "Local/CI; Supabase linked/live",
+                         "result":  "Pass",
+                         "evidence":  null,
+                         "buildVersion":  null
+                     },
+                     {
+                         "requirementDecisionId":  "TA-D234",
+                         "componentModule":  "supabase/migrations; supabase/tests/migration",
+                         "testIds":  [
+                                         "supabase/tests/migration/016_fd76_legacy_convergence_assertions.sql#storage-space-batch-current-partial-coverage"
+                                     ],
+                         "testLevel":  "Integration",
+                         "automation":  "Automated",
+                         "environment":  "Local/CI",
+                         "result":  "Not Run",
+                         "evidence":  null,
+                         "buildVersion":  null
+                     }
+                 ]
+}

@@ -1,0 +1,11 @@
+{
+  "source": "https://raw.githubusercontent.com/pycountry/pycountry/main/src/pycountry/databases/iso3166-1.json",
+  "sourceSha256": "f01b812b57fba9f31ff621bf33e7c7570a01964dbeb5be2167e94decf538c89f",
+  "retrievedOn": "2026-10-27",
+  "catalogue": "ISO 3166-1 officially assigned alpha-2 entries",
+  "entryCount": 249,
+  "transformation": "alpha_2 TAB name, sorted alpha_2; UTF-8 LF",
+  "outputSha256": "7b1c0453710dd37f20457fe56849d0a9dbf02bd6a8b74216ccc651541f1a766a",
+  "contract": "FD-74; entry count is evidence, not a frozen product version",
+  "license": "LGPL-2.1; upstream license included; data-only component source is this TSV; no pycountry executable code used"
+}

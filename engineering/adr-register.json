@@ -1,0 +1,127 @@
+﻿{
+    "baselineId":  "SILOMATH_V6",
+    "status":  "ACTIVE",
+    "schemaVersion":  1,
+    "processVersion":  "1.0",
+    "frozenArchitectureDecisionNamespace":  {
+                                                "sourceDocument":  "07_ARCHITECTURE",
+                                                "reservedPattern":  "^ADR-[0-9]{3}$",
+                                                "reservedIds":  [
+                                                                    "ADR-001",
+                                                                    "ADR-002",
+                                                                    "ADR-003",
+                                                                    "ADR-004",
+                                                                    "ADR-005",
+                                                                    "ADR-006",
+                                                                    "ADR-007",
+                                                                    "ADR-008",
+                                                                    "ADR-009",
+                                                                    "ADR-010",
+                                                                    "ADR-011",
+                                                                    "ADR-012",
+                                                                    "ADR-013",
+                                                                    "ADR-014",
+                                                                    "ADR-015",
+                                                                    "ADR-016",
+                                                                    "ADR-017"
+                                                                ]
+                                            },
+    "implementationAdrNamespace":  {
+                                       "pattern":  "^IADR-[0-9]{4}$",
+                                       "nextId":  "IADR-0006"
+                                   },
+    "allowedStatuses":  [
+                            "PROPOSED",
+                            "ACCEPTED",
+                            "REJECTED",
+                            "SUPERSEDED"
+                        ],
+    "records":  [
+                    {
+                        "id":  "IADR-0002",
+                        "title":  "Canonical Room Offline Import with Preserved Legacy Data",
+                        "status":  "ACCEPTED",
+                        "file":  "engineering/adr/IADR-0002-canonical-room-offline-import.md",
+                        "changesFrozenBaseline":  false,
+                        "decisionDate":  "2026-10-27",
+                        "owner":  "SiloMath",
+                        "baselineRefs":  [
+                                             "01_PRODUCT_BASELINE",
+                                             "02_DECISION_REGISTER",
+                                             "07_ARCHITECTURE",
+                                             "08_MODULE_ARCHITECTURE",
+                                             "09_DATA_MODEL",
+                                             "10_DATABASE_SCHEMA",
+                                             "12_OFFLINE_SYNC_SPECIFICATION",
+                                             "17_SECURITY_AUDIT_PRIVACY",
+                                             "18_TEST_STRATEGY_ACCEPTANCE",
+                                             "D29",
+                                             "D30",
+                                             "FD-69"
+                                         ]
+                    },
+                    {
+                        "id":  "IADR-0003",
+                        "title":  "SQLCipher Room Encryption and Forward-safe Protection Conversion",
+                        "status":  "ACCEPTED",
+                        "file":  "engineering/adr/IADR-0003-sqlcipher-production-room-encryption.md",
+                        "changesFrozenBaseline":  false,
+                        "decisionDate":  "2026-10-27",
+                        "owner":  "SiloMath",
+                        "baselineRefs":  [
+                                             "01_PRODUCT_BASELINE",
+                                             "02_DECISION_REGISTER",
+                                             "07_ARCHITECTURE",
+                                             "10_DATABASE_SCHEMA",
+                                             "12_OFFLINE_SYNC_SPECIFICATION",
+                                             "17_SECURITY_AUDIT_PRIVACY",
+                                             "18_TEST_STRATEGY_ACCEPTANCE",
+                                             "FD-69",
+                                             "SEC-AC07"
+                                         ]
+                    },
+                    {
+                        "id":  "IADR-0004",
+                        "title":  "Isolated native facility-map presentation",
+                        "status":  "ACCEPTED",
+                        "file":  "engineering/adr/IADR-0004-isolated-facility-map-presentation.md",
+                        "changesFrozenBaseline":  false,
+                        "decisionDate":  "2026-10-27",
+                        "owner":  "SiloMath",
+                        "baselineRefs":  [
+                                             "01_PRODUCT_BASELINE",
+                                             "02_DECISION_REGISTER",
+                                             "06_UI_SCREEN_SPECIFICATION_AND_NAVIGATION",
+                                             "08_MODULE_ARCHITECTURE",
+                                             "12_OFFLINE_SYNC_SPECIFICATION",
+                                             "17_SECURITY_AUDIT_PRIVACY",
+                                             "20_PRODUCTION_OPERATIONS",
+                                             "21_UI_DESIGN_SYSTEM_FINAL",
+                                             "SEC-D147",
+                                             "SEC-AC12"
+                                         ]
+                    },
+                    {
+                        "id":  "IADR-0005",
+                        "title":  "Use Supabase Edge Functions and PostgreSQL Functions for the V6 API Runtime",
+                        "status":  "ACCEPTED",
+                        "file":  "engineering/adr/IADR-0005-supabase-edge-postgres-api-runtime.md",
+                        "changesFrozenBaseline":  false,
+                        "decisionDate":  "2026-10-29",
+                        "owner":  "SiloMath",
+                        "baselineRefs":  [
+                                             "01_PRODUCT_BASELINE",
+                                             "02_DECISION_REGISTER",
+                                             "07_ARCHITECTURE",
+                                             "11_API_SPECIFICATION",
+                                             "12_OFFLINE_SYNC_SPECIFICATION",
+                                             "15_EVIDENCE_STORAGE_SPECIFICATION",
+                                             "17_SECURITY_AUDIT_PRIVACY",
+                                             "18_TEST_STRATEGY_ACCEPTANCE",
+                                             "20_PRODUCTION_OPERATIONS",
+                                             "FD-76",
+                                             "CR-ARCH-SUPABASE-BACKEND-001"
+                                         ]
+                    }
+                ]
+}
